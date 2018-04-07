@@ -1,0 +1,23 @@
+/**index.wxss**/
+
+.userInfo-image-add {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50rpx;
+}
+
+.userInfo-image {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+}
+
+.weui-select {
+  position: relative;
+  padding-left: 15px;
+  padding-right: 30px;
+  height: 2.58823529em;
+  min-height: 2.58823529em;
+  line-height: 2.58823529em;
+  border-right: 0rpx;
+}

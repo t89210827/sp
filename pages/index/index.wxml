@@ -1,0 +1,147 @@
+
+
+
+
+<!--index.wxml-->
+<view style='width:750rpx;'>
+  <view class='top'>
+    <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
+  </view>
+
+  <view style='width:750rpx;'>
+    <view style='width:94%;height:854rpx;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-20 zan-font-16' style='line-height:120rpx;'>上传头像：</view>
+
+          <block wx:if="{{image === ''}}">
+            <view class='zan-col zan-col-4' bindtap='chooseImage' style='margin-top:20rpx;'>
+              <image src='../../images/add.png' class='userInfo-image-add'></image>
+            </view>
+          </block>
+
+          <block wx:else>
+            <view class='zan-col zan-col-4' bindtap='chooseImage' style='margin-top:10rpx;'>
+              <image src='{{image}}' class='userInfo-image'></image>
+            </view>
+          </block>
+
+        </view>
+      </view>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16' style='line-height:120rpx;'>身份选择：</view>
+          <view class='zan-col zan-col-8'>
+
+            <picker bindchange="bindstatus" value="{{statusIndex}}" range="{{status}}">
+              <view class='flex-row' style='align-items: center;float:right;'>
+                <view class='zan-font-16' style='line-height:120rpx;'>{{status[statusIndex]}}</view>
+                <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
+              </view>
+
+            </picker>
+          </view>
+        </view>
+      </view>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16' style='line-height:120rpx;'>品牌选择：</view>
+          <view class='zan-col zan-col-8'>
+
+            <picker bindchange="bindBrand" value="{{brandIndex}}" range="{{brands}}">
+
+              <view class='flex-row' style='align-items: center;float:right;'>
+                <view class='zan-font-16' style='line-height:120rpx;'>{{brands[brandIndex]}}</view>
+                <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16' style='line-height:120rpx;'>店铺选择：</view>
+          <view class='zan-col zan-col-8'>
+
+            <picker bindchange="bindShop" value="{{shopIndex}}" range="{{shop}}">
+
+              <view class='flex-row' style='align-items: center;float:right;'>
+                <view class='zan-font-16' style='line-height:120rpx;'>{{shop[shopIndex]}}</view>
+                <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>真实姓名：</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入真实姓名" style='line-height:120rpx;text-align:right;'></input>
+            </view>
+          </view>
+        </view>
+      </view>
+
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>电话号码：</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入电话号码" style='line-height:120rpx;text-align:right;'></input>
+            </view>
+          </view>
+        </view>
+      </view>
+
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16' style='line-height:120rpx;'>入职时间：</view>
+          <view class='zan-col zan-col-8' style='margin-top:10rpx;'>
+
+            <picker mode="date" value="{{date}}" start="2000-01-01" end="2020-01-01" bindchange="bindDateChange">
+              <view class='flex-row' style='align-items: center;float:right;'>
+                <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>{{date}}</view>
+                <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
+              </view>
+            </picker>
+
+
+            <!-- <picker bindchange="bindShop" value="{{shopIndex}}" range="{{shop}}">
+              <view class='flex-row' style='align-items: center;float:right;'>
+                <view class='zan-font-16' style='line-height:120rpx;'>{{shop[shopIndex]}}</view>
+                <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
+              </view>
+            </picker> -->
+
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+
+  <view style='height:50rpx;'></view>
+
+  <button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;'>提交审核</button>
+
+  <!-- <view style='height:10rpx;'></view>
+
+  <button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:80%;border-radius:50rpx;'>店长</button>
+
+  <view style='height:10rpx;'></view>
+
+  <button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:80%;border-radius:50rpx;'>店员</button> -->
+
+
+</view>
