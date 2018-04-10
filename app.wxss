@@ -12,7 +12,43 @@
   box-sizing: border-box;
 }
 
+/* 顶部菜单样式 */
+
+.top {
+  position: fixed;
+  top: 0rpx;
+  left: 0rpx;
+  overflow: hidden;
+  z-index: 500;
+  width: 100%;
+  height: 140rpx;
+}
+
+.title {
+  position: fixed;
+  top: 0rpx;
+  left: 0rpx;
+  overflow: hidden;
+  z-index: 505;
+}
+
+.back {
+  position: fixed;
+  top: 0rpx;
+  left: 0rpx;
+  overflow: hidden;
+  z-index: 510;
+}
+
+/* --------- */
+
 .flex-row {
   display: flex;
   flex-direction: row;
+}
+
+.center-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

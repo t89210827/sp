@@ -1,0 +1,10 @@
+<!--pages/hint/addClient/addClient.wxml-->
+<view style='height:70rpx;'></view>
+<view class='zan-font-16' style='width:750rpx;text-align:center;'>添加客户成功</view>
+
+<view style='height:130rpx;'></view>
+<wxc-abnor type="REQUEST_ERROR" image="{{image}}" title="{{title}}" tip="" button="{{button}}" bind:abnortap="jumpIndex"></wxc-abnor>
+
+<view class='center-style'>
+  <view bindtap="emitAbnorTap" class="abnor__btn">查看我的客户</view>
+</view>
