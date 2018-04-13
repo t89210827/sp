@@ -2,10 +2,6 @@
 var vm = null
 var util = require('../../utils/util.js')
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     image: '',       //头像
     num: 1,         //产品数量
@@ -19,6 +15,13 @@ Page({
   bindDateChange: function (e) {
     this.setData({
       date: e.detail.value
+    })
+  },
+
+  //返回上一层
+  back: function () {
+    wx.navigateBack({
+      delta: 1
     })
   },
 

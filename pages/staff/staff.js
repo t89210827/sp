@@ -59,6 +59,19 @@ Page({
       url: '/pages/daily/staff/staff',
     })
   },
+  //跳转到交易信息页面
+  jumpAddDeal: function (e) {
+    // console.log("---" + JSON.stringify(e))
+    wx.navigateTo({
+      url: '/pages/queryClient/queryClient?page=' + 'deal',
+    })
+  },
+  //跳转到交易列表页面
+  jumpDealList: function () {
+    wx.navigateTo({
+      url: '/pages/dealList/dealList',
+    })
+  },
   //开始时间
   bindBeginDate: function (e) {
     this.setData({

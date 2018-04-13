@@ -10,8 +10,8 @@
     <view style='width:200rpx;height:60rpx;' bindtap='jumpRanking'>排行</view>
   </view>
   <view style='height:150rpx;'></view>
-  <image src='{{userInfo.avatarUrl}}' style='width:120rpx;height:120rpx;  border-radius: 50%;'></image>
-  <view class='zan-font-14' style='color:#fff;'>{{userInfo.nickName}}</view>
+  <image src='{{userInfo.avatar}}' style='width:120rpx;height:120rpx;  border-radius: 50%;'></image>
+  <view class='zan-font-14' style='color:#fff;'>{{userInfo.nick_name}}</view>
 
   <view class='zan-font-14' style='color:#fff;margin-bottom:10rpx;'>距离完成本月任务量还有520元</view>
 

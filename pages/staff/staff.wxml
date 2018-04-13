@@ -15,7 +15,7 @@
   </view>
 
   <view class='zan-font-16 deal'>
-    <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpAdddeal'>添加交易信息</view>
+    <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpAddDeal' id='deal'>添加交易信息</view>
   </view>
 
   <view style='height:150rpx;'></view>
@@ -30,7 +30,7 @@
 
   <view class='zan-row zan-font-16' style='height:120rpx;color:#fff;'>
     <view class='zan-col zan-col-8 line-height' bindtap='jumpAddClient'>添加客户</view>
-    <view class='zan-col zan-col-8 line-height' bindtap='jumpdaily'>交易列表</view>
+    <view class='zan-col zan-col-8 line-height' bindtap='jumpDealList'>交易列表</view>
     <view class='zan-col zan-col-8 line-height' bindtap='jumpClientInformation'>客户信息</view>
   </view>
 </view>

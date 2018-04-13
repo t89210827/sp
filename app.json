@@ -2,17 +2,19 @@
   "pages": [
     "pages/staff/staff",
     "pages/addDeal/addDeal",
+    "pages/addClient/addClient",
+    "pages/index/index",
+    "pages/existClient/existClient",
     "pages/queryClient/queryClient",
     "pages/hint/addClient/addClient",
     "pages/hint/audit/audit",
-    "pages/index/index",
     "pages/daily/staff/staff",
     "pages/shopManager/shopManager",
-    "pages/addClient/addClient",
     "pages/clientInformation/staff/staff",
     "pages/hint/paySucceed/paySucceed",
     "pages/ranking/staff/staff",
-    "pages/manager/manager"
+    "pages/manager/manager",
+    "pages/dealList/dealList"
   ],
   "window": {
     "backgroundTextStyle": "light",
