@@ -8,8 +8,8 @@ Page({
    */
   data: {
     date: "",
-    userInfo: ''      //用户信息
-
+    userInfo: '',      //用户信息
+    productType: { type: "黄铂", time: "2018-10-02",money:"2999" }
   },
 
   /**
@@ -28,6 +28,12 @@ Page({
           }
         })
       }
+    })
+  },
+  //调转到交易详情页
+  jumpDealDetail: function () {
+    wx.navigateTo({
+      url: '/pages/dealDetail/dealDetail',
     })
   },
 

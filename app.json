@@ -1,20 +1,29 @@
 {
   "pages": [
+    "pages/manager/index/index",
+    "pages/shopManager/index/index",
+    "pages/shopManager/staffList/staffList",
+    "pages/clientInformation/staff/staff",
+    "pages/shopManager/dailyList/dailyList",
+    "pages/shopManager/auditDaily/auditDaily",
+    "pages/shopManager/auditDailyDetail/auditDailyDetail",
     "pages/staff/staff",
-    "pages/addDeal/addDeal",
-    "pages/addClient/addClient",
     "pages/index/index",
-    "pages/existClient/existClient",
-    "pages/queryClient/queryClient",
+    "pages/shopList/shopList",
+    "pages/addClientAddDeal/addClientAddDeal",
+    "pages/addDeal/addDeal",
+    "pages/clientDetail/clientDetail",
+    "pages/dealDetail/dealDetail",
+    "pages/addClient/addClient",
+    "pages/dealList/dealList",
+    "pages/ranking/staff/staff",
     "pages/hint/addClient/addClient",
     "pages/hint/audit/audit",
     "pages/daily/staff/staff",
-    "pages/shopManager/shopManager",
-    "pages/clientInformation/staff/staff",
     "pages/hint/paySucceed/paySucceed",
-    "pages/ranking/staff/staff",
-    "pages/manager/manager",
-    "pages/dealList/dealList"
+    "pages/shopManager/issueList/issueList",
+    "pages/shopManager/productDaily/productDaily",
+    "pages/shopManager/issuePassengerFlow/issuePassengerFlow"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -42,13 +51,13 @@
         "selectedIconPath": "images/add.png"
       },
       {
-        "pagePath": "pages/shopManager/shopManager",
+        "pagePath": "pages/shopManager/index/index",
         "text": "店长",
         "iconPath": "images/add.png",
         "selectedIconPath": "images/add.png"
       },
       {
-        "pagePath": "pages/manager/manager",
+        "pagePath": "pages/manager/index/index",
         "text": "主管",
         "iconPath": "images/add.png",
         "selectedIconPath": "images/add.png"

@@ -1,7 +1,0 @@
-/* pages/existClient/existClient.wxss */
-
-.userInfo-image {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 0rpx;
-}

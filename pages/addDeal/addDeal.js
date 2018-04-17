@@ -1,14 +1,39 @@
 // pages/addDeal/addDeal.js
 var vm = null
-var util = require('../../utils/util.js')
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    image: '',       //头像
-    num: 1,         //产品数量
-    remark: '',      //备注
     isBuy: false,     //是否购买
     isReservation: false,    //是否交定金
+    num: 1,         //产品数量
+    remark: '',      //备注
+    productType: "黄铂",          //产品类型
+
     date: '2018-04-10',      //提醒时间
+  },
+  //数量
+  onChangeNumber(e) {
+    var num = e.detail.number
+    vm.setData({ num: num })
+  },
+  //多行文本
+  textAreaEventListener: function (e) {
+    // console.log("55555" + JSON.stringify(e.detail.value))
+    vm.setData({
+      remark: e.detail.value,
+    })
+  },
+  //开关
+  switchBuy: function (e) {
+    // console.log('携带值为', e.detail.value)
+    vm.setData({ isBuy: e.detail.value })
+  },
+  switchReservation: function (e) {
+    // console.log('携带值为', e.detail.value)
+    vm.setData({ isReservation: e.detail.value })
   },
 
   //提醒时间
@@ -18,33 +43,32 @@ Page({
     })
   },
 
-  //返回上一层
-  back: function () {
-    wx.navigateBack({
-      delta: 1
+  //选择产品类型
+  productType: function () {
+    var productType = ['黄铂', '非黄铂', '其他']
+    wx.showActionSheet({
+      itemList: ['黄铂', '非黄铂', '其他'],
+      success: function (res) {
+        // console.log("11111" + JSON.stringify(res))
+        if (!res.cancel) {
+          console.log(res.tapIndex)
+          vm.setData({
+            productType: productType[res.tapIndex]
+            // 'userInfo.gender': res.tapIndex + 1
+          })
+          // console.log("11111" + JSON.stringify(vm.data.userInfo.gender))
+        }
+      }
+    });
+  },
+
+  //添加交易
+  addDeal: function () {
+    wx.navigateTo({
+      url: '/pages/hint/addClient/addClient',
     })
   },
 
-  onChangeNumber(e) {
-    var num = e.detail.number
-    vm.setData({ num: num })
-  },
-
-  textAreaEventListener: function (e) {
-    // console.log("55555" + JSON.stringify(e.detail.value))
-    vm.setData({
-      remark: e.detail.value,
-    })
-  },
-
-  switchBuy: function (e) {
-    // console.log('携带值为', e.detail.value)
-    vm.setData({ isBuy: e.detail.value })
-  },
-  switchReservation: function (e) {
-    // console.log('携带值为', e.detail.value)
-    vm.setData({ isReservation: e.detail.value })
-  },
   /**
    * 生命周期函数--监听页面加载
    */

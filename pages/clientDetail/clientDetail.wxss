@@ -1,0 +1,16 @@
+/* pages/existClient/existClient.wxss */
+
+.userInfo-image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 0rpx;
+}
+
+.bottom-addDeal {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0rpx;
+  width: 750rpx;
+  height: 90rpx;
+  background: #4aa5fe;
+}

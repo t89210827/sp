@@ -8,6 +8,35 @@ Page({
   data: {
     inputShowed: false,
     inputVal: "",
+    userInfo1: [
+      {
+        nickName: '1',
+        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ercjU4KE73iahS7zwuy8tyib4hGJ2TJTDGWgaI02clfND2ZIiaHtxjyn1mcd461icjW7N4B0VcPZM59dA/0'
+      },
+      {
+        nickName: '2',
+        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ercjU4KE73iahS7zwuy8tyib4hGJ2TJTDGWgaI02clfND2ZIiaHtxjyn1mcd461icjW7N4B0VcPZM59dA/0'
+      },
+      {
+        nickName: '3',
+        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ercjU4KE73iahS7zwuy8tyib4hGJ2TJTDGWgaI02clfND2ZIiaHtxjyn1mcd461icjW7N4B0VcPZM59dA/0'
+      },
+      {
+        nickName: '4',
+        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ercjU4KE73iahS7zwuy8tyib4hGJ2TJTDGWgaI02clfND2ZIiaHtxjyn1mcd461icjW7N4B0VcPZM59dA/0'
+      },
+      {
+        nickName: '5',
+        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ercjU4KE73iahS7zwuy8tyib4hGJ2TJTDGWgaI02clfND2ZIiaHtxjyn1mcd461icjW7N4B0VcPZM59dA/0'
+      },
+    ],
+
+  },
+  //正序倒序
+  clickSwitch: function () {
+    var userInfo = vm.data.userInfo1
+    userInfo.reverse()
+    vm.setData({ userInfo1: userInfo })
   },
 
   showInput: function () {

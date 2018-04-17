@@ -1,21 +1,20 @@
-<!--pages/queryClient/queryClient.wxml-->
-
+<!--pages/shopManager/issuePassengerFlow/issuePassengerFlow.wxml-->
 <view class='top'>
   <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
 </view>
 
 <view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
-  <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../images/back.png"></image>
+  <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../../images/back.png"></image>
 </view>
 
 <view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
-  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>请输入顾客手机</view>
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>请输入今日客流</view>
 </view>
 
 <view style='height:500rpx;'></view>
 <view class='center-style'>
   <view class='phoneInput center-style'>
-    <input class='zan-font-16' placeholder-style="text-align:center;" placeholder="请输入顾客手机" bindinput='inputPhone' style='width:500rpx;text-align:center;height:100rpx;line-height:100rpx;'></input>
+    <input class='zan-font-16' placeholder-style="text-align:center;" placeholder="请输入今日客流" bindinput='inputPhone' style='width:500rpx;text-align:center;height:100rpx;line-height:100rpx;'></input>
   </view>
 </view>
 

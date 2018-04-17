@@ -1,0 +1,333 @@
+<!--pages/addDeal/addDeal.wxml-->
+<view class='top'>
+  <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
+</view>
+
+<view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
+  <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../images/back.png"></image>
+</view>
+
+<view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>添加客户</view>
+</view>
+
+<view style='height:140rpx;'></view>
+
+
+
+<view style='width:750rpx;'>
+  <view style='width:94%;height:990rpx;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
+
+    <view style='margin:0 3%;'>
+      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+
+        <view class='zan-c-gray-dark zan-col zan-col-2 zan-font-16 center-style' style='height:120rpx;line-height:120rpx;'>
+          <image src='../../images/addClient/user.png' style='width:34rpx;height:34rpx;'></image>
+        </view>
+
+        <view class='zan-c-gray-dark zan-col zan-col-8 zan-font-16' style='line-height:120rpx;'>姓名</view>
+        <view class='zan-col zan-col-13'>
+
+          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+            <input bindinput='inputName' class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入姓名" style='line-height:120rpx;text-align:right;'></input>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view style='margin:0 3%;'>
+      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+        <view class='zan-c-gray-dark zan-col zan-col-2 zan-font-16 center-style' style='height:120rpx;line-height:120rpx;'>
+          <image src='../../images/addClient/avatar.png' style='width:34rpx;height:34rpx;'></image>
+        </view>
+        <view class='zan-c-gray-dark zan-col zan-col-19 zan-font-16' style='line-height:120rpx;'>头像</view>
+        <block wx:if="{{image === ''}}">
+          <view class='zan-col zan-col-3' bindtap='chooseImage' style='margin-top:30rpx;'>
+            <image src='../../images/addClient/add.png' class='userInfo-image-add'></image>
+          </view>
+        </block>
+        <block wx:else>
+          <view class='zan-col zan-col-3' bindtap='chooseImage' style='margin-top:20rpx;'>
+            <image src='{{image}}' class='userInfo-image'></image>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view style='margin:0 3%;'>
+      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+        <view class='zan-c-gray-dark zan-col zan-col-2 zan-font-16 center-style' style='height:120rpx;line-height:120rpx;'>
+          <image src='../../images/addClient/gender.png' style='width:34rpx;height:34rpx;'></image>
+        </view>
+        <view class='zan-c-gray-dark zan-col zan-col-8 zan-font-16' style='line-height:120rpx;'>性别</view>
+        <view class='zan-col zan-col-13'>
+
+          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+            <view class='zan-c-gray-darker zan-font-16' bindtap='open'>{{gender}}</view>
+
+          </view>
+
+        </view>
+      </view>
+    </view>
+
+    <view style='margin:0 3%;'>
+      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+        <view class='zan-c-gray-dark zan-col zan-col-2 zan-font-16 center-style' style='height:120rpx;line-height:120rpx;'>
+          <image src='../../images/addClient/age.png' style='width:34rpx;height:34rpx;'></image>
+        </view>
+        <view class='zan-c-gray-dark zan-col zan-col-8 zan-font-16' style='line-height:120rpx;'>年龄</view>
+        <view class='zan-col zan-col-13'>
+
+          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入年龄" bindinput='inputAge' style='line-height:120rpx;text-align:right;'></input>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view style='margin:0 3%;'>
+      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+        <view class='zan-c-gray-dark zan-col zan-col-2 zan-font-16 center-style' style='height:120rpx;line-height:120rpx;'>
+          <image src='../../images/addClient/phone.png' style='width:34rpx;height:34rpx;'></image>
+        </view>
+        <view class='zan-c-gray-dark zan-col zan-col-8 zan-font-16' style='line-height:120rpx;'>手机</view>
+        <view class='zan-col zan-col-13'>
+
+          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+            <!-- <view class='zan-font-16'>{{phone}}</view> -->
+            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入电话" bindinput='inputPhone' style='line-height:120rpx;text-align:right;'></input>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view style='margin:0 3%;'>
+      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+        <view class='zan-c-gray-dark zan-col zan-col-2 zan-font-16 center-style' style='height:120rpx;line-height:120rpx;'>
+          <image src='../../images/addClient/birthDate.png' style='width:34rpx;height:34rpx;'></image>
+        </view>
+        <view class='zan-c-gray-dark zan-col zan-col-14 zan-font-16' style='line-height:120rpx;'>生日</view>
+        <view class='zan-col zan-col-8' style='margin-top:10rpx;'>
+          <picker mode="date" value="{{birthDate}}" start="2000-01-01" end="2020-01-01" bindchange="bindBirthDate">
+            <view class='flex-row' style='align-items: center;float:right;'>
+              <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>{{birthDate}}</view>
+              <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
+            </view>
+          </picker>
+
+        </view>
+      </view>
+    </view>
+
+    <view style='margin:0 3%;'>
+      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+        <view class='zan-c-gray-dark zan-col zan-col-2 zan-font-16 center-style' style='height:120rpx;line-height:120rpx;'>
+          <image src='../../images/addClient/city.png' style='width:34rpx;height:34rpx;'></image>
+        </view>
+        <view class='zan-c-gray-dark zan-col zan-col-8 zan-font-16' style='line-height:120rpx;'>客户所在城市</view>
+        <view class='zan-col zan-col-13'>
+
+          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入城市" bindinput='inputCity' style='line-height:120rpx;text-align:right;'></input>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view style='margin:0 3%;'>
+      <view class='zan-row' style='height:120rpx;'>
+        <view class='zan-c-gray-dark zan-col zan-col-2 zan-font-16 center-style' style='height:120rpx;line-height:120rpx;'>
+          <image src='../../images/addClient/time.jpg' style='width:34rpx;height:34rpx;'></image>
+        </view>
+        <view class='zan-c-gray-dark zan-col zan-col-14 zan-font-16' style='line-height:120rpx;'>接待时间</view>
+        <view class='zan-col zan-col-8' style='margin-top:10rpx;'>
+
+          <!-- <picker mode="date" value="{{date}}" start="2000-01-01" end="2020-01-01" bindchange=""> -->
+          <view class='flex-row' style='align-items: center;float:right;'>
+            <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>{{day}}</view>
+            <view style='width:30rpx;'></view>
+            <!-- <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image> -->
+          </view>
+          <!-- </picker> -->
+
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>
+
+<view style='width:94%;margin:20rpx 3%;'>
+  <view style='margin:0 3%;'>
+    <view class='zan-row' style='height:100rpx;'>
+      <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:100rpx;'>产品数量</view>
+      <view class='zan-col zan-col-13'>
+
+        <view class='center-style' style='height:100rpx;align-items: center;float:right;'>
+          <wxc-counter number="1" max="{{20}}" min="1" bind:changenumber="onChangeNumber"></wxc-counter>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<block wx:for="{{num}}">
+  <view style='width:750rpx;'>
+    <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>货号</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入货号" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>产品类型</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <view class='zan-c-gray-darker zan-font-16' bindtap='productType'>{{productType}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>是否购买</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <switch bindchange="switchBuy" />
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <block wx:if="{{isBuy}}">
+        <view style='margin:0 3%;'>
+          <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+            <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>购买金额</view>
+            <view class='zan-col zan-col-13'>
+
+              <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+                <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入购买金额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view style='margin:0 3%;'>
+          <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+            <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>件数</view>
+            <view class='zan-col zan-col-13'>
+
+              <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+                <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>是否交定金</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <switch bindchange="switchReservation" />
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <block wx:if="{{isReservation}}">
+        <view style='margin:0 3%;'>
+          <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+            <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>定金金额</view>
+            <view class='zan-col zan-col-13'>
+
+              <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+                <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入定金金额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>用途</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入用途" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>提醒时间</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入提醒时间" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+            </view>
+          </view>
+        </view>
+      </view> -->
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16' style='line-height:120rpx;'>提醒时间：</view>
+          <view class='zan-col zan-col-8' style='margin-top:10rpx;'>
+
+            <picker mode="date" value="{{date}}" start="2000-01-01" end="2020-01-01" bindchange="bindDateChange">
+              <view class='flex-row' style='align-items: center;float:right;'>
+                <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>{{date}}</view>
+                <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
+              </view>
+            </picker>
+
+          </view>
+        </view>
+      </view>
+
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>其他备注</view>
+
+        </view>
+      </view>
+
+      <view style='margin:0 3%;'>
+        <view style="position: relative;">
+          <view class="intro-content">
+            <textarea style='padding:10rpx 20rpx;height:260rpx;' name="intro" cursor-spacing="100" bindinput="textAreaEventListener" maxlength='100' placeholder="" />
+          </view>
+          <view class='zan-font-14' style="position: absolute; right: 10rpx; bottom: 0;">{{remark.length}} /100</view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</block>
+
+
+<view style='height:70rpx;'></view>
+
+<button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='addClient'>确认添加</button>
+
+<view style='height:70rpx;'></view>

@@ -1,6 +1,5 @@
 // pages/addClient/addClient.js
 //获取应用实例
-const app = getApp()
 var vm = null
 const util = require('../../utils/util.js')
 const qiniuUploader = require('../../utils/qiniuUploader.js')

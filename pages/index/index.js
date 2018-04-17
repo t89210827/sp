@@ -32,6 +32,7 @@ Page({
     name: '',             //用户输入的名字
     phone: '',            //用户输入的电话
     date: "2016-09-01",   //入职时间
+    shop: "点击选择店铺",   //选中店铺
   },
 
   // 身份选择
@@ -57,10 +58,13 @@ Page({
   // 店铺选择
   bindShop: function (e) {
     console.log('店铺选择 发生选择改变，携带值为', e.detail.value);
-
-    this.setData({
-      shopIndex: e.detail.value
+    wx.navigateTo({
+      url: '/pages/shopList/shopList',
     })
+
+    // this.setData({
+    //   shopIndex: e.detail.value
+    // })
   },
   //入职时间
   bindDateChange: function (e) {

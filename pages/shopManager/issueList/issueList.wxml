@@ -1,0 +1,36 @@
+<!--pages/shopManager/issueList/issueList.wxml-->
+<view class='top'>
+  <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
+</view>
+
+<view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
+  <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../../images/back.png"></image>
+</view>
+
+<view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>添加交易</view>
+</view>
+
+<view style='height:140rpx;'></view>
+
+<view style='width:750rpx;'>
+  <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
+    <navigator url='/pages/shopManager/auditDaily/auditDaily'>
+      <view class='center-style' style='line-height:200rpx;'>发布任务(上班前)</view>
+    </navigator>
+  </view>
+</view>
+
+<view style='width:750rpx;'>
+  <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
+    <navigator url='/pages/shopManager/issuePassengerFlow/issuePassengerFlow'>
+      <view class='center-style' style='line-height:200rpx;'>发布客流(下班后)</view>
+    </navigator>
+  </view>
+</view>
+
+<view style='width:750rpx;'>
+  <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
+    <view class='center-style' style='line-height:200rpx;'>员工转店</view>
+  </view>
+</view>

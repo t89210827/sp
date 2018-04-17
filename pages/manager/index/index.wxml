@@ -1,14 +1,23 @@
-<!--pages/shopManager/shopManager.wxml-->
+<!--pages/manager/index/index.wxml-->
 <cover-view class='title-top-index zan-font-16' style='color:#fff'>
   <cover-view style='width:750rpx; height:120rpx;'>
-    <cover-view class='zan-col zan-col-24' style='line-height:172rpx;text-align:center;'>店长首页</cover-view>
+    <cover-view class='zan-col zan-col-24' style='line-height:172rpx;text-align:center;'>主管首页</cover-view>
   </cover-view>
 </cover-view>
 
 <view class='bg'>
   <view class='zan-font-16 ranking'>
-    <view style='width:200rpx;height:60rpx;' bindtap='jumpRanking'>排行</view>
+    <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpRanking'>本店排行</view>
   </view>
+
+  <!-- <view class='zan-font-16 daily'>
+    <view style='width:200rpx;height:60rpx;text-align:left;text-align:right;' bindtap='jumpDealList'>交易列表</view>
+  </view> -->
+
+  <!-- <view class='zan-font-16 deal'>
+    <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpAddDeal' id='deal'>添加交易信息</view>
+  </view> -->
+
   <view style='height:150rpx;'></view>
   <image src='{{userInfo.avatar}}' style='width:120rpx;height:120rpx;  border-radius: 50%;'></image>
   <view class='zan-font-14' style='color:#fff;'>{{userInfo.nick_name}}</view>
@@ -20,50 +29,73 @@
   </view>
 
   <view class='zan-row zan-font-16' style='height:120rpx;color:#fff;'>
-    <view class='zan-col zan-col-8 line-height' bindtap='jumpAddClient'>添加客户</view>
-    <view class='zan-col zan-col-8 line-height' bindtap='jumpdaily'>提交日报</view>
-    <view class='zan-col zan-col-8 line-height' bindtap='jumpClientInformation'>客户信息</view>
+    <view class='zan-col zan-col-8 line-height' bindtap='jumpDailyList'>审批任务</view>
+    <view class='zan-col zan-col-8 line-height' bindtap='jumpIssueList'>发布</view>
+    <view class='zan-col zan-col-8 line-height' bindtap='jumpStaffList'>客户信息</view>
   </view>
 </view>
 
 
 <view style='width:750rpx;'>
   <view style='height:80rpx;background-color:#ececec;'>
-    <view class='zan-col zan-col-8 zan-font-14 center-style' style='line-height:80rpx;'>
 
+    <view class='zan-col zan-col-5 zan-font-14 center-style' style='line-height:80rpx;'>
+      开始时间
+    </view>
+
+    <view class='zan-col zan-col-7 zan-font-14 center-style' style='line-height:80rpx;'>
       <picker mode="date" value="{{beginDate}}" start="2000-01-01" end="2020-01-01" bindchange="bindBeginDate">
         <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{beginDate}}</view>
       </picker>
-
     </view>
 
-    <view class='zan-col zan-col-8 zan-font-14 center-style' style='line-height:80rpx;'>
+    <view class='zan-col zan-col-5 zan-font-14 center-style' style='line-height:80rpx;'>
+      结束时间
+    </view>
+
+    <view class='zan-col zan-col-7 zan-font-14 center-style' style='line-height:80rpx;'>
       <picker mode="date" value="{{endDate}}" start="2000-01-01" end="2020-01-01" bindchange="bindEndDate">
         <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{endDate}}</view>
       </picker>
     </view>
 
-    <view class=' zan-col zan-col-8 zan-font-14 center-style ' style='line-height:80rpx;'>
-
+    <!-- <view class=' zan-col zan-col-8 zan-font-14 center-style ' style='line-height:80rpx;'>
       <picker bindchange="bindOption" value="{{optionsIndex}}" range="{{options}}">
-        <!-- <view class='flex-row' style='align-items: center;float:right;'> -->
         <view class='zan-font-14 zan-c-gray-darker' style='line-height:80rpx;'>{{options[optionsIndex]}}</view>
-        <!-- </view> -->
       </picker>
+    </view> -->
 
+  </view>
+
+  <view style='width:750rpx;'>
+    <view style='width:94%;margin:20rpx 3%;'>
+      <view style='padding:10rpx 20rpx;'>
+        <view class=" zan-font-16" style='line-height:30rpx;width:100%;height:20rpx;' bindtap='targetSwitch'>
+          <view class='zan-col zan-col-19 line-text'>今日目标</view>
+          <block wx:if="{{target == false}}">
+            <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>展开</view>
+            <view class='zan-col zan-col-2'>
+              <image src='../../../images/right.png' style='margin-top:5rpx;float:right;width:20rpx;height:20rpx;'></image>
+            </view>
+          </block>
+          <block wx:if="{{target == true}}">
+            <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>收起</view>
+            <view class='zan-col zan-col-2'>
+              <image src='../../images/bottom.png' style='float:right;width:20rpx;height:20rpx;'></image>
+            </view>
+          </block>
+        </view>
+      </view>
     </view>
   </view>
 
-  <block wx:if="{{optionsIndex == 0}}">
+
+  <block wx:if="{{target == true}}">
     <view style='width:750rpx;'>
       <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
         <view style='padding:10rpx 20rpx;'>
 
-          <view class="line-text zan-font-16" style='line-height:30rpx;' bindtap='previewImage'>
-            今日目标
-          </view>
-          <view style='height:20rpx;'></view>
-
+          <view style='height:10rpx;'></view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-8'>非黄</view>
             <view class='zan-col zan-col-16' style='text-align:right;'>3457元</view>
@@ -76,23 +108,44 @@
             <view class='zan-col zan-col-8'>其他</view>
             <view class='zan-col zan-col-16' style='text-align:right;'>6713元</view>
           </view>
-          <view style='height:30rpx;'></view>
+          <view style='height:20rpx;'></view>
 
         </view>
       </view>
     </view>
   </block>
 
-  <block wx:if="{{optionsIndex == 1}}">
+  <view wx:if="{{target == false}}" style='height:40rpx;'></view>
+
+  <view style='width:750rpx;'>
+    <view style='width:94%;margin:20rpx 3%;'>
+      <view style='padding:10rpx 20rpx;'>
+        <view class=" zan-font-16" style='line-height:30rpx;width:100%;height:20rpx;' bindtap='KeySwitch'>
+          <view class='zan-col zan-col-19 line-text'>关键信息</view>
+          <block wx:if="{{key == false}}">
+            <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>展开</view>
+            <view class='zan-col zan-col-2'>
+              <image src='../../../images/right.png' style='margin-top:5rpx;float:right;width:20rpx;height:20rpx;'></image>
+            </view>
+          </block>
+
+          <block wx:if="{{key == true}}">
+            <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>收起</view>
+            <view class='zan-col zan-col-2'>
+              <image src='../../images/bottom.png' style='margin-top:5rpx;float:right;width:20rpx;height:20rpx;'></image>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <block wx:if="{{key == true}}">
     <view style='width:750rpx;'>
       <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
         <view style='padding:10rpx 20rpx;'>
-
-          <view class="line-text zan-font-16" style='line-height:30rpx;' bindtap='previewImage'>
-            关键信息
-          </view>
-          <view style='height:20rpx;'></view>
-
+          <view style='height:10rpx;'></view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-8'>留电话数(已购买)</view>
             <view class='zan-col zan-col-16' style='text-align:right;'>3457元</view>
@@ -117,25 +170,43 @@
             <view class='zan-col zan-col-8'>顾客转化达成率</view>
             <view class='zan-col zan-col-16' style='text-align:right;'>6713元</view>
           </view>
-
-          <view style='height:30rpx;'></view>
-
+          <view style='height:20rpx;'></view>
         </view>
       </view>
     </view>
   </block>
 
-  <block wx:if="{{optionsIndex == 2}}">
+
+  <view wx:if="{{key == false}}" style='height:40rpx;'></view>
+
+  <view style='width:750rpx;'>
+    <view style='width:94%;margin:20rpx 3%;'>
+      <view style='padding:10rpx 20rpx;'>
+        <view class=" zan-font-16" style='line-height:30rpx;width:100%;height:20rpx;' bindtap='minorSwitch'>
+          <view class='zan-col zan-col-19 line-text'>次要信息</view>
+          <block wx:if="{{minor == false}}">
+            <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>展开</view>
+            <view class='zan-col zan-col-2'>
+              <image src='../../../images/right.png' style='margin-top:5rpx;float:right;width:20rpx;height:20rpx;'></image>
+            </view>
+          </block>
+
+          <block wx:if="{{minor == true}}">
+            <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>收起</view>
+            <view class='zan-col zan-col-2'>
+              <image src='../../images/bottom.png' style='margin-top:5rpx;float:right;width:20rpx;height:20rpx;'></image>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <block wx:if="{{minor == true}}">
     <view style='width:750rpx;'>
       <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
         <view style='padding:10rpx 20rpx;'>
-
-          <view class="line-text zan-font-16" style='line-height:30rpx;' bindtap='previewImage'>
-            次要信息
-          </view>
-          <view style='height:20rpx;'></view>
-
-
+          <view style='height:10rpx;'></view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-8'>非黄铂</view>
           </view>
@@ -164,8 +235,6 @@
             <view class='zan-col zan-col-8'>非黄铂销售额</view>
             <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
           </view>
-
-
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-8'>黄铂</view>
           </view>
@@ -238,9 +307,7 @@
             <view class='zan-col zan-col-8'>留电话率</view>
             <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
           </view>
-
-          <view style='height:30rpx;'></view>
-
+          <view style='height:20rpx;'></view>
         </view>
       </view>
     </view>

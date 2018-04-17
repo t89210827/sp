@@ -1,10 +1,6 @@
-// pages/manager/manager.js
+// pages/shopManager/index/index.js
 var vm = null
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     userInfo: {},
     beginDate: "2018-04-09",
@@ -12,19 +8,47 @@ Page({
 
     options: ["今日目标", "关键信息", "次要信息"],
     optionsIndex: 0,
+
+    target: false,
+    key: false,
+    minor: false,
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     vm = this
     vm.getUserInfo()
+    // wx.login({
+    //   success: function (res) {
+    //     wx.getUserInfo({
+    //       success: function (res) {
+    //         console.log("---" + JSON.stringify(res))
+    //         vm.setData({ userInfo: res.userInfo })
+    //       }
+    //     })
+    //   }
+    // })
   },
 
+  //今日目标展开与收取
+  targetSwitch: function () {
+    vm.setData({ target: !vm.data.target })
+  },
+
+  //关键信息展开与收取
+  KeySwitch: function () {
+    vm.setData({ key: !vm.data.key })
+  },
+
+  //次要信息展开与收取
+  minorSwitch: function () {
+    vm.setData({ minor: !vm.data.minor })
+  },
+
+  //获取缓存中用户信息
   getUserInfo: function () {
     vm.setData({ userInfo: getApp().globalData.userInfo })
   },
+
   //跳转到店员排名页面
   jumpRanking: function () {
     wx.navigateTo({
@@ -33,20 +57,36 @@ Page({
   },
   //跳转到添加客户页面
   jumpAddClient: function () {
+    // wx.navigateTo({
+    //   url: '/pages/addClient/addClient',
+    // })
     wx.navigateTo({
-      url: '/pages/addClient/addClient',
+      url: '/pages/queryClient/queryClient',
     })
   },
   //跳转到店员客户信息页面
-  jumpClientInformation: function () {
+  jumpStaffList: function () {
     wx.navigateTo({
-      url: '/pages/clientInformation/staff/staff',
+      url: '/pages/shopManager/staffList/staffList',
     })
   },
   //跳转到提交日报页面
-  jumpdaily: function () {
+  jumpIssueList: function () {
     wx.navigateTo({
-      url: '/pages/daily/staff/staff',
+      url: '/pages/shopManager/issueList/issueList',
+    })
+  },
+  //跳转到交易信息页面
+  jumpDailyList: function (e) {
+    console.log("---1111" + JSON.stringify())
+    wx.navigateTo({
+      url: '/pages/shopManager/dailyList/dailyList',
+    })
+  },
+  //跳转到交易列表页面
+  jumpDealList: function () {
+    wx.navigateTo({
+      url: '/pages/dealList/dealList',
     })
   },
   //开始时间

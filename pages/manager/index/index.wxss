@@ -1,4 +1,4 @@
-/* pages/manager/manager.wxss */
+/* pages/manager/index/index.wxss */
 
 .bg {
   width: 750rpx;
@@ -12,8 +12,22 @@
 
 .ranking {
   position: absolute;
-  top: 150rpx;
-  left: 15rpx;
+  top: 170rpx;
+  left: 70rpx;
+  color: #fff;
+}
+
+.daily {
+  position: absolute;
+  top: 170rpx;
+  right: 70rpx;
+  color: #fff;
+}
+
+.deal {
+  position: absolute;
+  top: 240rpx;
+  left: 70rpx;
   color: #fff;
 }
 
@@ -34,6 +48,5 @@
 .line-text {
   border-left: 5px solid #e75110;
   padding-left: 20rpx;
-  margin: 20rpx 0rpx;
-  /* font-weight: bold; */
+  /* margin: 20rpx 0rpx; *//* font-weight: bold; */
 }

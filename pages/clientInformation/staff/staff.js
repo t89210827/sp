@@ -33,6 +33,12 @@ Page(extend({}, Actionsheet, Tab, {
     showLeftPopup: false,
     date: "2016-09-01",
   },
+  //跳转到客户详情页
+  jumpClientDetail: function () {
+    wx.navigateTo({
+      url: '/pages/clientDetail/clientDetail',
+    })
+  },
 
   //入职时间
   bindDateChange: function (e) {

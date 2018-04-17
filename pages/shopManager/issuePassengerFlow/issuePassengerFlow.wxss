@@ -1,5 +1,4 @@
-/* pages/queryClient/queryClient.wxss */
-
+/* pages/shopManager/issuePassengerFlow/issuePassengerFlow.wxss */
 page {
   background-color: #ececec;
 }

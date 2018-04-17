@@ -1,5 +1,5 @@
-// pages/queryClient/queryClient.js
-var util = require('../../utils/util.js')
+// pages/shopManager/issuePassengerFlow/issuePassengerFlow.js
+var util = require('../../../utils/util.js')
 var vm = null
 Page({
 
