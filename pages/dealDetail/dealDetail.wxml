@@ -23,7 +23,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <view class='zan-font-16 zan-c-gray-dark'>3829479</view>
+            <view class='zan-font-16 zan-c-gray-dark'>{{deal.product_id}}</view>
           </view>
         </view>
       </view>
@@ -35,32 +35,21 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <view class='zan-c-gray-darker zan-font-16' bindtap='productType'>黄铂</view>
+            <view class='zan-c-gray-darker zan-font-16'>{{deal.product_name}}</view>
           </view>
         </view>
       </view>
     </view>
 
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>是否购买</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <switch bindchange="switchBuy" />
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <block wx:if="{{isBuy}}">
+    <block wx:if="{{deal.isbuy == 0}}">
       <view style='margin:0 3%;'>
         <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
           <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>购买金额</view>
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入购买金额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+              <view class='zan-font-16' style='line-height:120rpx;text-align:right;'>{{deal.money}}</view>
+              <!-- <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入购买金额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input> -->
             </view>
           </view>
         </view>
@@ -72,33 +61,23 @@
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+              <view class='zan-font-16' style='line-height:120rpx;text-align:right;'>6</view>
+              <!-- <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input> -->
             </view>
           </view>
         </view>
       </view>
     </block>
 
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>是否交定金</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <switch bindchange="switchReservation" />
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <block wx:if="{{isReservation}}">
+    <block wx:if="{{deal.isearnest == 0}}">
       <view style='margin:0 3%;'>
         <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
           <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>定金金额</view>
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入定金金额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+              <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{deal.isearnest_money}}</view>
+              <!-- <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入定金金额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input> -->
             </view>
           </view>
         </view>
@@ -111,7 +90,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <view class='zan-font-16 zan-c-gray-dark'>结婚</view>
+            <view class='zan-font-16 zan-c-gray-dark'>{{deal.purpose}}</view>
             <!-- <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入用途" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input> -->
           </view>
         </view>
@@ -135,12 +114,16 @@
         <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16' style='line-height:120rpx;'>提醒时间：</view>
         <view class='zan-col zan-col-8' style='margin-top:10rpx;'>
 
-          <picker mode="date" value="{{date}}" start="2000-01-01" end="2020-01-01" bindchange="bindDateChange">
+          <!-- <picker mode="date" value="{{date}}" start="2000-01-01" end="2020-01-01" bindchange="bindDateChange">
             <view class='flex-row' style='align-items: center;float:right;'>
-              <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>2018-10-20</view>
+              <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>{{</view>
               <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
             </view>
-          </picker>
+          </picker> -->
+          <!-- <view class='zan-font-16 zan-c-gray-dark'></view> -->
+          <view class='flex-row' style='align-items: center;float:right;'>
+            <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>{{deal.purpose_time}}</view>
+          </view>
 
         </view>
       </view>
@@ -157,9 +140,10 @@
     <view style='margin:0 3%;'>
       <view style="position: relative;">
         <view class="intro-content">
-          <textarea style='padding:10rpx 20rpx;height:260rpx;' name="intro" cursor-spacing="100" bindinput="textAreaEventListener" maxlength='100' placeholder="" />
+          <view style='padding:10rpx 20rpx;height:260rpx;'>{{deal.remark}}</view>
+          <!-- <textarea style='padding:10rpx 20rpx;height:260rpx;' name="intro" cursor-spacing="100" bindinput="textAreaEventListener" maxlength='100' placeholder="" /> -->
         </view>
-        <view class='zan-font-14' style="position: absolute; right: 10rpx; bottom: 0;">{{remark.length}} /100</view>
+        <!-- <view class='zan-font-14' style="position: absolute; right: 10rpx; bottom: 0;">{{remark.length}} /100</view> -->
       </view>
     </view>
 
@@ -167,8 +151,10 @@
 </view>
 <!-- </block> -->
 
+<view style='height:100rpx;'></view>
 
-<view style='width:750rpx;'>
+
+<!-- <view style='width:750rpx;'>
   <view style='width:94%;height:1000rpx;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
 
     <scroll-view scroll-y style="height: 1000rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-top='0'>
@@ -190,4 +176,4 @@
     </scroll-view>
 
   </view>
-</view>
+</view> -->

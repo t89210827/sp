@@ -1,13 +1,9 @@
 // pages/clientInformation/staff/staff.js
 var vm = null
-
+var util = require('../../../utils/util.js')
 const { extend, Actionsheet, Tab } = require('../../../bower_components/zanui-weapp/dist/index');
 // 在 Page 中混入 Tab 里面声明的方法
 Page(extend({}, Actionsheet, Tab, {
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     inputShowed: false,
     inputVal: "",
@@ -31,8 +27,45 @@ Page(extend({}, Actionsheet, Tab, {
     },
 
     showLeftPopup: false,
+
     date: "2016-09-01",
+    clientList: [],       //客户信息列表
   },
+  onLoad: function (options) {
+    vm = this
+    vm.login()
+    vm.getClient()      //获取所有顾客信息
+  },
+  login: function () {
+    wx.login({
+      success: function (res) {
+        wx.getUserInfo({
+          success: function (res) {
+            console.log("---" + JSON.stringify(res))
+            vm.setData({ userInfo: res.userInfo })
+          }
+        })
+      }
+    })
+  },
+
+  //获取所有顾客信息
+  getClient: function () {
+    var param = {
+      page: 1
+    }
+    util.getClient(param, function (res) {
+      if (res.data.result == true) {
+        var clientList = res.data.ret.data
+        for (var i = 0; i < clientList.length; i++) {
+          clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)
+        }
+        vm.setData({ clientList: clientList })
+      }
+    })
+  },
+
+
   //跳转到客户详情页
   jumpClientDetail: function () {
     wx.navigateTo({
@@ -86,26 +119,6 @@ Page(extend({}, Actionsheet, Tab, {
     }, 1500);
   },
 
-
-
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    vm = this
-    wx.login({
-      success: function (res) {
-        wx.getUserInfo({
-          success: function (res) {
-            console.log("---" + JSON.stringify(res))
-            vm.setData({ userInfo: res.userInfo })
-          }
-        })
-      }
-    })
-  },
-
   showInput: function () {
     this.setData({
       inputShowed: true
@@ -117,15 +130,31 @@ Page(extend({}, Actionsheet, Tab, {
       inputShowed: false
     });
   },
-  clearInput: function () {
-    this.setData({
-      inputVal: ""
-    });
-  },
+  // clearInput: function () {
+  //   this.setData({
+  //     inputVal: ""
+  //   });
+  // },
   inputTyping: function (e) {
     this.setData({
       inputVal: e.detail.value
     });
+  },
+  //用户点击确定以后
+  complete: function () {
+    var phone = vm.data.inputVal
+    var param = {
+      search_word: phone
+    }
+    util.search(param, function (res) {
+      if (res.data.result) {
+        var clientList = res.data.ret
+        for (var i = 0; i < clientList.length; i++) {
+          clientList[i].created_at = util.date(clientList[i].created_at)
+        }
+        vm.setData({ clientList: res.data.ret })
+      }
+    })
   },
 
   //返回上一层

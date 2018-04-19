@@ -20,17 +20,13 @@ Page({
   onLoad: function (options) {
     vm = this
     vm.getUserInfo()
-    // wx.login({
-    //   success: function (res) {
-    //     wx.getUserInfo({
-    //       success: function (res) {
-    //         console.log("---" + JSON.stringify(res))
-    //         vm.setData({ userInfo: res.userInfo })
-    //       }
-    //     })
-    //   }
-    // })
   },
+
+  //获取缓存中用户信息
+  getUserInfo: function () {
+    vm.setData({ userInfo: getApp().globalData.userInfo })
+  },
+
 
   //今日目标展开与收取
   targetSwitch: function () {
@@ -47,10 +43,6 @@ Page({
     vm.setData({ minor: !vm.data.minor })
   },
 
-  //获取缓存中用户信息
-  getUserInfo: function () {
-    vm.setData({ userInfo: getApp().globalData.userInfo })
-  },
 
   //跳转到店员排名页面
   jumpRanking: function () {

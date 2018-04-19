@@ -4,7 +4,7 @@ var vm = null
 Page({
   data: {
     image: 'https://s10.mogucdn.com/p2/161213/upload_76h1c5hjc8heecjehlfgekjdl2ki0_514x260.png',
-    title: '添加客户成功',
+    title: '添加成功',
     // tip: '请耐心等待管理员审核通过',
     button: '返回首页'
   },

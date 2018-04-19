@@ -126,7 +126,52 @@ function getClientByTel(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/audit/getClientByTel', param, "POST", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/audit/getClientByTel
+//获取所有顾客信息
+function getClient(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getClient', param, "GET", successCallback, errorCallback)
+}
+
+// 根据id获取顾客信息
+function getClientById(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getClientById', param, "GET", successCallback, errorCallback)
+}
+
+// 添加交易记录
+function addDeal(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/deal/addDeal', param, "POST", successCallback, errorCallback)
+}
+
+// 员工添加顾客信息
+function addClient(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/addClient', param, "POST", successCallback, errorCallback)
+}
+
+// 根据用户id和顾客id查看交易记录信息
+function getDeals(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/deal/getDeals', param, "GET", successCallback, errorCallback)
+}
+
+// 店员客户维护搜索
+function search(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/search', param, "POST", successCallback, errorCallback)
+}
+
+// 根据user_id获取员工入职信息
+function getAuditByUserId(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getAuditByUserId', param, "GET", successCallback, errorCallback)
+}
+
+// 获取所有生效的店铺信息
+function getShopList(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shop/getShopList', param, "GET", successCallback, errorCallback)
+}
+
+// 店长下的员工列表
+function getAudit(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getAudit', param, "GET", successCallback, errorCallback)
+}
+
+// http://localhost/waibaoSrv/public/api/sp/shopManager/getAudit
 
 
 ///////////////////////////////////////////////
@@ -166,7 +211,16 @@ function convertDateFormateM(date_str) {
 
   var date_arr = date_str.split(' ');
   //consoledebug.log("data_arr:" + JSON.stringify(date_arr))
-  return convertDateFormate(date_arr[0], 1) + " " + date_arr[1].substring(0, 5);
+  // return convertDateFormate(date_arr[0], 1) + " " + date_arr[1].substring(0, 5);
+  return convertDateFormate(date_arr[0], 2);
+}
+
+function date(date_str) {
+
+  var date_arr = date_str.split(' ');
+  //consoledebug.log("data_arr:" + JSON.stringify(date_arr))
+  // return convertDateFormate(date_arr[0], 1) + " " + date_arr[1].substring(0, 5);
+  return date_arr[0];
 }
 
 //日期形式转换
@@ -731,6 +785,8 @@ module.exports = {
   getDiffentTime: getDiffentTime,
   gcj02towgs84: gcj02towgs84,
   qiniuUrlTool: qiniuUrlTool,
+  convertDateFormateM: convertDateFormateM,
+  date: date,                 //转换成2018-10-07类型的时间
 
   showToast: showToast,           //展示空toast
   getQiniuToken: getQiniuToken,   //获取七牛token
@@ -739,4 +795,13 @@ module.exports = {
   addClient: addClient,           //员工添加顾客信息
   getAuditByUserId: getAuditByUserId,   //根据user_id获取员工入职信息
   getClientByTel: getClientByTel,       //根据顾客电话查询顾客信息
+  getClient: getClient,           //获取所有顾客信息
+  getClientById: getClientById,   //根据id获取顾客信息
+  addDeal: addDeal,               //添加交易记录
+  addClient: addClient,           //员工添加顾客信息
+  getDeals: getDeals,             //根据用户id和顾客id查看交易记录信息
+  search: search,                 //客户维护搜索
+  getAuditByUserId: getAuditByUserId, //根据user_id获取员工入职信息
+  getShopList: getShopList,         //获取所有生效的店铺信息
+  getAudit: getAudit,               //店长下的员工列表
 } 

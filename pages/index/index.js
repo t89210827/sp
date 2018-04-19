@@ -27,18 +27,18 @@ Page({
 
     status: ["店员", "店长", "主管"],
     statusIndex: 0,
-    shopList: [],         //店铺列表
+    // shopList: [],         //店铺列表
     shopIndex: 0,         //选中店铺索引
     name: '',             //用户输入的名字
     phone: '',            //用户输入的电话
     date: "2016-09-01",   //入职时间
     shop: "点击选择店铺",   //选中店铺
+    shop_id: '',         //选中店铺的id
   },
 
   // 身份选择
   bindstatus: function (e) {
-    console.log('身份选择 发生选择改变，携带值为', e.detail.value);
-
+    // console.log('身份选择 发生选择改变，携带值为', e.detail.value);
     this.setData({
       statusIndex: e.detail.value
     })
@@ -57,7 +57,7 @@ Page({
   },
   // 店铺选择
   bindShop: function (e) {
-    console.log('店铺选择 发生选择改变，携带值为', e.detail.value);
+    // console.log('店铺选择 发生选择改变，携带值为', e.detail.value);
     wx.navigateTo({
       url: '/pages/shopList/shopList',
     })
@@ -155,13 +155,34 @@ Page({
       util.showToast("电话号码不能为空")
       return
     }
+
+    if (vm.data.statusIndex == 0) {
+      var param = {
+        shop_id: vm.data.shop_id,                  //店铺id
+        type: vm.data.statusIndex,                 //用户身份 0.店员 1店长 2主管   
+        name: vm.data.name,                        //申请人真实姓名 
+        phonenum: vm.data.phone,                   //申请人电话
+        entryDate: vm.data.date,                   //申请人入职时间
+        avatar: vm.data.image,                     //申请人头像
+      }
+    } else if (vm.data.statusIndex == 1) {
+      var param = {
+        type: vm.data.statusIndex,                 //用户身份 0.店员 1店长 2主管   
+        avatar: vm.data.image,                     //申请人头像
+        shop_id: vm.data.shop_id,                  //店铺id
+        name: vm.data.name,                        //申请人真实姓名 
+        phonenum: vm.data.phone,                   //申请人电话
+        entryDate: vm.data.date,                   //申请人入职时间
+      }
+    }
     var param = {
-      shop_id: vm.data.shopList[vm.data.shopIndex].id,         //店铺id
-      type: vm.data.statusIndex,          //用户身份 0.店员 1店长 2主管   
-      name: vm.data.name,                           //申请人真实姓名 
+      shop_id: vm.data.shop_id,             //店铺id
+      type: vm.data.statusIndex,            //用户身份 0.店员 1店长 2主管   
+      name: vm.data.name,                   //申请人真实姓名 
       phonenum: vm.data.phone,                        //申请人电话
       entryDate: vm.data.date,                     //申请人入职时间
       avatar: vm.data.image,                        //申请人头像
+
     }
     util.apply(param, function (res) {
 
@@ -173,6 +194,6 @@ Page({
 
   onLoad: function () {
     vm = this
-    vm.getShopList()           //获取所有生效的店铺信息
+    // vm.getShopList()           //获取所有生效的店铺信息
   },
 })

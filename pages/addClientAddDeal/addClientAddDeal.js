@@ -17,17 +17,17 @@ function initQiniu() {
 
 Page({
   data: {
-    image: '',       //头像
-    num: 1,         //产品数量
-    remark: '',      //备注
-    isBuy: false,     //是否购买
+    image: '',               //头像
+    num: 1,                  //产品数量
+    remark: '',              //备注
+    isBuy: false,            //是否购买
     isReservation: false,    //是否交定金
     date: '2018-04-10',      //提醒时间
 
-    gender: "男",         //性别
-    birthDate: "2016-09-01",               //生日
-    date: "2016-09-01",                    //接待时间
-    productType: "黄铂",          //产品类型
+    gender: "男",            //性别
+    birthDate: "2016-09-01", //生日
+    day: "",                 //接待时间
+    productType: "黄铂",     //产品类型
   },
 
   //添加顾客信息
@@ -192,9 +192,53 @@ Page({
     // console.log('携带值为', e.detail.value)
     vm.setData({ isReservation: e.detail.value })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
+
+  //顾客姓名
+  inputName: function (e) {
+    vm.setData({
+      name: e.detail.value,
+    })
+  },
+
+  //顾客年龄
+  inputAge: function (e) {
+    vm.setData({
+      age: e.detail.value,
+    })
+  },
+
+  //顾客电话
+  inputPhone: function (e) {
+    vm.setData({
+      tel: e.detail.value,
+    })
+  },
+  //顾客城市
+  inputCity: function (e) {
+    vm.setData({
+      city: e.detail.value,
+    })
+  },
+
+  // 添加客户和交易
+  addClient: function () {
+    var param = {
+      name: vm.data.name,
+      avatar: vm.data.image,
+      gender: vm.data.gender,
+      age: vm.data.age,
+      tel: vm.data.tel,
+      birthday: vm.data.birthDate,
+      city: vm.data.city,
+      reception_time: vm.data.day
+    }
+    util.addClient(param, function (res) {
+      if (res.data.result) {
+        console.log("添加客户返回参数" + JSON.stringify(res))
+      }
+    })
+  },
+
   onLoad: function (options) {
     vm = this
     var day = util.getToday()

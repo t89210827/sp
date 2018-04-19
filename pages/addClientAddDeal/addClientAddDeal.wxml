@@ -150,11 +150,9 @@
             <!-- <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image> -->
           </view>
           <!-- </picker> -->
-
         </view>
       </view>
     </view>
-
   </view>
 </view>
 
