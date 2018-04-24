@@ -24,7 +24,7 @@
 <view style='width:750rpx;'>
   <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
     <navigator url='/pages/manager/auditStaff/auditStaff?type={{1}}'>
-      <view class='center-style' style='line-height:200rpx;'>主管</view>
+      <view class='center-style' style='line-height:200rpx;'>店长</view>
     </navigator>
   </view>
 </view>

@@ -80,7 +80,7 @@ Page({
   jumpDailyList: function (e) {
     console.log("---1111" + JSON.stringify())
     wx.navigateTo({
-      url: '/pages/shopManager/dailyList/dailyList',
+      url: '/pages/manager/auditList/auditList',
     })
   },
   //跳转到交易列表页面

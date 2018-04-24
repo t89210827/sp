@@ -1,4 +1,4 @@
-<!--pages/shopManager/dailyList/dailyList.wxml-->
+<!--pages/manager/auditList/auditList.wxml-->
 <view class='top'>
   <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
 </view>
@@ -23,32 +23,8 @@
 
 <view style='width:750rpx;'>
   <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
-    <navigator url='/pages/shopManager/auditStaff/auditStaff'>
+    <navigator url='/pages/manager/auditStaff/auditStaffType/auditStaffType'>
       <view class='center-style' style='line-height:200rpx;'>审核员工</view>
     </navigator>
   </view>
 </view>
-
-<view style='width:750rpx;'>
-  <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
-    <navigator url='/pages/shopManager/auditStaff/auditStaff'>
-      <view class='center-style' style='line-height:200rpx;'>提交竞品日报</view>
-    </navigator>
-  </view>
-</view>
-
-<view style='width:750rpx;'>
-  <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
-    <navigator url='/pages/shopManager/auditStaff/auditStaff'>
-      <view class='center-style' style='line-height:200rpx;'>提交产品日报</view>
-    </navigator>
-  </view>
-</view>
-
-<!-- <view style='width:750rpx;'>
-  <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
-    <navigator url='/pages/shopManager/productDaily/productDaily'>
-      <view class='center-style' style='line-height:200rpx;'>提交产品日报</view>
-    </navigator>
-  </view>
-</view> -->

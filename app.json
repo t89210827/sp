@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/start/start",
+    "pages/shopManager/index/index",
     "pages/manager/index/index",
+    "pages/start/start",
     "pages/manager/auditStaff/auditStaffType/auditStaffType",
     "pages/manager/auditStaff/auditStaff",
-    "pages/shopManager/index/index",
     "pages/staff/staff",
     "pages/addClientAddDeal/addClientAddDeal",
     "pages/index/index",
@@ -31,7 +31,8 @@
     "pages/shopManager/auditStaff/auditStaff",
     "pages/shopManager/issueTask/issueTask",
     "pages/staff/byPhoneQueryClient/byPhoneQueryClient",
-    "pages/staff/clientDetail/clientDetail"
+    "pages/staff/clientDetail/clientDetail",
+    "pages/manager/auditList/auditList"
   ],
   "window": {
     "backgroundTextStyle": "light",

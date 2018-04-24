@@ -19,7 +19,7 @@ Page({
     if (type == 0) {
       var param = {
         manager_id: getApp().globalData.userInfo.id,
-        status: 0,
+        status: 1,
         type: type,
         page: 1,
       }

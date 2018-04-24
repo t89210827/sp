@@ -25,6 +25,11 @@ Page({
     }
     util.getReviewAudit(param, function (res) {
       if (res.data.result) {
+        var auditList = res.data.ret
+        if (auditList.length == 0) {
+          vm.setData({ auditList: auditList })
+          return
+        }
         var auditList = res.data.ret.audit.data
         vm.setData({ auditList: auditList })
       }
