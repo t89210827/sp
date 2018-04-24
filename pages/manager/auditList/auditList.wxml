@@ -8,7 +8,7 @@
 </view>
 
 <view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
-  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>添加交易</view>
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>审核</view>
 </view>
 
 <view style='height:140rpx;'></view>

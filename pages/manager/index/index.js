@@ -17,16 +17,6 @@ Page({
   onLoad: function (options) {
     vm = this
     vm.getUserInfo()
-    // wx.login({
-    //   success: function (res) {
-    //     wx.getUserInfo({
-    //       success: function (res) {
-    //         console.log("---" + JSON.stringify(res))
-    //         vm.setData({ userInfo: res.userInfo })
-    //       }
-    //     })
-    //   }
-    // })
   },
 
   //今日目标展开与收取
@@ -46,7 +36,27 @@ Page({
 
   //获取缓存中用户信息
   getUserInfo: function () {
-    vm.setData({ userInfo: getApp().globalData.userInfo })
+    var userInfo = getApp().globalData.userInfo
+
+    if (userInfo == null) {
+      wx.login({
+        success: function (res) {
+          wx.getUserInfo({
+            success: function (res) {
+              console.log("---" + JSON.stringify(res))
+              var userInfo = {
+                nick_name: res.userInfo.nickName,
+                avatar: res.userInfo.avatarUrl
+              }
+              vm.setData({ userInfo: userInfo })
+            }
+          })
+        }
+      })
+    } else {
+      vm.setData({ userInfo: userInfo })
+    }
+    console.log("userInfo : " + JSON.stringify(userInfo))
   },
 
   //跳转到店员排名页面
@@ -73,12 +83,12 @@ Page({
   //跳转到提交日报页面
   jumpIssueList: function () {
     wx.navigateTo({
-      url: '/pages/shopManager/issueList/issueList',
+      url: '/pages/manager/issueTask/issueTask',
     })
   },
-  //跳转到交易信息页面
-  jumpDailyList: function (e) {
-    console.log("---1111" + JSON.stringify())
+  //跳转到审批任务页面
+  jumpAudit: function (e) {
+    // console.log("---1111" + JSON.stringify())
     wx.navigateTo({
       url: '/pages/manager/auditList/auditList',
     })

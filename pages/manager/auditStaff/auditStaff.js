@@ -14,25 +14,33 @@ Page({
     vm.getShopManager(type)
   },
 
-  //主管审核入职人员
+  //主管审核入职人员列表
   getShopManager: function (type) {
-    if (type == 0) {
-      var param = {
-        manager_id: getApp().globalData.userInfo.id,
-        status: 1,
-        type: type,
-        page: 1,
-      }
-    } else if (type == 1) {
-      var param = {
-        manager_id: getApp().globalData.userInfo.id,
-        status: 1,
-        type: type,
-        page: 1,
-      }
+
+    var param = {
+      manager_id: getApp().globalData.userInfo.id,
+      type: type,
+      page: 1,
     }
     util.getShopManager(param, function (res) {
-      var auditList = res.data.ret.data
+      var retAuditList = res.data.ret.shop.data
+      var auditList = []
+      for (var i = 0; i < retAuditList.length; i++) {
+        var audit = retAuditList[i].audit
+        if (audit.length > 0) {
+          for (var j = 0; j < audit.length; j++) {
+            // var auditIndex = {
+            //   name: audit[j].user.name,
+
+            // }
+            var auditIndex = audit[j].user
+            auditIndex.shopName = retAuditList[i].name
+            auditList.push(auditIndex)
+          }
+        }
+      }
+      vm.setData({ auditList: auditList })
+      console.log("审核数组" + JSON.stringify(auditList))
     })
   },
   //根据店长shop_manager_id获取需要审核的员工列表

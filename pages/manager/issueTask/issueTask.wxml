@@ -1,0 +1,79 @@
+<!--pages/manager/issueTask/issueTask.wxml-->
+<view class='top'>
+  <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
+</view>
+
+<view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
+  <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../../images/back.png"></image>
+</view>
+
+<view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>发布任务</view>
+</view>
+
+<view style='height:140rpx;'></view>
+
+<!-- <block wx:if="{{dailyList.length == 0}}">
+  <wxc-abnor type="ORDER" title="没有日报需要审核"></wxc-abnor>
+</block> -->
+
+<view style='height:90rpx; background-color:#ececec;' class='zan-font-14 center-style'>点击店铺发布任务</view>
+
+<view style='width:750rpx;'>
+  <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
+
+    <scroll-view scroll-y style="height: 1000rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-top='0'>
+
+      <block wx:for="{{shops}}">
+        <!-- <view bindtap='staff' data-staffid='{{item.id}}'> -->
+        <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;' bindtap='openTarget' id="{{index}}">
+          <view class='zan-row'>
+            <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index}}</view>
+            <!-- <view class='zan-col zan-col-3'>
+              <view class='center-style' style='height:100rpx;'>
+                <image src='{{item.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
+              </view>
+            </view> -->
+            <view class='zan-col zan-col-11 zan-font-15 center-style' style='line-height:100rpx;'>{{item.name}}</view>
+            <view class=' zan-col zan-col-8 zan-arrow '></view>
+          </view>
+        </view>
+
+        <block wx:if="{{item.check}}">
+          <view></view>
+          <view>
+            <view class='zan-row zan-font-14'>
+              <view class='zan-col zan-col-12 center-style' style='line-height:100rpx;'>产品</view>
+              <view class='zan-col zan-col-12 center-style' style='line-height:100rpx;'>
+                本月目标
+              </view>
+            </view>
+          </view>
+
+          <block wx:for="{{productList}}" wx:for-index="productIndex">
+            <view>
+              <view class='zan-row zan-font-14'>
+                <view class=' zan-col zan-col-12 center-style ' style='line-height:120rpx; '>{{item.name}}</view>
+                <view class='zan-col zan-col-12 center-style' style='height:120rpx;'>
+                  <input class='zan-font-14 ' placeholder-style="text-align:center;" placeholder="请输入金额" bindinput='inputOne' data-productIndex='{{productIndex}}' data-shopIndex='{{index}}' style='line-height:120rpx;text-align:center; '></input>
+                </view>
+              </view>
+            </view>
+          </block>
+
+          <view class='center-style'>
+            <view bindtap="confirm" id="{{item.id}}" data-index="{{index}}" class="abnor__btn">确认该店铺任务</view>
+          </view>
+          <view style='height:20rpx;'></view>
+        </block>
+
+        <!-- </view> -->
+
+      </block>
+    </scroll-view>
+  </view>
+</view>
+
+<!-- <view class='bottom-addDeal'>
+  <view class='zan-font-16' style='color:#fff;line-height:90rpx;text-align:center;' bindtap='jumpAddDeal'>确认</view>
+</view> -->

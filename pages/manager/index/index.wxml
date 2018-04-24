@@ -29,7 +29,7 @@
   </view>
 
   <view class='zan-row zan-font-16' style='height:120rpx;color:#fff;'>
-    <view class='zan-col zan-col-8 line-height' bindtap='jumpDailyList'>审批任务</view>
+    <view class='zan-col zan-col-8 line-height' bindtap='jumpAudit'>审批任务</view>
     <view class='zan-col zan-col-8 line-height' bindtap='jumpIssueList'>发布</view>
     <view class='zan-col zan-col-8 line-height' bindtap='jumpStaffList'>客户信息</view>
   </view>

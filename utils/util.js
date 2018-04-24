@@ -231,7 +231,12 @@ function getAuditByUserId(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/audit/getAuditByUserId', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/audit/getAuditByUserId
+// 主管下的店铺列表
+function getShop(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/getShop', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/manager/getShop
 
 
 ///////////////////////////////////////////////
@@ -897,4 +902,5 @@ module.exports = {
   getAuditDailyPaperData: getAuditDailyPaperData,   //根据店员id和时间查询日报信息
   managerReviewAudit: managerReviewAudit,     //主管审核入职人员
   getShopManager: getShopManager,         //根据主管id获取主管下未审核店长和店员的信息
+  getShop: getShop,                 //主管下的店铺列表
 }

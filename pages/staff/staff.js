@@ -24,7 +24,27 @@ Page({
 
   //获取缓存中用户信息
   getUserInfo: function () {
-    vm.setData({ userInfo: getApp().globalData.userInfo })
+    var userInfo = getApp().globalData.userInfo
+
+    if (userInfo == null) {
+      wx.login({
+        success: function (res) {
+          wx.getUserInfo({
+            success: function (res) {
+              console.log("---" + JSON.stringify(res))
+              var userInfo = {
+                nick_name: res.userInfo.nickName,
+                avatar: res.userInfo.avatarUrl
+              }
+              vm.setData({ userInfo: userInfo })
+            }
+          })
+        }
+      })
+    } else {
+      vm.setData({ userInfo: userInfo })
+    }
+    console.log("userInfo : " + JSON.stringify(userInfo))
   },
 
 

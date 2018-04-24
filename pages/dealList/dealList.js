@@ -19,16 +19,16 @@ Page({
     var day = util.getToday()
     vm = this
 
-    wx.login({
-      success: function (res) {
-        wx.getUserInfo({
-          success: function (res) {
-            console.log("---" + JSON.stringify(res))
-            vm.setData({ userInfo: res.userInfo })
-          }
-        })
-      }
-    })
+    // wx.login({
+    //   success: function (res) {
+    //     wx.getUserInfo({
+    //       success: function (res) {
+    //         console.log("---" + JSON.stringify(res))
+    //         vm.setData({ userInfo: res.userInfo })
+    //       }
+    //     })
+    //   }
+    // })
 
     vm.getDeal()
   },
@@ -39,7 +39,8 @@ Page({
       page: 1
     }
     util.getDeal(param, function (res) {
-
+      var deals = res.data.ret.data
+      vm.setData({ deals: deals })
     })
   },
 
