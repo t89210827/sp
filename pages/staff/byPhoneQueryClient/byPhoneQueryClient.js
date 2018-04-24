@@ -1,28 +1,44 @@
-// pages/daily/staff/staff.js
+// pages/staff/byPhoneQueryClient/byPhoneQueryClient.js
 var util = require('../../../utils/util.js')
 var vm = null
 Page({
+
   data: {
-    submitDaily: [],                 //提交日报信息
-    date: "",                        //日期
+    tel: '',      //输入的客流
+    page: '',       //确定跳转到哪个页面    
   },
 
   onLoad: function (options) {
+    // var page = options.page
     vm = this
-    var date = util.getToday()
-    vm.setData({ date: date })
-    vm.getAuditDailyPaperData()  //根据店员id和时间查询日报信息
+    // vm.setData({ page: page })
+    // console.log("page" + page)
   },
 
-  //根据店员id和时间查询日报信息
-  getAuditDailyPaperData: function () {
+  //输入电话
+  inputPhone: function (e) {
+    // console.log("---" + JSON.stringify(e))
+    vm.setData({ tel: e.detail.value })
+  },
+
+  //根据电话号查询客户信息
+  getClientByTel: function () {
     var param = {
-      passstmt_dateword: vm.data.date,
-      status: 1,
-      shop_id: getApp().globalData.userInfo.shop_id,
+      tel: vm.data.tel
     }
-    util.getAuditDailyPaperData(param, function (res) {
-      submitDaily: res.data.ret.dailPapers
+    util.getClientByTel(param, function (res) {
+      if (res.data.result) {
+        vm.setData({ clientDetail: res.data.ret[0] })
+        console.log("111")
+
+        wx.navigateTo({
+          url: '/pages/staff/clientDetail/clientDetail',
+        })
+      } else {
+        wx.navigateTo({
+          url: '/pages/addClientAddDeal/addClientAddDeal',
+        })
+      }
     })
   },
 
@@ -33,9 +49,6 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
   onReady: function () {
 
   },

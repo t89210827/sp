@@ -1,0 +1,15 @@
+<!--pages/hint/addPassengerFlow/addPassengerFlow.wxml-->
+<view style='height:70rpx;'></view>
+<view class='zan-font-16' style='width:750rpx;text-align:center;'>添加客流量成功</view>
+
+<view style='height:130rpx;'></view>
+<!-- <wxc-abnor type="REQUEST_ERROR" image="{{image}}" title="{{title}}" tip="" button="{{button}}" bind:abnortap="jumpIndex"></wxc-abnor> -->
+<wxc-abnor type="COUPON" image="{{image}}" title="{{title}}" tip=""></wxc-abnor>
+
+<view class='center-style'>
+  <view bindtap="jumpClientInformation" class="abnor__btn">继续发布</view>
+</view>
+
+<view class='center-style'>
+  <view bindtap="jumpIndex" class="abnor__btn">返回首页</view>
+</view>

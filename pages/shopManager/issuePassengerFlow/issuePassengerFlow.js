@@ -4,54 +4,33 @@ var vm = null
 Page({
 
   data: {
-    phone: '',      //输入的电话
+    passengerFlow: '',      //输入的客流
     page: '',       //确定跳转到哪个页面    
   },
 
   onLoad: function (options) {
-    var page = options.page
+    // var page = options.page
     vm = this
-    vm.setData({ page: page })
-    console.log("page" + page)
+    // vm.setData({ page: page })
+    // console.log("page" + page)
   },
 
   //输入电话
   inputPhone: function (e) {
     console.log("---" + JSON.stringify(e))
-    vm.setData({ phone: e.detail.value })
+    vm.setData({ passengerFlow: e.detail.value })
   },
-  //查询客户
-  getClientByTel: function () {
+  //发布今日客流
+  addPassengerFlow: function () {
     var param = {
-      tel: vm.data.phone
+      passenger_flow: vm.data.passengerFlow,
+      shop_id: getApp().globalData.userInfo.shop_id
     }
-    util.getClientByTel(param, function (res) {
-      if (vm.data.page === "deal") {
-        console.log("deal")
-
-        // 如果没有这个顾客
-        if (res.data.code === 902) {
-          wx.navigateTo({
-            url: '/pages/addClient/addClient',
-          })
-        } else if (res.data.code === 200) {
-          wx.navigateTo({
-            url: '/pages/addDeal/addDeal',
-          })
-        }
-        return
-      }
-
-      console.log("111")
-
-
-      if (res.data.code === 902) {
+    util.addPassengerFlow(param, function (res) {
+      // console.log("111")
+      if (res.data.result) {
         wx.navigateTo({
-          url: '/pages/addClient/addClient',
-        })
-      } else if (res.data.code === 200) {
-        wx.navigateTo({
-          url: '/pages/existClient/existClient',
+          url: '/pages/hint/addPassengerFlow/addPassengerFlow',
         })
       }
     })

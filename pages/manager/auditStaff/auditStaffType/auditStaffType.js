@@ -1,31 +1,11 @@
-// pages/daily/staff/staff.js
-var util = require('../../../utils/util.js')
-var vm = null
+// pages/manager/auditStaff/auditStaffType/auditStaffType.js
 Page({
   data: {
-    submitDaily: [],                 //提交日报信息
-    date: "",                        //日期
-  },
 
+  },
   onLoad: function (options) {
-    vm = this
-    var date = util.getToday()
-    vm.setData({ date: date })
-    vm.getAuditDailyPaperData()  //根据店员id和时间查询日报信息
-  },
 
-  //根据店员id和时间查询日报信息
-  getAuditDailyPaperData: function () {
-    var param = {
-      passstmt_dateword: vm.data.date,
-      status: 1,
-      shop_id: getApp().globalData.userInfo.shop_id,
-    }
-    util.getAuditDailyPaperData(param, function (res) {
-      submitDaily: res.data.ret.dailPapers
-    })
   },
-
   //返回上一层
   back: function () {
     wx.navigateBack({

@@ -1,13 +1,14 @@
 // pages/shopManager/staffList/staffList.js
-var vm = null
-Page({
 
-  /**
-   * 页面的初始数据
-   */
+var vm = null
+var util = require('../../../utils/util.js')
+
+Page({
   data: {
     inputShowed: false,
     inputVal: "",
+
+    staffList: [],           //店长下员工列表
     userInfo1: [
       {
         nickName: '1',
@@ -62,6 +63,7 @@ Page({
   },
   onLoad: function (options) {
     vm = this
+    vm.getAudit()              //店长下的员工列表
     wx.login({
       success: function (res) {
         wx.getUserInfo({
@@ -72,6 +74,20 @@ Page({
         })
       }
     })
+  },
+  //店长下的员工列表
+  getAudit: function () {
+    var param = {
+      type: 2,
+      page: 1,
+    }
+    util.getAudit(param, function (res) {
+      vm.setData({ staffList: res.data.ret.audit.data })
+    })
+  },
+  //根据店长id查询员工信息及员工录入顾客数量（对应原型：查看员工录入客户数量）
+  getAuditCount: function () {
+    
   },
 
   //返回上一层

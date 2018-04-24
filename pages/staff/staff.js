@@ -71,12 +71,15 @@ Page({
       url: '/pages/daily/staff/staff',
     })
   },
-  //跳转到交易信息页面
+  //跳转到根据电话查询客户页面
   jumpAddClientAddDeal: function (e) {
-    console.log("---1111" + JSON.stringify())
+    // console.log("---1111" + JSON.stringify())
     wx.navigateTo({
       url: '/pages/addClientAddDeal/addClientAddDeal',
     })
+    // wx.navigateTo({
+    //   url: '/pages/staff/byPhoneQueryClient/byPhoneQueryClient',
+    // })
   },
   //跳转到交易列表页面
   jumpDealList: function () {
@@ -136,7 +139,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    vm.getUserInfo()
   },
 
   /**

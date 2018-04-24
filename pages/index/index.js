@@ -143,6 +143,7 @@ Page({
 
   //首页提交申请
   apply: function () {
+    // console.log("---" + JSON.stringify(parseInt(vm.data.statusIndex) + 1))
     if (vm.data.image == "") {
       util.showToast("请上传头像")
       return
@@ -159,7 +160,7 @@ Page({
     if (vm.data.statusIndex == 0) {
       var param = {
         shop_id: vm.data.shop_id,                  //店铺id
-        type: vm.data.statusIndex,                 //用户身份 0.店员 1店长 2主管   
+        type: parseInt(vm.data.statusIndex) + 1,                 //用户身份 0.店员 1店长 2主管   
         name: vm.data.name,                        //申请人真实姓名 
         phonenum: vm.data.phone,                   //申请人电话
         entryDate: vm.data.date,                   //申请人入职时间
@@ -167,7 +168,7 @@ Page({
       }
     } else if (vm.data.statusIndex == 1) {
       var param = {
-        type: vm.data.statusIndex,                 //用户身份 0.店员 1店长 2主管   
+        type: parseInt(vm.data.statusIndex) + 1,                 //用户身份 0.店员 1店长 2主管   
         avatar: vm.data.image,                     //申请人头像
         shop_id: vm.data.shop_id,                  //店铺id
         name: vm.data.name,                        //申请人真实姓名 
@@ -177,13 +178,14 @@ Page({
     }
     var param = {
       shop_id: vm.data.shop_id,             //店铺id
-      type: vm.data.statusIndex,            //用户身份 0.店员 1店长 2主管   
+      type: parseInt(vm.data.statusIndex) + 1,            //用户身份 0.店员 1店长 2主管   
       name: vm.data.name,                   //申请人真实姓名 
       phonenum: vm.data.phone,                        //申请人电话
       entryDate: vm.data.date,                     //申请人入职时间
       avatar: vm.data.image,                        //申请人头像
 
     }
+
     util.apply(param, function (res) {
 
       wx.redirectTo({

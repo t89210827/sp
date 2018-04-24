@@ -1,13 +1,10 @@
 // pages/shopManager/auditDaily/auditDaily.js
 var vm = null
-
+var util = require('../../../utils/util.js')
 const { extend, Actionsheet, Tab } = require('../../../bower_components/zanui-weapp/dist/index');
 // 在 Page 中混入 Tab 里面声明的方法
 Page(extend({}, Actionsheet, Tab, {
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     inputShowed: false,
     inputVal: "",
@@ -32,7 +29,37 @@ Page(extend({}, Actionsheet, Tab, {
 
     showLeftPopup: false,
     date: "2016-09-01",
+
+    dailyList: [],           //审核员工列表
   },
+
+  onLoad: function (options) {
+    vm = this
+    // vm.getAudit()       //店长下的员工列表
+    vm.dailyList()      //店长查看日报列表(对应原型审核日报)
+  },
+  //店长查看日报列表(对应原型审核日报)
+  dailyList: function () {
+    var param = {
+      status: 0
+    }
+    util.dailyList(param, function (res) {
+      var dailyList = res.data.ret.data
+      vm.setData({ dailyList: dailyList })
+    })
+  },
+
+  //店长下的员工列表
+  getAudit: function () {
+    var param = {
+      type: 2,
+      page: 1,
+    }
+    util.getAudit(param, function (res) {
+      vm.setData({ staffList: res.data.ret.audit.data })
+    })
+  },
+
   //跳转到客户详情页
   jumpAuditDailyDetail: function () {
     wx.navigateTo({
@@ -84,26 +111,6 @@ Page(extend({}, Actionsheet, Tab, {
         [`${componentId}.actions[${index}].loading`]: false
       });
     }, 1500);
-  },
-
-
-
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    vm = this
-    wx.login({
-      success: function (res) {
-        wx.getUserInfo({
-          success: function (res) {
-            console.log("---" + JSON.stringify(res))
-            vm.setData({ userInfo: res.userInfo })
-          }
-        })
-      }
-    })
   },
 
   showInput: function () {

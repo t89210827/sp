@@ -1,0 +1,50 @@
+/* pages/manager/auditStaff/auditStaff.wxss */
+
+.title-top-index {
+  position: fixed;
+  top: 0rpx;
+  left: 0rpx;
+  overflow: hidden;
+  z-index: 810;
+  /* color: #fff; */
+  letter-spacing: 0rpx;
+}
+
+.searchbar-result {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.searchbar-result:before {
+  display: none;
+}
+
+.weui-cell {
+  padding: 12px 15px 12px 35px;
+}
+
+.weui-search-bar__label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  border-radius: 3px;
+  text-align: center;
+  color: #9b9b9b;
+  background: #efeff4;
+  line-height: 28px;
+}
+
+.weui-search-bar {
+  position: relative;
+  padding: 8px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-top: 0rpx solid #d7d6dc;
+  border-bottom: 0rpx solid #d7d6dc;
+}

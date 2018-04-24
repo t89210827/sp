@@ -81,7 +81,7 @@
           <block wx:if="{{target == true}}">
             <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>收起</view>
             <view class='zan-col zan-col-2'>
-              <image src='../../images/bottom.png' style='float:right;width:20rpx;height:20rpx;'></image>
+              <image src='../../../images/bottom.png' style='float:right;width:20rpx;height:20rpx;'></image>
             </view>
           </block>
         </view>
@@ -132,7 +132,7 @@
           <block wx:if="{{key == true}}">
             <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>收起</view>
             <view class='zan-col zan-col-2'>
-              <image src='../../images/bottom.png' style='margin-top:5rpx;float:right;width:20rpx;height:20rpx;'></image>
+              <image src='../../../images/bottom.png' style='margin-top:5rpx;float:right;width:20rpx;height:20rpx;'></image>
             </view>
           </block>
         </view>
@@ -194,7 +194,7 @@
           <block wx:if="{{minor == true}}">
             <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>收起</view>
             <view class='zan-col zan-col-2'>
-              <image src='../../images/bottom.png' style='margin-top:5rpx;float:right;width:20rpx;height:20rpx;'></image>
+              <image src='../../../images/bottom.png' style='margin-top:5rpx;float:right;width:20rpx;height:20rpx;'></image>
             </view>
           </block>
         </view>

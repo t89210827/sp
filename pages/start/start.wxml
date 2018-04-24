@@ -14,7 +14,7 @@
       </view>
       <view class="bd">
         <!-- <image class="smalltitle" src="/images/more/confirm-word1.png"></image> -->
-        <view class="confirm-btn" bindtap='goToIndex'>
+        <view class="confirm-btn" bindtap='getAuditByUserId'>
           <text>进入管理系统</text>
         </view>
         <text class="copyright">本小程序由ISART艺术互联网公司开发</text>

@@ -1,4 +1,4 @@
-<!--pages/shopManager/issuePassengerFlow/issuePassengerFlow.wxml-->
+<!--pages/staff/byPhoneQueryClient/byPhoneQueryClient.wxml-->
 <view class='top'>
   <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
 </view>
@@ -8,18 +8,18 @@
 </view>
 
 <view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
-  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>请输入今日客流</view>
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>请输入客户电话号</view>
 </view>
 
 <view style='height:500rpx;'></view>
 <view class='center-style'>
   <view class='phoneInput center-style'>
-    <input class='zan-font-16' placeholder-style="text-align:center;" placeholder="请输入今日客流" bindinput='inputPhone' style='width:500rpx;text-align:center;height:100rpx;line-height:100rpx;'></input>
+    <input class='zan-font-16' placeholder-style="text-align:center;" placeholder="请输入客户电话号" bindinput='inputPhone' style='width:500rpx;text-align:center;height:100rpx;line-height:100rpx;'></input>
   </view>
 </view>
 
 <view style='height:100rpx;'></view>
 
 <view class='center-style'>
-  <view bindtap="addPassengerFlow" class="abnor__btn">确定</view>
+  <view bindtap="getClientByTel" class="abnor__btn">确定</view>
 </view>

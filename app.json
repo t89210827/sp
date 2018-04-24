@@ -1,11 +1,13 @@
 {
   "pages": [
+    "pages/start/start",
+    "pages/manager/index/index",
+    "pages/manager/auditStaff/auditStaffType/auditStaffType",
+    "pages/manager/auditStaff/auditStaff",
     "pages/shopManager/index/index",
     "pages/staff/staff",
-    "pages/index/index",
-    "pages/start/start",
     "pages/addClientAddDeal/addClientAddDeal",
-    "pages/manager/index/index",
+    "pages/index/index",
     "pages/shopManager/staffList/staffList",
     "pages/clientInformation/staff/staff",
     "pages/shopManager/dailyList/dailyList",
@@ -24,7 +26,12 @@
     "pages/hint/paySucceed/paySucceed",
     "pages/shopManager/issueList/issueList",
     "pages/shopManager/productDaily/productDaily",
-    "pages/shopManager/issuePassengerFlow/issuePassengerFlow"
+    "pages/shopManager/issuePassengerFlow/issuePassengerFlow",
+    "pages/hint/addPassengerFlow/addPassengerFlow",
+    "pages/shopManager/auditStaff/auditStaff",
+    "pages/shopManager/issueTask/issueTask",
+    "pages/staff/byPhoneQueryClient/byPhoneQueryClient",
+    "pages/staff/clientDetail/clientDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

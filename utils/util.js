@@ -116,11 +116,6 @@ function getQiniuToken(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/user/getQiniuToken', param, "GET", successCallback, errorCallback)
 }
 
-//根据user_id获取员工入职信息
-function getAuditByUserId(param, successCallback, errorCallback) {
-  wxRequest(SERVER_URL + '/api/sp/audit/getAuditByUserId', param, "GET", successCallback, errorCallback)
-}
-
 //根据顾客电话查询顾客信息
 function getClientByTel(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/audit/getClientByTel', param, "POST", successCallback, errorCallback)
@@ -156,11 +151,6 @@ function search(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/audit/search', param, "POST", successCallback, errorCallback)
 }
 
-// 根据user_id获取员工入职信息
-function getAuditByUserId(param, successCallback, errorCallback) {
-  wxRequest(SERVER_URL + '/api/sp/audit/getAuditByUserId', param, "GET", successCallback, errorCallback)
-}
-
 // 获取所有生效的店铺信息
 function getShopList(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/shop/getShopList', param, "GET", successCallback, errorCallback)
@@ -171,7 +161,77 @@ function getAudit(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/shopManager/getAudit', param, "GET", successCallback, errorCallback)
 }
 
-// http://localhost/waibaoSrv/public/api/sp/shopManager/getAudit
+// 根据店长id查询员工信息及员工录入顾客数量（对应原型：查看员工录入客户数量）
+function getAuditCount(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getAuditCount', param, "GET", successCallback, errorCallback)
+}
+
+// 店长添加客流量
+function addPassengerFlow(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/addPassengerFlow', param, "POST", successCallback, errorCallback)
+}
+
+// 店长审核入职人员
+function reviewAudit(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/reviewAudit', param, "POST", successCallback, errorCallback)
+}
+
+// 根据店长shop_manager_id获取需要审核的员工列表
+function getReviewAudit(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getReviewAudit', param, "GET", successCallback, errorCallback)
+}
+
+// 日报——店长审核日报
+function shopManagerReviewDailyPaper(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/shopManagerReviewDailyPaper', param, "POST", successCallback, errorCallback)
+}
+
+// 店长查看日报列表(对应原型审核日报)
+function dailyList(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/dailyList', param, "GET", successCallback, errorCallback)
+}
+
+// 店长发任务
+function shopManagerReleaseTask(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/shopManagerReleaseTask', param, "POST", successCallback, errorCallback)
+}
+
+// 根据员工id获取交易记录
+function getDeal(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getDeal', param, "GET", successCallback, errorCallback)
+}
+
+// 获取生效的产品信息
+function getProductList(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/product/getProductList', param, "GET", successCallback, errorCallback)
+}
+
+// 获取任务信息剩余目标金额
+function getReleaseTask(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getReleaseTask', param, "GET", successCallback, errorCallback)
+}
+
+// 根据店员id和时间查询日报信息
+function getAuditDailyPaperData(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getAuditDailyPaperData', param, "GET", successCallback, errorCallback)
+}
+
+// 主管审核入职人员
+function managerReviewAudit(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/managerReviewAudit', param, "POST", successCallback, errorCallback)
+}
+
+// 根据主管id获取主管下未审核店长和店员的信息
+function getShopManager(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/getShopManager', param, "GET", successCallback, errorCallback)
+}
+
+// 根据user_id获取员工入职信息
+function getAuditByUserId(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getAuditByUserId', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/audit/getAuditByUserId
 
 
 ///////////////////////////////////////////////
@@ -641,13 +701,33 @@ function getToday() {
   var year = now.getFullYear()       //年
   today += year + "-"
   var month = now.getMonth() + 1     //月
-  if (month < 10)
-    today += "0"
+  if (month < 10) {
+    month = "0" + month
+  }
+  // today += month + "-"
+  var day = now.getDate()            //日
+  if (day < 10) {
+    day = "0" + day
+  }
+  return year + "-" + month + "-" + day
+}
+
+// 获取当前月份
+function getMonth() {
+  var now = new Date()
+  var today = ""
+  var year = now.getFullYear()       //年
+  today += year + "-"
+  var month = now.getMonth() + 1     //月
+  if (month < 10) {
+    month = "0" + month
+    // month += "0"
+  }
   today += month + "-"
   var day = now.getDate()            //日
   if (day < 10)
     today += "0"
-  return year + "-" + month + "-" + day
+  return year + "-" + month
 }
 
 /**
@@ -787,6 +867,7 @@ module.exports = {
   qiniuUrlTool: qiniuUrlTool,
   convertDateFormateM: convertDateFormateM,
   date: date,                 //转换成2018-10-07类型的时间
+  getMonth: getMonth,         //获取当前月份
 
   showToast: showToast,           //展示空toast
   getQiniuToken: getQiniuToken,   //获取七牛token
@@ -801,7 +882,19 @@ module.exports = {
   addClient: addClient,           //员工添加顾客信息
   getDeals: getDeals,             //根据用户id和顾客id查看交易记录信息
   search: search,                 //客户维护搜索
-  getAuditByUserId: getAuditByUserId, //根据user_id获取员工入职信息
   getShopList: getShopList,         //获取所有生效的店铺信息
   getAudit: getAudit,               //店长下的员工列表
-} 
+  getAuditCount: getAuditCount,     //根据店长id查询员工信息及员工录入顾客数量（对应原型：查看员工录入客户数量）
+  addPassengerFlow: addPassengerFlow,  //店长添加客流量
+  reviewAudit: reviewAudit,           //店长审核入职人员
+  getReviewAudit: getReviewAudit,     //根据店长shop_manager_id获取需要审核的员工列表
+  shopManagerReviewDailyPaper: shopManagerReviewDailyPaper,//日报——店长审核日报
+  dailyList: dailyList,               //店长查看日报列表(对应原型审核日报)
+  shopManagerReleaseTask: shopManagerReleaseTask,    //店长发任务
+  getDeal: getDeal,                     //根据员工id获取交易记录
+  getProductList: getProductList,       //获取生效的产品信息
+  getReleaseTask: getReleaseTask,       //获取任务信息剩余目标金额
+  getAuditDailyPaperData: getAuditDailyPaperData,   //根据店员id和时间查询日报信息
+  managerReviewAudit: managerReviewAudit,     //主管审核入职人员
+  getShopManager: getShopManager,         //根据主管id获取主管下未审核店长和店员的信息
+}

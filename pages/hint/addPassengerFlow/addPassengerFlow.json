@@ -1,6 +1,6 @@
 {
+  "enablePullDownRefresh": true,
   "usingComponents": {
-    "wxc-progress": "../../../dist/packages/@minui/wxc-progress/dist/index",
     "wxc-abnor": "../../../dist/packages/@minui/wxc-abnor/dist/index"
   }
 }

@@ -9,7 +9,7 @@ Page({
   data: {
     date: "",
     userInfo: '',      //用户信息
-    productType: { type: "黄铂", time: "2018-10-02",money:"2999" }
+    productType: { type: "黄铂", time: "2018-10-02", money: "2999" }
   },
 
   /**
@@ -29,7 +29,20 @@ Page({
         })
       }
     })
+
+    vm.getDeal()
   },
+
+  // 根据员工id获取交易记录
+  getDeal: function () {
+    var param = {
+      page: 1
+    }
+    util.getDeal(param, function (res) {
+
+    })
+  },
+
   //调转到交易详情页
   jumpDealDetail: function () {
     wx.navigateTo({

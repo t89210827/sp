@@ -8,38 +8,67 @@ Page({
     angle: 0,
     userInfo: {},
 
-    status: ''      //用户入职状态
+    position: "",    //入职信息
   },
   goToIndex: function () {
-    var status = vm.data.status
-    console.log("------" + status)
-    if (status == 1) {
-      wx.redirectTo({
-        url: '/pages/staff/staff',
-      })
-    } else if (status == 2) {
+    var position = vm.data.position
+    if (position.length == 0) {
       wx.switchTab({
-        url: '/pages/staff/staff',
+        url: '/pages/index/index',
       })
+      return
+    }
+    var status = position[0].status
+    var type = position[0].type
+
+    console.log("------" + status)
+    if (status == 2 && type == 1) {
       // wx.redirectTo({
       //   url: '/pages/staff/staff',
       // })
+      wx.switchTab({
+        url: '/pages/staff/staff',
+      })
+    } else if (status == 2 && type == 2) {
+      // wx.redirectTo({
+      //   url: '/pages/staff/staff',
+      // })
+      wx.switchTab({
+        url: '/pages/shopManager/index/index',
+      })
+    } else if (status == 2 && type == 3) {
+      // wx.redirectTo({
+      //   url: '/pages/staff/staff',
+      // })
+      wx.switchTab({
+        url: '/pages/manager/index/index',
+      })
     } else {
-      util.showToast('用户身份不确定')
+      // wx.switchTab({
+      //   url: '/pages/manager/index/index',
+      // })
+      wx.navigateTo({
+        url: '/pages/hint/audit/audit',
+      })
+      // util.showToast('用户身份不确定')
     }
   },
   onLoad: function () {
     vm = this
     vm.getUserInfo()
-    vm.getAuditByUserId()
+    // vm.getAuditByUserId()
   },
 
   //根据user_id获取员工入职信息
   getAuditByUserId: function () {
     util.getAuditByUserId({}, function (res) {
       if (res.data.result) {
-        var status = res.data.ret[0].status
-        vm.setData({ status: status })
+        var position = res.data.ret
+        console.log("--" + JSON.stringify(res))
+        vm.setData({
+          position: position,
+        })
+        vm.goToIndex()
       }
     })
   },

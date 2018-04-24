@@ -29,6 +29,11 @@ Page({
     // })
   },
 
+  //获取缓存中用户信息
+  getUserInfo: function () {
+    vm.setData({ userInfo: getApp().globalData.userInfo })
+  },
+
   //今日目标展开与收取
   targetSwitch: function () {
     vm.setData({ target: !vm.data.target })
@@ -42,11 +47,6 @@ Page({
   //次要信息展开与收取
   minorSwitch: function () {
     vm.setData({ minor: !vm.data.minor })
-  },
-
-  //获取缓存中用户信息
-  getUserInfo: function () {
-    vm.setData({ userInfo: getApp().globalData.userInfo })
   },
 
   //跳转到店员排名页面
@@ -141,7 +141,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    vm.getUserInfo()
   },
 
   /**
