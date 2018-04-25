@@ -20,7 +20,7 @@ Page({
   //跳转客户信息首页
   jumpClientInformation: function () {
     wx.navigateTo({
-      url: '/pages/clientInformation/staff/staff',
+      url: '/pages/staff/clientList/clientList',
     })
   },
 

@@ -2,152 +2,108 @@
 var vm = null
 var util = require('../../utils/util.js')
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    isBuy: 1,     //是否购买
-    isReservation: 1,    //是否交定金
-    num: 1,         //产品数量
-    remark: '',      //备注
-    productType: "黄铂",          //产品类型
+    clientName: '',          //顾客姓名
+    image: '',               //头像
+    gender: "男",            //性别
+    birthDate: "2016-09-01", //生日
+    day: "",                 //接待时间
 
-    date: '2018-04-10',      //提醒时间
-    budget: '0-5000',        //预算
+    num: 1,                  //产品数量
+    productList: [],         //所有产品数组
+    dealData: [],            //提交交易参数
+
+    productArr: [],          //产品类型默认值
+    clientId: "",            //上一个页面传过来的客户id
   },
 
-  //返回上一层
-  back: function () {
-    wx.navigateBack({
-      delta: 1
+  onLoad: function (options) {
+    vm = this
+    var clientId = options.clientId
+    var day = util.getToday()
+    vm.setData({ day: day, clientId: clientId })
+    vm.getProductList()
+    vm.init()       //初始化参数
+  },
+
+  //获取生效的产品信息
+  getProductList: function () {
+    var param = {
+      page: 1
+    }
+    util.getProductList(param, function (res) {
+      vm.setData({ productList: res.data.ret.data })
+      vm.initItemList()
     })
   },
 
-  //数量
+  //初始化
+  init: function () {
+    var arr = []
+    arr.push({
+      "user_id": getApp().globalData.userInfo.id,
+      "shop_id": getApp().globalData.userInfo.shop_id,
+      "client_id": vm.data.clientId,
+      "product_id": "",
+      "product_name": "",
+      "budget": "0-5000",
+      "isbuy": 1,
+      "money": "",
+      "isearnest": 1,
+      "isearnest_money": "",
+      "purpose": "",
+      "purpose_time": "2018-04-10",
+      "remind_time": "",
+      "remark": "",
+      "num": ""
+    })
+    var productArr = ["黄铂"]
+    console.log("7771" + JSON.stringify(arr))
+    vm.setData({ dealData: arr, productArr: productArr })
+  },
+  //笔数选择
   onChangeNumber(e) {
     var num = e.detail.number
-    vm.setData({ num: num })
-  },
-  //多行文本
-  textAreaEventListener: function (e) {
-    vm.setData({
-      remark: e.detail.value,
-    })
-  },
-  //购买开关
-  switchBuy: function (e) {
-    // console.log('携带值为', e.detail.value)
-    var isBuy = e.detail.value
-    if (isBuy) {
-      vm.setData({ isBuy: 0 })
-    } else {
-      vm.setData({ isBuy: 1 })
+    var arr = []
+    var productArr = []
+    for (var i = 0; i < num; i++) {
+      arr.push({
+        "user_id": getApp().globalData.userInfo.id,
+        "shop_id": getApp().globalData.userInfo.shop_id,
+        "client_id": vm.data.clientId,
+        "product_id": "",
+        "product_name": "",
+        "budget": "0-5000",
+        "isbuy": 1,
+        "money": "",
+        "isearnest": 1,
+        "isearnest_money": "",
+        "purpose": "",
+        "purpose_time": "2018-04-10",
+        "remind_time": "",
+        "remark": "",
+        "num": ""
+      })
+      productArr.push("黄铂")
     }
+    console.log("777" + JSON.stringify(arr))
+    vm.setData({ num: num, dealData: arr, productArr: productArr })
   },
 
-  switchReservation: function (e) {
-    var isearnest = e.detail.value
-    if (isearnest) {
-      vm.setData({ isearnest: 0 })
-    } else {
-      vm.setData({ isearnest: 1 })
+  //产品名字数组
+  initItemList: function () {
+    var itemList = []
+    var productList = vm.data.productList
+    for (var i = 0; i < productList.length; i++) {
+      itemList.push(productList[i].name)
     }
+    vm.setData({ itemList: itemList })
   },
 
-  //提醒时间
-  bindDateChange: function (e) {
-    this.setData({
-      date: e.detail.value
-    })
-  },
-
-  //选择产品类型
-  productType: function () {
-    var productType = ['黄铂', '非黄铂', '其他']
-    wx.showActionSheet({
-      itemList: ['黄铂', '非黄铂', '其他'],
-      success: function (res) {
-        // console.log("11111" + JSON.stringify(res))
-        if (!res.cancel) {
-          console.log(res.tapIndex)
-          vm.setData({
-            productType: productType[res.tapIndex]
-            // 'userInfo.gender': res.tapIndex + 1
-          })
-          // console.log("11111" + JSON.stringify(vm.data.userInfo.gender))
-        }
-      }
-    });
-  },
-  //获取产品货号
-  inputProductId: function (e) {
-    var value = e.detail.value
-    vm.setData({ product_id: value })
-  },
-
-  //获取购买金额
-  inputMoney: function (e) {
-    var value = e.detail.value
-    vm.setData({ money: value })
-  },
-
-  //获取件数
-  inputNum: function (e) {
-    var value = e.detail.value
-    vm.setData({ num: value })
-  },
-
-  //获取定金金额
-  inputIsearnest: function (e) {
-    var value = e.detail.value
-    vm.setData({ isearnest_money: value })
-  },
-
-  //获取用途
-  inputPurpose: function (e) {
-    var value = e.detail.value
-    vm.setData({ purpose: value })
-  },
-
-  //选择预算
-  open: function () {
-    var budget = ['0-5000', '5000-10000', '10000-15000', '15000-20000']
-    wx.showActionSheet({
-      itemList: ['0-5000', '5000-10000', '10000-15000', '15000-20000'],
-      success: function (res) {
-        // console.log("11111" + JSON.stringify(res))
-        if (!res.cancel) {
-          console.log(res.tapIndex)
-          vm.setData({
-            budget: budget[res.tapIndex]
-          })
-        }
-      }
-    });
-  },
-
-  //添加交易
+  //添加交易信息
   addDeal: function () {
-    var pages = getCurrentPages();//获取当前页面信息栈
-    var prevPage = pages[pages.length - 2]//获取上一个页面信息栈
-
-    var client_id = prevPage.data.clientDetail.id   //获取客户id
-    var userInfo = getApp().globalData.userInfo
     var param = {
-      shop_id: userInfo.shop_id,
-      client_id: client_id,
-      product_id: vm.data.product_id,
-      product_name: vm.data.productType,
-      budget: vm.data.budget,
-      isbuy: vm.data.isBuy,
-      money: vm.data.money,
-      // num: vm.data.num,             //件数
-      isearnest: vm.data.isearnest,
-      isearnest_money: vm.data.isearnest_money,
-      purpose: vm.data.purpose,     //用途
-      purpose_time: vm.data.date,   //提醒时间
-      remark: vm.data.remark,       //备注
+      deal: vm.data.dealData
     }
     util.addDeal(param, function (res) {
       if (res.data.result) {
@@ -158,13 +114,163 @@ Page({
     })
   },
 
+  //货号
+  inputName: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
 
+    dealData[productindex].product_name = e.detail.value
+    vm.setData({ dealData: dealData })
+    console.log("---" + JSON.stringify(dealData))
+  },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    vm = this
+  //选择产品类型
+  productType: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+
+    var dealData = vm.data.dealData             //交易参数数组
+    var productList = vm.data.productList       //产品数组
+    var itemList = vm.data.itemList             //产品数组
+    var productArr = vm.data.productArr         //产品数组
+
+    // console.log("11111" + JSON.stringify(itemList))
+    wx.showActionSheet({
+      itemList: itemList,
+      success: function (res) {
+        if (!res.cancel) {
+          console.log(res.tapIndex)
+          dealData[productindex].product_id = productList[res.tapIndex].id
+          productArr[productindex] = itemList[res.tapIndex]
+          vm.setData({
+            dealData: dealData,
+            productArr: productArr,
+          })
+          console.log("---" + JSON.stringify(dealData))
+        }
+      }
+    });
+  },
+
+  //选择预算
+  budget: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+    var budget = ['0-5000', '5000-10000', '10000-15000', '15000-20000']
+    wx.showActionSheet({
+      itemList: ['0-5000', '5000-10000', '10000-15000', '15000-20000'],
+      success: function (res) {
+        if (!res.cancel) {
+          console.log(res.tapIndex)
+          dealData[productindex].budget = budget[res.tapIndex]
+          vm.setData({
+            dealData: dealData
+          })
+        }
+      }
+    });
+  },
+
+  switchBuy: function (e) {
+    var isBuy = e.detail.value
+    var dealData = vm.data.dealData
+    var productindex = e.currentTarget.dataset.productindex
+    if (isBuy) {
+      dealData[productindex].isbuy = 0
+    } else {
+      dealData[productindex].isbuy = 1
+      // 如果为flase清空件数和购买金额
+      dealData[productindex].money = ""
+      dealData[productindex].num = ""
+    }
+    console.log("---" + JSON.stringify(dealData))
+    vm.setData({ isBuy: e.detail.value, dealData: dealData })
+  },
+  switchReservation: function (e) {
+    // console.log('携带值为', e.detail.value)
+    var isReservation = e.detail.value
+    var dealData = vm.data.dealData
+    var productindex = e.currentTarget.dataset.productindex
+    if (isReservation) {
+      dealData[productindex].isearnest = 0
+    } else {
+      dealData[productindex].isearnest = 1
+
+      // 如果为flase清空定金
+      dealData[productindex].isearnest_money = ""
+    }
+    console.log("---" + JSON.stringify(dealData))
+    vm.setData({ isReservation: e.detail.value, dealData: dealData })
+  },
+
+  //购买金额
+  inputMoney: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].money = e.detail.value
+    vm.setData({ dealData: dealData })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //购买件数
+  inputNum: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].num = e.detail.value
+    vm.setData({ dealData: dealData })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //定金金额
+  inputIsearnestMoney: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].isearnest_money = e.detail.value
+    vm.setData({ dealData: dealData })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //定金金额
+  inputPurpose: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].purpose = e.detail.value
+    vm.setData({ dealData: dealData })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //提醒时间
+  bindDateChange: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].purpose_time = e.detail.value
+    vm.setData({
+      dealData: dealData
+    })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //备注
+  textAreaEventListener: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].remark = e.detail.value
+    vm.setData({
+      dealData: dealData
+    })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //返回上一层
+  back: function () {
+    wx.navigateBack({
+      delta: 1
+    })
   },
 
   /**

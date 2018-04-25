@@ -78,7 +78,7 @@ Page({
       "num": ""
     })
     var productArr = ["黄铂"]
-    console.log("777" + JSON.stringify(arr))
+    console.log("7771" + JSON.stringify(arr))
     vm.setData({ dealData: arr, productArr: productArr })
   },
   //笔数选择

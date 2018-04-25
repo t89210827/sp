@@ -1,9 +1,7 @@
 // pages/shopManager/issueTask/issueTask.js
 var vm = null
 var util = require('../../../utils/util.js')
-const { extend, Actionsheet, Tab } = require('../../../bower_components/zanui-weapp/dist/index');
-// 在 Page 中混入 Tab 里面声明的方法
-Page(extend({}, Actionsheet, Tab, {
+Page({
 
   /**
    * 页面的初始数据
@@ -48,6 +46,21 @@ Page(extend({}, Actionsheet, Tab, {
     vm.getAudit()       //店长下的员工列表
   },
 
+  showToast() {
+    vm.setData({
+      toast: {
+        show: true
+      }
+    })
+    setTimeout(() => {
+      vm.setData({
+        toast: {
+          show: false
+        }
+      })
+    }, 1500)
+  },
+
   //主管查看发布任务
   getManagerTask: function () {
     var param = {
@@ -61,7 +74,7 @@ Page(extend({}, Actionsheet, Tab, {
 
   //展开收起
   openTarget: function (e) {
-    var idx = e.currentTarget.id // 获取当前下标
+    var idx = e.currentTarget.dataset.index // 获取当前下标
     var staffList = vm.data.staffList
     staffList[idx].check = !staffList[idx].check
     vm.setData({ staffList: staffList });
@@ -133,6 +146,7 @@ Page(extend({}, Actionsheet, Tab, {
 
   //店长发任务
   confirm: function (e) {
+    vm.openTarget(e)
     // console.log("index:" + JSON.stringify(e))
     // var product_id = e.currentTarget.id         //员工id
     var index = e.currentTarget.dataset.index   //员工索引
@@ -153,7 +167,9 @@ Page(extend({}, Actionsheet, Tab, {
       param.shopManager.push(paramIndex)
     }
     util.shopManagerReleaseTask(param, function (res) {
-
+      if (res.data.result) {
+        vm.showToast()
+      }
     })
   },
 
@@ -201,66 +217,6 @@ Page(extend({}, Actionsheet, Tab, {
     this.setData({
       date: e.detail.value
     })
-  },
-
-  //左侧弹出框
-  toggleLeftPopup() {
-    this.setData({
-      showLeftPopup: !this.data.showLeftPopup
-    });
-  },
-
-  toggleActionsheet() {
-    this.setData({
-      'actionsheet.show': true
-    });
-  },
-
-  handleZanActionsheetCancel({ componentId }) {
-    this.setData({
-      [`${componentId}.show`]: false
-    });
-  },
-
-  handleZanActionsheetClick({ componentId, index }) {
-    console.log(`item index ${index} clicked`);
-    // 如果是分享按钮被点击, 不处理关闭
-    if (index === 2) {
-      return;
-    }
-
-    this.setData({
-      [`${componentId}.actions[${index}].loading`]: true
-    });
-
-    setTimeout(() => {
-      this.setData({
-        [`${componentId}.show`]: false,
-        [`${componentId}.actions[${index}].loading`]: false
-      });
-    }, 1500);
-  },
-
-  showInput: function () {
-    this.setData({
-      inputShowed: true
-    });
-  },
-  hideInput: function () {
-    this.setData({
-      inputVal: "",
-      inputShowed: false
-    });
-  },
-  clearInput: function () {
-    this.setData({
-      inputVal: ""
-    });
-  },
-  inputTyping: function (e) {
-    this.setData({
-      inputVal: e.detail.value
-    });
   },
 
   //返回上一层
@@ -318,4 +274,4 @@ Page(extend({}, Actionsheet, Tab, {
   onShareAppMessage: function () {
 
   }
-}))
+})

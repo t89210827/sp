@@ -93,3 +93,8 @@
   height: 90rpx;
   background: #4aa5fe;
 }
+
+.my-arrow {
+  height: 100rpx;
+  padding-right: 10rpx;
+}

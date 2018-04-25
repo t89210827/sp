@@ -1,49 +1,39 @@
 // pages/manager/issueTask/issueTask.js
 var vm = null
 var util = require('../../../utils/util.js')
-const { extend, Actionsheet, Tab } = require('../../../bower_components/zanui-weapp/dist/index');
 // 在 Page 中混入 Tab 里面声明的方法
-Page(extend({}, Actionsheet, Tab, {
+Page({
 
   data: {
-    inputShowed: false,
-    inputVal: "",
-
-    actionsheet: {
-      show: false,
-      cancelText: '关闭',
-      closeOnClickOverlay: true,
-      componentId: 'actionsheet',
-      actions: [{
-        name: '已购买',
-        // subname: '选项描述语1',
-        className: 'action-class',
-        loading: false
-      }, {
-        name: '未购买',
-        // subname: '选项描述语2',
-        className: 'action-class',
-        loading: false
-      },]
-    },
-
     showLeftPopup: false,
     date: "2016-09-01",
-
     productList: [],         //产品数组
     dailyList: [],           //审核员工列表
     shop_id: '',             //店铺id
     staffIndex: '',          //用户当前操作的员工id
-
     open: [],        //展开收起数组
-
     shops: [],        //主管下店铺列表
+
+    toast: { show: false }
+  },
+  showToast() {
+    vm.setData({
+      toast: {
+        show: true
+      }
+    })
+    setTimeout(() => {
+      vm.setData({
+        toast: {
+          show: false
+        }
+      })
+    }, 1500)
   },
 
   onLoad: function (options) {
     vm = this
     // vm.getAudit()       //店长下的员工列表
-
     vm.getShop()           //主管下的店铺列表
   },
 
@@ -68,7 +58,8 @@ Page(extend({}, Actionsheet, Tab, {
 
   //展开收起
   openTarget: function (e) {
-    var idx = e.currentTarget.id // 获取当前下标
+    // var idx = e.currentTarget.id // 获取当前下标
+    var idx = e.currentTarget.dataset.index  // 获取当前下标
     var shops = vm.data.shops
     shops[idx].check = !shops[idx].check
     vm.setData({ shops: shops });
@@ -112,6 +103,7 @@ Page(extend({}, Actionsheet, Tab, {
 
   //主管发任务
   confirm: function (e) {
+    vm.openTarget(e)
     // console.log("index:" + JSON.stringify(e))
     // var product_id = e.currentTarget.id         //员工id
     var index = e.currentTarget.dataset.index      //员工索引
@@ -132,7 +124,9 @@ Page(extend({}, Actionsheet, Tab, {
       param.manager.push(paramIndex)
     }
     util.releaseTask(param, function (res) {
-
+      if (res.data.result) {
+        vm.showToast()
+      }
     })
   },
 
@@ -155,66 +149,6 @@ Page(extend({}, Actionsheet, Tab, {
     this.setData({
       date: e.detail.value
     })
-  },
-
-  //左侧弹出框
-  toggleLeftPopup() {
-    this.setData({
-      showLeftPopup: !this.data.showLeftPopup
-    });
-  },
-
-  toggleActionsheet() {
-    this.setData({
-      'actionsheet.show': true
-    });
-  },
-
-  handleZanActionsheetCancel({ componentId }) {
-    this.setData({
-      [`${componentId}.show`]: false
-    });
-  },
-
-  handleZanActionsheetClick({ componentId, index }) {
-    console.log(`item index ${index} clicked`);
-    // 如果是分享按钮被点击, 不处理关闭
-    if (index === 2) {
-      return;
-    }
-
-    this.setData({
-      [`${componentId}.actions[${index}].loading`]: true
-    });
-
-    setTimeout(() => {
-      this.setData({
-        [`${componentId}.show`]: false,
-        [`${componentId}.actions[${index}].loading`]: false
-      });
-    }, 1500);
-  },
-
-  showInput: function () {
-    this.setData({
-      inputShowed: true
-    });
-  },
-  hideInput: function () {
-    this.setData({
-      inputVal: "",
-      inputShowed: false
-    });
-  },
-  clearInput: function () {
-    this.setData({
-      inputVal: ""
-    });
-  },
-  inputTyping: function (e) {
-    this.setData({
-      inputVal: e.detail.value
-    });
   },
 
   //返回上一层
@@ -272,4 +206,4 @@ Page(extend({}, Actionsheet, Tab, {
   onShareAppMessage: function () {
 
   }
-}))
+})

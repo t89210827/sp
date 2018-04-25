@@ -14,7 +14,6 @@ Page({
     console.log("---" + JSON.stringify(options))
     var clientId = options.clientId
     vm.getClientById(clientId)
-    // vm.getDeals(clientId)
     vm.getDealByClientId(clientId)
 
     var day = util.getToday()
@@ -29,21 +28,6 @@ Page({
         var deals = res.data.ret.data
         vm.setData({ deals: deals })
         console.log("交易记录列表" + JSON.stringify(deals))
-      }
-    })
-  },
-
-  //根据用户id和顾客id查看交易记录信息
-  getDeals: function (clientId) {
-    var param = {
-      client_id: clientId,
-      page: 1,
-    }
-    util.getDeals(param, function (res) {
-      if (res.data.result) {
-        var deals = res.data.ret.data
-        vm.setData({ deals: deals })
-        // console.log("交易记录列表" + JSON.stringify(deals))F
       }
     })
   },
@@ -63,7 +47,7 @@ Page({
     util.getClientById(param, function (res) {
       var clientDetail = res.data.ret
       clientDetail.created_at = util.date(clientDetail.created_at)
-      vm.setData({ clientDetail: res.data.ret })
+      vm.setData({ clientDetail: clientDetail })
     })
   },
 
@@ -84,8 +68,9 @@ Page({
   },
   //跳转到添加交易记录页面
   jumpAddDeal: function () {
+    var clientId = vm.data.clientDetail.id
     wx.navigateTo({
-      url: '/pages/addDeal/addDeal',
+      url: '/pages/addDeal/addDeal?clientId=' + clientId,
     })
   },
 

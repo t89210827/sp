@@ -18,11 +18,13 @@ Page({
   getAuditDailyPaperData: function () {
     var param = {
       passstmt_dateword: vm.data.date,
-      status: 1,
+      status: 0,
       shop_id: getApp().globalData.userInfo.shop_id,
     }
     util.getAuditDailyPaperData(param, function (res) {
-      submitDaily: res.data.ret.dailPapers
+      if (res.data.result) {
+        submitDaily: res.data.ret.dailPapers
+      }
     })
   },
 
