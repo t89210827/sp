@@ -122,10 +122,12 @@ Page(extend({}, Actionsheet, Tab, {
     var param = { manager: [] }
     for (var i = 0; i < performance.length; i++) {
       var paramIndex = {
+        user_id: getApp().globalData.userInfo.id,
         shop_id: shop.id,
         stmt_date: util.getToday(),
         product_id: performance[i].productid,
-        performance_request: performance[i].value,
+        product_request: performance[i].value,
+        product_finish: performance[i].value,
       }
       param.manager.push(paramIndex)
     }

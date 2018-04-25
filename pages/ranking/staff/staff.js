@@ -1,5 +1,6 @@
 // pages/ranking/staff/staff.js
 var vm = null
+var util = require('../../../utils/util.js')
 Page({
 
   /**
@@ -31,12 +32,15 @@ Page({
       },
     ],
 
+    staffList: [],         //员工列表  
+    reverse: true,         //判断正序还是倒序
   },
   //正序倒序
   clickSwitch: function () {
-    var userInfo = vm.data.userInfo1
-    userInfo.reverse()
-    vm.setData({ userInfo1: userInfo })
+    var staffList = vm.data.staffList
+    var reverse = !vm.data.reverse
+    staffList.reverse()
+    vm.setData({ staffList: staffList, reverse: reverse })
   },
 
   showInput: function () {
@@ -62,15 +66,29 @@ Page({
   },
   onLoad: function (options) {
     vm = this
-    wx.login({
-      success: function (res) {
-        wx.getUserInfo({
-          success: function (res) {
-            console.log("---" + JSON.stringify(res))
-            vm.setData({ userInfo: res.userInfo })
-          }
-        })
-      }
+    // wx.login({
+    //   success: function (res) {
+    //     wx.getUserInfo({
+    //       success: function (res) {
+    //         console.log("---" + JSON.stringify(res))
+    //         vm.setData({ userInfo: res.userInfo })
+    //       }
+    //     })
+    //   }
+    // })
+
+    vm.getAudit()
+  },
+
+  // 店长下的员工列表
+  getAudit: function () {
+    var param = {
+      type: 1,
+      page: 1,
+    }
+    util.getAudit(param, function (res) {
+      var staffList = res.data.ret.audit.data
+      vm.setData({ staffList: staffList })
     })
   },
 

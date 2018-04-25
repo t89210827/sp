@@ -241,8 +241,22 @@ function releaseTask(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/manager/releaseTask', param, "POST", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/manager/releaseTask
+// 根据员工id获取客户信息
+function getClientByUserId(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getClientByUserId', param, "GET", successCallback, errorCallback)
+}
 
+// 根据顾客id获取所有交易记录
+function getDealByClientId(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/deal/getDealByClientId', param, "GET", successCallback, errorCallback)
+}
+
+// 主管查看发布任务
+function getManagerTask(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/getManagerTask', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/manager/getManagerTask
 
 ///////////////////////////////////////////////
 
@@ -908,5 +922,8 @@ module.exports = {
   managerReviewAudit: managerReviewAudit,     //主管审核入职人员
   getShopManager: getShopManager,         //根据主管id获取主管下未审核店长和店员的信息
   getShop: getShop,                 //主管下的店铺列表
-  releaseTask: releaseTask           //主管发布任务
+  releaseTask: releaseTask,           //主管发布任务
+  getClientByUserId: getClientByUserId,    //根据员工id获取客户信息
+  getDealByClientId: getDealByClientId,    //根据顾客id获取所有交易记录
+  getManagerTask: getManagerTask,         //主管查看发布任务
 }

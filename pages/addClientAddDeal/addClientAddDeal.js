@@ -66,7 +66,7 @@ Page({
       "client_id": "",
       "product_id": "",
       "product_name": "",
-      "budget": "",
+      "budget": "0-5000",
       "isbuy": 1,
       "money": "",
       "isearnest": 1,
@@ -93,7 +93,7 @@ Page({
         "client_id": "",
         "product_id": "",
         "product_name": "",
-        "budget": "",
+        "budget": "0-5000",
         "isbuy": 1,
         "money": "",
         "isearnest": 1,
@@ -321,6 +321,27 @@ Page({
             // productType: itemList[res.tapIndex]
           })
           console.log("---" + JSON.stringify(dealData))
+        }
+      }
+    });
+  },
+
+  //选择预算
+  budget: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    var budget = ['0-5000', '5000-10000', '10000-15000', '15000-20000']
+    wx.showActionSheet({
+      itemList: ['0-5000', '5000-10000', '10000-15000', '15000-20000'],
+      success: function (res) {
+        // console.log("11111" + JSON.stringify(res))
+        if (!res.cancel) {
+          console.log(res.tapIndex)
+          dealData[productindex].budget = budget[res.tapIndex]
+          vm.setData({
+            dealData: dealData
+          })
         }
       }
     });

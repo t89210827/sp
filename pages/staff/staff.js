@@ -84,7 +84,7 @@ Page({
   //跳转到店员客户信息页面
   jumpClientInformation: function () {
     wx.navigateTo({
-      url: '/pages/clientInformation/staff/staff',
+      url: '/pages/staff/clientList/clientList',
     })
   },
   //跳转到提交日报页面

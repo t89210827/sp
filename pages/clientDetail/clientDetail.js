@@ -11,24 +11,28 @@ Page({
 
   onLoad: function (options) {
     vm = this
+    console.log("---" + JSON.stringify(options))
     var clientId = options.clientId
     vm.getClientById(clientId)
-    vm.getDeals(clientId)
-    // console.log("clientId" + JSON.stringify(clientId))
+    // vm.getDeals(clientId)
+    vm.getDealByClientId(clientId)
 
     var day = util.getToday()
-
-    wx.login({
-      success: function (res) {
-        wx.getUserInfo({
-          success: function (res) {
-            console.log("---" + JSON.stringify(res))
-            vm.setData({ userInfo: res.userInfo })
-          }
-        })
+  },
+  //根据顾客id获取所有交易记录
+  getDealByClientId: function (clientId) {
+    var param = {
+      client_id: clientId
+    }
+    util.getDealByClientId(param, function (res) {
+      if (res.data.result) {
+        var deals = res.data.ret.data
+        vm.setData({ deals: deals })
+        console.log("交易记录列表" + JSON.stringify(deals))
       }
     })
   },
+
   //根据用户id和顾客id查看交易记录信息
   getDeals: function (clientId) {
     var param = {

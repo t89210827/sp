@@ -1,4 +1,4 @@
-// pages/clientInformation/staff/staff.js
+// pages/staff/clientList/clientList.js
 var vm = null
 var util = require('../../../utils/util.js')
 const { extend, Actionsheet, Tab } = require('../../../bower_components/zanui-weapp/dist/index');
@@ -34,16 +34,13 @@ Page(extend({}, Actionsheet, Tab, {
     audit_id: "",   //员工id
   },
   onLoad: function (options) {
-    var audit_id = options.audit_id
     vm = this
-    vm.setData({ audit_id: audit_id })
-    // vm.getClient()      //获取所有顾客信息
     vm.getClientByUserId()      //获取所有顾客信息
   },
   //根据员工id获取客户信息
   getClientByUserId: function () {
     var param = {
-      audit_id: vm.data.audit_id,
+      audit_id: getApp().globalData.userInfo.id,
       page: 1,
     }
     util.getClientByUserId(param, function (res) {
@@ -56,20 +53,20 @@ Page(extend({}, Actionsheet, Tab, {
   },
 
   //获取所有顾客信息
-  getClient: function () {
-    var param = {
-      page: 1
-    }
-    util.getClient(param, function (res) {
-      if (res.data.result == true) {
-        var clientList = res.data.ret.data
-        for (var i = 0; i < clientList.length; i++) {
-          clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)
-        }
-        vm.setData({ clientList: clientList })
-      }
-    })
-  },
+  // getClient: function () {
+  //   var param = {
+  //     page: 1
+  //   }
+  //   util.getClient(param, function (res) {
+  //     if (res.data.result == true) {
+  //       var clientList = res.data.ret.data
+  //       for (var i = 0; i < clientList.length; i++) {
+  //         clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)
+  //       }
+  //       vm.setData({ clientList: clientList })
+  //     }
+  //   })
+  // },
 
 
   //跳转到客户详情页

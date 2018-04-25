@@ -209,6 +209,18 @@
         </view>
       </view>
 
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;' bindtap='budget' data-productIndex='{{index}}'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>预算</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{dealData[index].budget}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
       <view style='margin:0 3%; '>
         <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
           <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>是否购买</view>

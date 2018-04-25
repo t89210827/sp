@@ -33,7 +33,8 @@
     "pages/staff/byPhoneQueryClient/byPhoneQueryClient",
     "pages/staff/clientDetail/clientDetail",
     "pages/manager/auditList/auditList",
-    "pages/manager/issueTask/issueTask"
+    "pages/manager/issueTask/issueTask",
+    "pages/staff/clientList/clientList"
   ],
   "window": {
     "backgroundTextStyle": "light",

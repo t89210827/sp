@@ -38,12 +38,25 @@ Page(extend({}, Actionsheet, Tab, {
     shop_id: '',             //店铺id
     staffIndex: '',          //用户当前操作的员工id
 
-    open: [],        //展开收起数组
+    open: [],                //展开收起数组
+
+    managerTask: [],         //发布任务数组
   },
 
   onLoad: function (options) {
     vm = this
     vm.getAudit()       //店长下的员工列表
+  },
+
+  //主管查看发布任务
+  getManagerTask: function () {
+    var param = {
+      stmt_date: util.getToday()
+    }
+    util.getManagerTask(param, function (res) {
+      var managerTask = res.data.ret
+      vm.setData({ managerTask: managerTask })
+    })
   },
 
   //展开收起
@@ -59,10 +72,10 @@ Page(extend({}, Actionsheet, Tab, {
     var param = {
       shop_manager_id: getApp().globalData.userInfo.id,
       stmt_date: util.getToday(),
-      shop_id: vm.data.shop_id
+      shop_id: getApp().globalData.userInfo.shop_id
     }
     util.getReleaseTask(param, function (res) {
-
+      console.log("获取任务信息剩余目标金额" + JSON.stringify(res))
     })
   },
 
@@ -92,7 +105,7 @@ Page(extend({}, Actionsheet, Tab, {
   //店长下的员工列表
   getAudit: function () {
     var param = {
-      type: 2,
+      type: 1,
       page: 1,
     }
     util.getAudit(param, function (res) {

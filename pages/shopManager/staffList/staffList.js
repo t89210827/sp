@@ -8,7 +8,6 @@ Page({
     inputShowed: false,
     inputVal: "",
 
-    staffList: [],           //店长下员工列表
     userInfo1: [
       {
         nickName: '1',
@@ -32,6 +31,7 @@ Page({
       },
     ],
 
+    staffList: [],           //店长下员工列表
   },
   //正序倒序
   clickSwitch: function () {
@@ -63,32 +63,33 @@ Page({
   },
   onLoad: function (options) {
     vm = this
-    vm.getAudit()              //店长下的员工列表
-    wx.login({
-      success: function (res) {
-        wx.getUserInfo({
-          success: function (res) {
-            console.log("---" + JSON.stringify(res))
-            vm.setData({ userInfo: res.userInfo })
-          }
-        })
-      }
-    })
-  },
-  //店长下的员工列表
-  getAudit: function () {
-    var param = {
-      type: 2,
-      page: 1,
-    }
-    util.getAudit(param, function (res) {
-      vm.setData({ staffList: res.data.ret.audit.data })
-    })
+    vm.getAuditCount()              //店长下的员工列表
   },
   //根据店长id查询员工信息及员工录入顾客数量（对应原型：查看员工录入客户数量）
   getAuditCount: function () {
-    
+    var param = {
+      shop_manager_id: getApp().globalData.userInfo.id,
+      page: 1
+    }
+    util.getAuditCount(param, function (res) {
+      if (res.data.result) {
+        var staffList = res.data.ret[0].audit
+        vm.setData({ staffList: staffList })
+      }
+    })
   },
+
+
+  //店长下的员工列表
+  // getAudit: function () {
+  //   var param = {
+  //     type: 2,
+  //     page: 1,
+  //   }
+  //   util.getAudit(param, function (res) {
+  //     vm.setData({ staffList: res.data.ret.audit.data })
+  //   })
+  // },
 
   //返回上一层
   back: function () {
@@ -97,9 +98,10 @@ Page({
     })
   },
   //跳转到该员工下客户列表页
-  jumpClientList: function () {
+  jumpClientList: function (e) {
+    var audit_id = e.currentTarget.dataset.auditid
     wx.navigateTo({
-      url: '/pages/clientInformation/staff/staff',
+      url: '/pages/clientInformation/staff/staff?audit_id=' + audit_id,
     })
   },
 
