@@ -9,7 +9,9 @@ Page({
   data: {
     date: "",
     userInfo: '',      //用户信息
-    productType: { type: "黄铂", time: "2018-10-02", money: "2999" }
+    productType: { type: "黄铂", time: "2018-10-02", money: "2999" },
+    deals: [],           //交易记录数组
+    dealId: '',          //选中的交易索引
   },
 
   /**
@@ -18,18 +20,6 @@ Page({
   onLoad: function (options) {
     var day = util.getToday()
     vm = this
-
-    // wx.login({
-    //   success: function (res) {
-    //     wx.getUserInfo({
-    //       success: function (res) {
-    //         console.log("---" + JSON.stringify(res))
-    //         vm.setData({ userInfo: res.userInfo })
-    //       }
-    //     })
-    //   }
-    // })
-
     vm.getDeal()
   },
 
@@ -45,7 +35,10 @@ Page({
   },
 
   //调转到交易详情页
-  jumpDealDetail: function () {
+  jumpDealDetail: function (e) {
+    var dealId = e.currentTarget.dataset.dealid
+    console.log("---" + JSON.stringify(dealId))
+    vm.setData({ dealId: dealId })
     wx.navigateTo({
       url: '/pages/dealDetail/dealDetail',
     })

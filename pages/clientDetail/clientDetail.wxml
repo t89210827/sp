@@ -112,7 +112,7 @@
         <view class='zan-c-gray-dark zan-col zan-col-8 zan-font-16' style='line-height:120rpx;'>手机</view>
         <view class='zan-col zan-col-13'>
 
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+          <view class='flex-row' style='height:120rpx;align-items:center;float:right;'>
             <view class='zan-font-16 zan-c-gray-darker'>{{clientDetail.tel}}</view>
           </view>
         </view>
@@ -126,8 +126,8 @@
           <image src='../../images/addClient/birthDate.png' style='width:34rpx;height:34rpx;'></image>
         </view>
         <view class='zan-c-gray-dark zan-col zan-col-14 zan-font-16' style='line-height:120rpx;'>生日</view>
-        <view class='zan-col zan-col-8' style='margin-top:10rpx;'>
-          <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>{{clientDetail.birthday}}</view>
+        <view class='zan-col zan-col-7' style='margin-top:10rpx;'>
+          <view class="zan-font-16 zan-c-gray-darker" style='float:right;line-height:120rpx;'>{{clientDetail.birthday}}</view>
         </view>
       </view>
     </view>

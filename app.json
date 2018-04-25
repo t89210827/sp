@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/start/start",
+    "pages/hint/addClient/addClient",
     "pages/staff/staff",
     "pages/manager/auditStaff/auditStaffType/auditStaffType",
     "pages/manager/index/index",
@@ -20,7 +21,6 @@
     "pages/addClient/addClient",
     "pages/dealList/dealList",
     "pages/ranking/staff/staff",
-    "pages/hint/addClient/addClient",
     "pages/hint/audit/audit",
     "pages/daily/staff/staff",
     "pages/hint/paySucceed/paySucceed",

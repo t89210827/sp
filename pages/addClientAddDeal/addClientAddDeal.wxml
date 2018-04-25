@@ -163,7 +163,7 @@
       <view class='zan-col zan-col-13'>
 
         <view class='center-style' style='height:100rpx;align-items: center;float:right;'>
-          <wxc-counter number="1" max="{{20}}" min="1" bind:changenumber="onChangeNumber"></wxc-counter>
+          <wxc-counter number="0" max="{{20}}" min="0" bind:changenumber="onChangeNumber"></wxc-counter>
         </view>
       </view>
     </view>
@@ -324,7 +324,7 @@
           <view class="intro-content">
             <textarea style='padding:10rpx 20rpx;height:260rpx; ' name="intro" cursor-spacing="100" bindinput="textAreaEventListener" data-productIndex='{{index}}' maxlength='100 ' placeholder="" />
           </view>
-          <view class='zan-font-14' style="position: absolute; right: 10rpx; bottom: 0;">{{remark.length}} /100</view>
+          <!-- <view class='zan-font-14' style="position: absolute; right: 10rpx; bottom: 0;">{{remark.length}} /100</view> -->
         </view>
       </view>
 

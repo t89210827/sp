@@ -6,7 +6,7 @@ Page({
   data: {
     clientDetail: {},      //客户信息
     deals: [],             //交易信息
-    dealId: '',            //选中的交易id
+    dealId: '',            //选中的交易索引
   },
 
   onLoad: function (options) {

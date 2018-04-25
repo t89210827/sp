@@ -48,7 +48,7 @@
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <view class='zan-font-16' style='line-height:120rpx;text-align:right;'>{{deal.money}}</view>
+              <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{deal.money}}</view>
               <!-- <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入购买金额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input> -->
             </view>
           </view>
@@ -61,7 +61,7 @@
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <view class='zan-font-16' style='line-height:120rpx;text-align:right;'>6</view>
+              <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{deal.num}}</view>
               <!-- <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input> -->
             </view>
           </view>
@@ -112,7 +112,7 @@
     <view style='margin:0 3%;'>
       <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
         <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16' style='line-height:120rpx;'>提醒时间：</view>
-        <view class='zan-col zan-col-8' style='margin-top:10rpx;'>
+        <view class='zan-col zan-col-7' style='margin-top:10rpx;'>
 
           <!-- <picker mode="date" value="{{date}}" start="2000-01-01" end="2020-01-01" bindchange="bindDateChange">
             <view class='flex-row' style='align-items: center;float:right;'>
@@ -146,6 +146,9 @@
         <!-- <view class='zan-font-14' style="position: absolute; right: 10rpx; bottom: 0;">{{remark.length}} /100</view> -->
       </view>
     </view>
+
+    <view style='height:50rpx;'></view>
+
 
   </view>
 </view>

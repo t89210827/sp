@@ -30,7 +30,7 @@ Page({
     birthDate: "2016-09-01", //生日
     day: "",                 //接待时间
 
-    num: 1,                  //产品数量
+    num: 0,                  //产品数量
     productList: [],         //所有产品数组
     dealData: [],            //提交交易参数
     // productType: "黄铂",     //产品类型默认值
@@ -61,8 +61,8 @@ Page({
   init: function () {
     var arr = []
     arr.push({
-      "user_id": "",
-      "shop_id": "",
+      "user_id": getApp().globalData.userInfo.id,
+      "shop_id": getApp().globalData.userInfo.shop_id,
       "client_id": "",
       "product_id": "",
       "product_name": "",
@@ -88,8 +88,8 @@ Page({
     var productArr = []
     for (var i = 0; i < num; i++) {
       arr.push({
-        "user_id": "",
-        "shop_id": "",
+        "user_id": getApp().globalData.userInfo.id,
+        "shop_id": getApp().globalData.userInfo.shop_id,
         "client_id": "",
         "product_id": "",
         "product_name": "",
@@ -118,6 +118,73 @@ Page({
       itemList.push(productList[i].name)
     }
     vm.setData({ itemList: itemList })
+  },
+
+  // 添加顾客信息并添加交易信息
+  addClient: function () {
+    if (vm.data.name == "") {
+      util.showToast("姓名不能为空")
+      return
+    }
+    if (vm.data.image == "") {
+      util.showToast("请上传头像")
+      return
+    }
+    if (vm.data.age == "") {
+      util.showToast("年龄不能为空")
+      return
+    }
+    if (vm.data.phone == "") {
+      util.showToast("电话不能为空")
+      return
+    }
+    if (vm.data.city == "") {
+      util.showToast("客户所在城市不能为空")
+      return
+    }
+
+    var day = util.getToday()
+    var param = {
+      name: vm.data.clientName,
+      tel: vm.data.tel,
+      birthday: vm.data.birthDate,
+      city: vm.data.city,
+      gender: vm.data.gender,
+      age: vm.data.age,
+      avatar: vm.data.image,
+      reception_time: day,
+    }
+    util.addClient(param, function (res) {
+      if (res.data.result) {
+        var clientDetail = res.data.ret
+        if (vm.data.num != 0) {
+          var dealData = vm.data.dealData
+          for (var i = 0; i < dealData.length; i++) {
+            dealData[i].client_id = clientDetail.id
+          }
+          vm.setData({ dealData: dealData })
+          vm.addDeal()             //添加交易信息
+        } else if (vm.data.num == 0) {
+          wx.navigateTo({
+            url: '/pages/hint/addClient/addClient',
+          })
+        }
+      }
+    })
+  },
+
+  //添加交易信息
+  addDeal: function () {
+    var param = {
+      deal: vm.data.dealData
+    }
+    util.addDeal(param, function (res) {
+      if (res.data.result) {
+        wx.navigateTo({
+          url: '/pages/hint/addClient/addClient',
+        })
+      }
+    })
   },
 
   //顾客姓名
@@ -212,96 +279,6 @@ Page({
     })
     console.log("顾客城市" + JSON.stringify(e.detail.value))
   },
-
-  // 添加客户和交易
-  // addClient: function () {
-  //   var param = {
-  //     name: vm.data.name,
-  //     avatar: vm.data.image,
-  //     gender: vm.data.gender,
-  //     age: vm.data.age,
-  //     tel: vm.data.tel,
-  //     birthday: vm.data.birthDate,
-  //     city: vm.data.city,
-  //     reception_time: vm.data.day
-  //   }
-  //   util.addClient(param, function (res) {
-  //     if (res.data.result) {
-  //       console.log("添加客户返回参数" + JSON.stringify(res))
-  //       var param = {
-
-  //       }
-  //     }
-  //   })
-  // },
-
-  //添加交易信息
-  addDeal: function () {
-    var param = {
-      deal: vm.data.dealData
-    }
-    util.addDeal(deal, function (res) {
-      if (res.data.result) {
-
-      }
-    })
-  },
-
-  //添加顾客信息
-  // addClient: function () {
-  //   wx.navigateTo({
-  //     url: '/pages/hint/addClient/addClient',
-  //   })
-
-  //   if (vm.data.name == "") {
-  //     util.showToast("姓名不能为空")
-  //     return
-  //   }
-  //   if (vm.data.image == "") {
-  //     util.showToast("请上传头像")
-  //     return
-  //   }
-  //   if (vm.data.age == "") {
-  //     util.showToast("年龄不能为空")
-  //     return
-  //   }
-  //   if (vm.data.phone == "") {
-  //     util.showToast("电话不能为空")
-  //     return
-  //   }
-  //   if (vm.data.city == "") {
-  //     util.showToast("客户所在城市不能为空")
-  //     return
-  //   }
-
-  //   var day = util.getToday()
-  //   var param = {
-  //     name: vm.data.name,
-  //     tel: vm.data.phone,
-  //     birthday: vm.data.birthDate,
-  //     city: vm.data.city,
-  //     gender: vm.data.gender,
-  //     age: vm.data.age,
-  //     avatar: vm.data.image,
-  //     reception_time: day,
-  //   }
-  //   util.addClient(param, function (res) {
-  //     if (res.data.result) {
-  //       var param = {
-  //         dealData
-  //       }
-  //       util.addDeal(param, function (res) {
-
-  //       })
-
-  //       wx.navigateTo({
-  //         url: '/pages/hint/addClient/addClient',
-  //       })
-  //     }
-  //   })
-  // },
-
-
 
   //货号
   inputName: function (e) {
