@@ -236,7 +236,12 @@ function getShop(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/manager/getShop', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/manager/getShop
+// 主管发布任务
+function releaseTask(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/releaseTask', param, "POST", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/manager/releaseTask
 
 
 ///////////////////////////////////////////////
@@ -903,4 +908,5 @@ module.exports = {
   managerReviewAudit: managerReviewAudit,     //主管审核入职人员
   getShopManager: getShopManager,         //根据主管id获取主管下未审核店长和店员的信息
   getShop: getShop,                 //主管下的店铺列表
+  releaseTask: releaseTask           //主管发布任务
 }

@@ -129,7 +129,7 @@ Page(extend({}, Actionsheet, Tab, {
       }
       param.manager.push(paramIndex)
     }
-    util.shopManagerReleaseTask(param, function (res) {
+    util.releaseTask(param, function (res) {
 
     })
   },

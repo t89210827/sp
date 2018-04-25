@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/manager/index/index",
-    "pages/staff/staff",
     "pages/start/start",
+    "pages/staff/staff",
     "pages/manager/auditStaff/auditStaffType/auditStaffType",
+    "pages/manager/index/index",
     "pages/shopManager/index/index",
     "pages/manager/auditStaff/auditStaff",
     "pages/addClientAddDeal/addClientAddDeal",

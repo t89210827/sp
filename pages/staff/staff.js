@@ -33,16 +33,18 @@ Page({
             success: function (res) {
               console.log("---" + JSON.stringify(res))
               var userInfo = {
-                nick_name: res.userInfo.nickName,
+                name: res.userInfo.nickName,
                 avatar: res.userInfo.avatarUrl
               }
               vm.setData({ userInfo: userInfo })
+              wx.stopPullDownRefresh()    //停止下拉刷新
             }
           })
         }
       })
     } else {
       vm.setData({ userInfo: userInfo })
+      wx.stopPullDownRefresh()    //停止下拉刷新
     }
     console.log("userInfo : " + JSON.stringify(userInfo))
   },

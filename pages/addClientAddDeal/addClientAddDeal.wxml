@@ -29,7 +29,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input bindinput='inputName' class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入姓名" style='line-height:120rpx;text-align:right;'></input>
+            <input bindinput='inputClientName' class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入姓名" style='line-height:120rpx;text-align:right;'></input>
           </view>
         </view>
       </view>
@@ -54,7 +54,7 @@
       </view>
     </view>
 
-    <view style='margin:0 3%;'>
+    <view style='margin:0 3%;' bindtap='gender'>
       <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
         <view class='zan-c-gray-dark zan-col zan-col-2 zan-font-16 center-style' style='height:120rpx;line-height:120rpx;'>
           <image src='../../images/addClient/gender.png' style='width:34rpx;height:34rpx;'></image>
@@ -63,7 +63,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <view class='zan-c-gray-darker zan-font-16' bindtap='open'>{{gender}}</view>
+            <view class='zan-c-gray-darker zan-font-16'>{{gender}}</view>
 
           </view>
 
@@ -197,13 +197,13 @@
         </view>
       </view>
 
-      <view style='margin:0 3%; '>
+      <view style='margin:0 3%;' bindtap='productType' data-productIndex='{{index}}'>
         <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
           <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>产品类型</view>
           <view class='zan-col zan-col-13 '>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right; '>
-              <view class='zan-c-gray-darker zan-font-16' data-productIndex='{{index}}' bindtap='productType'>{{productType}}</view>
+              <view class='zan-c-gray-darker zan-font-16'>{{productArr[index]}}</view>
             </view>
           </view>
         </view>
@@ -221,7 +221,7 @@
         </view>
       </view>
 
-      <block wx:if="{{isBuy}}">
+      <block wx:if="{{dealData[index].isbuy == 0}}">
         <view style='margin:0 3%; '>
           <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
             <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>购买金额</view>
@@ -258,7 +258,7 @@
         </view>
       </view>
 
-      <block wx:if="{{isReservation}}">
+      <block wx:if="{{dealData[index].isearnest == 0}}">
         <view style='margin:0 3%; '>
           <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
             <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>定金金额</view>

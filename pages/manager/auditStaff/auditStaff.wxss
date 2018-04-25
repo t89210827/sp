@@ -48,3 +48,18 @@
   border-top: 0rpx solid #d7d6dc;
   border-bottom: 0rpx solid #d7d6dc;
 }
+
+.abnor__btn {
+  min-width: 228rpx;
+  height: 66rpx;
+  margin-top: 30rpx;
+  padding: 0 30rpx;
+  background-color: #ff5777;
+  border: 0 none;
+  border-radius: 2rpx;
+  color: #fff;
+  font-size: 28rpx;
+  text-align: center;
+  overflow: hidden;
+  line-height: 66rpx;
+}

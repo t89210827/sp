@@ -1,4 +1,5 @@
 {
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "wxc-progress": "../../../dist/packages/@minui/wxc-progress/dist/index"
   }

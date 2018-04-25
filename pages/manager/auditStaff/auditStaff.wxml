@@ -18,16 +18,14 @@
 </block>
 
 <block wx:if="{{auditList.length>0}}">
-  <!-- <button bindtap='clickSwitch'>正序倒序</button> -->
-  <view style='height:90rpx; background-color:#ececec;' class='zan-font-14 center-style'>点击审核该员工</view>
-
+  <!-- <view style='height:90rpx; background-color:#ececec;' class='zan-font-14 center-style'>点击审核该员工</view> -->
   <view style='width:750rpx;'>
     <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
 
       <scroll-view scroll-y style="height: 1000rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-top='0'>
 
         <block wx:for="{{auditList}}">
-          <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;' bindtap='jumpClientList'>
+          <!-- <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;' bindtap='jumpClientList'>
             <view class='zan-row'>
               <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index}}</view>
               <view class='zan-col zan-col-3'>
@@ -38,7 +36,31 @@
               <view class='zan-col zan-col-11 zan-font-16 center-style' style='line-height:100rpx;'>{{item.name}}</view>
               <view class=' zan-col zan-col-8 zan-arrow '></view>
             </view>
+          </view> -->
+
+          <view style='padding:20rpx 10rpx;height:250rpx;'>
+            <view class='zan-col zan-col-8'>
+              <image src='{{item.avatar}}' style='width:200rpx;height:250rpx;'></image>
+            </view>
+            <view class='zan-col zan-col-8 zan-font-14'>
+              <view style='height:35rpx;'></view>
+              <view class='text-oneline'>{{item.shopName}}</view>
+              <view class='text-oneline'>{{item.name}}</view>
+              <view class='text-oneline'>{{item.phonenum}}</view>
+              <view class='text-oneline'>{{item.entryDate}}</view>
+            </view>
+            <view class='zan-col zan-col-8'>
+
+              <view style='width:100%;text-align:center;'>
+                <view style="height:50rpx;"></view>
+                <button class='zan-font-12' style='height:50rpx;line-height:50rpx;background-color:#5A94FF;width:80%;border-radius:50rpx;color:#fff;' bindtap='auditPass' data-auditStaffIndex='{{index}}'>审核通过</button>
+                <view style="height:50rpx;"></view>
+                <button class='zan-font-12' style='height:50rpx;line-height:50rpx;background-color:#999999;width:80%;border-radius:50rpx;color:#fff;' bindtap='auditFail' data-auditStaffIndex='{{index}}'>不通过</button>
+              </view>
+
+            </view>
           </view>
+
         </block>
 
       </scroll-view>

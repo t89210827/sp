@@ -10,16 +10,21 @@ Page({
   onLoad: function (options) {
     vm = this
     var type = options.type
+    vm.setData({ type: type })
     // vm.getReviewAudit()
-    vm.getShopManager(type)
+    if (type == 1) {
+      vm.getStaff()
+    } else if (type == 2) {
+      vm.getShopManager()
+    }
   },
 
-  //主管审核入职人员列表
-  getShopManager: function (type) {
+  //主管审核店长列表
+  getShopManager: function () {
 
     var param = {
       manager_id: getApp().globalData.userInfo.id,
-      type: type,
+      type: vm.data.type,
       page: 1,
     }
     util.getShopManager(param, function (res) {
@@ -43,6 +48,69 @@ Page({
       console.log("审核数组" + JSON.stringify(auditList))
     })
   },
+  //主管审核店员列表
+  getStaff: function () {
+
+    var param = {
+      manager_id: getApp().globalData.userInfo.id,
+      type: vm.data.type,
+      page: 1,
+    }
+    util.getShopManager(param, function (res) {
+      var retAuditList = res.data.ret.shop.data
+      var auditList = []
+      for (var i = 0; i < retAuditList.length; i++) {
+        var audit = retAuditList[i].audit.data
+        if (audit.length > 0) {
+          for (var j = 0; j < audit.length; j++) {
+            // var auditIndex = {
+            //   name: audit[j].user.name,
+
+            // }
+            var auditIndex = audit[j].user
+            console.log("---------" + JSON.stringify(audit[j].user))
+            auditIndex.shopName = retAuditList[i].name
+            auditList.push(auditIndex)
+          }
+        }
+      }
+      vm.setData({ auditList: auditList })
+      console.log("审核数组" + JSON.stringify(auditList))
+    })
+  },
+
+  //审核通过
+  auditPass: function (e) {
+    var auditStaffIndex = e.target.dataset.auditstaffindex
+    var staffId = vm.data.auditList[auditStaffIndex].id
+    var param = {
+      audit_id: staffId,
+      manager_opt_time: util.getToday(),
+      manager_id: getApp().globalData.userInfo.id,
+      status: 2
+    }
+    util.managerReviewAudit(param, function (res) {
+      vm.getShopManager()
+    })
+  },
+
+  //审核不通过
+  auditFail: function (e) {
+    var auditStaffIndex = e.target.dataset.auditstaffindex
+    var staffId = vm.data.auditList[auditStaffIndex].id
+    var param = {
+      audit_id: staffId,
+      manager_opt_time: util.getToday(),
+      manager_id: getApp().globalData.userInfo.id,
+      status: 3
+    }
+    util.managerReviewAudit(param, function (res) {
+
+    })
+  },
+
+
+
   //根据店长shop_manager_id获取需要审核的员工列表
   getReviewAudit: function () {
     var param = {
@@ -100,7 +168,12 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    var type = vm.data.type
+    if (type == 1) {
+      vm.getStaff()
+    } else if (type == 2) {
+      vm.getShopManager()
+    }
   },
 
   /**

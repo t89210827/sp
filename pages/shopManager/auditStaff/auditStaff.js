@@ -7,12 +7,6 @@ Page({
     staffList: [],           //店长下员工列表
     auditList: [],           //待审核的员工列表
   },
-  //正序倒序
-  clickSwitch: function () {
-    var userInfo = vm.data.userInfo1
-    userInfo.reverse()
-    vm.setData({ userInfo1: userInfo })
-  },
 
   onLoad: function (options) {
     vm = this
@@ -25,16 +19,46 @@ Page({
     }
     util.getReviewAudit(param, function (res) {
       if (res.data.result) {
-        var auditList = res.data.ret
-        if (auditList.length == 0) {
-          vm.setData({ auditList: auditList })
-          return
-        }
-        var auditList = res.data.ret.audit.data
+        var auditList = res.data.ret[0].audit.data
+        // if (auditList.length == 0) {
+        //   vm.setData({ auditList: auditList })
+        //   return
+        // }
+        var auditList = res.data.ret[0].audit.data
         vm.setData({ auditList: auditList })
       }
     })
   },
+
+  //审核通过
+  auditPass: function (e) {
+    var auditStaffId = e.target.dataset.auditstaffid
+    var param = {
+      audit_id: auditStaffId,
+      shop_manager_opt_time: util.getToday(),
+      shop_manager_id: getApp().globalData.userInfo.id,
+      status: 1
+    }
+    util.reviewAudit(param, function (res) {
+      vm.getReviewAudit()
+    })
+  },
+
+  //审核不通过
+  auditFail: function (e) {
+    var auditStaffId = e.target.dataset.auditstaffid
+    var param = {
+      audit_id: auditStaffId,
+      shop_manager_opt_time: util.getToday(),
+      shop_manager_id: getApp().globalData.userInfo.id,
+      status: 3
+    }
+    util.reviewAudit(param, function (res) {
+      vm.getReviewAudit()
+    })
+  },
+
+
   reviewAudit: function () {
     util.reviewAudit()
   },
@@ -98,7 +122,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    vm.getReviewAudit()
   },
 
   /**
