@@ -96,18 +96,24 @@
         <view style='padding:10rpx 20rpx;'>
 
           <view style='height:10rpx;'></view>
-          <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>非黄</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>3457元</view>
-          </view>
-          <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
+          <block wx:if="{{todayTask.length == 0}}">
+            <view class='zan-font-14'>店长还未发布今日任务</view>
+          </block>
+
+          <block wx:for="{{todayTask}}">
+            <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
+              <view class='zan-col zan-col-8'>{{item.product.name}}</view>
+              <view class='zan-col zan-col-16' style='text-align:right;'>{{item.performance_request}}元</view>
+            </view>
+          </block>
+          <!-- <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-8'>黄金</view>
             <view class='zan-col zan-col-16' style='text-align:right;'>5443元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-8'>其他</view>
             <view class='zan-col zan-col-16' style='text-align:right;'>6713元</view>
-          </view>
+          </view> -->
           <view style='height:20rpx;'></view>
 
         </view>
@@ -147,28 +153,28 @@
         <view style='padding:10rpx 20rpx;'>
           <view style='height:10rpx;'></view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>留电话数(已购买)</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>3457元</view>
+            <view class='zan-col zan-col-12'>留电话数(已购买)</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>3457元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>留电话数(未购买)</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>5443元</view>
+            <view class='zan-col zan-col-12'>留电话数(未购买)</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>5443元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>非黄铂达成率</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>6713元</view>
+            <view class='zan-col zan-col-12'>非黄铂达成率</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>6713元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>黄铂达成率</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>6713元</view>
+            <view class='zan-col zan-col-12'>黄铂达成率</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>6713元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>其他达成率</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>6713元</view>
+            <view class='zan-col zan-col-12'>其他达成率</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>6713元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>顾客转化达成率</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>6713元</view>
+            <view class='zan-col zan-col-12'>顾客转化达成率</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>6713元</view>
           </view>
           <view style='height:20rpx;'></view>
         </view>
@@ -212,65 +218,65 @@
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>销售件数</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>857件</view>
+            <view class='zan-col zan-col-12'>销售件数</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>857件</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>销售笔数</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>73笔</view>
+            <view class='zan-col zan-col-12'>销售笔数</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>73笔</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>品单价</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
+            <view class='zan-col zan-col-12'>品单价</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>673元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>客单价</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
+            <view class='zan-col zan-col-12'>客单价</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>673元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>非黄铂任务额</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
+            <view class='zan-col zan-col-12'>非黄铂任务额</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>673元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>非黄铂销售额</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
+            <view class='zan-col zan-col-12'>非黄铂销售额</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>673元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-8'>黄铂</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>销售克重</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>328克</view>
+            <view class='zan-col zan-col-12'>销售克重</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>328克</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>销售件数</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>739件</view>
+            <view class='zan-col zan-col-12'>销售件数</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>739件</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>销售笔数</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>63</view>
+            <view class='zan-col zan-col-12'>销售笔数</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>63</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>品单价</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
+            <view class='zan-col zan-col-12'>品单价</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>673元</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>客单价</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
+            <view class='zan-col zan-col-12'>客单价</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>673元</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>黄铂任务额</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
+            <view class='zan-col zan-col-12'>黄铂任务额</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>673元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>黄铂销售额</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
+            <view class='zan-col zan-col-12'>黄铂销售额</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>673元</view>
           </view>
 
 
@@ -279,38 +285,40 @@
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>其他任务额</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>328克</view>
+            <view class='zan-col zan-col-12'>其他任务额</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>328克</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>其他销售额</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>739件</view>
+            <view class='zan-col zan-col-12'>其他销售额</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>739件</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>客流数</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>63</view>
+            <view class='zan-col zan-col-12'>客流数</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>63</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>试戴数</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
+            <view class='zan-col zan-col-12'>试戴数</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>673元</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>试戴率</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
+            <view class='zan-col zan-col-12'>试戴率</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>673元</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>留电话率</view>
-            <view class='zan-col zan-col-16' style='text-align:right;'>673元</view>
+            <view class='zan-col zan-col-12'>留电话率</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>673元</view>
           </view>
           <view style='height:20rpx;'></view>
         </view>
       </view>
     </view>
   </block>
+
+  <view style='height:50rpx;'></view>
 
 </view>

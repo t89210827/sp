@@ -34,7 +34,9 @@
     "pages/staff/clientDetail/clientDetail",
     "pages/manager/auditList/auditList",
     "pages/manager/issueTask/issueTask",
-    "pages/staff/clientList/clientList"
+    "pages/staff/clientList/clientList",
+    "pages/ranking/shop/shop",
+    "pages/manager/shopClientList/shopClientList"
   ],
   "window": {
     "backgroundTextStyle": "light",

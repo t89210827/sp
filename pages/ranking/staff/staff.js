@@ -2,35 +2,9 @@
 var vm = null
 var util = require('../../../utils/util.js')
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     inputShowed: false,
     inputVal: "",
-    userInfo1: [
-      {
-        nickName: '1',
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ercjU4KE73iahS7zwuy8tyib4hGJ2TJTDGWgaI02clfND2ZIiaHtxjyn1mcd461icjW7N4B0VcPZM59dA/0'
-      },
-      {
-        nickName: '2',
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ercjU4KE73iahS7zwuy8tyib4hGJ2TJTDGWgaI02clfND2ZIiaHtxjyn1mcd461icjW7N4B0VcPZM59dA/0'
-      },
-      {
-        nickName: '3',
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ercjU4KE73iahS7zwuy8tyib4hGJ2TJTDGWgaI02clfND2ZIiaHtxjyn1mcd461icjW7N4B0VcPZM59dA/0'
-      },
-      {
-        nickName: '4',
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ercjU4KE73iahS7zwuy8tyib4hGJ2TJTDGWgaI02clfND2ZIiaHtxjyn1mcd461icjW7N4B0VcPZM59dA/0'
-      },
-      {
-        nickName: '5',
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ercjU4KE73iahS7zwuy8tyib4hGJ2TJTDGWgaI02clfND2ZIiaHtxjyn1mcd461icjW7N4B0VcPZM59dA/0'
-      },
-    ],
 
     staffList: [],         //员工列表  
     reverse: true,         //判断正序还是倒序

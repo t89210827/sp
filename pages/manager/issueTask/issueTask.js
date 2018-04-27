@@ -116,7 +116,7 @@ Page({
       var paramIndex = {
         user_id: getApp().globalData.userInfo.id,
         shop_id: shop.id,
-        stmt_date: util.getToday(),
+        stmt_date: util.getMonth(),
         product_id: performance[i].productid,
         product_request: performance[i].value,
         product_finish: performance[i].value,

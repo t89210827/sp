@@ -1,0 +1,42 @@
+<!--pages/ranking/shop/shop.wxml-->
+<view class='top'>
+  <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
+</view>
+
+<view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
+  <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../../images/back.png"></image>
+</view>
+
+<view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>店铺排名</view>
+</view>
+
+<view style='height:140rpx;'></view>
+
+<button bindtap='clickSwitch'>{{reverse?'正序':'倒序'}}</button>
+
+<view style='width:750rpx;'>
+  <view style='width:94%;height:1000rpx;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
+
+    <scroll-view scroll-y style="height: 1000rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-top='0'>
+
+      <block wx:for="{{shopList}}">
+        <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;'>
+          <navigator url='/pages/ranking/staff/staff'>
+            <view class='zan-row'>
+              <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index + 1}}</view>
+              <view class='zan-col zan-col-3'>
+                <view class='center-style' style='height:100rpx;'>
+                  <image src='{{item.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
+                </view>
+              </view>
+              <view class='zan-col zan-col-11 zan-font-16 center-style' style='line-height:100rpx;'>{{item.name}}</view>
+              <view class=' zan-col zan-col-8 zan-arrow '></view>
+            </view>
+          </navigator>
+        </view>
+      </block>
+
+    </scroll-view>
+  </view>
+</view>

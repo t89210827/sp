@@ -1,5 +1,6 @@
 // pages/staff/staff.js
 var vm = null
+var util = require("../../utils/util.js")
 Page({
   data: {
     userInfo: {},
@@ -9,17 +10,36 @@ Page({
     options: ["今日目标", "关键信息", "次要信息"],
     optionsIndex: 0,
 
-    target: false,
-    key: false,
-    minor: false,
+    target: true,
+    key: true,
+    minor: true,
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     vm = this
     vm.getUserInfo()
+    vm.getAuditTask()
+  },
+  //员工获取今日任务
+  getAuditTask: function () {
+    var param = {
+      stmt_date: util.getToday()
+    }
+    util.getAuditTask(param, function (res) {
+      var todayTask = res.data.ret.task
+      vm.setData({ todayTask: todayTask })
+    })
+  },
+
+  //根据id获取用户信息（不带token）
+  getByIdWithToken: function () {
+    var param = {
+      id: getApp().globalData.userInfo.id
+    }
+    util.getByIdWithToken(param, function (res) {
+      var userInfo = res.data.ret
+      vm.setData({ userInfo: userInfo })
+    })
   },
 
   //获取缓存中用户信息
@@ -43,7 +63,8 @@ Page({
         }
       })
     } else {
-      vm.setData({ userInfo: userInfo })
+      vm.getByIdWithToken()
+      // vm.setData({ userInfo: userInfo })
       wx.stopPullDownRefresh()    //停止下拉刷新
     }
     console.log("userInfo : " + JSON.stringify(userInfo))

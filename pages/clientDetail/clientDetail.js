@@ -23,7 +23,7 @@ Page({
     var param = {
       client_id: clientId
     }
-    util.getDealByClientId(param, function (res) {
+    util.getDeals(param, function (res) {
       if (res.data.result) {
         var deals = res.data.ret.data
         vm.setData({ deals: deals })
@@ -31,6 +31,33 @@ Page({
       }
     })
   },
+
+  //调转到交易详情页
+  jumpDealDetail: function (e) {
+    var dealId = e.currentTarget.id
+    // var deals = vm.data.deals
+    // var product_id = deals[dealId].product_id
+
+    // vm.getProductById(product_id)
+    vm.setData({ dealId: dealId })
+    wx.navigateTo({
+      url: '/pages/dealDetail/dealDetail',
+    })
+  },
+
+  //根据产品id获取产品信息
+  // getProductById: function (product_id) {
+  //   var product_id = product_id
+  //   var param = {
+  //     id: product_id
+  //   }
+  //   util.getProductById(param, function (res) {
+  //     if (res.data.result) {
+  //       var productName = res.data.ret.name
+  //       vm.setData({ productName: productName })
+  //     }
+  //   })
+  // },
 
   //预览头像
   previewImage: function () {
@@ -55,15 +82,6 @@ Page({
   back: function () {
     wx.navigateBack({
       delta: 1
-    })
-  },
-
-  //调转到交易详情页
-  jumpDealDetail: function (e) {
-    var dealId = e.currentTarget.id
-    vm.setData({ dealId: dealId })
-    wx.navigateTo({
-      url: '/pages/dealDetail/dealDetail',
     })
   },
   //跳转到添加交易记录页面

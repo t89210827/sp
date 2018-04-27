@@ -1,5 +1,6 @@
 // pages/shopManager/index/index.js
 var vm = null
+var util = require('../../../utils/util.js')
 Page({
   data: {
     userInfo: {},
@@ -9,14 +10,41 @@ Page({
     options: ["今日目标", "关键信息", "次要信息"],
     optionsIndex: 0,
 
-    target: false,
-    key: false,
-    minor: false,
+    target: true,
+    key: true,
+    minor: true,
   },
 
   onLoad: function (options) {
     vm = this
     vm.getUserInfo()
+    vm.getShopManagerTask()              //店长获取本月任务
+  },
+
+  //店长获取本月任务
+  getShopManagerTask: function () {
+    var param = {
+      stmt_date: util.getMonth(),
+      shop_id: getApp().globalData.userInfo.shop_id,
+    }
+    util.getShopManagerTask(param, function (res) {
+      if (res.data.result) {
+        console.log("--------------" + JSON.stringify(res))
+        var taskList = res.data.ret.task
+        vm.setData({ taskList: taskList })
+      }
+    })
+  },
+
+  //根据id获取用户信息（不带token）
+  getByIdWithToken: function () {
+    var param = {
+      id: getApp().globalData.userInfo.id
+    }
+    util.getByIdWithToken(param, function (res) {
+      var userInfo = res.data.ret
+      vm.setData({ userInfo: userInfo })
+    })
   },
 
   //获取缓存中用户信息
@@ -40,11 +68,13 @@ Page({
         }
       })
     } else {
-      vm.setData({ userInfo: userInfo })
+      vm.getByIdWithToken()
+      // vm.setData({ userInfo: userInfo })
       wx.stopPullDownRefresh()    //停止下拉刷新
     }
     console.log("userInfo : " + JSON.stringify(userInfo))
   },
+
 
   //今日目标展开与收取
   targetSwitch: function () {

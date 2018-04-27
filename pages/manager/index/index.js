@@ -1,5 +1,6 @@
 // pages/manager/index/index.js
 var vm = null
+var util = require('../../../utils/util.js')
 Page({
   data: {
     userInfo: {},
@@ -34,6 +35,17 @@ Page({
     vm.setData({ minor: !vm.data.minor })
   },
 
+  //根据id获取用户信息（不带token）
+  getByIdWithToken: function () {
+    var param = {
+      id: getApp().globalData.userInfo.id
+    }
+    util.getByIdWithToken(param, function (res) {
+      var userInfo = res.data.ret
+      vm.setData({ userInfo: userInfo })
+    })
+  },
+
   //获取缓存中用户信息
   getUserInfo: function () {
     var userInfo = getApp().globalData.userInfo
@@ -55,16 +67,18 @@ Page({
         }
       })
     } else {
-      vm.setData({ userInfo: userInfo })
+      vm.getByIdWithToken()
+      // vm.setData({ userInfo: userInfo })
       wx.stopPullDownRefresh()    //停止下拉刷新
     }
     console.log("userInfo : " + JSON.stringify(userInfo))
   },
 
+
   //跳转到店员排名页面
   jumpRanking: function () {
     wx.navigateTo({
-      url: '/pages/ranking/staff/staff',
+      url: '/pages/ranking/shop/shop',
     })
   },
   //跳转到添加客户页面
@@ -79,7 +93,7 @@ Page({
   //跳转到店员客户信息页面
   jumpStaffList: function () {
     wx.navigateTo({
-      url: '/pages/shopManager/staffList/staffList',
+      url: '/pages/manager/shopClientList/shopClientList',
     })
   },
   //跳转到提交日报页面

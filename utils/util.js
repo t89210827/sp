@@ -256,7 +256,37 @@ function getManagerTask(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/manager/getManagerTask', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/manager/getManagerTask
+// 根据产品id获取产品信息
+function getProductById(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/product/getProductById', param, "GET", successCallback, errorCallback)
+}
+
+// 获取所有生效的店铺信息
+function getShopList(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shop/getShopList', param, "GET", successCallback, errorCallback)
+}
+
+// 根据id获取用户信息（不带token）
+function getById(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/user/getById', param, "GET", successCallback, errorCallback)
+}
+
+// 根据id获取用户信息（带token）
+function getByIdWithToken(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/user/getByIdWithToken', param, "GET", successCallback, errorCallback)
+}
+
+// 店长获取本月任务
+function getShopManagerTask(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getShopManagerTask', param, "GET", successCallback, errorCallback)
+}
+
+// 员工获取今日任务
+function getAuditTask(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getAuditTask', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/audit/getAuditTask
 
 ///////////////////////////////////////////////
 
@@ -921,9 +951,15 @@ module.exports = {
   getAuditDailyPaperData: getAuditDailyPaperData,   //根据店员id和时间查询日报信息
   managerReviewAudit: managerReviewAudit,     //主管审核入职人员
   getShopManager: getShopManager,         //根据主管id获取主管下未审核店长和店员的信息
-  getShop: getShop,                 //主管下的店铺列表
-  releaseTask: releaseTask,           //主管发布任务
+  getShop: getShop,                         //主管下的店铺列表
+  releaseTask: releaseTask,                  //主管发布任务
   getClientByUserId: getClientByUserId,    //根据员工id获取客户信息
   getDealByClientId: getDealByClientId,    //根据顾客id获取所有交易记录
-  getManagerTask: getManagerTask,         //主管查看发布任务
+  getManagerTask: getManagerTask,          //主管查看发布任务
+  getProductById: getProductById,           //根据产品id获取产品信息
+  getShopList: getShopList,                 //获取所有生效的店铺信息
+  getById: getById,                         //根据id获取用户信息（不带token）
+  getByIdWithToken: getByIdWithToken,       //根据id获取用户信息（带token）
+  getShopManagerTask: getShopManagerTask,   //店长获取本月任务
+  getAuditTask: getAuditTask,               //员工获取今日任务
 }

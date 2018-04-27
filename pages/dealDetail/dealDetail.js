@@ -1,5 +1,6 @@
 // pages/dealDetail/dealDetail.js
 var vm = null
+var util = require('../../utils/util.js')
 Page({
   data: {
 
@@ -8,6 +9,7 @@ Page({
   onLoad: function (options) {
     vm = this
     vm.getCurrentPages()
+    vm.getProductById()
   },
 
   //获取上一个页面
@@ -17,6 +19,22 @@ Page({
     var deal = prevPage.data.deals[prevPage.data.dealId]
     vm.setData({ deal: deal })
     console.log("一条交易信息" + JSON.stringify(deal))
+  },
+
+  //根据产品id获取产品信息
+  getProductById: function () {
+    var pages = getCurrentPages();//获取当前页面信息栈
+    var prevPage = pages[pages.length - 2]//获取上一个页面信息栈
+    var product_id = prevPage.data.deals[prevPage.data.dealId].product_id
+    var param = {
+      id: product_id
+    }
+    util.getProductById(param, function (res) {
+      if (res.data.result) {
+        var productName = res.data.ret.name
+        vm.setData({ productName: productName })
+      }
+    })
   },
 
   //返回上一层

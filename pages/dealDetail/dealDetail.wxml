@@ -19,11 +19,23 @@
 
     <view style='margin:0 3%;'>
       <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>录入时间</view>
+        <view class='zan-col zan-col-13'>
+
+          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+            <view class='zan-font-16 zan-c-gray-dark'>{{deal.created_at}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view style='margin:0 3%;'>
+      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
         <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>货号</view>
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <view class='zan-font-16 zan-c-gray-dark'>{{deal.product_id}}</view>
+            <view class='zan-font-16 zan-c-gray-dark'>{{deal.product_name}}</view>
           </view>
         </view>
       </view>
@@ -35,7 +47,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <view class='zan-c-gray-darker zan-font-16'>{{deal.product_name}}</view>
+            <view class='zan-c-gray-darker zan-font-16'>{{productName}}</view>
           </view>
         </view>
       </view>

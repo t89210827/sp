@@ -37,15 +37,31 @@ Page({
     staffIndex: '',          //用户当前操作的员工id
 
     open: [],                //展开收起数组
-
-    managerTask: [],         //发布任务数组
+    taskList: [],            //店长获取本月任务
   },
 
   onLoad: function (options) {
     vm = this
-    vm.getAudit()       //店长下的员工列表
+    vm.getAudit()             //店长下的员工列表
+    vm.getShopManagerTask()   //店长获取本月任务
   },
 
+  //店长获取本月任务
+  getShopManagerTask: function () {
+    var param = {
+      stmt_date: util.getMonth(),
+      shop_id: getApp().globalData.userInfo.shop_id,
+    }
+    util.getShopManagerTask(param, function (res) {
+      if (res.data.result) {
+        console.log("--------------" + JSON.stringify(res))
+        var taskList = res.data.ret.task
+        vm.setData({ taskList: taskList })
+      }
+    })
+  },
+
+  //发布成功提示
   showToast() {
     vm.setData({
       toast: {
@@ -59,17 +75,6 @@ Page({
         }
       })
     }, 1500)
-  },
-
-  //主管查看发布任务
-  getManagerTask: function () {
-    var param = {
-      stmt_date: util.getToday()
-    }
-    util.getManagerTask(param, function (res) {
-      var managerTask = res.data.ret
-      vm.setData({ managerTask: managerTask })
-    })
   },
 
   //展开收起
@@ -128,7 +133,7 @@ Page({
         for (var i = 0; i < staffList.length; i++) {
           staffList[i].check = false
         }
-        // console.log("员工列表" + JSON.stringify(staffList))
+        console.log("员工列表" + JSON.stringify(staffList))
         vm.setData({ staffList: staffList, shop_id: shop_id })
 
         vm.getReleaseTask() //获取任务信息剩余目标金额
