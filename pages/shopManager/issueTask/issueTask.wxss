@@ -83,6 +83,8 @@
   text-align: center;
   overflow: hidden;
   line-height: 66rpx;
+  margin-top: 20rpx;
+  margin-bottom: 40rpx;
 }
 
 .bottom-addDeal {

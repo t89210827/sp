@@ -286,35 +286,30 @@ function getAuditTask(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/audit/getAuditTask', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/audit/getAuditTask
+//查看员工是否提交过日报
+function getAuditDailyPaper(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getAuditDailyPaper', param, "GET", successCallback, errorCallback)
+}
 
+//员工提交日报
+function addAuditDailyPaper(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/addAuditDailyPaper', param, "POST", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/audit/addAuditDailyPaper
 ///////////////////////////////////////////////
 
-//util.js
 function imageUtil(e) {
-  var imageSize = {};
-  var originalWidth = e.detail.width;//图片原始宽
-  var originalHeight = e.detail.height;//图片原始高
-  var originalScale = originalHeight / originalWidth;//图片高宽比
-  console.log('originalWidth: ' + originalWidth)
-  console.log('originalHeight: ' + originalHeight)
-  //获取屏幕宽高
-  wx.getSystemInfo({
-    success: function (res) {
-      var windowWidth = res.windowWidth;
-      var windowHeight = res.windowHeight;
-      var windowscale = windowHeight / windowWidth;//屏幕高宽比
-      console.log('windowWidth: ' + windowWidth)
-      console.log('windowHeight: ' + windowHeight)
-      //图片缩放后的宽为屏幕宽
-      imageSize.imageWidth = windowWidth;
-      imageSize.imageHeight = (windowWidth * originalHeight) / originalWidth;
-    }
-  })
-  console.log('缩放后的宽: ' + imageSize.imageWidth)
-  console.log('缩放后的高: ' + imageSize.imageHeight)
+
   return imageSize;
 }
+
+//小数点后两位百分比
+function Percentage(number1, number2) {
+  return (Math.round(number1 / number2 * 10000) / 100.00 + "%");// 小数点后两位百分比
+}
+
+
 
 //日期时间转换
 /*
@@ -922,6 +917,7 @@ module.exports = {
   convertDateFormateM: convertDateFormateM,
   date: date,                 //转换成2018-10-07类型的时间
   getMonth: getMonth,         //获取当前月份
+  Percentage: Percentage,     //两个数的百分比
 
   showToast: showToast,           //展示空toast
   getQiniuToken: getQiniuToken,   //获取七牛token
@@ -962,4 +958,6 @@ module.exports = {
   getByIdWithToken: getByIdWithToken,       //根据id获取用户信息（带token）
   getShopManagerTask: getShopManagerTask,   //店长获取本月任务
   getAuditTask: getAuditTask,               //员工获取今日任务
+  getAuditDailyPaper: getAuditDailyPaper,   //查看员工是否提交过日报
+  addAuditDailyPaper: addAuditDailyPaper,   //员工提交日报
 }

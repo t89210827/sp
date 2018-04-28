@@ -23,7 +23,6 @@ Page({
     var day = util.getToday()
     vm.setData({ day: day, clientId: clientId })
     vm.getProductList()
-    vm.init()       //初始化参数
   },
 
   //获取生效的产品信息
@@ -32,19 +31,20 @@ Page({
       page: 1
     }
     util.getProductList(param, function (res) {
-      vm.setData({ productList: res.data.ret.data })
+      var productList = res.data.ret.data
+      vm.setData({ productList: productList })
       vm.initItemList()
     })
   },
 
   //初始化
-  init: function () {
+  init: function (id) {
     var arr = []
     arr.push({
       "user_id": getApp().globalData.userInfo.id,
       "shop_id": getApp().globalData.userInfo.shop_id,
       "client_id": vm.data.clientId,
-      "product_id": "",
+      "product_id": id,
       "product_name": "",
       "budget": "0-5000",
       "isbuy": 1,
@@ -57,7 +57,8 @@ Page({
       "remark": "",
       "num": ""
     })
-    var productArr = ["黄铂"]
+    var itemListIndex = vm.data.itemList[0]
+    var productArr = [itemListIndex]
     console.log("7771" + JSON.stringify(arr))
     vm.setData({ dealData: arr, productArr: productArr })
   },
@@ -71,7 +72,7 @@ Page({
         "user_id": getApp().globalData.userInfo.id,
         "shop_id": getApp().globalData.userInfo.shop_id,
         "client_id": vm.data.clientId,
-        "product_id": "",
+        "product_id": vm.data.productList[0].id,
         "product_name": "",
         "budget": "0-5000",
         "isbuy": 1,
@@ -84,7 +85,8 @@ Page({
         "remark": "",
         "num": ""
       })
-      productArr.push("黄铂")
+      var itemListIndex = vm.data.itemList[0]
+      productArr.push(itemListIndex)
     }
     console.log("777" + JSON.stringify(arr))
     vm.setData({ num: num, dealData: arr, productArr: productArr })
@@ -98,6 +100,7 @@ Page({
       itemList.push(productList[i].name)
     }
     vm.setData({ itemList: itemList })
+    vm.init(vm.data.productList[0].id)       //初始化参数          
   },
 
   //添加交易信息

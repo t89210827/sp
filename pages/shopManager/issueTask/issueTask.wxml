@@ -17,49 +17,54 @@
   <wxc-abnor type="ORDER" title="没有日报需要审核"></wxc-abnor>
 </block> -->
 
-<view style='height:90rpx; background-color:#ececec;' class='zan-font-14 center-style'>点击员工发布任务</view>
-
-<view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;' bindtap='onOff' data-index="{{index}}">
-  <view class='zan-row'>
-    <view class='zan-col zan-col-5'>
-      <view class='center-style' style='height:100rpx;'>
-        <image src='{{item.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
-      </view>
-    </view>
-    <view class='zan-col zan-col-11 zan-font-16 center-style' style='line-height:100rpx;'>点击查看本月任务</view>
-    <!-- <view class=' zan-col zan-col-8 zan-arrow '></view>  -->
-    <view wx:if="{{!item.check}}" class='zan-col zan-col-7 my-arrow'>
-      <image src='/images/right.png' style='width:20rpx;height:20rpx;float:right;margin-top:40rpx;'></image>
-    </view>
-    <view wx:if="{{item.check}}" class='zan-col zan-col-7 my-arrow'>
-      <image src='/images/bottom.png' style='width:20rpx;height:20rpx;float:right;margin-top:40rpx;'></image>
-    </view>
-  </view>
-</view>
-
-<block wx:if="{{taskList.length>0}}">
-  <view>
-    <view class='zan-row zan-font-14'>
-      <view class='zan-col zan-col-12 center-style' style='line-height:100rpx;'>产品</view>
-      <view class='zan-col zan-col-12 center-style' style='line-height:100rpx;'>
-        本月剩余目标
-      </view>
-    </view>
-  </view>
-
-  <block wx:for="{{taskList}}" wx:for-index="productIndex">
-    <view>
-      <view class='zan-row zan-font-14'>
-        <view class=' zan-col zan-col-12 center-style ' style='line-height:120rpx; '>{{item.product.name}}</view>
-        <view class='zan-col zan-col-12 center-style' style='height:120rpx;'>
-          <view class='zan-font-14' style='line-height:120rpx;text-align:center;'>{{item.product_finish}}</view>
-          <!-- <input class='zan-font-14 ' placeholder-style="text-align:center;" placeholder="请输入金额" bindinput='inputOne' data-productIndex='{{productIndex}}' data-shopIndex='{{index}}' style='line-height:120rpx;text-align:center; '></input> -->
+<!-- <view style='height:90rpx; background-color:#ececec;' class='zan-font-14 center-style'>点击员工发布任务</view> -->
+<view style='width:750rpx;'>
+  <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
+    <view style='position: relative;height:100rpx;' bindtap='onOff' data-index="{{index}}">
+      <view class='zan-row'>
+        <view class='zan-col zan-col-19 zan-font-16' style='line-height:100rpx;padding-left:48rpx;'>点击查看本月剩余任务</view>
+        <view wx:if="{{!monthTask}}" class='zan-col zan-col-4 my-arrow'>
+          <image src='/images/right.png' style='width:20rpx;height:20rpx;float:right;margin-top:40rpx;'></image>
+        </view>
+        <view wx:if="{{monthTask}}" class='zan-col zan-col-4 my-arrow'>
+          <image src='/images/bottom.png' style='width:20rpx;height:20rpx;float:right;margin-top:40rpx;'></image>
         </view>
       </view>
     </view>
-  </block>
-  <view style='height:20rpx;'></view>
-</block>
+
+
+    <block wx:if="{{monthTask}}">
+      <block wx:if="{{taskList.length == 0}}">
+        <view class='zan-font-14'>主管还未发布本月任务</view>
+      </block>
+
+      <block wx:if="{{taskList.length>0}}">
+        <view>
+          <view class='zan-row zan-font-16'>
+            <view class='zan-col zan-col-12' style='line-height:100rpx;padding-left:48rpx;'>产品</view>
+            <view class='zan-col zan-col-12' style='line-height:100rpx;text-align:right;padding-right:48rpx;'>
+              本月剩余目标
+            </view>
+          </view>
+        </view>
+
+        <block wx:for="{{taskList}}" wx:for-index="productIndex">
+          <view>
+            <view class='zan-row zan-font-14'>
+              <view class=' zan-col zan-col-12' style='line-height:120rpx;padding-left:48rpx;'>{{item.product.name}}</view>
+              <view class='zan-col zan-col-12' style='height:120rpx;'>
+                <view class='zan-font-14' style='line-height:120rpx;text-align:right;padding-right:48rpx;'>{{item.product_finish}}</view>
+              </view>
+            </view>
+          </view>
+        </block>
+        <view style='height:20rpx;'></view>
+      </block>
+    </block>
+
+  </view>
+</view>
+
 
 <view style='width:750rpx;'>
   <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
@@ -88,12 +93,11 @@
         </view>
 
         <block wx:if="{{item.check}}">
-          <view></view>
-          <view>
-            <view class='zan-row zan-font-14'>
-              <view class='zan-col zan-col-12 center-style' style='line-height:100rpx;'>产品</view>
+          <view style='background-color:#efefef;'>
+            <view class='zan-row zan-font-16'>
+              <view class='zan-col zan-col-12' style='line-height:100rpx;padding-left:48rpx;'>产品</view>
               <!-- <view class='zan-col zan-col-8 center-style' style='line-height:100rpx;'>本月剩余目标金额</view> -->
-              <view class='zan-col zan-col-12 center-style' style='line-height:100rpx;'>
+              <view class='zan-col zan-col-12' style='text-align:right;line-height:100rpx;padding-right:48rpx;'>
                 今日目标
               </view>
               <!-- <view class='zan-col zan-col-8 center-style' style='line-height:100rpx;'>
@@ -104,12 +108,12 @@
 
           <block wx:if="{{item.daily_paper.length > 0}}">
             <block wx:for="{{item.daily_paper}}">
-              <view>
+              <view style='background-color:#efefef;'>
                 <view class='zan-row zan-font-14'>
-                  <view class=' zan-col zan-col-12 center-style ' style='line-height:120rpx; '>{{item.product.name}}</view>
+                  <view class=' zan-col zan-col-12' style='line-height:120rpx;padding-left:48rpx;'>{{item.product.name}}</view>
                   <!-- <view class='zan-col zan-col-8 center-style ' style='line-height:120rpx;'>50000</view> -->
-                  <view class='zan-col zan-col-12 center-style' style='height:120rpx;'>
-                    <view style='line-height:120rpx;'>{{item.performance_request}}</view>
+                  <view class='zan-col zan-col-12' style='height:120rpx;'>
+                    <view style='line-height:120rpx;text-align:right;padding-right:48rpx;'>{{item.performance_request}}</view>
                   </view>
                   <!-- <view class='zan-col zan-col-12 center-style' style='height:120rpx;'>
                     <input class='zan-font-14 ' placeholder-style="text-align:center;" placeholder="请输入金额" bindinput='inputOne' data-productIndex='{{productIndex}}' data-staffIndex='{{index}}' data-productid='{{item.id}}' style='line-height:120rpx;text-align:center; '></input>
@@ -121,12 +125,13 @@
 
           <block wx:if="{{item.daily_paper.length == 0}}">
             <block wx:for="{{productList}}" wx:for-index="productIndex">
-              <view>
+              <view style='background-color:#efefef;'>
                 <view class='zan-row zan-font-14'>
-                  <view class=' zan-col zan-col-12 center-style ' style='line-height:120rpx; '>{{item.name}}</view>
+                  <view class=' zan-col zan-col-12' style='line-height:120rpx;padding-left:48rpx;'>{{item.name}}</view>
                   <!-- <view class='zan-col zan-col-8 center-style ' style='line-height:120rpx;'>50000</view> -->
-                  <view class='zan-col zan-col-12 center-style' style='height:120rpx;'>
-                    <input class='zan-font-14 ' placeholder-style="text-align:center;" placeholder="请输入金额" bindinput='inputOne' data-productIndex='{{productIndex}}' data-staffIndex='{{index}}' data-productid='{{item.id}}' style='line-height:120rpx;text-align:center; '></input>
+                  <view class='zan-col zan-col-12' style='text-align:right;height:120rpx;padding-right:48rpx;'>
+                    <input class='zan-font-14 ' placeholder-style="text-align:right;background-color:#fff;border-radius:20rpx;height:80rpx;line-height:80rpx;" placeholder="请输入金额" bindinput='inputOne' data-productIndex='{{productIndex}}' data-staffIndex='{{index}}' data-productid='{{item.id}}'
+                      style='height:80rpx;line-height:80rpx;text-align:right;border-radius:20rpx;margin-top:20rpx;background-color:#fff;padding-right:20rpx;'></input>
                   </view>
                   <!-- <view class='zan-col zan-col-8 center-style' style='height:120rpx;'>
                   <view>40000</view>
@@ -136,7 +141,7 @@
             </block>
           </block>
 
-          <view wx:if="{{item.daily_paper.length == 0}}" class='center-style'>
+          <view wx:if="{{item.daily_paper.length == 0}}" class='center-style' style='background-color:#efefef;'>
             <view bindtap="confirm" id="{{item.id}}" data-index="{{index}}" class="abnor__btn">确认该员工任务</view>
           </view>
           <view style='height:20rpx;'></view>

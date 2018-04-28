@@ -38,12 +38,19 @@ Page({
 
     open: [],                //展开收起数组
     taskList: [],            //店长获取本月任务
+
+    monthTask: false,        //本月任务开关
   },
 
   onLoad: function (options) {
     vm = this
     vm.getAudit()             //店长下的员工列表
-    vm.getShopManagerTask()   //店长获取本月任务
+    vm.getShopManagerTask()   //店长获取本月剩余任务
+  },
+
+  // 本月任务开关
+  onOff: function () {
+    vm.setData({ monthTask: !vm.data.monthTask })
   },
 
   //店长获取本月任务
@@ -85,18 +92,6 @@ Page({
     vm.setData({ staffList: staffList });
   },
 
-  //获取任务信息剩余目标金额
-  getReleaseTask: function () {
-    var param = {
-      shop_manager_id: getApp().globalData.userInfo.id,
-      stmt_date: util.getToday(),
-      shop_id: getApp().globalData.userInfo.shop_id
-    }
-    util.getReleaseTask(param, function (res) {
-      console.log("获取任务信息剩余目标金额" + JSON.stringify(res))
-    })
-  },
-
   //获取生效产品数组
   getProductList: function () {
     var param = {
@@ -136,7 +131,6 @@ Page({
         console.log("员工列表" + JSON.stringify(staffList))
         vm.setData({ staffList: staffList, shop_id: shop_id })
 
-        vm.getReleaseTask() //获取任务信息剩余目标金额
         vm.getProductList() //获取生效产品数组
       }
     })
@@ -173,6 +167,7 @@ Page({
     }
     util.shopManagerReleaseTask(param, function (res) {
       if (res.data.result) {
+        vm.getAudit()
         vm.showToast()
       }
     })

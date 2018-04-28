@@ -42,11 +42,12 @@ Page({
       delta: 1
     })
   },
-  
+
   //跳转到添加交易记录页面
-  jumpAddDeal: function () {
+  jumpAddDeal: function (e) {
+    var clientId = e.currentTarget.dataset.clientid
     wx.navigateTo({
-      url: '/pages/addDeal/addDeal',
+      url: '/pages/addDeal/addDeal?clientId=' + clientId,
     })
   },
 

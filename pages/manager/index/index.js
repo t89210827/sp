@@ -10,9 +10,9 @@ Page({
     options: ["今日目标", "关键信息", "次要信息"],
     optionsIndex: 0,
 
-    target: false,
-    key: false,
-    minor: false,
+    target: true,
+    key: true,
+    minor: true,
   },
 
   onLoad: function (options) {

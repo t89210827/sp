@@ -133,7 +133,7 @@
             <view class='zan-col zan-col-13'>
 
               <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-                <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入销售克重" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+                <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入销售克重" bindinput='getGramWeight' style='line-height:120rpx;text-align:right;'></input>
               </view>
             </view>
           </view>
@@ -145,7 +145,7 @@
             <view class='zan-col zan-col-13'>
 
               <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-                <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入旧料抵金值" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+                <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入旧料抵金值" bindinput='getGold_number' style='line-height:120rpx;text-align:right;'></input>
               </view>
             </view>
           </view>
@@ -156,7 +156,7 @@
         <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
           <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>实销额：</view>
           <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-            {{item.performance_request-item.performance_finish}}
+            {{item.performance_finish == null? '0':item.performance_finish}}
           </view>
           <!-- <view class='zan-col zan-col-13'>
 
@@ -304,7 +304,7 @@
         <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>客流量(自动)：</view>
 
         <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          {{passenger_flow == 1?'店长还未录入客流':passenger_flow}}
+          {{passenger_flow == 1?'店长未录入客流':passenger_flow}}
         </view>
 
       </view>
@@ -326,7 +326,9 @@
         <view class='zan-c-gray-dark zan-col zan-col-17 zan-font-16' style='line-height:120rpx;'>留电话数占比标准(5%)(自动)：</view>
 
         <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-6' style='text-align:right;'>
-          {{daily.tel_ratio}}
+          {{percentage}}
+          <!-- {{percentage == 1?'未录入客流':daily.tel_num/passenger_flow}} -->
+          <!-- {{daily.tel_ratio}} -->
         </view>
 
       </view>
@@ -338,6 +340,6 @@
 
 <view style='height:50rpx;'></view>
 
-<button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='getShopManagerTask'>提交日报</button>
+<button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='judge'>提交日报</button>
 
 <view style='height:50rpx;'></view>

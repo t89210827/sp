@@ -110,19 +110,30 @@ Page({
   },
   //跳转到提交日报页面
   jumpdaily: function () {
-    wx.navigateTo({
-      url: '/pages/daily/staff/staff',
+    var param = {
+      audit_id: getApp().globalData.userInfo.id,
+      stmt_date: util.getToday()
+    }
+    util.getAuditDailyPaper(param, function (res) {
+      console.log("是否提交过日报" + JSON.stringify(res))
+      if (res.data.result) {
+        wx.navigateTo({
+          url: '/pages/daily/staff/staff',
+        })
+      } else {
+        util.showToast("今日已经提交过日报")
+      }
     })
   },
   //跳转到根据电话查询客户页面
   jumpAddClientAddDeal: function (e) {
     // console.log("---1111" + JSON.stringify())
-    wx.navigateTo({
-      url: '/pages/addClientAddDeal/addClientAddDeal',
-    })
     // wx.navigateTo({
-    //   url: '/pages/staff/byPhoneQueryClient/byPhoneQueryClient',
+    //   url: '/pages/addClientAddDeal/addClientAddDeal',
     // })
+    wx.navigateTo({
+      url: '/pages/staff/byPhoneQueryClient/byPhoneQueryClient',
+    })
   },
   //跳转到交易列表页面
   jumpDealList: function () {
