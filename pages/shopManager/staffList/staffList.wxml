@@ -31,7 +31,8 @@
                 <image src='{{item.auditDetails.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
               </view>
             </view>
-            <view class='zan-col zan-col-11 zan-font-16 center-style' style='line-height:100rpx;'>{{item.auditDetails.name}}</view>
+            <view class='zan-col zan-col-7 zan-font-16 center-style' style='line-height:100rpx;'>{{item.clientCount}}</view>
+            <view class='zan-col zan-col-4 zan-font-16 center-style' style='line-height:100rpx;'>{{item.auditDetails.name}}</view>
             <view class=' zan-col zan-col-8 zan-arrow '></view>
           </view>
         </view>

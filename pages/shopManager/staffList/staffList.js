@@ -73,8 +73,11 @@ Page({
     }
     util.getAuditCount(param, function (res) {
       if (res.data.result) {
-        var staffList = res.data.ret[0].audit
-        vm.setData({ staffList: staffList })
+        // console.log("根据店长id查询员工信息及员工录入顾客数量（对应原型：查看员工录入客户数量" + JSON.stringify(res))
+        if (res.data.ret.length > 0) {
+          var staffList = res.data.ret[0].audit
+          vm.setData({ staffList: staffList })
+        }
       }
     })
   },

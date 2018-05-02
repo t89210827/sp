@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/start/start",
+    "pages/shopManager/auditDaily/auditDaily",
+    "pages/shopManager/boutiqueDetail/boutiqueDetail",
+    "pages/shopManager/productDaily/productDaily",
     "pages/hint/addClient/addClient",
     "pages/staff/staff",
     "pages/manager/auditStaff/auditStaffType/auditStaffType",
@@ -12,7 +15,6 @@
     "pages/shopManager/staffList/staffList",
     "pages/clientInformation/staff/staff",
     "pages/shopManager/dailyList/dailyList",
-    "pages/shopManager/auditDaily/auditDaily",
     "pages/shopManager/auditDailyDetail/auditDailyDetail",
     "pages/shopList/shopList",
     "pages/addDeal/addDeal",
@@ -25,7 +27,6 @@
     "pages/daily/staff/staff",
     "pages/hint/paySucceed/paySucceed",
     "pages/shopManager/issueList/issueList",
-    "pages/shopManager/productDaily/productDaily",
     "pages/shopManager/issuePassengerFlow/issuePassengerFlow",
     "pages/hint/addPassengerFlow/addPassengerFlow",
     "pages/shopManager/auditStaff/auditStaff",

@@ -96,7 +96,7 @@
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
             <!-- <view class='zan-font-16'>{{phone}}</view> -->
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入电话" bindinput='inputPhone' style='line-height:120rpx;text-align:right;'></input>
+            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入电话" bindinput='inputPhone' style='line-height:120rpx;text-align:right;' value='{{tel}}' disabled="true"></input>
           </view>
         </view>
       </view>

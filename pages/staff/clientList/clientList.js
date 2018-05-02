@@ -37,6 +37,11 @@ Page(extend({}, Actionsheet, Tab, {
     vm = this
     vm.getClientByUserId()      //获取所有顾客信息
   },
+
+  search:function(){
+    
+  },
+
   //根据员工id获取客户信息
   getClientByUserId: function () {
     var param = {
@@ -44,6 +49,7 @@ Page(extend({}, Actionsheet, Tab, {
       page: 1,
     }
     util.getClientByUserId(param, function (res) {
+      console.log("客户信息" + JSON.stringify(res))
       var clientList = res.data.ret.data
       for (var i = 0; i < clientList.length; i++) {
         clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)

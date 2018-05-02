@@ -17,15 +17,51 @@ Page({
 
   onLoad: function (options) {
     vm = this
+    var today = util.getToday()
+    vm.setData({ beginDate: today, endDate: today })
     vm.getUserInfo()
     vm.getAuditTask()
+    vm.getAuditIndexKeyMessage()    //员工首页主要信息
+    vm.getAuditIndexMinorMessage()  //员工首页次要信息
   },
+
+  //员工首页主要信息
+  getAuditIndexKeyMessage: function () {
+    var param = {
+      start_time: vm.data.beginDate,
+      end_time: vm.data.endDate,
+    }
+    util.getAuditIndexKeyMessage(param, function (res) {
+      if (res.data.result) {
+        var main = res.data.ret
+        console.log("员工首页关键信息" + JSON.stringify(res))
+        vm.setData({ main: main })
+      }
+    })
+  },
+
+  //员工首页次要信息
+  getAuditIndexMinorMessage: function () {
+    var param = {
+      start_time: vm.data.beginDate,
+      end_time: vm.data.endDate,
+    }
+    util.getAuditIndexMinorMessage(param, function (res) {
+      if (res.data.result) {
+        var minorMessage = res.data.ret
+        console.log("员工首页次要信息" + JSON.stringify(res))
+        vm.setData({ minorMessage: minorMessage })
+      }
+    })
+  },
+
   //员工获取今日任务
   getAuditTask: function () {
     var param = {
       stmt_date: util.getToday()
     }
     util.getAuditTask(param, function (res) {
+      console.log("678" + JSON.stringify(res))
       var todayTask = res.data.ret.task
       vm.setData({ todayTask: todayTask })
     })

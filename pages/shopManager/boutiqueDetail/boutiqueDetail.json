@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "wxc-toast": "../../../dist/packages/@minui/wxc-toast/dist/index",
+    "wxc-progress": "../../../dist/packages/@minui/wxc-progress/dist/index",
+    "wxc-counter": "../../../dist/packages/@minui/wxc-counter/dist/index"
+  }
+}

@@ -36,16 +36,27 @@ Page(extend({}, Actionsheet, Tab, {
   onLoad: function (options) {
     vm = this
     // vm.getAudit()       //店长下的员工列表
-    vm.dailyList()      //店长查看日报列表(对应原型审核日报)
+    vm.dailyList()         //店长查看日报列表(对应原型审核日报)
   },
   //店长查看日报列表(对应原型审核日报)
   dailyList: function () {
     var param = {
-      status: 0
+      status: 1
     }
     util.dailyList(param, function (res) {
-      var dailyList = res.data.ret.data
-      vm.setData({ dailyList: dailyList })
+      if (res.data.result) {
+        var dailyList = res.data.ret.data[0].audit
+        for (var i = 0; i < dailyList.length; i++) {
+          if (dailyList[i].daily_paper.length == 0) {
+            dailyList.splice(i, 1)
+            break;
+          }
+
+          dailyList[i].created_at = util.convertDateFormateM(dailyList[i].created_at)
+        }
+        console.log("000000" + JSON.stringify(dailyList))
+        vm.setData({ dailyList: dailyList })
+      }
     })
   },
 

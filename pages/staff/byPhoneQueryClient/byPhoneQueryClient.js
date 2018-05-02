@@ -23,8 +23,15 @@ Page({
 
   //根据电话号查询客户信息
   getClientByTel: function () {
+    var tel = vm.data.tel
+    // console.log("00000000000" + util.isPoneAvailable(tel))
+    if (!util.isPoneAvailable(tel)) {
+      util.showToast("手机号输入不正确")
+      return
+    }
+
     var param = {
-      tel: vm.data.tel
+      tel: tel
     }
     util.getClientByTel(param, function (res) {
       if (res.data.result) {
@@ -36,7 +43,7 @@ Page({
         })
       } else {
         wx.navigateTo({
-          url: '/pages/addClientAddDeal/addClientAddDeal',
+          url: '/pages/addClientAddDeal/addClientAddDeal?tel=' + tel,
         })
       }
     })

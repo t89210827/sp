@@ -255,7 +255,7 @@
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入订货金额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入订货金额" bindinput='inputMoney' style='line-height:120rpx;text-align:right;'></input>
             </view>
           </view>
         </view>

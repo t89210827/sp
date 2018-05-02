@@ -95,7 +95,6 @@
         </view>
         <view class='zan-c-gray-dark zan-col zan-col-8 zan-font-16' style='line-height:120rpx;'>年龄</view>
         <view class='zan-col zan-col-13'>
-
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
             <view class='zan-c-gray-darker zan-font-16'>{{clientDetail.age}}</view>
           </view>

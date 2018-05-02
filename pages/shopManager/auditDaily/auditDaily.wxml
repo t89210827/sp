@@ -27,7 +27,7 @@
       <scroll-view scroll-y style="height: 1000rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-top='0'>
 
         <block wx:for="{{dailyList}}">
-          <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;' bindtap='jumpClientList'>
+          <!-- <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;' bindtap='jumpClientList'>
             <view class='zan-row'>
               <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index}}</view>
               <view class='zan-col zan-col-3'>
@@ -35,10 +35,27 @@
                   <image src='{{item.audit[0].user.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
                 </view>
               </view>
-              <view class='zan-col zan-col-11 zan-font-16 center-style' style='line-height:100rpx;'>{{item.audit[0].user.name}}</view>
+              <view class='zan-col zan-col-11 zan-font-16 center-style' style='line-height:100rpx;'>{{item.user.name}}</view>
               <view class=' zan-col zan-col-8 zan-arrow '></view>
             </view>
+          </view> -->
+
+          <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;'>
+            <navigator url='/pages/shopManager/auditDailyDetail/auditDailyDetail?detail={{item.user.id}}'>
+              <view class='zan-row'>
+                <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index}}</view>
+                <view class='zan-col zan-col-3'>
+                  <view class='center-style' style='height:100rpx;'>
+                    <image src='{{item.user.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
+                  </view>
+                </view>
+                <view class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>{{item.user.name}}</view>
+                <view class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>{{item.created_at}}</view>
+                <view class='zan-col zan-col-1 zan-arrow '></view>
+              </view>
+            </navigator>
           </view>
+
         </block>
 
       </scroll-view>

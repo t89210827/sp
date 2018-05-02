@@ -45,6 +45,21 @@ Page({
     vm.setData({ gold_number: e.detail.value })
   },
 
+  init: function () {
+
+  },
+
+  //添加订货信息
+  addOrderGoods: function () {
+    var orderGoods = []
+    var orderGoodsIndex = {
+      "user_id": "5",
+      "shop_id": "1",
+      "product_number": "003",
+      "money": "1000"
+    }
+  },
+
   //判断
   judge: function () {
     var submitDaily = vm.data.submitDaily
@@ -112,6 +127,7 @@ Page({
       "total_piece_number": submitDaily[0].total_num,
       "total_than_number": submitDaily[0].total_pen_num,
       "passenger_flow_num": vm.data.passenger_flow,
+      "status": "1",
       "phone_num": vm.data.daily.tel_num,
       "phone_ratio": vm.data.percentage
     }

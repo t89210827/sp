@@ -33,7 +33,7 @@ Page({
     num: 0,                  //产品数量
     productList: [],         //所有产品数组
     dealData: [],            //提交交易参数
-    // productType: "黄铂",     //产品类型默认值
+    // productType: "黄铂",  //产品类型默认值
 
     productArr: [],         //产品类型默认值
   },
@@ -41,7 +41,8 @@ Page({
   onLoad: function (options) {
     vm = this
     var day = util.getToday()
-    vm.setData({ day: day })
+    var tel = options.tel
+    vm.setData({ day: day, tel: tel })
     vm.getProductList()
     vm.init()       //初始化参数
   },

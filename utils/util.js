@@ -296,7 +296,52 @@ function addAuditDailyPaper(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/audit/addAuditDailyPaper', param, "POST", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/audit/addAuditDailyPaper
+//本店员工排名
+function getAuditRanking(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getAuditRanking', param, "GET", successCallback, errorCallback)
+}
+
+//添加订货信息
+function addOrderGoods(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/orderGoods/addOrderGoods', param, "POST", successCallback, errorCallback)
+}
+
+//获取生效的竞品信息
+function getBoutique(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/boutique/getBoutique', param, "GET", successCallback, errorCallback)
+}
+
+//提交竞品日报
+function addBoutique(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/addBoutique', param, "POST", successCallback, errorCallback)
+}
+
+//店长查看日报信息
+function getShopManagerDailyPaperData(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getShopManagerDailyPaperData', param, "GET", successCallback, errorCallback)
+}
+
+//员工首页主要信息
+function getAuditIndexKeyMessage(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getAuditIndexKeyMessage', param, "GET", successCallback, errorCallback)
+}
+
+//根据日报店员clerk_id查看日报详情
+function dailyPaper(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/dailyPaper', param, "GET", successCallback, errorCallback)
+}
+
+//员工首页次要信息
+function getAuditIndexMinorMessage(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getAuditIndexMinorMessage', param, "GET", successCallback, errorCallback)
+}
+
+//店长首页关键信息
+function getAuditIndexMinorMessage(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getAuditIndexMinorMessage', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/shopManager/getShopManagerIndexKeyMessage
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -960,4 +1005,12 @@ module.exports = {
   getAuditTask: getAuditTask,               //员工获取今日任务
   getAuditDailyPaper: getAuditDailyPaper,   //查看员工是否提交过日报
   addAuditDailyPaper: addAuditDailyPaper,   //员工提交日报
+  getAuditRanking: getAuditRanking,         //本店员工排名
+  addOrderGoods: addOrderGoods,             //添加订货信息
+  getBoutique: getBoutique,                 //获取生效的竞品信息
+  addBoutique: addBoutique,                 //提交竞品日报
+  getShopManagerDailyPaperData: getShopManagerDailyPaperData,     //店长查看日报信息
+  getAuditIndexKeyMessage: getAuditIndexKeyMessage,   //员工首页主要信息
+  dailyPaper: dailyPaper,                   //根据日报店员clerk_id查看日报详情
+  getAuditIndexMinorMessage: getAuditIndexMinorMessage, //员工首页次要信息
 }

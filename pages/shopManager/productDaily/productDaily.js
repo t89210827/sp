@@ -1,14 +1,30 @@
 // pages/shopManager/productDaily/productDaily.js
+var vm = null
+var util = require('../../../utils/util.js')
 Page({
   data: {
 
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
+    vm = this
+    vm.getShopManagerDailyPaperData()   //店长查看日报信息  
+  },
 
+  //店长查看日报信息
+  getShopManagerDailyPaperData: function () {
+    var param = {
+      // shop_id: getApp().globalData.userInfo.shop_id,
+      shop_id: 45,
+      stmt_date: util.getToday()
+    }
+    util.getShopManagerDailyPaperData(param, function (res) {
+      if (res.data.result) {
+        // var dailyPaperData = res.data.ret.daily_paper
+      } else {
+        util.showToast(res.data.message)
+      }
+    })
   },
 
   //返回上一层
@@ -18,9 +34,6 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
   onReady: function () {
 
   },
