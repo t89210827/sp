@@ -63,16 +63,14 @@ Page({
   //判断
   judge: function () {
     var submitDaily = vm.data.submitDaily
-
-    // if (submitDaily.length == 0) {
-    //   util.showToast("店长还未发布今日目标")
-    //   return
-    // }
-    // if (vm.data.passenger_flow == 1) {
-    //   util.showToast("等待店长录入客流")
-    //   return
-    // }
-
+    if (submitDaily.length == 0) {
+      util.showToast("店长还未发布今日目标")
+      return
+    }
+    if (vm.data.passenger_flow == 1) {
+      util.showToast("等待店长录入客流")
+      return
+    }
     wx.showModal({
       title: '确认',
       content: '确定提交日报吗？',
@@ -91,58 +89,57 @@ Page({
   //提价日报 跳转到员工首页
   getShopManagerTask: function () {
     var submitDaily = vm.data.submitDaily
-    var auditDailyPaper = []
+    var today = util.getToday()
+    var auditDailyPaper = { stmt_date: today, auditDailyPaper: [] }
     for (var i = 0; i < submitDaily.length; i++) {
       var auditDailyPaperIndex = null
       if (submitDaily[i].product_id == 2) {
         auditDailyPaperIndex = {
           "user_id": submitDaily[i].user_id,
           "shop_id": submitDaily[i].shop_id,
-          "stmt_date": submitDaily[i].stmt_date,
           "product_id": submitDaily[i].product_id,
           "performance_finish": submitDaily[i].performance_finish == null ? "0" : submitDaily[i].performance_finish,
+          "status": "1",
+          "num": submitDaily[i].product[0].num,
+
+          "total_piece_number": submitDaily[i].total_piece_number == null ? "0" : submitDaily[i].total_piece_number,
+          "total_than_number": submitDaily[i].total_than_number == null ? "0" : submitDaily[i].total_than_number,
+          "passenger_flow_num": submitDaily[i].passenger_flow_num == null ? "0" : submitDaily[i].passenger_flow_num,
+          "phone_num": submitDaily[i].phone_num == null ? "0" : submitDaily[i].phone_num,
+          "phone_ratio": submitDaily[i].phone_ratio == null ? "0" : submitDaily[i].phone_ratio,
+
           "gram_weight": vm.data.gram_weight,
           "gold_number": vm.data.gold_number,
-          "status": "1",
-          "num": submitDaily[i].product[0].num
+
         }
       } else {
         auditDailyPaperIndex = {
           "user_id": submitDaily[i].user_id,
           "shop_id": submitDaily[i].shop_id,
-          "stmt_date": submitDaily[i].stmt_date,
           "product_id": submitDaily[i].product_id,
           "performance_finish": submitDaily[i].performance_finish == null ? "0" : submitDaily[i].performance_finish,
           "status": "1",
-          "num": submitDaily[i].product[0].num
+          "num": submitDaily[i].product[0].num,
+
+          "total_piece_number": submitDaily[i].total_piece_number == null ? "0" : submitDaily[i].total_piece_number,
+          "total_than_number": submitDaily[i].total_than_number == null ? "0" : submitDaily[i].total_than_number,
+          "passenger_flow_num": submitDaily[i].passenger_flow_num == null ? "0" : submitDaily[i].passenger_flow_num,
+          "phone_num": submitDaily[i].phone_num == null ? "0" : submitDaily[i].phone_num,
+          "phone_ratio": submitDaily[i].phone_ratio == null ? "0" : submitDaily[i].phone_ratio,
         }
       }
-      // console.log("提交日报 ： " + JSON.stringify(auditDailyPaperIndex))
-      auditDailyPaper.push(auditDailyPaperIndex)
+      auditDailyPaper.auditDailyPaper.push(auditDailyPaperIndex)
     }
-    var total = {
-      "user_id": getApp().globalData.userInfo.id,
-      "shop_id": getApp().globalData.userInfo.shop_id,
-      "stmt_date": util.getToday(),
-      "total_piece_number": submitDaily[0].total_num,
-      "total_than_number": submitDaily[0].total_pen_num,
-      "passenger_flow_num": vm.data.passenger_flow,
-      "status": "1",
-      "phone_num": vm.data.daily.tel_num,
-      "phone_ratio": vm.data.percentage
-    }
-    auditDailyPaper.push(total)
     console.log("提交日报:" + JSON.stringify(auditDailyPaper))
-
-    var param = {
-      auditDailyPaper: auditDailyPaper
-    }
-    util.addAuditDailyPaper(param, function (res) {
-
-      wx.switchTab({
-        url: '/pages/staff/staff',
-      })
-
+    util.addAuditDailyPaper(auditDailyPaper, function (res) {
+      if (res.data.result) {
+        wx.redirectTo({
+          url: '/pages/staff/staff',
+        })
+        // wx.switchTab({
+        //   url: '/pages/staff/staff',
+        // })
+      }
     })
   },
 

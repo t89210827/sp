@@ -10,12 +10,12 @@ Page({
   },
   //返回员工首页
   jumpIndex: function () {
-    // wx.redirectTo({
-    //   url: '/pages/index/index',
-    // })
-    wx.switchTab({
+    wx.redirectTo({
       url: '/pages/staff/staff',
     })
+    // wx.switchTab({
+    //   url: '/pages/staff/staff',
+    // })
   },
   //跳转客户信息首页
   jumpClientInformation: function () {

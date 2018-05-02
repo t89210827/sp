@@ -4,8 +4,8 @@ var util = require('../../../utils/util.js')
 Page({
   data: {
     userInfo: {},
-    beginDate: "2018-04-09",
-    endDate: "2018-04-09",
+    beginDate: "",
+    endDate: "",
 
     options: ["今日目标", "关键信息", "次要信息"],
     optionsIndex: 0,
@@ -17,9 +17,44 @@ Page({
 
   onLoad: function (options) {
     vm = this
+    var today = util.getToday()
+    vm.setData({ beginDate: today, endDate: today })
     vm.getUserInfo()
     vm.getShopManagerTask()              //店长获取本月任务
   },
+
+  //店长首页主要信息
+  getShopManagerIndexKeyMessage: function () {
+    var param = {
+      shop_id: getApp().globalData.userInfo.shop_id,
+      start_time: vm.data.beginDate,
+      end_time: vm.data.endDate,
+    }
+    util.getShopManagerIndexKeyMessage(param, function (res) {
+      if (res.data.result) {
+        var main = res.data.ret
+        console.log("店长首页关键信息" + JSON.stringify(res))
+        vm.setData({ main: main })
+      }
+    })
+  },
+
+  //店长首页次要信息
+  getShopManagerIndexMinorMessage: function () {
+    var param = {
+      shop_id: getApp().globalData.userInfo.shop_id,
+      start_time: vm.data.beginDate,
+      end_time: vm.data.endDate,
+    }
+    util.getShopManagerIndexMinorMessage(param, function (res) {
+      if (res.data.result) {
+        var minorMessage = res.data.ret
+        console.log("店长首页次要信息" + JSON.stringify(res))
+        vm.setData({ minorMessage: minorMessage })
+      }
+    })
+  },
+
 
   //店长获取本月任务
   getShopManagerTask: function () {
@@ -142,6 +177,8 @@ Page({
     this.setData({
       endDate: e.detail.value
     })
+    vm.getShopManagerIndexKeyMessage()    //员工首页主要信息
+    vm.getShopManagerIndexMinorMessage()  //员工首页次要信息
   },
   // 选项选择
   bindOption: function (e) {
@@ -149,6 +186,8 @@ Page({
     this.setData({
       optionsIndex: e.detail.value
     })
+    vm.getShopManagerIndexKeyMessage()    //员工首页主要信息
+    vm.getShopManagerIndexMinorMessage()  //员工首页次要信息
   },
 
   /**
@@ -162,7 +201,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    vm.getShopManagerIndexKeyMessage()    //员工首页主要信息
+    vm.getShopManagerIndexMinorMessage()  //员工首页次要信息
   },
 
   /**

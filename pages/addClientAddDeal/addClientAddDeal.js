@@ -44,7 +44,7 @@ Page({
     var tel = options.tel
     vm.setData({ day: day, tel: tel })
     vm.getProductList()
-    vm.init()       //初始化参数
+    // vm.init()       //初始化参数
   },
 
   //获取生效的产品信息
@@ -53,19 +53,20 @@ Page({
       page: 1
     }
     util.getProductList(param, function (res) {
-      vm.setData({ productList: res.data.ret.data })
+      var productList = res.data.ret.data
+      vm.setData({ productList: productList })
       vm.initItemList()
     })
   },
 
   //初始化
-  init: function () {
+  init: function (id) {
     var arr = []
     arr.push({
       "user_id": getApp().globalData.userInfo.id,
       "shop_id": getApp().globalData.userInfo.shop_id,
-      "client_id": "",
-      "product_id": "",
+      "client_id": vm.data.clientId,
+      "product_id": id,
       "product_name": "",
       "budget": "0-5000",
       "isbuy": 1,
@@ -78,7 +79,8 @@ Page({
       "remark": "",
       "num": ""
     })
-    var productArr = ["黄铂"]
+    var itemListIndex = vm.data.itemList[0]
+    var productArr = [itemListIndex]
     console.log("7771" + JSON.stringify(arr))
     vm.setData({ dealData: arr, productArr: productArr })
   },
@@ -91,8 +93,8 @@ Page({
       arr.push({
         "user_id": getApp().globalData.userInfo.id,
         "shop_id": getApp().globalData.userInfo.shop_id,
-        "client_id": "",
-        "product_id": "",
+        "client_id": vm.data.clientId,
+        "product_id": vm.data.productList[0].id,
         "product_name": "",
         "budget": "0-5000",
         "isbuy": 1,
@@ -105,7 +107,8 @@ Page({
         "remark": "",
         "num": ""
       })
-      productArr.push("黄铂")
+      var itemListIndex = vm.data.itemList[0]
+      productArr.push(itemListIndex)
     }
     console.log("777" + JSON.stringify(arr))
     vm.setData({ num: num, dealData: arr, productArr: productArr })
@@ -119,7 +122,175 @@ Page({
       itemList.push(productList[i].name)
     }
     vm.setData({ itemList: itemList })
+    vm.init(vm.data.productList[0].id)       //初始化参数          
   },
+
+  //添加交易信息
+  addDeal: function () {
+    var param = {
+      deal: vm.data.dealData
+    }
+    util.addDeal(param, function (res) {
+      if (res.data.result) {
+        wx.navigateTo({
+          url: '/pages/hint/addClient/addClient',
+        })
+      }
+    })
+  },
+
+  //货号
+  inputName: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].product_name = e.detail.value
+    vm.setData({ dealData: dealData })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //选择产品类型
+  productType: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+
+    var dealData = vm.data.dealData             //交易参数数组
+    var productList = vm.data.productList       //产品数组
+    var itemList = vm.data.itemList             //产品数组
+    var productArr = vm.data.productArr         //产品数组
+
+    // console.log("11111" + JSON.stringify(itemList))
+    wx.showActionSheet({
+      itemList: itemList,
+      success: function (res) {
+        if (!res.cancel) {
+          console.log(res.tapIndex)
+          dealData[productindex].product_id = productList[res.tapIndex].id
+          productArr[productindex] = itemList[res.tapIndex]
+          vm.setData({
+            dealData: dealData,
+            productArr: productArr,
+          })
+          console.log("---" + JSON.stringify(dealData))
+        }
+      }
+    });
+  },
+
+  //选择预算
+  budget: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+    var budget = ['0-5000', '5000-10000', '10000-15000', '15000-20000']
+    wx.showActionSheet({
+      itemList: ['0-5000', '5000-10000', '10000-15000', '15000-20000'],
+      success: function (res) {
+        if (!res.cancel) {
+          console.log(res.tapIndex)
+          dealData[productindex].budget = budget[res.tapIndex]
+          vm.setData({
+            dealData: dealData
+          })
+        }
+      }
+    });
+  },
+
+  switchBuy: function (e) {
+    var isBuy = e.detail.value
+    var dealData = vm.data.dealData
+    var productindex = e.currentTarget.dataset.productindex
+    if (isBuy) {
+      dealData[productindex].isbuy = 0
+    } else {
+      dealData[productindex].isbuy = 1
+      // 如果为flase清空件数和购买金额
+      dealData[productindex].money = ""
+      dealData[productindex].num = ""
+    }
+    console.log("---" + JSON.stringify(dealData))
+    vm.setData({ isBuy: e.detail.value, dealData: dealData })
+  },
+  switchReservation: function (e) {
+    // console.log('携带值为', e.detail.value)
+    var isReservation = e.detail.value
+    var dealData = vm.data.dealData
+    var productindex = e.currentTarget.dataset.productindex
+    if (isReservation) {
+      dealData[productindex].isearnest = 0
+    } else {
+      dealData[productindex].isearnest = 1
+
+      // 如果为flase清空定金
+      dealData[productindex].isearnest_money = ""
+    }
+    console.log("---" + JSON.stringify(dealData))
+    vm.setData({ isReservation: e.detail.value, dealData: dealData })
+  },
+
+  //购买金额
+  inputMoney: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].money = e.detail.value
+    vm.setData({ dealData: dealData })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //购买件数
+  inputNum: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].num = e.detail.value
+    vm.setData({ dealData: dealData })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //定金金额
+  inputIsearnestMoney: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].isearnest_money = e.detail.value
+    vm.setData({ dealData: dealData })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //定金金额
+  inputPurpose: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].purpose = e.detail.value
+    vm.setData({ dealData: dealData })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //提醒时间
+  bindDateChange: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].purpose_time = e.detail.value
+    vm.setData({
+      dealData: dealData
+    })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
+  //备注
+  textAreaEventListener: function (e) {
+    var productindex = e.currentTarget.dataset.productindex
+    var dealData = vm.data.dealData
+
+    dealData[productindex].remark = e.detail.value
+    vm.setData({
+      dealData: dealData
+    })
+    console.log("---" + JSON.stringify(dealData))
+  },
+
 
   // 添加顾客信息并添加交易信息
   addClient: function () {
@@ -127,10 +298,10 @@ Page({
       util.showToast("姓名不能为空")
       return
     }
-    if (vm.data.image == "") {
-      util.showToast("请上传头像")
-      return
-    }
+    // if (vm.data.image == "") {
+    //   util.showToast("请上传头像")
+    //   return
+    // }
     if (vm.data.age == "") {
       util.showToast("年龄不能为空")
       return
@@ -170,20 +341,6 @@ Page({
             url: '/pages/hint/addClient/addClient',
           })
         }
-      }
-    })
-  },
-
-  //添加交易信息
-  addDeal: function () {
-    var param = {
-      deal: vm.data.dealData
-    }
-    util.addDeal(param, function (res) {
-      if (res.data.result) {
-        wx.navigateTo({
-          url: '/pages/hint/addClient/addClient',
-        })
       }
     })
   },
@@ -281,170 +438,6 @@ Page({
     console.log("顾客城市" + JSON.stringify(e.detail.value))
   },
 
-  //货号
-  inputName: function (e) {
-    // console.log("---" + JSON.stringify(e))
-    var productindex = e.currentTarget.dataset.productindex
-    var dealData = vm.data.dealData
-
-    dealData[productindex].product_name = e.detail.value
-    vm.setData({ dealData: dealData })
-    console.log("---" + JSON.stringify(dealData))
-    // vm.setData({
-    //   name: e.detail.value,
-    // })
-  },
-
-  //选择产品类型
-  productType: function (e) {
-    // console.log("00000" + JSON.stringify(e))
-    var productindex = e.currentTarget.dataset.productindex
-
-    var dealData = vm.data.dealData             //交易参数数组
-    var productList = vm.data.productList       //产品数组
-    var itemList = vm.data.itemList             //产品数组
-    var productArr = vm.data.productArr         //产品数组
-
-    // console.log("11111" + JSON.stringify(itemList))
-    wx.showActionSheet({
-      itemList: itemList,
-      success: function (res) {
-        if (!res.cancel) {
-          console.log(res.tapIndex)
-          dealData[productindex].product_id = productList[res.tapIndex].id
-
-          // console.log("11111" + JSON.stringify(productArr))
-          productArr[productindex] = itemList[res.tapIndex]
-          vm.setData({
-            dealData: dealData,
-            productArr: productArr,
-
-            // productType: itemList[res.tapIndex]
-          })
-          console.log("---" + JSON.stringify(dealData))
-        }
-      }
-    });
-  },
-
-  //选择预算
-  budget: function (e) {
-    var productindex = e.currentTarget.dataset.productindex
-    var dealData = vm.data.dealData
-
-    var budget = ['0-5000', '5000-10000', '10000-15000', '15000-20000']
-    wx.showActionSheet({
-      itemList: ['0-5000', '5000-10000', '10000-15000', '15000-20000'],
-      success: function (res) {
-        // console.log("11111" + JSON.stringify(res))
-        if (!res.cancel) {
-          console.log(res.tapIndex)
-          dealData[productindex].budget = budget[res.tapIndex]
-          vm.setData({
-            dealData: dealData
-          })
-        }
-      }
-    });
-  },
-
-  switchBuy: function (e) {
-    // console.log('携带值为', e.detail.value)
-    var isBuy = e.detail.value
-    var dealData = vm.data.dealData
-    var productindex = e.currentTarget.dataset.productindex
-    if (isBuy) {
-      dealData[productindex].isbuy = 0
-    } else {
-      dealData[productindex].isbuy = 1
-
-      // 如果为flase清空件数和购买金额
-      dealData[productindex].money = ""
-      dealData[productindex].num = ""
-    }
-    console.log("---" + JSON.stringify(dealData))
-    vm.setData({ isBuy: e.detail.value, dealData: dealData })
-  },
-  switchReservation: function (e) {
-    // console.log('携带值为', e.detail.value)
-    var isReservation = e.detail.value
-    var dealData = vm.data.dealData
-    var productindex = e.currentTarget.dataset.productindex
-    if (isReservation) {
-      dealData[productindex].isearnest = 0
-    } else {
-      dealData[productindex].isearnest = 1
-
-      // 如果为flase清空定金
-      dealData[productindex].isearnest_money = ""
-    }
-    console.log("---" + JSON.stringify(dealData))
-    vm.setData({ isReservation: e.detail.value, dealData: dealData })
-  },
-
-  //购买金额
-  inputMoney: function (e) {
-    var productindex = e.currentTarget.dataset.productindex
-    var dealData = vm.data.dealData
-
-    dealData[productindex].money = e.detail.value
-    vm.setData({ dealData: dealData })
-    console.log("---" + JSON.stringify(dealData))
-  },
-
-  //购买件数
-  inputNum: function (e) {
-    var productindex = e.currentTarget.dataset.productindex
-    var dealData = vm.data.dealData
-
-    dealData[productindex].num = e.detail.value
-    vm.setData({ dealData: dealData })
-    console.log("---" + JSON.stringify(dealData))
-  },
-
-  //定金金额
-  inputIsearnestMoney: function (e) {
-    var productindex = e.currentTarget.dataset.productindex
-    var dealData = vm.data.dealData
-
-    dealData[productindex].isearnest_money = e.detail.value
-    vm.setData({ dealData: dealData })
-    console.log("---" + JSON.stringify(dealData))
-  },
-
-  //定金金额
-  inputPurpose: function (e) {
-    var productindex = e.currentTarget.dataset.productindex
-    var dealData = vm.data.dealData
-
-    dealData[productindex].purpose = e.detail.value
-    vm.setData({ dealData: dealData })
-    console.log("---" + JSON.stringify(dealData))
-  },
-
-  //提醒时间
-  bindDateChange: function (e) {
-    var productindex = e.currentTarget.dataset.productindex
-    var dealData = vm.data.dealData
-
-    dealData[productindex].purpose_time = e.detail.value
-    vm.setData({
-      dealData: dealData
-    })
-    console.log("---" + JSON.stringify(dealData))
-  },
-
-  //备注
-  textAreaEventListener: function (e) {
-    var productindex = e.currentTarget.dataset.productindex
-    var dealData = vm.data.dealData
-
-    dealData[productindex].remark = e.detail.value
-    vm.setData({
-      dealData: dealData
-    })
-    console.log("---" + JSON.stringify(dealData))
-  },
 
   //返回上一层
   back: function () {

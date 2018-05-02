@@ -148,34 +148,34 @@
   </view>
 
 
- <block wx:if="{{key == true}}">
+  <block wx:if="{{key == true}}">
     <view style='width:750rpx;'>
       <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
         <view style='padding:10rpx 20rpx;'>
           <view style='height:10rpx;'></view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>留电话数(已购买)</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{main.buyTelNum}}</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>留电话数(未购买)</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{main.noDuyTelNum}}</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>非黄铂达成率</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0%</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{main.noYellowPerotRate}}%</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>黄铂达成率</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0%</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{main.yellowPerotRate}}%</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>其他达成率</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0%</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{main.otherRate}}%</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>顾客转化达成率</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0%</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{main.clientChangeNum}}%</view>
           </view>
           <view style='height:20rpx;'></view>
         </view>
@@ -220,64 +220,64 @@
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>销售件数</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0件</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.noYellowPerotNum}}件</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>销售笔数</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0笔</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.noYellowPerotPenNum}}笔</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>品单价</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0元</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.noYellowPerotProductUnitPrice}}元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>客单价</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0元</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.noYellowPerotGuestUnitPrice}}元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>非黄铂任务额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0元</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.noYellowPerotTask}}元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>非黄铂销售额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0元</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.noYellowPerotMoneies}}元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-8'>黄铂</view>
           </view>
 
-          <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
+          <!-- <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>销售克重</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0克</view>
-          </view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotNum}}克</view>
+          </view> -->
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>销售件数</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0件</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotNum}}件</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>销售笔数</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotPenNum}}</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>品单价</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0元</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotProductUnitPrice}}元</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>客单价</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0元</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotGuestUnitPrice}}元</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>黄铂任务额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0元</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotTask}}元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>黄铂销售额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0元</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotMoneies}}元</view>
           </view>
 
 
@@ -287,32 +287,32 @@
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>其他任务额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherPerotTask}}</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>其他销售额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherMoneies }}</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>客流数</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherPassengerFlow}}</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>试戴数</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.tryWearNum}}</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>试戴率</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0%</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.tryWearRate}}%</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>留电话率</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>0%</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherPassengerFlow}}%</view>
           </view>
           <view style='height:20rpx;'></view>
         </view>

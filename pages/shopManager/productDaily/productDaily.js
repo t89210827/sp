@@ -14,8 +14,7 @@ Page({
   //店长查看日报信息
   getShopManagerDailyPaperData: function () {
     var param = {
-      // shop_id: getApp().globalData.userInfo.shop_id,
-      shop_id: 45,
+      shop_id: getApp().globalData.userInfo.shop_id,
       stmt_date: util.getToday()
     }
     util.getShopManagerDailyPaperData(param, function (res) {

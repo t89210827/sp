@@ -23,6 +23,7 @@ Page({
     var day = util.getToday()
     vm.setData({ day: day, clientId: clientId })
     vm.getProductList()
+    // vm.init()       //初始化参数
   },
 
   //获取生效的产品信息

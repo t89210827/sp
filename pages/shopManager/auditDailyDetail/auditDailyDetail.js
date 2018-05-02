@@ -4,7 +4,7 @@ var util = require('../../../utils/util.js')
 Page({
 
   data: {
-    date: "",                             //今天的日期
+    date: "",                                  //今天的日期
   },
 
   onLoad: function (options) {
@@ -14,9 +14,8 @@ Page({
 
     var detail = options.detail
     vm.setData({ staffId: detail })
-    console.log("日报详情" + JSON.stringify(options))
-    vm.dailyPaperOne(detail)
-    vm.dailyPaperTwo(detail)
+    // console.log("日报详情" + JSON.stringify(options))
+    vm.dailyPaper(detail)
   },
 
   //审核通过日报
@@ -27,7 +26,7 @@ Page({
       shop_manager_id: getApp().globalData.userInfo.id,
       shop_manager_opt_time: util.getToday(),
       // shop_manager_remark: "",
-      stmt_date: vm.data.dailyPaperOne[0].stmt_date,
+      stmt_date: vm.data.dailyPaper[0].stmt_date,
     }
     util.shopManagerReviewDailyPaper(param, function (res) {
       if (res.data.result) {
@@ -45,7 +44,7 @@ Page({
       shop_manager_id: getApp().globalData.userInfo.id,
       shop_manager_opt_time: util.getToday(),
       // shop_manager_remark: "",
-      stmt_date: vm.data.dailyPaperOne[0].stmt_date,
+      stmt_date: vm.data.dailyPaper[0].stmt_date,
     }
     util.shopManagerReviewDailyPaper(param, function (res) {
       if (res.data.result) {
@@ -55,33 +54,17 @@ Page({
     })
   },
 
-  // 根据日报店员clerk_id查看目标详情
-  dailyPaperOne: function (detail) {
-    var param = {
-      clerk_id: detail,
-      status: 0,
-    }
-    util.dailyPaper(param, function (res) {
-      if (res.data.result) {
-        var dailyPaperOne = res.data.ret
-        // dailyPaperOne[0].created_at = util.convertDateFormateM(dailyPaperOne[0].created_at)
-        vm.setData({ dailyPaperOne: dailyPaperOne })
-        console.log("日报目标详情" + JSON.stringify(dailyPaperOne))
-      }
-    })
-  },
-
   // 根据日报店员clerk_id查看日报详情
-  dailyPaperTwo: function (detail) {
+  dailyPaper: function (detail) {
     var param = {
       clerk_id: detail,
       status: 1,
     }
     util.dailyPaper(param, function (res) {
       if (res.data.result) {
-        var dailyPaperTwo = res.data.ret
-        vm.setData({ dailyPaperTwo: dailyPaperTwo })
-        console.log("日报详情" + JSON.stringify(dailyPaperTwo))
+        var dailyPaper = res.data.ret
+        vm.setData({ dailyPaper: dailyPaper })
+        console.log("日报详情" + JSON.stringify(dailyPaper))
       }
     })
   },

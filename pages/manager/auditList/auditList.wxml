@@ -24,8 +24,16 @@
 <view style='width:750rpx;'>
   <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
     <!-- <navigator url='/pages/shopManager/auditDaily/auditDaily'> -->
-    <navigator url=''>
-      <view class='center-style' style='line-height:200rpx;'>审核日报</view>
+    <navigator url='/pages/manager/auditBoutiqueList/auditBoutiqueList'>
+      <view class='center-style' style='line-height:200rpx;'>审核竞品日报</view>
+    </navigator>
+  </view>
+</view>
+
+<view style='width:750rpx;'>
+  <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
+    <navigator url='/pages/manager/auditProductList/auditProductList'>
+      <view class='center-style' style='line-height:200rpx;'>审核产品日报</view>
     </navigator>
   </view>
 </view>

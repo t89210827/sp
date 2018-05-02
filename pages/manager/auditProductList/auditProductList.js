@@ -1,4 +1,4 @@
-// pages/shopManager/auditDaily/auditDaily.js
+// pages/manager/auditProductList/auditProductList.js
 var vm = null
 var util = require('../../../utils/util.js')
 const { extend, Actionsheet, Tab } = require('../../../bower_components/zanui-weapp/dist/index');

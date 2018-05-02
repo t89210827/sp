@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/start/start",
+    "pages/hint/audit/audit",
     "pages/shopManager/auditDaily/auditDaily",
     "pages/shopManager/boutiqueDetail/boutiqueDetail",
     "pages/shopManager/productDaily/productDaily",
@@ -23,7 +24,6 @@
     "pages/addClient/addClient",
     "pages/dealList/dealList",
     "pages/ranking/staff/staff",
-    "pages/hint/audit/audit",
     "pages/daily/staff/staff",
     "pages/hint/paySucceed/paySucceed",
     "pages/shopManager/issueList/issueList",
@@ -37,7 +37,10 @@
     "pages/manager/issueTask/issueTask",
     "pages/staff/clientList/clientList",
     "pages/ranking/shop/shop",
-    "pages/manager/shopClientList/shopClientList"
+    "pages/manager/shopClientList/shopClientList",
+    "pages/manager/auditBoutiqueDetail/auditBoutiqueDetail",
+    "pages/manager/auditBoutiqueList/auditBoutiqueList",
+    "pages/manager/auditProductList/auditProductList"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -45,37 +48,5 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
-  },
-  "tabBar": {
-    "color": "#8A8A8A",
-    "borderStyle": "black",
-    "selectedColor": "#47D581",
-    "backgroundColor": "#ffffff",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "用户信息审核",
-        "iconPath": "images/add.png",
-        "selectedIconPath": "images/add.png"
-      },
-      {
-        "pagePath": "pages/staff/staff",
-        "text": "店员",
-        "iconPath": "images/add.png",
-        "selectedIconPath": "images/add.png"
-      },
-      {
-        "pagePath": "pages/shopManager/index/index",
-        "text": "店长",
-        "iconPath": "images/add.png",
-        "selectedIconPath": "images/add.png"
-      },
-      {
-        "pagePath": "pages/manager/index/index",
-        "text": "主管",
-        "iconPath": "images/add.png",
-        "selectedIconPath": "images/add.png"
-      }
-    ]
   }
 }

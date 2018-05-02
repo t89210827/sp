@@ -3,7 +3,7 @@
 <view class='zan-font-16' style='width:750rpx;text-align:center;'>进入系统审核中</view>
 
 <view style='height:130rpx;'></view>
-<wxc-abnor type="FOLLOW" title="{{title}}" tip="{{tip}}" button="{{button}}" bind:abnortap="alter"></wxc-abnor>
+<wxc-abnor type="FOLLOW" title="{{title}}" tip="{{tip}}" bind:abnortap="alter"></wxc-abnor>
 
 <!-- <view style='margin:0 100rpx;'>
   <button class="zan-btn zan-btn--warn" bindtap='jumpStaffIndex'>进入店员首页</button>

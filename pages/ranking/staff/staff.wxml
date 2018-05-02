@@ -43,10 +43,10 @@
             <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index + 1}}</view>
             <view class='zan-col zan-col-3'>
               <view class='center-style' style='height:100rpx;'>
-                <image src='{{item.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
+                <image src='{{item.user.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
               </view>
             </view>
-            <view class='zan-col zan-col-11 zan-font-16 center-style' style='line-height:100rpx;'>{{item.name}}</view>
+            <view class='zan-col zan-col-11 zan-font-16 center-style' style='line-height:100rpx;'>{{item.user.name}}</view>
             <view class=' zan-col zan-col-8 zan-arrow '></view>
           </view>
         </view>

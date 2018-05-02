@@ -11,12 +11,12 @@ Page({
   },
   //返回首页
   alter: function () {
-    // wx.redirectTo({
-    //   url: '/pages/index/index',
-    // })
-    wx.switchTab({
+    wx.redirectTo({
       url: '/pages/index/index',
     })
+    // wx.switchTab({
+    //   url: '/pages/index/index',
+    // })
   },
   onLoad: function (options) {
     vm = this
@@ -30,17 +30,26 @@ Page({
       var type = res.data.ret[0].type
 
       if (status == 2 && type == 1) {
-        wx.switchTab({
+        wx.redirectTo({
           url: '/pages/staff/staff',
         })
+        // wx.switchTab({
+        //   url: '/pages/staff/staff',
+        // })
       } else if (status == 2 && type == 2) {
-        wx.switchTab({
+        wx.redirectTo({
           url: '/pages/shopManager/index/index',
         })
+        // wx.switchTab({
+        //   url: '/pages/shopManager/index/index',
+        // })
       } else if (status == 2 && type == 3) {
-        wx.switchTab({
+        wx.redirectTo({
           url: '/pages/manager/index/index',
         })
+        // wx.switchTab({
+        //   url: '/pages/manager/index/index',
+        // })
       } else {
         util.showToast("请等待审核通过")
       }

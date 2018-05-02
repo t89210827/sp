@@ -13,9 +13,12 @@ Page({
   goToIndex: function () {
     var position = vm.data.position
     if (position.length == 0) {
-      wx.switchTab({
+      wx.redirectTo({
         url: '/pages/index/index',
       })
+      // wx.switchTab({
+      //   url: '/pages/index/index',
+      // })
       return
     }
     var status = position[0].status
@@ -23,26 +26,26 @@ Page({
 
     console.log("------" + status)
     if (status == 2 && type == 1) {
-      // wx.redirectTo({
-      //   url: '/pages/staff/staff',
-      // })
-      wx.switchTab({
+      wx.redirectTo({
         url: '/pages/staff/staff',
       })
-    } else if (status == 2 && type == 2) {
-      // wx.redirectTo({
+      // wx.switchTab({
       //   url: '/pages/staff/staff',
       // })
-      wx.switchTab({
+    } else if (status == 2 && type == 2) {
+      wx.redirectTo({
         url: '/pages/shopManager/index/index',
       })
-    } else if (status == 2 && type == 3) {
-      // wx.redirectTo({
-      //   url: '/pages/staff/staff',
+      // wx.switchTab({
+      //   url: '/pages/shopManager/index/index',
       // })
-      wx.switchTab({
+    } else if (status == 2 && type == 3) {
+      wx.redirectTo({
         url: '/pages/manager/index/index',
       })
+      // wx.switchTab({
+      //   url: '/pages/manager/index/index',
+      // })
     } else {
       // wx.switchTab({
       //   url: '/pages/manager/index/index',

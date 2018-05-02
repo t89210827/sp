@@ -337,11 +337,26 @@ function getAuditIndexMinorMessage(param, successCallback, errorCallback) {
 }
 
 //店长首页关键信息
-function getAuditIndexMinorMessage(param, successCallback, errorCallback) {
-  wxRequest(SERVER_URL + '/api/sp/audit/getAuditIndexMinorMessage', param, "GET", successCallback, errorCallback)
+function getShopManagerIndexKeyMessage(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getShopManagerIndexKeyMessage', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/shopManager/getShopManagerIndexKeyMessage
+//店长首页次要信息
+function getShopManagerIndexMinorMessage(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getShopManagerIndexMinorMessage', param, "GET", successCallback, errorCallback)
+}
+
+//主管查看未审核的竞品日报
+function getBoutiqueDaily(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/getBoutiqueDaily', param, "GET", successCallback, errorCallback)
+}
+
+//根据shop_id获取员工列表
+function getAuditListByShopId(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getAuditListByShopId', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/audit/getAuditListByShopId
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -1013,4 +1028,8 @@ module.exports = {
   getAuditIndexKeyMessage: getAuditIndexKeyMessage,   //员工首页主要信息
   dailyPaper: dailyPaper,                   //根据日报店员clerk_id查看日报详情
   getAuditIndexMinorMessage: getAuditIndexMinorMessage, //员工首页次要信息
+  getShopManagerIndexKeyMessage: getShopManagerIndexKeyMessage, //店长首页关键信息
+  getShopManagerIndexMinorMessage: getShopManagerIndexMinorMessage, //店长首页次要信息
+  getBoutiqueDaily: getBoutiqueDaily,           //主管查看未审核的竞品日报
+  getAuditListByShopId: getAuditListByShopId,   //根据shop_id获取员工列表
 }

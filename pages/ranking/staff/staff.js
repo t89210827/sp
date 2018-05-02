@@ -40,18 +40,24 @@ Page({
   },
   onLoad: function (options) {
     vm = this
-    // wx.login({
-    //   success: function (res) {
-    //     wx.getUserInfo({
-    //       success: function (res) {
-    //         console.log("---" + JSON.stringify(res))
-    //         vm.setData({ userInfo: res.userInfo })
-    //       }
-    //     })
-    //   }
-    // })
+    var shop_id = options.shop_id
 
-    vm.getAudit()
+    // vm.getAudit()
+    vm.getAuditListByShopId(shop_id)
+  },
+
+  // 根据shop_id获取员工列表
+  getAuditListByShopId: function (shop_id) {
+    var param = {
+      shop_id: shop_id
+    }
+    util.getAuditListByShopId(param, function (res) {
+      if (res.data.result) {
+        var staffList = res.data.ret.userRole.data
+
+        vm.setData({ staffList: staffList })
+      }
+    })
   },
 
   // 店长下的员工列表

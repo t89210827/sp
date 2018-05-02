@@ -4,8 +4,8 @@ var util = require("../../utils/util.js")
 Page({
   data: {
     userInfo: {},
-    beginDate: "2018-04-09",
-    endDate: "2018-04-09",
+    beginDate: "",
+    endDate: "",
 
     options: ["今日目标", "关键信息", "次要信息"],
     optionsIndex: 0,
@@ -20,9 +20,7 @@ Page({
     var today = util.getToday()
     vm.setData({ beginDate: today, endDate: today })
     vm.getUserInfo()
-    vm.getAuditTask()
-    vm.getAuditIndexKeyMessage()    //员工首页主要信息
-    vm.getAuditIndexMinorMessage()  //员工首页次要信息
+    vm.getAuditTask()         //今日任务
   },
 
   //员工首页主要信息
@@ -38,6 +36,23 @@ Page({
         vm.setData({ main: main })
       }
     })
+  },
+
+  //开始时间
+  bindBeginDate: function (e) {
+    this.setData({
+      beginDate: e.detail.value
+    })
+    vm.getAuditIndexKeyMessage()
+    vm.getAuditIndexMinorMessage()
+  },
+  //结束时间
+  bindEndDate: function (e) {
+    this.setData({
+      endDate: e.detail.value
+    })
+    vm.getAuditIndexKeyMessage()
+    vm.getAuditIndexMinorMessage()
   },
 
   //员工首页次要信息
@@ -125,8 +140,9 @@ Page({
 
   //跳转到店员排名页面
   jumpRanking: function () {
+    var shop_id = getApp().globalData.userInfo.shop_id
     wx.navigateTo({
-      url: '/pages/ranking/staff/staff',
+      url: '/pages/ranking/staff/staff?shop_id=' + shop_id,
     })
   },
   //跳转到添加客户页面
@@ -177,18 +193,7 @@ Page({
       url: '/pages/dealList/dealList',
     })
   },
-  //开始时间
-  bindBeginDate: function (e) {
-    this.setData({
-      beginDate: e.detail.value
-    })
-  },
-  //结束时间
-  bindEndDate: function (e) {
-    this.setData({
-      endDate: e.detail.value
-    })
-  },
+
   // 选项选择
   bindOption: function (e) {
     console.log('选项选择 发生选择改变，携带值为', e.detail.value);
@@ -208,7 +213,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    vm.getAuditIndexKeyMessage()    //员工首页主要信息
+    vm.getAuditIndexMinorMessage()  //员工首页次要信息
   },
 
   /**
