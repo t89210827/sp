@@ -8,7 +8,61 @@ Page({
 
   onLoad: function (options) {
     vm = this
+    var date = util.getToday()
+    vm.setData({ date: date })
     vm.getShopManagerDailyPaperData()   //店长查看日报信息  
+  },
+  // 店长提交日报
+  addShopManagerDailyPaper: function () {
+    var dailyPaperData = vm.data.dailyPaperData
+    var shopManagerDailyPaper = []
+    for (var i = 0; i < dailyPaperData.length; i++) {
+      if (dailyPaperData[i].product_id == 2) {
+        var shopManagerDailyPaperIndex = {
+          "user_id": getApp().globalData.userInfo.id,
+          "shop_id": getApp().globalData.userInfo.shop_id,
+          "stmt_date": vm.data.date,
+          "product_id": dailyPaperData[i].product_id,
+          "performance_finish": dailyPaperData[i].performance_finish,
+          "gram_weight": dailyPaperData[i].gram_weight,
+          "gold_number": dailyPaperData[i].gold_number,
+          "status": 5,
+          "shop_manager_id": getApp().globalData.userInfo.id,
+          "num": dailyPaperData[i].daily_paper_num,
+          // "total_piece_number": "2000",
+          // "total_than_number": "6",
+          // "passenger_flow_num": "36",
+          // "phone_num": "6",
+          // "status": "2",
+          // "phone_ratio": "6"
+        }
+      } else {
+        var shopManagerDailyPaperIndex = {
+          "user_id": getApp().globalData.userInfo.id,
+          "shop_id": getApp().globalData.userInfo.shop_id,
+          "stmt_date": vm.data.date,
+          "product_id": dailyPaperData[i].product_id,
+          "performance_finish": dailyPaperData[i].performance_finish,
+          "status": 5,
+          "shop_manager_id": getApp().globalData.userInfo.id,
+          "num": dailyPaperData[i].daily_paper_num,
+          // "total_piece_number": "2000",
+          // "total_than_number": "6",
+          // "passenger_flow_num": "36",
+          // "phone_num": "6",
+          // "status": "2",
+          // "phone_ratio": "6"
+        }
+      }
+      shopManagerDailyPaper.push(shopManagerDailyPaperIndex)
+    }
+    util.addShopManagerDailyPaper({ shopManagerDailyPaper }, function (res) {
+      if (res.data.result) {
+        console.log("提交产品日报返回数据" + JSON.stringify(res))
+        vm.back()
+      }
+    })
+
   },
 
   //店长查看日报信息
@@ -19,7 +73,9 @@ Page({
     }
     util.getShopManagerDailyPaperData(param, function (res) {
       if (res.data.result) {
-        // var dailyPaperData = res.data.ret.daily_paper
+        console.log("店长查看产品日报" + JSON.stringify(res))
+        var dailyPaperData = res.data.ret
+        vm.setData({ dailyPaperData: dailyPaperData })
       } else {
         util.showToast(res.data.message)
       }

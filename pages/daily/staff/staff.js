@@ -3,9 +3,9 @@ var util = require('../../../utils/util.js')
 var vm = null
 Page({
   data: {
-    submitDaily: [],                 //提交日报信息
-    date: "",                        //日期
-    num: 0,                        //订货数量
+    submitDaily: [],                   //提交日报信息
+    date: "",                          //日期
+    num: 0,                            //订货数量
   },
 
   onLoad: function (options) {
@@ -45,19 +45,54 @@ Page({
     vm.setData({ gold_number: e.detail.value })
   },
 
+  //订货数量
+  onChangeNumber(e) {
+    var num = e.detail.number
+    var orderGoods = []
+    for (var i = 0; i < num; i++) {
+      orderGoods.push({
+        "user_id": getApp().globalData.userInfo.id,
+        "shop_id": getApp().globalData.userInfo.shop_id,
+        "product_number": "",
+        "money": "",
+      })
+    }
+    console.log("订货数量" + JSON.stringify(orderGoods))
+    vm.setData({ num: num, orderGoods: orderGoods })
+  },
+
   init: function () {
 
   },
 
+  //输入货号
+  inputProductName: function (e) {
+    var index = e.currentTarget.dataset.index
+    var orderGoods = vm.data.orderGoods
+    var value = e.detail.value
+    orderGoods[index].product_number = value
+    console.log("订货货号" + JSON.stringify(orderGoods))
+    vm.setData({ orderGoods: orderGoods })
+  },
+
+  //输入金额
+  inputMoney: function (e) {
+    var index = e.currentTarget.dataset.index
+    var orderGoods = vm.data.orderGoods
+    var value = e.detail.value
+    orderGoods[index].money = value
+    console.log("订货金额" + JSON.stringify(orderGoods))
+    vm.setData({ orderGoods: orderGoods })
+  },
+
   //添加订货信息
   addOrderGoods: function () {
-    var orderGoods = []
-    var orderGoodsIndex = {
-      "user_id": "5",
-      "shop_id": "1",
-      "product_number": "003",
-      "money": "1000"
-    }
+    var orderGoods = vm.data.orderGoods
+    util.addOrderGoods({ orderGoods }, function (res) {
+      if (res.data.result) {
+        console.log("添加订货信息" + JSON.stringify(res))
+      }
+    })
   },
 
   //判断
@@ -133,6 +168,7 @@ Page({
     console.log("提交日报:" + JSON.stringify(auditDailyPaper))
     util.addAuditDailyPaper(auditDailyPaper, function (res) {
       if (res.data.result) {
+        vm.addOrderGoods()
         wx.redirectTo({
           url: '/pages/staff/staff',
         })
@@ -141,35 +177,6 @@ Page({
         // })
       }
     })
-  },
-
-  onChangeNumber(e) {
-    var num = e.detail.number
-    var arr = []
-    var productArr = []
-    for (var i = 0; i < num; i++) {
-      arr.push({
-        "user_id": getApp().globalData.userInfo.id,
-        "shop_id": getApp().globalData.userInfo.shop_id,
-        "client_id": "",
-        "product_id": "",
-        "product_name": "",
-        "budget": "0-5000",
-        "isbuy": 1,
-        "money": "",
-        "isearnest": 1,
-        "isearnest_money": "",
-        "purpose": "",
-        "purpose_time": "2018-04-10",
-        "remind_time": "",
-        "remark": "",
-        "num": ""
-      })
-      productArr.push("黄铂")
-    }
-    console.log("777" + JSON.stringify(arr))
-    // vm.setData({ num: num, dealData: arr, productArr: productArr })
-    vm.setData({ num: num })
   },
 
   //返回上一层

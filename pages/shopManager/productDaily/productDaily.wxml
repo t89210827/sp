@@ -22,7 +22,7 @@
         <view class='zan-col zan-col-10'>日期</view>
         <view class='zan-col zan-col-14'>
           <view style='float:right;'>
-            2018-04-01
+            {{date}}
           </view>
         </view>
       </view>
@@ -31,78 +31,83 @@
   </view>
 </view>
 
+<block wx:for="{{dailyPaperData}}">
 
-<view style='width:750rpx;'>
-  <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
+  <view style='width:750rpx;'>
+    <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
 
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-font-18' style='line-height:120rpx;'>黄铂</view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>目标(自动生成)：</view>
-        <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          31414
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-font-18' style='line-height:120rpx;'>{{item.product.name}}</view>
         </view>
       </view>
-    </view>
 
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>销售克重：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入销售克重" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>目标(自动生成)：</view>
+          <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
+            {{item.product_request}}
           </view>
         </view>
       </view>
-    </view>
 
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>旧料抵金值：</view>
-        <view class='zan-col zan-col-13'>
+      <block wx:if="{{item.product_id == 2}}">
 
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入旧料抵金值" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+        <view style='margin:0 3%;'>
+          <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+            <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>销售克重：</view>
+            <view class='zan-col zan-col-13'>
+
+              <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+                <input class='zan-font-16 zan-c-gray-dark' placeholder-style=" text-align:right; " placeholder="请输入销售克重 " bindinput='inputName' style='line-height:120rpx;text-align:right;' value='{{item.gram_weight}}' disabled="true "></input>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view style='margin:0 3%;'>
+          <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+            <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>旧料抵金值：</view>
+            <view class='zan-col zan-col-13'>
+
+              <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+                <input class='zan-font-16 zan-c-gray-dark' placeholder-style="text-align:right; " placeholder="请输入旧料抵金值 " bindinput='inputName' style='line-height:120rpx;text-align:right;' value='{{item.gold_number}}' disabled="true "></input>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>实销额：</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <input class='zan-font-16 zan-c-gray-dark' placeholder-style="text-align:right; " placeholder="请输入实销额 " bindinput='inputName' style='line-height:120rpx;text-align:right;' value='{{item.performance_finish}}' disabled="true "></input>
+            </view>
           </view>
         </view>
       </view>
-    </view>
 
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>实销额：</view>
-        <view class='zan-col zan-col-13'>
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>件数：</view>
+          <view class='zan-col zan-col-13'>
 
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入实销额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <input class='zan-font-16 zan-c-gray-dark' placeholder-style="text-align:right; " placeholder="请输入件数 " bindinput='inputName' style='line-height:120rpx;text-align:right;' value='{{item.daily_paper_num}}' disabled="true "></input>
+            </view>
           </view>
         </view>
       </view>
+
     </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>件数：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
   </view>
-</view>
+</block>
 
 
-<view style='width:750rpx;'>
+<!-- <view style='width:750rpx;'>
   <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
 
     <view style='margin:0 3%;'>
@@ -126,7 +131,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入实销额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入实销额 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
           </view>
         </view>
       </view>
@@ -138,7 +143,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入件数 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
           </view>
         </view>
       </view>
@@ -172,7 +177,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入实销额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入实销额 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
           </view>
         </view>
       </view>
@@ -184,17 +189,17 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入件数 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
           </view>
         </view>
       </view>
     </view>
 
   </view>
-</view>
+</view> -->
 
 
-<view style='width:750rpx;'>
+<!-- <view style='width:750rpx;'>
   <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
 
     <view style='margin:0 3%;'>
@@ -209,7 +214,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入订货金额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入订货金额 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
           </view>
         </view>
       </view>
@@ -221,17 +226,17 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入货号" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入货号 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
           </view>
         </view>
       </view>
     </view>
 
   </view>
-</view>
+</view> -->
 
 
-<view style='width:750rpx;'>
+<!-- <view style='width:750rpx;'>
   <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
 
     <view style='margin:0 3%;'>
@@ -249,7 +254,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入笔数" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入笔数 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
           </view>
         </view>
       </view>
@@ -289,11 +294,11 @@
     </view>
 
   </view>
-</view>
+</view> -->
 
 
 <view style='height:50rpx;'></view>
 
-<button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='apply'>提交日报</button>
+<button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='addShopManagerDailyPaper'>提交日报</button>
 
 <view style='height:50rpx;'></view>

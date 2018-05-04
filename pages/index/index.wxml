@@ -112,7 +112,7 @@
           <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16' style='line-height:120rpx;'>入职时间：</view>
           <view class='zan-col zan-col-8' style='margin-top:10rpx;'>
 
-            <picker mode="date" value="{{date}}" start="2000-01-01" end="2020-01-01" bindchange="bindDateChange">
+            <picker mode="date" value="{{date}}" start="1950-01-01" end="2020-01-01" bindchange="bindDateChange">
               <view class='flex-row' style='align-items: center;float:right;'>
                 <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>{{date}}</view>
                 <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>

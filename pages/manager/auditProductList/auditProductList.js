@@ -35,27 +35,29 @@ Page(extend({}, Actionsheet, Tab, {
 
   onLoad: function (options) {
     vm = this
-    // vm.getAudit()       //店长下的员工列表
-    vm.dailyList()         //店长查看日报列表(对应原型审核日报)
+    vm.getUnauditedShopManagerDailyPaper()
   },
-  //店长查看日报列表(对应原型审核日报)
-  dailyList: function () {
+
+  // 主管查看未审核店长日报
+  getUnauditedShopManagerDailyPaper: function () {
     var param = {
-      status: 1
+      user_id: getApp().globalData.userInfo.id,
+      shop_id: getApp().globalData.userInfo.shop_id,
     }
-    util.dailyList(param, function (res) {
+    util.getUnauditedShopManagerDailyPaper(param, function (res) {
       if (res.data.result) {
-        var dailyList = res.data.ret.data[0].audit
-        for (var i = 0; i < dailyList.length; i++) {
-          if (dailyList[i].daily_paper.length == 0) {
-            dailyList.splice(i, 1)
+        var dailyPaper = res.data.ret
+
+        for (var i = 0; i < dailyPaper.length; i++) {
+          if (dailyPaper[i].daily_paper.length == 0) {
+            dailyPaper.splice(i, 1)
             break;
           }
 
-          dailyList[i].created_at = util.convertDateFormateM(dailyList[i].created_at)
+          dailyPaper[i].created_at = util.convertDateFormateM(dailyList[i].created_at)
         }
-        console.log("000000" + JSON.stringify(dailyList))
-        vm.setData({ dailyList: dailyList })
+        vm.setData({ dailyPaper: dailyPaper })
+
       }
     })
   },
@@ -164,7 +166,7 @@ Page(extend({}, Actionsheet, Tab, {
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    vm.dailyList()         //店长查看日报列表(对应原型审核日报)
+    vm.getUnauditedShopManagerDailyPaper()         //店长查看日报列表(对应原型审核日报)
   },
 
   /**

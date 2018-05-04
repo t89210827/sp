@@ -33,6 +33,7 @@
   </view>
 </block>
 
+<view style='height:130rpx;'></view>
 
 <view class='bottom-confirm'>
   <view class='zan-font-16' style='color:#fff;line-height:90rpx;text-align:center;' bindtap='confirm'>确定</view>

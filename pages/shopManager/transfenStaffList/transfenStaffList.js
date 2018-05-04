@@ -1,5 +1,4 @@
-// pages/shopManager/staffList/staffList.js
-
+// pages/shopManager/transfenStaffList/transfenStaffList.js
 var vm = null
 var util = require('../../../utils/util.js')
 
@@ -40,37 +39,18 @@ Page({
   },
   onLoad: function (options) {
     vm = this
-    vm.getAuditCount()              //店长下的员工列表
+    vm.getAudit()              //店长下的员工列表
   },
-  //根据店长id查询员工信息及员工录入顾客数量（对应原型：查看员工录入客户数量）
-  getAuditCount: function () {
+  // 店长下的员工列表
+  getAudit: function () {
     var param = {
-      shop_manager_id: getApp().globalData.userInfo.id,
-      page: 1
+      type: 1,
+      page: 1,
     }
-    util.getAuditCount(param, function (res) {
-      if (res.data.result) {
-        // console.log("根据店长id查询员工信息及员工录入顾客数量（对应原型：查看员工录入客户数量" + JSON.stringify(res))
-        if (res.data.ret.length > 0) {
-          var staffList = res.data.ret[0].audit
-          vm.setData({ staffList: staffList })
-        }
-      }
+    util.getAudit(param, function (res) {
+      vm.setData({ staffList: res.data.ret.audit.data })
     })
   },
-
-
-  //店长下的员工列表
-  // getAudit: function () {
-  //   var param = {
-  //     type: 2,
-  //     page: 1,
-  //   }
-  //   util.getAudit(param, function (res) {
-  //     vm.setData({ staffList: res.data.ret.audit.data })
-  //   })
-  // },
-
   //返回上一层
   back: function () {
     wx.navigateBack({
@@ -81,7 +61,7 @@ Page({
   jumpClientList: function (e) {
     var audit_id = e.currentTarget.dataset.auditid
     wx.navigateTo({
-      url: '/pages/clientInformation/staff/staff?audit_id=' + audit_id,
+      url: '/pages/shopManager/shopList/shopList?audit_id=' + audit_id,
     })
   },
 

@@ -356,7 +356,42 @@ function getAuditListByShopId(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/audit/getAuditListByShopId', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/audit/getAuditListByShopId
+//主管审核竞品日报(审核全部)
+function managerReviewBoutiqueDaily(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/managerReviewBoutiqueDaily', param, "POST", successCallback, errorCallback)
+}
+
+//店长提交日报
+function addShopManagerDailyPaper(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/addShopManagerDailyPaper', param, "POST", successCallback, errorCallback)
+}
+
+//查询店长今日是否已提交过日报
+function getShopManagerDailyPaper(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getShopManagerDailyPaper', param, "GET", successCallback, errorCallback)
+}
+
+//主管首页关键信息
+function getManagerIndexKeyMessage(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/getManagerIndexKeyMessage', param, "GET", successCallback, errorCallback)
+}
+
+//主管首页次要信息
+function getManagerIndexMinorMessage(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/getManagerIndexMinorMessage', param, "GET", successCallback, errorCallback)
+}
+
+//主管查看未审核店长日报
+function getUnauditedShopManagerDailyPaper(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/getUnauditedShopManagerDailyPaper', param, "GET", successCallback, errorCallback)
+}
+
+//员工转店
+function auditChangeShop(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/auditChangeShop', param, "POST", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/shopManager/auditChangeShop
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -821,6 +856,25 @@ function getToday() {
   return year + "-" + month + "-" + day
 }
 
+function getTodayAddOne() {
+  var now = new Date()
+  now.setDate(now.getDate() + 1);
+
+  var today = ""
+  var year = now.getFullYear()       //年
+  today += year + "-"
+  var month = now.getMonth() + 1     //月
+  if (month < 10) {
+    month = "0" + month
+  }
+  // today += month + "-"
+  var day = now.getDate()            //日
+  if (day < 10) {
+    day = "0" + day
+  }
+  return year + "-" + month + "-" + day
+}
+
 // 获取当前月份
 function getMonth() {
   var now = new Date()
@@ -978,6 +1032,7 @@ module.exports = {
   date: date,                 //转换成2018-10-07类型的时间
   getMonth: getMonth,         //获取当前月份
   Percentage: Percentage,     //两个数的百分比
+  getTodayAddOne: getTodayAddOne,   //时间加一
 
   showToast: showToast,           //展示空toast
   getQiniuToken: getQiniuToken,   //获取七牛token
@@ -1032,4 +1087,11 @@ module.exports = {
   getShopManagerIndexMinorMessage: getShopManagerIndexMinorMessage, //店长首页次要信息
   getBoutiqueDaily: getBoutiqueDaily,           //主管查看未审核的竞品日报
   getAuditListByShopId: getAuditListByShopId,   //根据shop_id获取员工列表
+  managerReviewBoutiqueDaily: managerReviewBoutiqueDaily,   //主管审核竞品日报(审核全部)
+  addShopManagerDailyPaper: addShopManagerDailyPaper,       //店长提交日报
+  getShopManagerDailyPaper: getShopManagerDailyPaper,       //查询店长今日是否已提交过日报
+  getManagerIndexKeyMessage: getManagerIndexKeyMessage,     //主管首页关键信息
+  getManagerIndexMinorMessage: getManagerIndexMinorMessage, //主管首页次要信息
+  getUnauditedShopManagerDailyPaper: getUnauditedShopManagerDailyPaper,   //主管查看未审核店长日报
+  auditChangeShop: auditChangeShop,               //员工转店
 }

@@ -1,6 +1,6 @@
-/* pages/manager/auditBoutiqueDetail/auditBoutiqueDetail.wxss */
+/* pages/shopManager/shopList/shopList.wxss */
 
-.bottom-addDeal {
+.bottom-confirm {
   position: fixed;
   bottom: 0rpx;
   left: 0rpx;

@@ -18,7 +18,8 @@ Page({
   onLoad: function (options) {
     vm = this
     var today = util.getToday()
-    vm.setData({ beginDate: today, endDate: today })
+    var getTodayAddOne = util.getTodayAddOne()
+    vm.setData({ beginDate: today, endDate: getTodayAddOne })
     vm.getUserInfo()
     vm.getAuditTask()         //今日任务
   },

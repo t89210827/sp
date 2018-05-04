@@ -1,8 +1,27 @@
 // pages/shopManager/dailyList/dailyList.js
+var vm = null
+var util = require("../../../utils/util.js")
 Page({
 
   data: {
 
+  },
+
+  //判断今天是否提交过产品日报
+  judgeProduct: function () {
+    var param = {
+      shop_manager_id: getApp().globalData.userInfo.id,
+      shop_manager_opt_time: util.getToday()
+    }
+    util.getShopManagerDailyPaper(param, function (res) {
+      if (res.data.result) {
+        wx.navigateTo({
+          url: '/pages/shopManager/productDaily/productDaily',
+        })
+      } else {
+        util.showToast("今天已经提交过产品日报")
+      }
+    })
   },
 
   //返回上一层
@@ -16,7 +35,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    vm = this
   },
 
   /**

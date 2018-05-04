@@ -255,7 +255,7 @@
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入订货金额" bindinput='inputMoney' style='line-height:120rpx;text-align:right;'></input>
+              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入订货金额" bindinput='inputMoney' style='line-height:120rpx;text-align:right;' value='{{orderGoods[index].money}}' data-index='{{index}}'></input>
             </view>
           </view>
         </view>
@@ -267,7 +267,7 @@
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入货号" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
+              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入货号" bindinput='inputProductName' style='line-height:120rpx;text-align:right;' value='{{orderGoods[index].product_number}}' data-index='{{index}}'></input>
             </view>
           </view>
         </view>
@@ -340,6 +340,7 @@
 
 <view style='height:50rpx;'></view>
 
-<button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='judge'>提交日报</button>
+<!-- <button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='judge'>提交日报</button> -->
+<button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='addOrderGoods'>提交日报</button>
 
 <view style='height:50rpx;'></view>

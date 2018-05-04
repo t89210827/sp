@@ -4,8 +4,8 @@ var util = require('../../../utils/util.js')
 Page({
   data: {
     userInfo: {},
-    beginDate: "2018-04-09",
-    endDate: "2018-04-09",
+    beginDate: "",
+    endDate: "",
 
     options: ["今日目标", "关键信息", "次要信息"],
     optionsIndex: 0,
@@ -17,7 +17,42 @@ Page({
 
   onLoad: function (options) {
     vm = this
+    var today = util.getToday()
+    var getTodayAddOne = util.getTodayAddOne()
+    vm.setData({ beginDate: today, endDate: getTodayAddOne })
+    var getTodayAddOne = util.getTodayAddOne()
     vm.getUserInfo()
+  },
+  //主管首页关键信息
+  getManagerIndexKeyMessage: function () {
+    var param = {
+      user_id: getApp().globalData.userInfo.id,
+      shop_id: getApp().globalData.userInfo.shop_id,
+      start_time: vm.data.beginDate,
+      end_time: vm.data.endDate,
+    }
+    util.getManagerIndexKeyMessage(param, function (res) {
+      if (res.data.result) {
+        var main = res.data.ret
+        vm.setData({ main: main })
+      }
+    })
+  },
+
+  //主管首页相关信息
+  getManagerIndexMinorMessage: function () {
+    var param = {
+      user_id: getApp().globalData.userInfo.id,
+      shop_id: getApp().globalData.userInfo.shop_id,
+      start_time: vm.data.beginDate,
+      end_time: vm.data.endDate,
+    }
+    util.getManagerIndexMinorMessage(param, function (res) {
+      if (res.data.result) {
+        var minorMessage = res.data.ret
+        vm.setData({ minorMessage: minorMessage })
+      }
+    })
   },
 
   //今日目标展开与收取
@@ -146,7 +181,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    vm.getManagerIndexKeyMessage()        //主要
+    vm.getManagerIndexMinorMessage()      //相关
   },
 
   /**

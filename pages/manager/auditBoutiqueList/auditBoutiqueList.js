@@ -35,9 +35,31 @@ Page(extend({}, Actionsheet, Tab, {
 
   onLoad: function (options) {
     vm = this
-    // vm.getAudit()       //店长下的员工列表
-    vm.dailyList()         //店长查看日报列表(对应原型审核日报)
+    vm.getBoutiqueDaily()         //主管查看未审核的竞品日报
   },
+
+  //主管查看未审核的竞品日报
+  getBoutiqueDaily: function () {
+    var param = {
+      manager_id: getApp().globalData.userInfo.id,
+    }
+    util.getBoutiqueDaily(param, function (res) {
+      if (res.data.result) {
+        var boutiqueDaily = res.data.ret
+        for (var i = 0; i < boutiqueDaily.length; i++) {
+          if (boutiqueDaily[i].boutiqueDaily.data.length == 0) {
+            boutiqueDaily.splice(i, 1)
+            break;
+          }
+
+          boutiqueDaily[i].created_at = util.convertDateFormateM(boutiqueDaily[i].created_at)
+        }
+        console.log("未审核竞品日报" + JSON.stringify(boutiqueDaily))
+        vm.setData({ boutiqueDaily: boutiqueDaily })
+      }
+    })
+  },
+
   //店长查看日报列表(对应原型审核日报)
   dailyList: function () {
     var param = {

@@ -1,0 +1,20 @@
+<!--pages/shopManager/shopList/shopList.wxml-->
+<import src="../../../bower_components/zanui-weapp/dist/select/index.wxml" />
+<view class='top'>
+  <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
+</view>
+
+<view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
+  <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../../images/back.png"></image>
+</view>
+
+<view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>选择店铺</view>
+</view>
+<view style='height:140rpx;'></view>
+
+<template is="zan-select" data="{{ items:arr, checkedValue: value, activeColor, componentId: 'color' }}"></template>
+
+<view class='bottom-confirm'>
+  <view class='zan-font-16' style='color:#fff;line-height:90rpx;text-align:center;' bindtap='confirm'>确定</view>
+</view>
