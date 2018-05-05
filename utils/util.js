@@ -391,7 +391,12 @@ function auditChangeShop(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/shopManager/auditChangeShop', param, "POST", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/shopManager/auditChangeShop
+//主管首页竞品信息
+function getManagerIndexBoutiqueDailyMessage(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/getManagerIndexBoutiqueDailyMessage', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/manager/getManagerIndexBoutiqueDailyMessage
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -1094,4 +1099,5 @@ module.exports = {
   getManagerIndexMinorMessage: getManagerIndexMinorMessage, //主管首页次要信息
   getUnauditedShopManagerDailyPaper: getUnauditedShopManagerDailyPaper,   //主管查看未审核店长日报
   auditChangeShop: auditChangeShop,               //员工转店
+  getManagerIndexBoutiqueDailyMessage: getManagerIndexBoutiqueDailyMessage,   //主管首页竞品信息
 }

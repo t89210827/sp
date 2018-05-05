@@ -1,49 +1,28 @@
-// pages/manager/shopClientList/shopClientList.js
+// pages/manager/staffClientList/staffClientList.js
 var vm = null
 var util = require('../../../utils/util.js')
 Page({
   data: {
-    shopList: [],         //员工列表  
-    reverse: true,         //判断正序还是倒序
+    staffList: [],         //员工列表  
   },
-  // //正序倒序
-  // clickSwitch: function () {
-  //   var shopList = vm.data.shopList
-  //   var reverse = !vm.data.reverse
-  //   shopList.reverse()
-  //   vm.setData({ shopList: shopList, reverse: reverse })
-  // },
-
   onLoad: function (options) {
     vm = this
-    vm.getShop()
+    var shop_id = options.shop_id
+    vm.getAuditListByShopId(shop_id)
   },
 
-  //主管下的店铺列表
-  getShop: function () {
+  // 根据shop_id获取员工列表
+  getAuditListByShopId: function (shop_id) {
     var param = {
-      manager_id: getApp().globalData.userInfo.id,
-      page: 1,
+      shop_id: shop_id
     }
-    util.getShop(param, function (res) {
+    util.getAuditListByShopId(param, function (res) {
       if (res.data.result) {
-        var shops = res.data.ret.shop.data
-        vm.setData({
-          shops: shops,
-        })
+        var staffList = res.data.ret.userRole.data
+        vm.setData({ staffList: staffList })
       }
     })
   },
-
-  //获取所有生效的店铺信息
-  // getShopList: function () {
-  //   util.getShopList({}, function (res) {
-  //     if (res.data.result) {
-  //       var shopList = res.data.ret
-  //       vm.setData({ shopList: shopList })
-  //     }
-  //   })
-  // },
 
   //返回上一层
   back: function () {

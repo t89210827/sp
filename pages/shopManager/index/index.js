@@ -225,6 +225,7 @@ Page({
    */
   onPullDownRefresh: function () {
     vm.getUserInfo()
+    vm.getShopManagerTask()              //店长获取本月任务
   },
 
   /**

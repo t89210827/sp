@@ -60,6 +60,32 @@
     </view>
   </view>
 
+
+
+
+
+
+  <view style='height:80rpx;background-color:#ececec;'>
+    <view class='zan-col zan-col-9' style='height:80rpx;'>
+      <view class='center-style'>
+        <text style='background-color:#ececec;border-radius:20rpx;padding:10rpx 20rpx;margin-top:10rpx;' class='zan-font-14 text-oneline' bindtap='shopNames'>{{shopName}}</text>
+      </view>
+    </view>
+
+    <view class='zan-col zan-col-9' style='height:80rpx;'>
+      <view class='center-style'>
+        <text style='background-color:#ececec;border-radius:20rpx;padding:10rpx 20rpx;margin-top:10rpx;' class='zan-font-14 text-oneline' bindtap='staffNames'>{{staffName}}</text>
+      </view>
+    </view>
+
+    <view class='zan-col zan-col-6' style='height:80rpx;'>
+      <view class='center-style'>
+        <text style='background-color:#ececec;border-radius:20rpx;padding:10rpx 20rpx;margin-top:10rpx;' class='zan-font-14' bindtap='confirm'>确定</text>
+      </view>
+    </view>
+  </view>
+
+
   <view wx:if="{{target == false}}" style='height:40rpx;'></view>
 
   <view style='width:750rpx;'>

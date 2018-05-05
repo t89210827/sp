@@ -13,6 +13,10 @@ Page({
     target: true,
     key: true,
     minor: true,
+
+    shopName: "点击选择店铺",       //店铺名字
+    staffName: "点击选择员工",       //店铺名字
+    shop_id: null,                 //选择的店铺id
   },
 
   onLoad: function (options) {
@@ -22,12 +26,125 @@ Page({
     vm.setData({ beginDate: today, endDate: getTodayAddOne })
     var getTodayAddOne = util.getTodayAddOne()
     vm.getUserInfo()
+
+    vm.getShop()        //主管下的店铺列表
   },
-  //主管首页关键信息
-  getManagerIndexKeyMessage: function () {
+
+  //查询
+  confirm: function () {
+    vm.getManagerIndexKeyMessage()        //主要
+    vm.getManagerIndexMinorMessage()      //相关
+  },
+
+  //主管下的店铺列表
+  getShop: function () {
+    var param = {
+      manager_id: getApp().globalData.userInfo.id,
+      page: 1,
+    }
+    util.getShop(param, function (res) {
+      var shops = res.data.ret.shop.data
+      vm.setData({
+        shop_id: shops[0].id,
+        shopName: shops[0].name
+      })
+
+      var shopNames = []
+      for (var i = 0; i < shops.length; i++) {
+        shopNames.push(shops[i].name)
+      }
+      console.log("店铺列表" + JSON.stringify(shopNames))
+      vm.setData({ shopNames: shopNames, shops: shops })
+
+      vm.getAuditListByShopId()
+      vm.getManagerIndexKeyMessage()        //主要
+      vm.getManagerIndexMinorMessage()      //相关
+      vm.getManagerIndexBoutiqueDailyMessage()    //竞品
+    })
+  },
+
+  // 根据shop_id获取员工列表
+  getAuditListByShopId: function () {
+    var param = {
+      shop_id: vm.data.shop_id
+    }
+    util.getAuditListByShopId(param, function (res) {
+      if (res.data.result) {
+        var staffList = res.data.ret.userRole.data
+        var staffNameList = []
+        for (var i = 0; i < staffList.length; i++) {
+          staffNameList.push(staffList[i].user.name)
+        }
+        console.log("员工列表" + JSON.stringify(staffList))
+        vm.setData({ staffList: staffList, staffNameList: staffNameList })
+      }
+    })
+  },
+
+  //选择员工
+  staffNames: function () {
+    if (vm.data.shopName == "点击选择店铺") {
+      util.showToast("请先选择店铺")
+      return
+    }
+    wx.showActionSheet({
+      itemList: vm.data.staffNameList,
+      success: function (res) {
+        if (!res.cancel) {
+          vm.setData({
+            staff_id: vm.data.staffList[res.tapIndex].id,
+            staffName: vm.data.staffNameList[res.tapIndex]
+          })
+          console.log("员工" + JSON.stringify(vm.data.staffName))
+        }
+      }
+    });
+  },
+
+  //选择店铺
+  shopNames: function () {
+    wx.showActionSheet({
+      itemList: vm.data.shopNames,
+      success: function (res) {
+        if (!res.cancel) {
+          vm.setData({
+            shop_id: vm.data.shops[res.tapIndex].id,
+            shopName: vm.data.shopNames[res.tapIndex]
+          })
+          vm.getAuditListByShopId()
+          console.log("店铺" + JSON.stringify(vm.data.shopName))
+        }
+      }
+    });
+  },
+
+  //主管首页竞品信息
+  getManagerIndexBoutiqueDailyMessage: function () {
     var param = {
       user_id: getApp().globalData.userInfo.id,
-      shop_id: getApp().globalData.userInfo.shop_id,
+      shop_id: vm.data.shop_id,
+      start_time: vm.data.beginDate,
+      end_time: vm.data.endDate,
+    }
+    util.getManagerIndexBoutiqueDailyMessage(param, function (res) {
+      if (res.data.result) {
+        console.log("竞品列表" + JSON.stringify(res))
+        var boutique = res.data.ret[0].boutiqueDaily
+
+        for (var i = 0; i < boutique.length; i++) {
+          console.log("-----------" + JSON.stringify(boutique[i]))
+        }
+        vm.setData({ boutique: boutique })
+      }
+    })
+  },
+
+  //主管首页关键信息
+  getManagerIndexKeyMessage: function () {
+    console.log("店铺id" + JSON.stringify(vm.data.shop_id))
+    var param = {
+      user_id: getApp().globalData.userInfo.id,
+      shop_id: vm.data.shop_id,
       start_time: vm.data.beginDate,
       end_time: vm.data.endDate,
     }
@@ -43,7 +160,7 @@ Page({
   getManagerIndexMinorMessage: function () {
     var param = {
       user_id: getApp().globalData.userInfo.id,
-      shop_id: getApp().globalData.userInfo.shop_id,
+      shop_id: vm.data.shop_id,
       start_time: vm.data.beginDate,
       end_time: vm.data.endDate,
     }
@@ -181,8 +298,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    vm.getManagerIndexKeyMessage()        //主要
-    vm.getManagerIndexMinorMessage()      //相关
   },
 
   /**

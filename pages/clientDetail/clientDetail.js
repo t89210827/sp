@@ -7,10 +7,18 @@ Page({
     clientDetail: {},      //客户信息
     deals: [],             //交易信息
     dealId: '',            //选中的交易索引
+
+    adddeal: false,        //是否可以添加交易
   },
 
   onLoad: function (options) {
     vm = this
+    var myType = getApp().globalData.userInfo.type
+    if (myType == 1) {
+      vm.setData({ adddeal: true })
+    } else {
+      vm.setData({ adddeal: false })
+    }
     console.log("---" + JSON.stringify(options))
     var clientId = options.clientId
     vm.getClientById(clientId)
@@ -23,7 +31,7 @@ Page({
     var param = {
       client_id: clientId
     }
-    util.getDeals(param, function (res) {
+    util.getDealByClientId(param, function (res) {
       if (res.data.result) {
         var deals = res.data.ret.data
         vm.setData({ deals: deals })

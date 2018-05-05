@@ -40,7 +40,7 @@
 
           <view style='padding:20rpx 10rpx;height:250rpx;'>
             <view class='zan-col zan-col-8'>
-              <image src='{{item.avatar}}' style='width:200rpx;height:250rpx;'></image>
+              <image src='{{item.avatar}}?imageView2/1/w/200/h/250/interlace/1' style='width:200rpx;height:250rpx;'></image>
             </view>
             <view class='zan-col zan-col-8 zan-font-14'>
               <view style='height:35rpx;'></view>

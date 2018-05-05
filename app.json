@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/start/start",
     "pages/shopManager/index/index",
-    "pages/index/index",
     "pages/manager/index/index",
+    "pages/start/start",
     "pages/staff/staff",
+    "pages/index/index",
     "pages/hint/audit/audit",
     "pages/shopManager/auditDaily/auditDaily",
     "pages/shopManager/boutiqueDetail/boutiqueDetail",
@@ -42,7 +42,9 @@
     "pages/manager/auditBoutiqueList/auditBoutiqueList",
     "pages/manager/auditProductList/auditProductList",
     "pages/shopManager/transfenStaffList/transfenStaffList",
-    "pages/shopManager/shopList/shopList"
+    "pages/shopManager/shopList/shopList",
+    "pages/manager/clientList/clientList",
+    "pages/manager/staffClientList/staffClientList"
   ],
   "window": {
     "backgroundTextStyle": "light",

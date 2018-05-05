@@ -79,8 +79,7 @@ Page({
             "stmt_date": util.getToday(),
             "boutique_id": boutique[i].id,
             "performance": "",
-            // "user_id": getApp().globalData.userInfo.id,
-            "user_id": 45,
+            "user_id": getApp().globalData.userInfo.id,
             "activity": "",
             "custom": 0
           }
