@@ -47,7 +47,6 @@ function wxRequest(url, param, method, successCallback, errorCallback) {
     // header: { 'content-type': 'application/x-www-form-urlencoded' },
     method: method,
     success: function (ret) {
-      wx.stopPullDownRefresh()    //停止下拉刷新
       console.log("ret:" + JSON.stringify(ret))
       successCallback(ret)
     },
@@ -57,6 +56,7 @@ function wxRequest(url, param, method, successCallback, errorCallback) {
     },
     complete: function () {
       hideLoading()
+      wx.stopPullDownRefresh()    //停止下拉刷新      
     }
   });
 }
@@ -396,7 +396,17 @@ function getManagerIndexBoutiqueDailyMessage(param, successCallback, errorCallba
   wxRequest(SERVER_URL + '/api/sp/manager/getManagerIndexBoutiqueDailyMessage', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/manager/getManagerIndexBoutiqueDailyMessage
+//查询今天店长是否提交过竞品日报
+function shopManagerGetBoutiqueDaily(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getBoutiqueDaily', param, "GET", successCallback, errorCallback)
+}
+
+//主管审核日报
+function managerReviewDailyPaper(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/managerReviewDailyPaper', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/manager/managerReviewDailyPaper
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -1100,4 +1110,6 @@ module.exports = {
   getUnauditedShopManagerDailyPaper: getUnauditedShopManagerDailyPaper,   //主管查看未审核店长日报
   auditChangeShop: auditChangeShop,               //员工转店
   getManagerIndexBoutiqueDailyMessage: getManagerIndexBoutiqueDailyMessage,   //主管首页竞品信息
+  shopManagerGetBoutiqueDaily: shopManagerGetBoutiqueDaily,     //查询今天店长是否提交过竞品日报
+  managerReviewDailyPaper: managerReviewDailyPaper,   //主管审核日报
 }

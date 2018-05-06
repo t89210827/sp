@@ -12,17 +12,38 @@ Page({
     vm.setData({ date: date })
     vm.getShopManagerDailyPaperData()   //店长查看日报信息  
   },
-  // 店长提交日报
+
   addShopManagerDailyPaper: function () {
+    wx.showModal({
+      title: '确认',
+      content: '确定提交产品日报吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          vm.shopManagerDailyPaper()
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+
+  // 店长提交日报
+  shopManagerDailyPaper: function () {
     var dailyPaperData = vm.data.dailyPaperData
     var shopManagerDailyPaper = []
     for (var i = 0; i < dailyPaperData.length; i++) {
       if (dailyPaperData[i].product_id == 2) {
+        console.log("1378461238748129346" + JSON.stringify(dailyPaperData[i].product_request))
+
         var shopManagerDailyPaperIndex = {
           "user_id": getApp().globalData.userInfo.id,
           "shop_id": getApp().globalData.userInfo.shop_id,
           "stmt_date": vm.data.date,
           "product_id": dailyPaperData[i].product_id,
+
+          "performance_request": dailyPaperData[i].product_request,
+
           "performance_finish": dailyPaperData[i].performance_finish,
           "gram_weight": dailyPaperData[i].gram_weight,
           "gold_number": dailyPaperData[i].gold_number,
@@ -42,6 +63,9 @@ Page({
           "shop_id": getApp().globalData.userInfo.shop_id,
           "stmt_date": vm.data.date,
           "product_id": dailyPaperData[i].product_id,
+
+          "performance_request": dailyPaperData[i].product_request,
+
           "performance_finish": dailyPaperData[i].performance_finish,
           "status": 5,
           "shop_manager_id": getApp().globalData.userInfo.id,
@@ -62,7 +86,6 @@ Page({
         vm.back()
       }
     })
-
   },
 
   //店长查看日报信息

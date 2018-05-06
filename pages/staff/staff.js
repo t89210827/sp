@@ -34,6 +34,15 @@ Page({
       if (res.data.result) {
         var main = res.data.ret
         console.log("员工首页关键信息" + JSON.stringify(res))
+        if (main.noYellowPerotChanageRate != 0) {
+          main.noYellowPerotChanageRate = main.noYellowPerotChanageRate.toFixed(2)
+        }
+        if (main.yellowPerotChanageRate != 0) {
+          main.yellowPerotChanageRate = main.yellowPerotChanageRate.toFixed(2)
+        }
+        if (main.otherChanageRate != 0) {
+          main.otherChanageRate = main.otherChanageRate.toFixed(2)
+        }
         vm.setData({ main: main })
       }
     })
@@ -44,16 +53,12 @@ Page({
     this.setData({
       beginDate: e.detail.value
     })
-    vm.getAuditIndexKeyMessage()
-    vm.getAuditIndexMinorMessage()
   },
   //结束时间
   bindEndDate: function (e) {
     this.setData({
       endDate: e.detail.value
     })
-    vm.getAuditIndexKeyMessage()
-    vm.getAuditIndexMinorMessage()
   },
 
   //员工首页次要信息
@@ -66,7 +71,18 @@ Page({
       if (res.data.result) {
         var minorMessage = res.data.ret
         console.log("员工首页次要信息" + JSON.stringify(res))
-        vm.setData({ minorMessage: minorMessage })
+
+        var task = minorMessage.noYellowPerotPerformanceRequest - minorMessage.noYellowPerotMoneies
+        if (task < 0) {
+          task = 0
+        }
+        var percent = minorMessage.noYellowPerotMoneies / minorMessage.noYellowPerotPerformanceRequest * 100
+        console.log("678" + task + "------" + percent)
+        vm.setData({
+          minorMessage: minorMessage,
+          task: task,
+          percent: percent
+        })
       }
     })
   },
@@ -116,7 +132,7 @@ Page({
       })
     } else {
       vm.getByIdWithToken()
-      // vm.setData({ userInfo: userInfo })
+      vm.setData({ userInfo: userInfo })
       wx.stopPullDownRefresh()    //停止下拉刷新
     }
     console.log("userInfo : " + JSON.stringify(userInfo))
@@ -236,6 +252,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    vm.getAuditTask()         //今日任务
+    vm.getAuditIndexKeyMessage()
+    vm.getAuditIndexMinorMessage()
     vm.getUserInfo()
   },
 

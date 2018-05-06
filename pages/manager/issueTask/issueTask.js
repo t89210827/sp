@@ -35,6 +35,20 @@ Page({
     vm = this
     // vm.getAudit()       //店长下的员工列表
     vm.getShop()           //主管下的店铺列表
+    vm.getManagerTask()    //主管查看发布任务
+  },
+
+  // 主管查看发布任务
+  getManagerTask: function () {
+    var param = {
+      stmt_date: util.getMonth()
+    }
+    util.getManagerTask(param, function (res) {
+      if (res.data.result) {
+        var issue = res.data.ret
+        console.log("主管查看发布任务" + JSON.stringify(res.data.ret))
+      }
+    })
   },
 
   //主管下的店铺列表
@@ -45,7 +59,6 @@ Page({
     }
     util.getShop(param, function (res) {
       var shops = res.data.ret.shop.data
-
       for (var i = 0; i < shops.length; i++) {
         shops[i].check = false
       }

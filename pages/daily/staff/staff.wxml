@@ -156,7 +156,7 @@
         <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
           <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>实销额：</view>
           <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-            {{item.performance_finish == null? '0':item.performance_finish}}
+            {{item.product[0].real_sale}}
           </view>
           <!-- <view class='zan-col zan-col-13'>
 
@@ -341,6 +341,6 @@
 <view style='height:50rpx;'></view>
 
 <!-- <button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='judge'>提交日报</button> -->
-<button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='addOrderGoods'>提交日报</button>
+<button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='judge'>提交日报</button>
 
 <view style='height:50rpx;'></view>

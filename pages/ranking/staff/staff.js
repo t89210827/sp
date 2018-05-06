@@ -41,8 +41,6 @@ Page({
   onLoad: function (options) {
     vm = this
     var shop_id = options.shop_id
-
-    // vm.getAudit()
     vm.getAuditListByShopId(shop_id)
   },
 

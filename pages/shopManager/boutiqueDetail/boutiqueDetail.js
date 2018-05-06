@@ -29,8 +29,23 @@ Page({
     }, 1500)
   },
 
-  //提交竞品日报
   addBoutique: function () {
+    wx.showModal({
+      title: '确认',
+      content: '确定提交竞品日报吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          vm.boutique()
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+
+  //提交竞品日报
+  boutique: function () {
     var boutiqueList = vm.data.boutiqueList
     var param = {
       boutiqueDaily: boutiqueList

@@ -31,17 +31,13 @@
 
 <view style='width:750rpx;'>
   <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
-    <navigator url='/pages/shopManager/boutiqueDetail/boutiqueDetail'>
-      <view class='center-style' style='line-height:200rpx;'>提交竞品日报</view>
-    </navigator>
+    <view class='center-style click' style='line-height:200rpx;' bindtap='judgeBoutique'>提交竞品日报</view>
   </view>
 </view>
 
 <view style='width:750rpx;'>
   <view style='width:90%;height:200rpx;margin:40rpx 5%;box-shadow: 0px 0px 10px #E3F6FD;'>
-    <navigator url='' bindtap='judgeProduct'>
-      <view class='center-style' style='line-height:200rpx;'>提交产品日报</view>
-    </navigator>
+    <view class='center-style click' bindtap='judgeProduct' style='line-height:200rpx;'>提交产品日报</view>
   </view>
 </view>
 
@@ -52,3 +48,5 @@
     </navigator>
   </view>
 </view> -->
+
+<wxc-toast is-show="{{toast.show}}" text="今天已经提交过日报" icon-color="#ff5777"></wxc-toast>

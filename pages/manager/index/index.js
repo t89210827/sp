@@ -14,8 +14,8 @@ Page({
     key: true,
     minor: true,
 
-    shopName: "点击选择店铺",       //店铺名字
-    staffName: "点击选择员工",       //店铺名字
+    shopName: "全部店铺",       //店铺名字
+    staffName: "全部员工",       //店铺名字
     shop_id: null,                 //选择的店铺id
   },
 
@@ -23,7 +23,9 @@ Page({
     vm = this
     var today = util.getToday()
     var getTodayAddOne = util.getTodayAddOne()
-    vm.setData({ beginDate: today, endDate: getTodayAddOne })
+    var shop_id = getApp().globalData.userInfo.shop_id
+
+    vm.setData({ beginDate: today, endDate: getTodayAddOne, shop_id: shop_id })
     var getTodayAddOne = util.getTodayAddOne()
     vm.getUserInfo()
 
@@ -32,8 +34,9 @@ Page({
 
   //查询
   confirm: function () {
-    vm.getManagerIndexKeyMessage()        //主要
-    vm.getManagerIndexMinorMessage()      //相关
+    vm.getManagerIndexKeyMessage()              //主要
+    vm.getManagerIndexMinorMessage()            //相关
+    vm.getManagerIndexBoutiqueDailyMessage()    //竞品
   },
 
   //主管下的店铺列表
@@ -45,18 +48,20 @@ Page({
     util.getShop(param, function (res) {
       var shops = res.data.ret.shop.data
       vm.setData({
-        shop_id: shops[0].id,
-        shopName: shops[0].name
+        // shop_id: shops[0].id,
+        // shopName: shops[0].name
       })
 
       var shopNames = []
       for (var i = 0; i < shops.length; i++) {
         shopNames.push(shops[i].name)
       }
+      shopNames.push("全部店铺")
+
       console.log("店铺列表" + JSON.stringify(shopNames))
       vm.setData({ shopNames: shopNames, shops: shops })
 
-      vm.getAuditListByShopId()
+      vm.getAuditListByShopId()             // 根据shop_id获取员工列表
       vm.getManagerIndexKeyMessage()        //主要
       vm.getManagerIndexMinorMessage()      //相关
       vm.getManagerIndexBoutiqueDailyMessage()    //竞品
@@ -83,7 +88,7 @@ Page({
 
   //选择员工
   staffNames: function () {
-    if (vm.data.shopName == "点击选择店铺") {
+    if (vm.data.shopName == "全部店铺") {
       util.showToast("请先选择店铺")
       return
     }
@@ -103,14 +108,26 @@ Page({
 
   //选择店铺
   shopNames: function () {
+    var shopNames = vm.data.shopNames
+    var last = shopNames.length - 1
+
     wx.showActionSheet({
-      itemList: vm.data.shopNames,
+      itemList: shopNames,
       success: function (res) {
         if (!res.cancel) {
-          vm.setData({
-            shop_id: vm.data.shops[res.tapIndex].id,
-            shopName: vm.data.shopNames[res.tapIndex]
-          })
+          if (last == res.tapIndex) {
+            vm.setData({
+              shop_id: getApp().globalData.userInfo.shop_id,
+              shopName: shopNames[res.tapIndex],
+              staffName: "全部员工"
+            })
+          } else {
+            vm.setData({
+              shop_id: vm.data.shops[res.tapIndex].id,
+              shopName: shopNames[res.tapIndex]
+            })
+          }
+
           vm.getAuditListByShopId()
           console.log("店铺" + JSON.stringify(vm.data.shopName))
         }
@@ -122,6 +139,7 @@ Page({
   getManagerIndexBoutiqueDailyMessage: function () {
     var param = {
       user_id: getApp().globalData.userInfo.id,
+      // shop_id: getApp().globalData.userInfo.shop_id,
       shop_id: vm.data.shop_id,
       start_time: vm.data.beginDate,
       end_time: vm.data.endDate,
@@ -129,12 +147,18 @@ Page({
     util.getManagerIndexBoutiqueDailyMessage(param, function (res) {
       if (res.data.result) {
         console.log("竞品列表" + JSON.stringify(res))
-        var boutique = res.data.ret[0].boutiqueDaily
-
-        for (var i = 0; i < boutique.length; i++) {
-          console.log("-----------" + JSON.stringify(boutique[i]))
+        if (res.data.ret.length == 0) {
+          var boutiqueList = res.data.ret
+          vm.setData({ boutiqueList: boutiqueList })
+          return
         }
-        vm.setData({ boutique: boutique })
+        var boutique = res.data.ret[0].boutiqueDaily
+        var boutiqueList = []
+        for (var index in boutique) {
+          boutiqueList.push(boutique[index])
+        }
+        console.log("-----------" + JSON.stringify(boutiqueList))
+        vm.setData({ boutiqueList: boutiqueList })
       }
     })
   },
@@ -201,29 +225,30 @@ Page({
   //获取缓存中用户信息
   getUserInfo: function () {
     var userInfo = getApp().globalData.userInfo
+    vm.setData({ userInfo: userInfo })
 
-    if (userInfo == null) {
-      wx.login({
-        success: function (res) {
-          wx.getUserInfo({
-            success: function (res) {
-              console.log("---" + JSON.stringify(res))
-              var userInfo = {
-                name: res.userInfo.nickName,
-                avatar: res.userInfo.avatarUrl
-              }
-              vm.setData({ userInfo: userInfo })
-              wx.stopPullDownRefresh()    //停止下拉刷新
-            }
-          })
-        }
-      })
-    } else {
-      vm.getByIdWithToken()
-      // vm.setData({ userInfo: userInfo })
-      wx.stopPullDownRefresh()    //停止下拉刷新
-    }
-    console.log("userInfo : " + JSON.stringify(userInfo))
+    // if (userInfo == null) {
+    //   wx.login({
+    //     success: function (res) {
+    //       wx.getUserInfo({
+    //         success: function (res) {
+    //           console.log("---" + JSON.stringify(res))
+    //           var userInfo = {
+    //             name: res.userInfo.nickName,
+    //             avatar: res.userInfo.avatarUrl
+    //           }
+    //           vm.setData({ userInfo: userInfo })
+    //           wx.stopPullDownRefresh()    //停止下拉刷新
+    //         }
+    //       })
+    //     }
+    //   })
+    // } else {
+    //   vm.getByIdWithToken()
+    //   vm.setData({ userInfo: userInfo })
+    //   wx.stopPullDownRefresh()    //停止下拉刷新
+    // }
+    // console.log("userInfo : " + JSON.stringify(userInfo))
   },
 
 
@@ -318,6 +343,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    vm.getManagerIndexBoutiqueDailyMessage()    //竞品
     vm.getUserInfo()
   },
 

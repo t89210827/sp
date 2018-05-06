@@ -50,8 +50,18 @@ Page({
     util.getShopManagerIndexMinorMessage(param, function (res) {
       if (res.data.result) {
         var minorMessage = res.data.ret
+
+        var task = minorMessage.noYellowPerotTask - minorMessage.noYellowPerotMoneies
+        if (task < 0) {
+          task = 0
+        }
+        var percent = minorMessage.noYellowPerotMoneies / minorMessage.noYellowPerotTask * 100
+        if (percent > 100) {
+          task = 100
+        }
+
         console.log("店长首页次要信息" + JSON.stringify(res))
-        vm.setData({ minorMessage: minorMessage })
+        vm.setData({ minorMessage: minorMessage, task: task, percent: percent })
       }
     })
   },
@@ -105,7 +115,7 @@ Page({
       })
     } else {
       vm.getByIdWithToken()
-      // vm.setData({ userInfo: userInfo })
+      vm.setData({ userInfo: userInfo })
       wx.stopPullDownRefresh()    //停止下拉刷新
     }
     console.log("userInfo : " + JSON.stringify(userInfo))

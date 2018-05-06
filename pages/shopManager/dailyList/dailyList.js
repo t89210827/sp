@@ -7,6 +7,40 @@ Page({
 
   },
 
+  //发布成功提示
+  showToast() {
+    vm.setData({
+      toast: {
+        show: true
+      }
+    })
+    setTimeout(() => {
+      vm.setData({
+        toast: {
+          show: false
+        }
+      })
+    }, 1500)
+  },
+
+  //判断今天是否提交过竞品日报
+  judgeBoutique: function () {
+    var param = {
+      shop_manager_id: getApp().globalData.userInfo.id,
+      stmt_date: util.getToday()
+    }
+    util.shopManagerGetBoutiqueDaily(param, function (res) {
+      if (res.data.result) {
+        wx.navigateTo({
+          url: '/pages/shopManager/boutiqueDetail/boutiqueDetail',
+        })
+      } else {
+        vm.showToast()
+        // util.showToast("今天已经提交过竞品日报")
+      }
+    })
+  },
+
   //判断今天是否提交过产品日报
   judgeProduct: function () {
     var param = {
@@ -19,7 +53,8 @@ Page({
           url: '/pages/shopManager/productDaily/productDaily',
         })
       } else {
-        util.showToast("今天已经提交过产品日报")
+        vm.showToast()
+        // util.showToast("今天已经提交过产品日报")
       }
     })
   },

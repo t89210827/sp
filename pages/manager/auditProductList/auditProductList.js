@@ -54,7 +54,7 @@ Page(extend({}, Actionsheet, Tab, {
             break;
           }
 
-          dailyPaper[i].created_at = util.convertDateFormateM(dailyList[i].created_at)
+          dailyPaper[i].daily_paper[0].created_at = util.convertDateFormateM(dailyPaper[i].daily_paper[0].created_at)
         }
         vm.setData({ dailyPaper: dailyPaper })
 

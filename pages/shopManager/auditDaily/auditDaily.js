@@ -52,7 +52,7 @@ Page(extend({}, Actionsheet, Tab, {
             break;
           }
 
-          dailyList[i].created_at = util.convertDateFormateM(dailyList[i].created_at)
+          dailyList[i].daily_paper[0].created_at = util.convertDateFormateM(dailyList[i].daily_paper[0].created_at)
         }
         console.log("000000" + JSON.stringify(dailyList))
         vm.setData({ dailyList: dailyList })

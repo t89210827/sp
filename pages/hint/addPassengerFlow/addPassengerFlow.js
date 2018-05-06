@@ -11,7 +11,7 @@ Page({
   //返回员工首页
   jumpIndex: function () {
     wx.redirectTo({
-      url: '/pages/staff/staff',
+      url: '/pages/shopManager/index/index',
     })
     // wx.switchTab({
     //   url: '/pages/staff/staff',
@@ -20,7 +20,7 @@ Page({
   //跳转客户信息首页
   jumpClientInformation: function () {
     wx.navigateTo({
-      url: '/pages/clientInformation/staff/staff',
+      url: '/pages/shopManager/issueList/issueList',
     })
   },
 

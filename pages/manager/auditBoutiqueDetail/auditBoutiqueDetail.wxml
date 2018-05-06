@@ -4,7 +4,7 @@
   <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
 </view>
 <view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
-  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>提交日报</view>
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>审核日报</view>
 
 </view>
 <view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
@@ -64,7 +64,8 @@
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <input bindinput='inputClientName' class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入品牌" style='line-height:120rpx;text-align:right;' value='{{item.boutique.boutique_name}}' disabled="true"></input>
+              <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{item.boutique.boutique_name}}</view>
+              <!-- <input bindinput='inputClientName' class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入品牌" style='line-height:120rpx;text-align:right;' value='{{item.boutique.boutique_name}}' disabled="true"></input> -->
             </view>
           </view>
         </view>
@@ -77,7 +78,9 @@
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入业绩" style='line-height:120rpx;text-align:right;' value='{{item.performance}}' disabled="true"></input>
+              <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+                <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{item.performance}}</view>
+              </view>
             </view>
           </view>
         </view>
@@ -90,7 +93,7 @@
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入活动" style='line-height:120rpx;text-align:right;' value='{{item.activity}}' disabled="true"></input>
+              <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{item.activity}}</view>
             </view>
           </view>
         </view>

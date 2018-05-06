@@ -1,0 +1,10 @@
+/* pages/manager/auditProductDetail/auditProductDetail.wxss */
+
+.bottom-addDeal {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0rpx;
+  width: 750rpx;
+  height: 90rpx;
+  background: #4aa5fe;
+}

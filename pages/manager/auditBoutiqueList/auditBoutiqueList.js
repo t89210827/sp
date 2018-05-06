@@ -54,7 +54,7 @@ Page(extend({}, Actionsheet, Tab, {
             break;
           }
 
-          boutiqueDaily[i].created_at = util.convertDateFormateM(boutiqueDaily[i].created_at)
+          boutiqueDaily[i].boutiqueDaily.data[0].created_at = util.convertDateFormateM(boutiqueDaily[i].boutiqueDaily.data[0].created_at)
         }
         console.log("未审核竞品日报" + JSON.stringify(boutiqueDaily))
         vm.setData({ boutiqueDaily: boutiqueDaily })
