@@ -32,6 +32,12 @@ Page({
     vm.getShop()        //主管下的店铺列表
   },
 
+  //获取缓存中用户信息
+  getUserInfo: function () {
+    var userInfo = getApp().globalData.userInfo
+    vm.setData({ userInfo: userInfo })
+  },
+
   //查询
   confirm: function () {
     vm.getManagerIndexKeyMessage()              //主要
@@ -221,36 +227,6 @@ Page({
       vm.setData({ userInfo: userInfo })
     })
   },
-
-  //获取缓存中用户信息
-  getUserInfo: function () {
-    var userInfo = getApp().globalData.userInfo
-    vm.setData({ userInfo: userInfo })
-
-    // if (userInfo == null) {
-    //   wx.login({
-    //     success: function (res) {
-    //       wx.getUserInfo({
-    //         success: function (res) {
-    //           console.log("---" + JSON.stringify(res))
-    //           var userInfo = {
-    //             name: res.userInfo.nickName,
-    //             avatar: res.userInfo.avatarUrl
-    //           }
-    //           vm.setData({ userInfo: userInfo })
-    //           wx.stopPullDownRefresh()    //停止下拉刷新
-    //         }
-    //       })
-    //     }
-    //   })
-    // } else {
-    //   vm.getByIdWithToken()
-    //   vm.setData({ userInfo: userInfo })
-    //   wx.stopPullDownRefresh()    //停止下拉刷新
-    // }
-    // console.log("userInfo : " + JSON.stringify(userInfo))
-  },
-
 
   //跳转到店员排名页面
   jumpRanking: function () {

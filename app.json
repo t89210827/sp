@@ -1,10 +1,11 @@
 {
   "pages": [
-    "pages/shopManager/index/index",
     "pages/start/start",
+    "pages/staff/clientList/clientList",
+    "pages/shopManager/index/index",
+    "pages/manager/index/index",
     "pages/staff/staff",
     "pages/index/index",
-    "pages/manager/index/index",
     "pages/hint/audit/audit",
     "pages/shopManager/auditDaily/auditDaily",
     "pages/shopManager/boutiqueDetail/boutiqueDetail",
@@ -35,7 +36,6 @@
     "pages/staff/clientDetail/clientDetail",
     "pages/manager/auditList/auditList",
     "pages/manager/issueTask/issueTask",
-    "pages/staff/clientList/clientList",
     "pages/ranking/shop/shop",
     "pages/manager/shopClientList/shopClientList",
     "pages/manager/auditBoutiqueDetail/auditBoutiqueDetail",

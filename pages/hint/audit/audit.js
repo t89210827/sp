@@ -28,42 +28,43 @@ Page({
       // console.log(res)
       var status = res.data.ret[0].status
       var type = res.data.ret[0].type
+      var id = getApp().globalData.userInfo.id
+
+      util.getByIdWithToken({ id: id }, function (res) {
+        if (res.data.result) {
+          var userInfo = res.data.ret
+          vm.storeUserInfo(userInfo)         //进行本地缓存
+        }
+      })
 
       if (status == 2 && type == 1) {
         wx.redirectTo({
           url: '/pages/staff/staff',
         })
-        // wx.switchTab({
-        //   url: '/pages/staff/staff',
-        // })
       } else if (status == 2 && type == 2) {
         wx.redirectTo({
           url: '/pages/shopManager/index/index',
         })
-        // wx.switchTab({
-        //   url: '/pages/shopManager/index/index',
-        // })
       } else if (status == 2 && type == 3) {
         wx.redirectTo({
           url: '/pages/manager/index/index',
         })
-        // wx.switchTab({
-        //   url: '/pages/manager/index/index',
-        // })
       } else {
         util.showToast("请等待审核通过")
       }
-
-      // if (status == 0) {
-      //   util.showToast("店长可能正在忙 请等待")
-      // } else if (status == 1) {
-      //   util.showToast("主管可能正在忙 请等待")
-      // } else if (status == 2) {
-      //   util.showToast("审核通过")
-      // }
       vm.setData({ status: status })
       wx.stopPullDownRefresh()    //停止下拉刷新
     })
+  },
+
+  //进行本地缓存
+  storeUserInfo: function (obj) {
+    console.log("storeUserInfo :" + JSON.stringify(obj));
+    wx.setStorage({
+      key: "userInfo",
+      data: obj
+    });
+    getApp().globalData.userInfo = obj;
   },
 
   /**

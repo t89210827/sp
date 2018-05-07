@@ -19,7 +19,7 @@ Page({
     } else {
       vm.setData({ adddeal: false })
     }
-    console.log("---" + JSON.stringify(options))
+    console.log("---" + JSON.stringify(myType))
     var clientId = options.clientId
     vm.getClientById(clientId)
     vm.getDealByClientId(clientId)

@@ -62,6 +62,7 @@ Page({
   //初始化
   init: function (id) {
     var arr = []
+    var dateAddThree = util.getTodayAddThree()
     arr.push({
       "user_id": getApp().globalData.userInfo.id,
       "shop_id": getApp().globalData.userInfo.shop_id,
@@ -74,7 +75,7 @@ Page({
       "isearnest": 1,
       "isearnest_money": "",
       "purpose": "",
-      "purpose_time": "2018-04-10",
+      "purpose_time": dateAddThree,
       "remind_time": "",
       "remark": "",
       "num": ""
@@ -86,6 +87,7 @@ Page({
   },
   //笔数选择
   onChangeNumber(e) {
+    var dateAddThree = util.getTodayAddThree()
     var num = e.detail.number
     var arr = []
     var productArr = []
@@ -102,7 +104,7 @@ Page({
         "isearnest": 1,
         "isearnest_money": "",
         "purpose": "",
-        "purpose_time": "2018-04-10",
+        "purpose_time": dateAddThree,
         "remind_time": "",
         "remark": "",
         "num": ""

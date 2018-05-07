@@ -14,6 +14,11 @@ Page(extend({}, Actionsheet, Tab, {
       closeOnClickOverlay: true,
       componentId: 'actionsheet',
       actions: [{
+        name: '全部',
+        // subname: '选项描述语1',
+        className: 'action-class',
+        loading: false
+      }, {
         name: '已购买',
         // subname: '选项描述语1',
         className: 'action-class',
@@ -28,18 +33,70 @@ Page(extend({}, Actionsheet, Tab, {
 
     showLeftPopup: false,
 
-    date: "2016-09-01",
+    clientList: [],          //客户信息列表
+    audit_id: "",            //员工id
 
-    clientList: [],       //客户信息列表
-    audit_id: "",   //员工id
   },
   onLoad: function (options) {
     vm = this
     vm.getClientByUserId()      //获取所有顾客信息
+    vm.initSearchParam()        //初始化参数
   },
 
-  search:function(){
-    
+  //初始化搜索参数
+  initSearchParam: function () {
+    var today = util.getToday()
+    // vm.setData({ start_time: today, end_time: today })
+
+    var search = {
+      user_id: getApp().globalData.userInfo.id,
+      start_time: today,
+      end_time: today,
+      // isbuy: "",
+      // tel: ""
+    }
+    vm.setData({ search: search })
+    vm.complete()
+  },
+
+  //用户点击确定以后
+  complete: function () {
+    var search = vm.data.search
+    util.search(search, function (res) {
+      if (res.data.result) {
+        console.log("搜索返回值" + JSON.stringify(res.data.ret))
+        // var clientList = res.data.ret
+        // for (var i = 0; i < clientList.length; i++) {
+        //   clientList[i].created_at = util.date(clientList[i].created_at)
+        // }
+        // vm.setData({ clientList: res.data.ret })
+      }
+    })
+  },
+
+  //开始录入时间
+  bindStartTime: function (e) {
+    var search = vm.data.search
+    var start_time = e.detail.value
+    search.start_time = start_time
+    vm.setData({
+      search: search
+    })
+  },
+
+  //结束录入时间
+  bindEndTime: function (e) {
+    var search = vm.data.search
+    var end_time = e.detail.value
+    search.end_time = end_time
+    vm.setData({
+      search: search
+    })
+  },
+
+  //返回首页
+  backIndex: function () {
+    util.backIndex()
   },
 
   //根据员工id获取客户信息
@@ -58,34 +115,10 @@ Page(extend({}, Actionsheet, Tab, {
     })
   },
 
-  //获取所有顾客信息
-  // getClient: function () {
-  //   var param = {
-  //     page: 1
-  //   }
-  //   util.getClient(param, function (res) {
-  //     if (res.data.result == true) {
-  //       var clientList = res.data.ret.data
-  //       for (var i = 0; i < clientList.length; i++) {
-  //         clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)
-  //       }
-  //       vm.setData({ clientList: clientList })
-  //     }
-  //   })
-  // },
-
-
   //跳转到客户详情页
   jumpClientDetail: function () {
     wx.navigateTo({
       url: '/pages/clientDetail/clientDetail',
-    })
-  },
-
-  //入职时间
-  bindDateChange: function (e) {
-    this.setData({
-      date: e.detail.value
     })
   },
 
@@ -148,22 +181,6 @@ Page(extend({}, Actionsheet, Tab, {
     this.setData({
       inputVal: e.detail.value
     });
-  },
-  //用户点击确定以后
-  complete: function () {
-    var phone = vm.data.inputVal
-    var param = {
-      search_word: phone
-    }
-    util.search(param, function (res) {
-      if (res.data.result) {
-        var clientList = res.data.ret
-        for (var i = 0; i < clientList.length; i++) {
-          clientList[i].created_at = util.date(clientList[i].created_at)
-        }
-        vm.setData({ clientList: res.data.ret })
-      }
-    })
   },
 
   //返回上一层

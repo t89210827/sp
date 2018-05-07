@@ -43,6 +43,9 @@ Page({
         if (main.otherChanageRate != 0) {
           main.otherChanageRate = main.otherChanageRate.toFixed(2)
         }
+        if (main.clientChangeNum != 0) {
+          main.clientChangeNum = main.clientChangeNum.toFixed(2)
+        }
         vm.setData({ main: main })
       }
     })
@@ -53,12 +56,16 @@ Page({
     this.setData({
       beginDate: e.detail.value
     })
+    vm.getAuditIndexKeyMessage()    //员工首页主要信息
+    vm.getAuditIndexMinorMessage()  //员工首页次要信息
   },
   //结束时间
   bindEndDate: function (e) {
     this.setData({
       endDate: e.detail.value
     })
+    vm.getAuditIndexKeyMessage()    //员工首页主要信息
+    vm.getAuditIndexMinorMessage()  //员工首页次要信息
   },
 
   //员工首页次要信息
@@ -113,28 +120,29 @@ Page({
   //获取缓存中用户信息
   getUserInfo: function () {
     var userInfo = getApp().globalData.userInfo
+    vm.setData({ userInfo: userInfo })
 
-    if (userInfo == null) {
-      wx.login({
-        success: function (res) {
-          wx.getUserInfo({
-            success: function (res) {
-              console.log("---" + JSON.stringify(res))
-              var userInfo = {
-                name: res.userInfo.nickName,
-                avatar: res.userInfo.avatarUrl
-              }
-              vm.setData({ userInfo: userInfo })
-              wx.stopPullDownRefresh()    //停止下拉刷新
-            }
-          })
-        }
-      })
-    } else {
-      vm.getByIdWithToken()
-      vm.setData({ userInfo: userInfo })
-      wx.stopPullDownRefresh()    //停止下拉刷新
-    }
+    // if (userInfo == null) {
+    //   wx.login({
+    //     success: function (res) {
+    //       wx.getUserInfo({
+    //         success: function (res) {
+    //           console.log("---" + JSON.stringify(res))
+    //           var userInfo = {
+    //             name: res.userInfo.nickName,
+    //             avatar: res.userInfo.avatarUrl
+    //           }
+    //           vm.setData({ userInfo: userInfo })
+    //           wx.stopPullDownRefresh()    //停止下拉刷新
+    //         }
+    //       })
+    //     }
+    //   })
+    // } else {
+    //   vm.getByIdWithToken()
+    //   vm.setData({ userInfo: userInfo })
+    //   wx.stopPullDownRefresh()    //停止下拉刷新
+    // }
     console.log("userInfo : " + JSON.stringify(userInfo))
   },
 
@@ -164,9 +172,6 @@ Page({
   },
   //跳转到添加客户页面
   jumpAddClient: function () {
-    // wx.navigateTo({
-    //   url: '/pages/addClient/addClient',
-    // })
     wx.navigateTo({
       url: '/pages/queryClient/queryClient',
     })
@@ -179,6 +184,11 @@ Page({
   },
   //跳转到提交日报页面
   jumpdaily: function () {
+    if (vm.data.todayTask.length == 0) {
+      util.showToast("请等待店长发布今日任务")
+      return
+    }
+
     var param = {
       audit_id: getApp().globalData.userInfo.id,
       stmt_date: util.getToday()
@@ -196,10 +206,6 @@ Page({
   },
   //跳转到根据电话查询客户页面
   jumpAddClientAddDeal: function (e) {
-    // console.log("---1111" + JSON.stringify())
-    // wx.navigateTo({
-    //   url: '/pages/addClientAddDeal/addClientAddDeal',
-    // })
     wx.navigateTo({
       url: '/pages/staff/byPhoneQueryClient/byPhoneQueryClient',
     })

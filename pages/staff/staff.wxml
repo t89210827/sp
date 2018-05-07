@@ -279,12 +279,12 @@
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>其他任务额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotGramWeight}}</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherPerformanceRequest}}</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>其他销售额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherPerformanceRequest }}</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotGramWeight }}</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>

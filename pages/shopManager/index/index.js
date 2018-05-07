@@ -24,6 +24,13 @@ Page({
     vm.getShopManagerTask()              //店长获取本月任务
   },
 
+  //获取缓存中用户信息
+  getUserInfo: function () {
+    var userInfo = getApp().globalData.userInfo
+    vm.setData({ userInfo: userInfo })
+    console.log("userInfo : " + JSON.stringify(userInfo))
+  },
+
   //店长首页主要信息
   getShopManagerIndexKeyMessage: function () {
     var param = {
@@ -92,35 +99,6 @@ Page({
       vm.setData({ userInfo: userInfo })
     })
   },
-
-  //获取缓存中用户信息
-  getUserInfo: function () {
-    var userInfo = getApp().globalData.userInfo
-
-    if (userInfo == null) {
-      wx.login({
-        success: function (res) {
-          wx.getUserInfo({
-            success: function (res) {
-              console.log("---" + JSON.stringify(res))
-              var userInfo = {
-                name: res.userInfo.nickName,
-                avatar: res.userInfo.avatarUrl
-              }
-              vm.setData({ userInfo: userInfo })
-              wx.stopPullDownRefresh()    //停止下拉刷新
-            }
-          })
-        }
-      })
-    } else {
-      vm.getByIdWithToken()
-      vm.setData({ userInfo: userInfo })
-      wx.stopPullDownRefresh()    //停止下拉刷新
-    }
-    console.log("userInfo : " + JSON.stringify(userInfo))
-  },
-
 
   //今日目标展开与收取
   targetSwitch: function () {

@@ -890,6 +890,25 @@ function getTodayAddOne() {
   return year + "-" + month + "-" + day
 }
 
+function getTodayAddThree() {
+  var now = new Date()
+  now.setDate(now.getDate() + 3);
+
+  var today = ""
+  var year = now.getFullYear()       //年
+  today += year + "-"
+  var month = now.getMonth() + 1     //月
+  if (month < 10) {
+    month = "0" + month
+  }
+  // today += month + "-"
+  var day = now.getDate()            //日
+  if (day < 10) {
+    day = "0" + day
+  }
+  return year + "-" + month + "-" + day
+}
+
 // 获取当前月份
 function getMonth() {
   var now = new Date()
@@ -1015,6 +1034,25 @@ function isNeedNavigateToSetMyInfoPage() {
   }
 }
 
+//返回首页
+function backIndex() {
+  var userType = getApp().globalData.userInfo.type;
+  console.log("返回首页")
+  if (userType == 1) {
+    wx.redirectTo({
+      url: '/pages/staff/staff',
+    })
+  } else if (userType == 2) {
+    wx.redirectTo({
+      url: '/pages/shopManager/index/index',
+    })
+  } else if (userType == 3) {
+    wx.redirectTo({
+      url: '/pages/manager/index/index',
+    })
+  }
+}
+
 
 module.exports = {
   //http request function
@@ -1048,6 +1086,9 @@ module.exports = {
   getMonth: getMonth,         //获取当前月份
   Percentage: Percentage,     //两个数的百分比
   getTodayAddOne: getTodayAddOne,   //时间加一
+  getTodayAddThree: getTodayAddThree,   //时间加三
+  backIndex: backIndex,             //返回首页
+
 
   showToast: showToast,           //展示空toast
   getQiniuToken: getQiniuToken,   //获取七牛token

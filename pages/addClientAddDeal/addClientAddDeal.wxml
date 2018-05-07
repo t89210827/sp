@@ -159,7 +159,7 @@
 <view style='width:94%;margin:20rpx 3%;'>
   <view style='margin:0 3%;'>
     <view class='zan-row' style='height:100rpx;'>
-      <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:100rpx;'>笔数</view>
+      <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:100rpx;'>详细信息</view>
       <view class='zan-col zan-col-13'>
 
         <view class='center-style' style='height:100rpx;align-items: center;float:right;'>

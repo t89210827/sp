@@ -41,7 +41,20 @@ Page({
   onLoad: function (options) {
     vm = this
     var shop_id = options.shop_id
-    vm.getAuditListByShopId(shop_id)
+    // vm.getAuditListByShopId(shop_id)
+
+    vm.getAuditRanking()
+  },
+
+  //本店员工排名
+  getAuditRanking: function () {
+    util.getAuditRanking({}, function (res) {
+      if (res.data.result) {
+        var ranking = res.data.ret[0].userRole
+        vm.setData({ ranking: ranking })
+        console.log("员工排名" + JSON.stringify(ranking))
+      }
+    })
   },
 
   // 根据shop_id获取员工列表

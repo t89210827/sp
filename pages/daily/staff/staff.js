@@ -107,10 +107,10 @@ Page({
       util.showToast("店长还未发布今日目标")
       return
     }
-    if (vm.data.passenger_flow == 1) {
-      util.showToast("等待店长录入客流")
-      return
-    }
+    // if (vm.data.passenger_flow == 1) {
+    //   util.showToast("等待店长录入客流")
+    //   return
+    // }
     wx.showModal({
       title: '确认',
       content: '确定提交日报吗？',
