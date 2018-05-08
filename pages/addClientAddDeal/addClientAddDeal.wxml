@@ -239,7 +239,7 @@
             <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>购买金额</view>
             <view class='zan-col zan-col-13 '>
               <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
-                <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入购买金额" bindinput='inputMoney' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right; '></input>
+                <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入购买金额" bindinput='inputMoney' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right;' type='number'></input>
               </view>
             </view>
           </view>
@@ -251,7 +251,7 @@
             <view class='zan-col zan-col-13 '>
 
               <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
-                <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputNum' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right; '></input>
+                <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputNum' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right;' type='number'></input>
               </view>
             </view>
           </view>

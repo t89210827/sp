@@ -37,7 +37,7 @@ Page({
         }
       })
 
-      if (status == 2 && type == 1) {
+      if (status == 1 && type == 1) {
         wx.redirectTo({
           url: '/pages/staff/staff',
         })

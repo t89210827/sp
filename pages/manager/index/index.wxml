@@ -7,7 +7,14 @@
 
 <view class='bg'>
   <view class='zan-font-16 ranking'>
-    <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpRanking'>排行</view>
+    <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpRanking'>
+      <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpRanking'>
+        <view style='position: relative;width:200rpx;height:80rpx;margin:25rpx auto;'>
+          <image src='../../../images/button.png' style='opacity: 0.5;width:200rpx;height:70rpx;'></image>
+          <view style='position: absolute;top: 8rpx;left: 66rpx;'>排行</view>
+        </view>
+      </view>
+    </view>
   </view>
 
   <view style='height:150rpx;'></view>
@@ -22,9 +29,24 @@
   </view> -->
 
   <view class='zan-row zan-font-18' style='height:120rpx;color:#fff;'>
-    <view class='zan-col zan-col-8 line-height' bindtap='jumpAudit'>审批任务</view>
-    <view class='zan-col zan-col-8 line-height' bindtap='jumpIssueList'>发布</view>
-    <view class='zan-col zan-col-8 line-height' bindtap='jumpStaffList'>客户信息</view>
+    <view class='zan-col zan-col-8 line-height' bindtap='jumpAudit'>
+      <view style='position: relative;width:200rpx;height:80rpx;margin:25rpx auto;'>
+        <image src='../../../images/button.png' style='opacity: 0.5;width:200rpx;height:70rpx;'></image>
+        <view style='position: absolute;top: 0rpx;left: 30rpx;'>审核任务</view>
+      </view>
+    </view>
+    <view class='zan-col zan-col-8 line-height' bindtap='jumpIssueList'>
+      <view style='position: relative;width:200rpx;height:80rpx;margin:25rpx auto;'>
+        <image src='../../../images/button.png' style='opacity: 0.5;width:200rpx;height:70rpx;'></image>
+        <view style='position: absolute;top: 0rpx;left: 64rpx;'>发布</view>
+      </view>
+    </view>
+    <view class='zan-col zan-col-8 line-height' bindtap='jumpStaffList'>
+      <view style='position: relative;width:200rpx;height:80rpx;margin:25rpx auto;'>
+        <image src='../../../images/button.png' style='opacity: 0.5;width:200rpx;height:70rpx;'></image>
+        <view style='position: absolute;top: 0rpx;left: 30rpx;'>客户信息</view>
+      </view>
+    </view>
   </view>
 </view>
 

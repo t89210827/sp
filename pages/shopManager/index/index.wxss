@@ -12,15 +12,15 @@
 
 .ranking {
   position: absolute;
-  top: 170rpx;
-  left: 70rpx;
+  top: 160rpx;
+  left: 35rpx;
   color: #fff;
 }
 
 .daily {
   position: absolute;
-  top: 170rpx;
-  right: 70rpx;
+  top: 160rpx;
+  right: 35rpx;
   color: #fff;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .line-height {
-  line-height: 120rpx;
+  line-height: 70rpx;
 }
 
 .line-text {

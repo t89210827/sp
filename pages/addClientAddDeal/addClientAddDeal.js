@@ -26,6 +26,7 @@ Page({
 
     clientName: '',          //顾客姓名
     image: '',               //头像
+    city: '',                //城市
     gender: "男",            //性别
     birthDate: "2016-09-01", //生日
     day: "",                 //接待时间
@@ -120,17 +121,19 @@ Page({
   initItemList: function () {
     var itemList = []
     var productList = vm.data.productList
+    productList.reverse()
     for (var i = 0; i < productList.length; i++) {
       itemList.push(productList[i].name)
     }
     vm.setData({ itemList: itemList })
-    vm.init(vm.data.productList[0].id)       //初始化参数          
+    // vm.init(vm.data.productList[0].id)       //初始化参数          
   },
 
   //添加交易信息
   addDeal: function () {
+    var deal = vm.data.dealData
     var param = {
-      deal: vm.data.dealData
+      deal: deal
     }
     util.addDeal(param, function (res) {
       if (res.data.result) {
@@ -293,30 +296,7 @@ Page({
     console.log("---" + JSON.stringify(dealData))
   },
 
-
-  // 添加顾客信息并添加交易信息
-  addClient: function () {
-    if (vm.data.name == "") {
-      util.showToast("姓名不能为空")
-      return
-    }
-    // if (vm.data.image == "") {
-    //   util.showToast("请上传头像")
-    //   return
-    // }
-    if (vm.data.age == "") {
-      util.showToast("年龄不能为空")
-      return
-    }
-    if (vm.data.phone == "") {
-      util.showToast("电话不能为空")
-      return
-    }
-    if (vm.data.city == "") {
-      util.showToast("客户所在城市不能为空")
-      return
-    }
-
+  addClientRequest: function () {
     var day = util.getToday()
     var param = {
       name: vm.data.clientName,
@@ -342,6 +322,57 @@ Page({
           wx.navigateTo({
             url: '/pages/hint/addClient/addClient',
           })
+        }
+      }
+    })
+  },
+
+  // 添加顾客信息并添加交易信息
+  addClient: function () {
+
+    if (vm.data.clientName == "") {
+      util.showToast("姓名不能为空")
+      return
+    }
+    if (vm.data.phone == "") {
+      util.showToast("电话不能为空")
+      return
+    }
+    if (vm.data.city == "") {
+      util.showToast("客户所在城市不能为空")
+      return
+    }
+
+    var deal = vm.data.dealData
+    for (var i = 0; i < deal.length; i++) {
+      if (deal[i].product_name == "") {
+        util.showToast("货号不能为空")
+        return
+      }
+
+      if (deal[i].product_id == 3) {
+        if (deal[i].num < 3) {
+          util.showToast("件数必须大于2")
+          return
+        }
+      }
+
+      if (deal[i].product_id == 1) {
+        if (deal[i].money > 70000) {
+          util.showToast("金额超过70000 必须录入到大额销售中")
+          return
+        }
+      }
+    }
+    wx.showModal({
+      title: '确认',
+      content: '确定提交？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          vm.addClientRequest()
+        } else if (res.cancel) {
+          console.log('用户点击取消')
         }
       }
     })

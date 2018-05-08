@@ -1,6 +1,7 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "wxc-progress": "../../dist/packages/@minui/wxc-progress/dist/index"
+    "wxc-progress": "../../dist/packages/@minui/wxc-progress/dist/index",
+    "wxc-toast": "../../../dist/packages/@minui/wxc-toast/dist/index"
   }
 }

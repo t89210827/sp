@@ -24,6 +24,22 @@ Page({
     vm.getAuditTask()         //今日任务
   },
 
+  //发布成功提示
+  showToast() {
+    vm.setData({
+      toast: {
+        show: true
+      }
+    })
+    setTimeout(() => {
+      vm.setData({
+        toast: {
+          show: false
+        }
+      })
+    }, 1500)
+  },
+
   //员工首页主要信息
   getAuditIndexKeyMessage: function () {
     var param = {
@@ -84,6 +100,11 @@ Page({
           task = 0
         }
         var percent = minorMessage.noYellowPerotMoneies / minorMessage.noYellowPerotPerformanceRequest * 100
+
+        if (percent > 100) {
+          percent = 100
+        }
+
         console.log("678" + task + "------" + percent)
         vm.setData({
           minorMessage: minorMessage,
@@ -200,7 +221,8 @@ Page({
           url: '/pages/daily/staff/staff',
         })
       } else {
-        util.showToast("今日已经提交过日报")
+        vm.showToast()
+        // util.showToast("今日已经提交过日报")
       }
     })
   },

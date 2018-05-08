@@ -136,14 +136,6 @@
       <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
         <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16' style='line-height:120rpx;'>提醒时间：</view>
         <view class='zan-col zan-col-7' style='margin-top:10rpx;'>
-
-          <!-- <picker mode="date" value="{{date}}" start="2000-01-01" end="2020-01-01" bindchange="bindDateChange">
-            <view class='flex-row' style='align-items: center;float:right;'>
-              <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>{{</view>
-              <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
-            </view>
-          </picker> -->
-          <!-- <view class='zan-font-16 zan-c-gray-dark'></view> -->
           <view class='flex-row' style='align-items: center;float:right;'>
             <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>{{deal.purpose_time}}</view>
           </view>
@@ -163,7 +155,7 @@
     <view style='margin:0 3%;'>
       <view style="position: relative;">
         <view class="intro-content">
-          <view style='padding:10rpx 20rpx;height:260rpx;'>{{deal.remark}}</view>
+          <view style='padding:10rpx 20rpx;height:260rpx;'>{{deal.remark == null?'无':deal.remark}}</view>
           <!-- <textarea style='padding:10rpx 20rpx;height:260rpx;' name="intro" cursor-spacing="100" bindinput="textAreaEventListener" maxlength='100' placeholder="" /> -->
         </view>
         <!-- <view class='zan-font-14' style="position: absolute; right: 10rpx; bottom: 0;">{{remark.length}} /100</view> -->

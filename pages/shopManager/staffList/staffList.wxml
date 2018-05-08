@@ -33,7 +33,7 @@
       <block wx:for="{{staffList}}">
         <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;' bindtap='jumpClientList' data-auditid='{{item.auditDetails.id}}'>
           <view class='zan-row'>
-            <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index}}</view>
+            <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index + 1}}</view>
             <view class='zan-col zan-col-4'>
               <view class='center-style' style='height:100rpx;'>
                 <image src='{{item.auditDetails.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>

@@ -9,14 +9,6 @@ Page({
 
   onLoad: function (options) {
     vm = this
-    var type = options.type
-    vm.setData({ type: type })
-    // vm.getReviewAudit()
-    if (type == 1) {
-      vm.getStaff()
-    } else if (type == 2) {
-      vm.getShopManager()
-    }
   },
 
   //主管审核店长列表
@@ -24,7 +16,7 @@ Page({
 
     var param = {
       manager_id: getApp().globalData.userInfo.id,
-      type: vm.data.type,
+      type: 2,
       page: 1,
     }
     util.getShopManager(param, function (res) {
@@ -34,41 +26,7 @@ Page({
         var audit = retAuditList[i].audit
         if (audit.length > 0) {
           for (var j = 0; j < audit.length; j++) {
-            // var auditIndex = {
-            //   name: audit[j].user.name,
-
-            // }
             var auditIndex = audit[j].user
-            auditIndex.shopName = retAuditList[i].name
-            auditList.push(auditIndex)
-          }
-        }
-      }
-      vm.setData({ auditList: auditList })
-      console.log("审核数组" + JSON.stringify(auditList))
-    })
-  },
-  //主管审核店员列表
-  getStaff: function () {
-
-    var param = {
-      manager_id: getApp().globalData.userInfo.id,
-      type: vm.data.type,
-      page: 1,
-    }
-    util.getShopManager(param, function (res) {
-      var retAuditList = res.data.ret.shop.data
-      var auditList = []
-      for (var i = 0; i < retAuditList.length; i++) {
-        var audit = retAuditList[i].audit.data
-        if (audit.length > 0) {
-          for (var j = 0; j < audit.length; j++) {
-            // var auditIndex = {
-            //   name: audit[j].user.name,
-
-            // }
-            var auditIndex = audit[j].user
-            console.log("---------" + JSON.stringify(audit[j].user))
             auditIndex.shopName = retAuditList[i].name
             auditList.push(auditIndex)
           }

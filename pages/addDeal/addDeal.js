@@ -106,14 +106,46 @@ Page({
 
   //添加交易信息
   addDeal: function () {
-    var param = {
-      deal: vm.data.dealData
+    var deal = vm.data.dealData
+    for (var i = 0; i < deal.length; i++) {
+      if (deal[i].product_name == "") {
+        util.showToast("货号不能为空")
+        return
+      }
+
+      if (deal[i].product_id == 3) {
+        if (deal[i].num < 3) {
+          util.showToast("件数必须大于2")
+          return
+        }
+      }
+
+      if (deal[i].product_id == 1) {
+        if (deal[i].money > 70000) {
+          util.showToast("金额超过70000 必须录入到大额销售中")
+          return
+        }
+      }
     }
-    util.addDeal(param, function (res) {
-      if (res.data.result) {
-        wx.navigateTo({
-          url: '/pages/hint/addClient/addClient',
-        })
+
+    wx.showModal({
+      title: '确认',
+      content: '确定提交？',
+      success: function (res) {
+        if (res.confirm) {
+          var param = {
+            deal: deal
+          }
+          util.addDeal(param, function (res) {
+            if (res.data.result) {
+              wx.navigateTo({
+                url: '/pages/hint/addClient/addClient',
+              })
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
     })
   },

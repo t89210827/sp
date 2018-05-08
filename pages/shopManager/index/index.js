@@ -24,6 +24,22 @@ Page({
     vm.getShopManagerTask()              //店长获取本月任务
   },
 
+  //发布成功提示
+  showToast() {
+    vm.setData({
+      toast: {
+        show: true
+      }
+    })
+    setTimeout(() => {
+      vm.setData({
+        toast: {
+          show: false
+        }
+      })
+    }, 1500)
+  },
+
   //获取缓存中用户信息
   getUserInfo: function () {
     var userInfo = getApp().globalData.userInfo
@@ -64,7 +80,7 @@ Page({
         }
         var percent = minorMessage.noYellowPerotMoneies / minorMessage.noYellowPerotTask * 100
         if (percent > 100) {
-          task = 100
+          percent = 100
         }
 
         console.log("店长首页次要信息" + JSON.stringify(res))
