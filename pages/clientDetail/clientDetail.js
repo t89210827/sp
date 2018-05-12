@@ -20,16 +20,25 @@ Page({
       vm.setData({ adddeal: false })
     }
     console.log("---" + JSON.stringify(myType))
-    var clientId = options.clientId
+    var clientId = options.clientId       //客户id
+    vm.setData({ clientId: clientId })
+
     vm.getClientById(clientId)
-    vm.getDealByClientId(clientId)
+    vm.getDealByClientId()
 
     var day = util.getToday()
   },
+
+  alterClient: function () {
+    wx.navigateTo({
+      url: '/pages/staff/alterClient/alterClient',
+    })
+  },
+
   //根据顾客id获取所有交易记录
-  getDealByClientId: function (clientId) {
+  getDealByClientId: function () {
     var param = {
-      client_id: clientId
+      client_id: vm.data.clientId
     }
     util.getDealByClientId(param, function (res) {
       if (res.data.result) {
@@ -98,6 +107,23 @@ Page({
     wx.navigateTo({
       url: '/pages/addDeal/addDeal?clientId=' + clientId,
     })
+  },
+
+  //发布成功提示
+  showToast(showToastText) {
+    vm.setData({
+      showToastText: showToastText,
+      toast: {
+        show: true
+      }
+    })
+    setTimeout(() => {
+      vm.setData({
+        toast: {
+          show: false
+        }
+      })
+    }, 1500)
   },
 
   /**

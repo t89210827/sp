@@ -30,82 +30,13 @@
   </view>
 </view>
 
-<!-- <view style='width:750rpx;'>
-  <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-font-18' style='line-height:120rpx;'>黄铂</view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>目标(自动生成)：</view>
-        <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          31414
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>销售克重：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入销售克重" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>旧料抵金值：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入旧料抵金值" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>实销额：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入实销额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>件数：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-  </view>
-</view> -->
-
-<block wx:if="{{submitDaily.length  == 0 }}">
+<!-- <block wx:if="{{submitDaily.length  == 0 }}">
   <view style='width:750rpx;'>
     <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
       <view class='zan-font-14'>店长还未发布今日任务</view>
     </view>
   </view>
-</block>
+</block> -->
 
 <block wx:for="{{submitDaily}}">
   <view style='width:750rpx;'>
@@ -113,20 +44,24 @@
 
       <view style='margin:0 3%;'>
         <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-          <view class='zan-font-18' style='line-height:120rpx;'>{{item.product[0].name}}</view>
+          <view wx:if="{{item.product_id == 1}}" class='zan-font-18' style='line-height:120rpx;'>非黄铂</view>
+          <view wx:elif="{{item.product_id == 2}}" class='zan-font-18' style='line-height:120rpx;'>黄铂</view>
+          <view wx:elif="{{item.product_id == 3}}" class='zan-font-18' style='line-height:120rpx;'>大单销售</view>
         </view>
       </view>
 
-      <view style='margin:0 3%;'>
-        <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
-          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>目标(自动生成)：</view>
-          <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-            {{item.performance_request == null?'店长还未发布任务':item.performance_request}}
+      <block wx:if="{{item.product_id != 3}}">
+        <view style='margin:0 3%;'>
+          <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
+            <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>目标(自动生成)：</view>
+            <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
+              {{item.performance_request == null?'店长还未发布任务':item.performance_request}}
+            </view>
           </view>
         </view>
-      </view>
+      </block>
 
-      <block wx:if="{{item.product[0].id == 2}}">
+      <block wx:if="{{item.product_id == 2}}">
         <view style='margin:0 3%;'>
           <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
             <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>销售克重：</view>
@@ -156,14 +91,8 @@
         <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
           <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>实销额：</view>
           <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-            {{item.product[0].real_sale}}
+            {{item.real_sale}}
           </view>
-          <!-- <view class='zan-col zan-col-13'>
-
-            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-               <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入实销额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input> 
-            </view>
-          </view> -->
         </view>
       </view>
 
@@ -171,66 +100,14 @@
         <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
           <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>件数：</view>
           <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-            {{item.product[0].num}}
+            {{item.pen_num}}
           </view>
-          <!-- <view class='zan-col zan-col-13'>
-
-            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-            </view>
-          </view> -->
         </view>
       </view>
 
     </view>
   </view>
 </block>
-
-
-<!-- <view style='width:750rpx;'>
-  <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-font-18' style='line-height:120rpx;'>其他</view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>目标(自动生成)：</view>
-        <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          31414
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>实销额：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入实销额" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>件数：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-  </view>
-</view> -->
 
 
 <view style='width:750rpx;'>
@@ -285,7 +162,7 @@
       <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
         <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>总件数(自动)：</view>
         <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          {{submitDaily[0].total_num}}
+          {{daily.tel_num}}
         </view>
       </view>
     </view>
@@ -294,7 +171,7 @@
       <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
         <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>总笔数：</view>
         <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          {{submitDaily[0].total_pen_num}}
+          {{daily.total_pen_num}}
         </view>
       </view>
     </view>
@@ -313,11 +190,9 @@
     <view style='margin:0 3%;'>
       <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
         <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>留电话数(抓取)：</view>
-
         <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
           {{daily.tel_num}}
         </view>
-
       </view>
     </view>
 

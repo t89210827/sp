@@ -33,9 +33,46 @@ Page({
 
   onLoad: function (options) {
     vm = this
-    // vm.getAudit()       //店长下的员工列表
-    vm.getShop()           //主管下的店铺列表
-    vm.getManagerTask()    //主管查看发布任务
+    // vm.getShop()           //主管下的店铺列表
+    // vm.getManagerTask()    //主管查看发布任务
+
+    vm.managerObtainTask()      //主管查看发布本月任务
+  },
+
+  //主管查看发布本月任务
+  managerObtainTask: function () {
+    var param = {
+      shop_id: getApp().globalData.userInfo.shop_id,
+      stmt_date: util.getMonth()
+    }
+    util.managerObtainTask(param, function (res) {
+      if (res.data.result) {
+        var shops = res.data.ret
+
+        for (var i = 0; i < shops.length; i++) {
+          shops[i].check = false
+        }
+
+        vm.setData({ shops: shops })
+        console.log('主管查看发布本月任务' + JSON.stringify(res.data.ret))
+      }
+    })
+  },
+
+  //展开收起
+  openTarget: function (e) {
+    // var idx = e.currentTarget.id // 获取当前下标
+    var idx = e.currentTarget.dataset.index  // 获取当前下标
+    var shops = vm.data.shops
+    // shops[idx].check = !shops[idx].check
+    for (var i = 0; i < shops.length; i++) {
+      if (i != idx) {
+        shops[i].check = false
+      } else if (i == idx) {
+        shops[i].check = !shops[i].check
+      }
+    }
+    vm.setData({ shops: shops });
   },
 
   // 主管查看发布任务
@@ -69,15 +106,6 @@ Page({
     })
   },
 
-  //展开收起
-  openTarget: function (e) {
-    // var idx = e.currentTarget.id // 获取当前下标
-    var idx = e.currentTarget.dataset.index  // 获取当前下标
-    var shops = vm.data.shops
-    shops[idx].check = !shops[idx].check
-    vm.setData({ shops: shops });
-  },
-
   //获取生效产品数组
   getProductList: function () {
     var param = {
@@ -101,44 +129,68 @@ Page({
     })
   },
 
-  //输入非黄
-  inputOne: function (e) {
-    console.log("inputOne:" + JSON.stringify(e))
-    var productIndex = e.target.dataset.productindex    //商品索引
+  //输入任务
+  inputTask: function (e) {
+    console.log("inputTask:" + JSON.stringify(e))
+    var productid = e.target.dataset.productid      //商品id
     var shopIndex = e.target.dataset.shopindex      //员工索引
     var value = e.detail.value                      //目标金额
 
-    var shops = vm.data.shops                       //员工列表
-
-    shops[shopIndex].product[productIndex].value = value
+    var shops = vm.data.shops                       //店铺列表
+    if (productid == 2) {
+      shops[shopIndex].yellowTask = value           //输入黄铂任务
+    } else if (productid == 1) {
+      shops[shopIndex].no_yellowTask = value        //输入非黄铂任务
+    }
+    console.log("输入数据:" + JSON.stringify(shops))
     vm.setData({ shops: shops })
   },
 
   //主管发任务
   confirm: function (e) {
     vm.openTarget(e)
-    // console.log("index:" + JSON.stringify(e))
-    // var product_id = e.currentTarget.id         //员工id
-    var index = e.currentTarget.dataset.index      //员工索引
-    var shop = vm.data.shops[index]                //店铺信息
+    var index = e.currentTarget.dataset.index        //员工索引
+    var shop = vm.data.shops[index]                  //店铺信息
 
-    var performance = shop.product                  //店铺业绩要求
-    console.log("222:" + JSON.stringify(performance))
-    var param = { manager: [] }
-    for (var i = 0; i < performance.length; i++) {
-      var paramIndex = {
-        user_id: getApp().globalData.userInfo.id,
-        shop_id: shop.id,
-        stmt_date: util.getMonth(),
-        product_id: performance[i].productid,
-        product_request: performance[i].value,
-        product_finish: performance[i].value,
-      }
-      param.manager.push(paramIndex)
+    // var performance = shop.product                   //店铺业绩要求
+    // console.log("222:" + JSON.stringify(performance))
+    // var param = { manager: [] }
+    // for (var i = 0; i < performance.length; i++) {
+    //   var paramIndex = {
+    //     user_id: getApp().globalData.userInfo.id,
+    //     shop_id: shop.id,
+    //     stmt_date: util.getMonth(),
+    //     product_id: performance[i].productid,
+    //     product_request: performance[i].value,
+    //     product_finish: performance[i].value,
+    //   }
+    //   param.manager.push(paramIndex)
+    // }
+
+    var param = {
+      manager: [
+        {
+          "user_id": getApp().globalData.userInfo.id,
+          "shop_id": shop.id,
+          "stmt_date": util.getMonth(),
+          "product_id": "1",
+          "product_request": shop.no_yellowTask,
+          "product_finish": shop.no_yellowTask
+        },
+        {
+          "user_id": getApp().globalData.userInfo.id,
+          "shop_id": shop.id,
+          "stmt_date": util.getMonth(),
+          "product_id": "2",
+          "product_request": shop.yellowTask,
+          "product_finish": shop.yellowTask
+        },
+      ]
     }
     util.releaseTask(param, function (res) {
       if (res.data.result) {
-        vm.showToast()
+        vm.managerObtainTask()    //刷新列表
+        vm.showToast()            //提示
       }
     })
   },

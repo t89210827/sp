@@ -1,4 +1,4 @@
-// pages/addDeal/addDeal.js
+//pages/addClientAddDeal/addClientAddDeal
 var vm = null
 var util = require('../../utils/util.js')
 
@@ -126,7 +126,7 @@ Page({
       itemList.push(productList[i].name)
     }
     vm.setData({ itemList: itemList })
-    // vm.init(vm.data.productList[0].id)       //初始化参数          
+    // vm.init(vm.data.productList[0].id)     //初始化参数 
   },
 
   //添加交易信息
@@ -345,22 +345,38 @@ Page({
 
     var deal = vm.data.dealData
     for (var i = 0; i < deal.length; i++) {
+
       if (deal[i].product_name == "") {
         util.showToast("货号不能为空")
         return
       }
 
-      if (deal[i].product_id == 3) {
-        if (deal[i].num < 3) {
-          util.showToast("件数必须大于2")
+      if (deal[i].isbuy == 0) {
+        if (deal[i].money == "") {
+          util.showToast("购买金额不能为空")
           return
+        }
+        if (deal[i].num == "") {
+          util.showToast("件数不能为空")
+          return
+        }
+      }
+
+      if (deal[i].product_id == 3) {
+        if (deal[i].isbuy == 0) {
+          if (deal[i].money < 70000) {
+            util.showToast("大单销售金额必须超过70000")
+            return
+          }
         }
       }
 
       if (deal[i].product_id == 1) {
         if (deal[i].money > 70000) {
-          util.showToast("金额超过70000 必须录入到大额销售中")
-          return
+          if (deal[i].num < 3) {
+            util.showToast("金额超过70000 件数必须大于2 单件超7万必须录入在大单销售里面")
+            return
+          }
         }
       }
     }

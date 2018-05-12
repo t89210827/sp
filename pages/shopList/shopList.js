@@ -22,7 +22,29 @@ Page(Object.assign({}, Zan.Select, Zan.TopTips, {
   onLoad: function (options) {
     vm = this
     vm.getStatusType()    //获取用户身份
-    vm.getShopList()        //店铺列表
+
+    // vm.getShopList()        //店铺列表
+    vm.getShops()        //店铺列表
+  },
+
+  //获取上一个页面
+  getShops: function () {
+    var pages = getCurrentPages();//获取当前页面信息栈
+    var prevPage = pages[pages.length - 2]//获取上一个页面信息栈
+    var shops = prevPage.data.brandShops[prevPage.data.brandIndex].shop
+
+    var arr = []
+    for (var i = 0; i < shops.length; i++) {
+      var index = {
+        padding: 0,
+        value: '' + i,
+        name: shops[i].name,
+      }
+      arr.push(index)
+    }
+
+    vm.setData({ shops: shops, arr: arr })
+    console.log("品牌下所有店铺" + JSON.stringify(shops))
   },
 
   //获取店铺列表
@@ -58,7 +80,7 @@ Page(Object.assign({}, Zan.Select, Zan.TopTips, {
   getCurrentPages: function (value) {
     var pages = getCurrentPages();//获取当前页面信息栈
     var prevPage = pages[pages.length - 2]//获取上一个页面信息栈
-    prevPage.setData({ shop_id: vm.data.shopList[value].id, shop: vm.data.shopList[value].name })
+    prevPage.setData({ shop_id: vm.data.shops[value].id, shop: vm.data.shops[value].name })
     // console.log("一条交易信息" + JSON.stringify(deal))
   },
 
@@ -84,9 +106,9 @@ Page(Object.assign({}, Zan.Select, Zan.TopTips, {
     var pages = getCurrentPages();//获取当前页面信息栈
     var prevPage = pages[pages.length - 2]//获取上一个页面信息栈
     var shop_id = ""
-    var shopList = vm.data.shopList
+    var shops = vm.data.shops
     for (var k = 0; k < values.length; k++) {
-      shop_id = shop_id + shopList[values[k]].id + ","
+      shop_id = shop_id + shops[values[k]].id + ","
     }
     console.log("-------" + shop_id)
     prevPage.setData({ shop_id: shop_id, shop: "点击重新选择" })

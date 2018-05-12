@@ -168,7 +168,7 @@
       </view>
     </view>
     <view class=' zan-font-10' style='line-height:100rpx;'>--
-      <text style='color:red'>请先选择笔数后再输入详细信息</text>
+      <text style='color:red'>请先输入不同商品数量数量后再输入详细信息</text>
     </view>
   </view>
 </view>

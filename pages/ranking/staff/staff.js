@@ -7,14 +7,35 @@ Page({
     inputVal: "",
 
     staffList: [],         //员工列表  
-    reverse: true,         //判断正序还是倒序
+    reverse: true,         //判断正序还是倒序  true为正序
   },
+
+  onLoad: function (options) {
+    vm = this
+    var shop_id = options.shop_id
+    vm.setData({ shop_id: shop_id })
+    vm.getAuditRanking()                     //本店员工排名
+  },
+
+  //本店员工排名
+  getAuditRanking: function () {
+    var param = {
+      shop_id: vm.data.shop_id,
+    }
+    util.getAuditRanking(param, function (res) {
+      if (res.data.result) {
+        var staffRanking = res.data.ret
+        vm.setData({ staffRanking: staffRanking })
+      }
+    })
+  },
+
   //正序倒序
   clickSwitch: function () {
-    var staffList = vm.data.staffList
+    var staffRanking = vm.data.staffRanking
     var reverse = !vm.data.reverse
-    staffList.reverse()
-    vm.setData({ staffList: staffList, reverse: reverse })
+    staffRanking.reverse()
+    vm.setData({ staffRanking: staffRanking, reverse: reverse })
   },
 
   showInput: function () {
@@ -37,50 +58,6 @@ Page({
     this.setData({
       inputVal: e.detail.value
     });
-  },
-  onLoad: function (options) {
-    vm = this
-    var shop_id = options.shop_id
-    // vm.getAuditListByShopId(shop_id)
-
-    vm.getAuditRanking()
-  },
-
-  //本店员工排名
-  getAuditRanking: function () {
-    util.getAuditRanking({}, function (res) {
-      if (res.data.result) {
-        var ranking = res.data.ret[0].userRole
-        vm.setData({ ranking: ranking })
-        console.log("员工排名" + JSON.stringify(ranking))
-      }
-    })
-  },
-
-  // 根据shop_id获取员工列表
-  getAuditListByShopId: function (shop_id) {
-    var param = {
-      shop_id: shop_id
-    }
-    util.getAuditListByShopId(param, function (res) {
-      if (res.data.result) {
-        var staffList = res.data.ret.userRole.data
-
-        vm.setData({ staffList: staffList })
-      }
-    })
-  },
-
-  // 店长下的员工列表
-  getAudit: function () {
-    var param = {
-      type: 1,
-      page: 1,
-    }
-    util.getAudit(param, function (res) {
-      var staffList = res.data.ret.audit.data
-      vm.setData({ staffList: staffList })
-    })
   },
 
   //返回上一层

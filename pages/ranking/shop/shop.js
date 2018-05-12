@@ -17,8 +17,21 @@ Page({
 
   onLoad: function (options) {
     vm = this
-    // vm.getShopList()
-    vm.getShop()
+    vm.getShopRanking()
+  },
+  // 主管查看店铺排名：非黄珀业绩+大额订单的业绩 / 非黄珀任务额（按月算，倒叙）（业绩保留两位小数）
+  getShopRanking: function () {
+    var param = {
+      shop_id: getApp().globalData.userInfo.shop_id,
+    }
+    util.getShopRanking(param, function (res) {
+      if (res.data.result) {
+        var shops = res.data.ret
+        vm.setData({
+          shops: shops
+        })
+      }
+    })
   },
 
   //主管下的店铺列表
@@ -36,16 +49,6 @@ Page({
       }
     })
   },
-
-  //获取所有生效的店铺信息
-  // getShopList: function () {
-  //   util.getShopList({}, function (res) {
-  //     if (res.data.result) {
-  //       var shopList = res.data.ret
-  //       vm.setData({ shopList: shopList })
-  //     }
-  //   })
-  // },
 
   //返回上一层
   back: function () {

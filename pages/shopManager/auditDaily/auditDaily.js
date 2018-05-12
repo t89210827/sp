@@ -49,7 +49,7 @@ Page(extend({}, Actionsheet, Tab, {
         for (var i = 0; i < dailyList.length; i++) {
           if (dailyList[i].daily_paper.length == 0) {
             dailyList.splice(i, 1)
-            break;
+            continue;
           }
 
           dailyList[i].daily_paper[0].created_at = util.convertDateFormateM(dailyList[i].daily_paper[0].created_at)

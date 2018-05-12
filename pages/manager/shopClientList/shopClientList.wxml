@@ -25,7 +25,7 @@
           <navigator url='/pages/manager/staffClientList/staffClientList?shop_id={{item.id}}'>
             <view class='zan-row'>
               <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index + 1}}</view>
-              <view class='zan-col zan-col-20 zan-font-16 center-style' style='line-height:100rpx;'>{{item.name}}</view>
+              <view class='zan-col zan-col-20 zan-font-16' style='line-height:100rpx;text-align:left;padding-left:30rpx;'>{{item.name}}</view>
               <view class=' zan-col zan-col-2 zan-arrow '></view>
             </view>
           </navigator>

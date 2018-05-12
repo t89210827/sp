@@ -49,14 +49,16 @@
         </view>
 
         <block wx:for="{{taskList}}" wx:for-index="productIndex">
-          <view>
-            <view class='zan-row zan-font-14'>
-              <view class=' zan-col zan-col-12' style='line-height:120rpx;padding-left:48rpx;'>{{item.product.name}}</view>
-              <view class='zan-col zan-col-12' style='height:120rpx;'>
-                <view class='zan-font-14' style='line-height:120rpx;text-align:right;padding-right:48rpx;'>{{item.product_finish}}</view>
+          <block wx:if="{{item.product.id !=3}}">
+            <view>
+              <view class='zan-row zan-font-14'>
+                <view class=' zan-col zan-col-12' style='line-height:120rpx;padding-left:48rpx;'>{{item.product.name}}</view>
+                <view class='zan-col zan-col-12' style='height:120rpx;'>
+                  <view class='zan-font-14' style='line-height:120rpx;text-align:right;padding-right:48rpx;'>{{item.product_finish}}</view>
+                </view>
               </view>
             </view>
-          </view>
+          </block>
         </block>
         <view style='height:20rpx;'></view>
       </block>
@@ -108,18 +110,21 @@
 
           <block wx:if="{{item.daily_paper.length > 0}}">
             <block wx:for="{{item.daily_paper}}">
-              <view style='background-color:#efefef;'>
-                <view class='zan-row zan-font-14'>
-                  <view class=' zan-col zan-col-12' style='line-height:120rpx;padding-left:48rpx;'>{{item.product.name}}</view>
-                  <!-- <view class='zan-col zan-col-8 center-style ' style='line-height:120rpx;'>50000</view> -->
-                  <view class='zan-col zan-col-12' style='height:120rpx;'>
-                    <view style='line-height:120rpx;text-align:right;padding-right:48rpx;'>{{item.performance_request}}</view>
-                  </view>
-                  <!-- <view class='zan-col zan-col-12 center-style' style='height:120rpx;'>
+              <block wx:if="{{item.product.id !=3}}">
+
+                <view style='background-color:#efefef;'>
+                  <view class='zan-row zan-font-14'>
+                    <view class=' zan-col zan-col-12' style='line-height:120rpx;padding-left:48rpx;'>{{item.product.name}}</view>
+                    <!-- <view class='zan-col zan-col-8 center-style ' style='line-height:120rpx;'>50000</view> -->
+                    <view class='zan-col zan-col-12' style='height:120rpx;'>
+                      <view style='line-height:120rpx;text-align:right;padding-right:48rpx;'>{{item.performance_request}}</view>
+                    </view>
+                    <!-- <view class='zan-col zan-col-12 center-style' style='height:120rpx;'>
                     <input class='zan-font-14 ' placeholder-style="text-align:center;" placeholder="请输入金额" bindinput='inputOne' data-productIndex='{{productIndex}}' data-staffIndex='{{index}}' data-productid='{{item.id}}' style='line-height:120rpx;text-align:center; '></input>
                   </view> -->
+                  </view>
                 </view>
-              </view>
+              </block>
             </block>
           </block>
 

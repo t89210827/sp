@@ -9,6 +9,7 @@ Page({
 
   onLoad: function (options) {
     vm = this
+    vm.getShopManager()
   },
 
   //主管审核店长列表

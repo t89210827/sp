@@ -13,12 +13,47 @@ App({
     //如果没有缓存
     if (userInfo == null || userInfo == undefined || userInfo == "") {
       //调用登录接口
-      vm.login(null);
+      vm.getOpenid()
+      // vm.login(null);
     } else {
       vm.globalData.userInfo = wx.getStorageSync("userInfo");
       console.log("vm.globalData.userInfo:" + JSON.stringify(vm.globalData.userInfo));
     }
   },
+
+  //获取openid
+  getOpenid: function () {
+    wx.login({
+      success: function (res) {
+        var code = res.code
+        //获取用户openid
+        util.getOpenId({ code: code }, function (ret) {
+          if (ret.data.result) {
+            var openId = ret.data.ret.openid
+            vm.loginServer(openId)
+          }
+        })
+      }
+    })
+  },
+
+  // loginServer 登陆
+  loginServer: function (openId) {
+    var param = {
+      account_type: "xcx",
+      xcx_openid: openId
+    }
+    util.loginServer(param, function (res) {
+      if (res.data.result) {
+        var userInfo = res.data.ret
+        vm.storeUserInfo(userInfo)
+        wx.redirectTo({
+          url: '/pages/start/start',
+        })
+      }
+    })
+  },
+
   //微信登录
   login: function (callBack) {
     //微信登录获取code
@@ -110,7 +145,7 @@ App({
   showModal: function () {
     wx.showModal({
       title: '提示',
-      content: '若不授权获取用户信息，和采的部分重要功能将无法使用；请点击【重新授权】——选中【用户信息】方可使用。',
+      content: '若不授权获取用户信息，饰品的部分重要功能将无法使用；请点击【重新授权】——选中【用户信息】方可使用。',
       showCancel: false,
       confirmText: "重新授权",
       success: function (res) {
@@ -129,11 +164,85 @@ App({
           vm.showModal()
         }
         else {
-          vm.login();
+          wx.getUserInfo({
+            success: function (res) {
+              vm.updateById(res.userInfo)
+              // console.log("---------" + JSON.stringify(res))
+            }
+          })
+          // vm.login();
         }
       }
     })
   },
+
+  //更新用户信息接口
+  updateById: function (userInfo) {
+    var param = {
+      user_id: vm.globalData.userInfo.id,
+      nick_name: userInfo.nickName,
+      avatar: userInfo.avatarUrl,
+      gender: userInfo.gender,
+      province: userInfo.province,
+      city: userInfo.city
+    }
+    util.updateById(param, function (res) {
+      if (res.data.result) {
+        vm.storeUserInfo(res.data.ret)
+        vm.getAuditByUserId()
+        // console.log("000000000" + JSON.stringify(res.data.ret))
+      }
+    })
+  },
+
+  //根据user_id获取员工入职信息
+  getAuditByUserId: function () {
+    util.getAuditByUserId({}, function (res) {
+      if (res.data.result) {
+        var position = res.data.ret
+        // console.log("--" + JSON.stringify(res))
+        // vm.setData({
+        //   position: position,
+        // })
+        vm.goToIndex(position)
+      }
+    })
+  },
+
+  goToIndex: function (position) {
+    // var position = vm.data.position
+    if (position.length == 0) {
+      wx.redirectTo({
+        url: '/pages/index/index',
+      })
+      return
+    }
+    var status = position[0].status
+    var type = position[0].type
+
+    console.log("------" + status)
+    if (status == 1 && type == 1) {
+      wx.redirectTo({
+        url: '/pages/staff/staff',
+      })
+      return
+      console.log("员工首页")
+    } else if (status == 2 && type == 2) {
+      wx.redirectTo({
+        url: '/pages/shopManager/index/index',
+      })
+    } else if (status == 2 && type == 3) {
+      wx.redirectTo({
+        url: '/pages/manager/index/index',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/hint/audit/audit',
+      })
+      // util.showToast('用户身份不确定')
+    }
+  },
+
   //全局变量
   globalData: {
     userInfo: null,

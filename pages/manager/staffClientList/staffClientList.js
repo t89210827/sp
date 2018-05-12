@@ -8,21 +8,35 @@ Page({
   onLoad: function (options) {
     vm = this
     var shop_id = options.shop_id
-    vm.getAuditListByShopId(shop_id)
+    vm.setData({ shop_id: shop_id })
+    // vm.getAuditListByShopId(shop_id)
+    vm.getAuditAndClientByShopId()
   },
 
-  // 根据shop_id获取员工列表
-  getAuditListByShopId: function (shop_id) {
+  getAuditAndClientByShopId: function () {
     var param = {
-      shop_id: shop_id
+      shop_id: vm.data.shop_id
     }
-    util.getAuditListByShopId(param, function (res) {
+    util.getAuditAndClientByShopId(param, function (res) {
       if (res.data.result) {
-        var staffList = res.data.ret.userRole.data
+        var staffList = res.data.ret
         vm.setData({ staffList: staffList })
       }
     })
   },
+
+  // 根据shop_id获取员工列表
+  // getAuditListByShopId: function (shop_id) {
+  //   var param = {
+  //     shop_id: shop_id
+  //   }
+  //   util.getAuditListByShopId(param, function (res) {
+  //     if (res.data.result) {
+  //       var staffList = res.data.ret.userRole.data
+  //       vm.setData({ staffList: staffList })
+  //     }
+  //   })
+  // },
 
   //返回上一层
   back: function () {

@@ -46,23 +46,23 @@
         </view>
       </view>
 
-      <block wx:if="{{statusIndex == 1}}">
-        <view style='margin:0 3%;' hidden='true'>
-          <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-            <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16' style='line-height:120rpx;'>品牌选择：</view>
-            <view class='zan-col zan-col-8'>
+      <!-- <block wx:if="{{statusIndex == 1}}"> -->
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16' style='line-height:120rpx;'>品牌选择：</view>
+          <view class='zan-col zan-col-8'>
 
-              <picker bindchange="bindBrand" value="{{brandIndex}}" range="{{brands}}">
+            <picker bindchange="bindBrand" value="{{brandIndex}}" range-key="name" range="{{brandShops}}">
 
-                <view class='flex-row' style='align-items: center;float:right;'>
-                  <view class='zan-font-16' style='line-height:120rpx;'>{{brands[brandIndex]}}</view>
-                  <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
-                </view>
-              </picker>
-            </view>
+              <view class='flex-row' style='align-items: center;float:right;'>
+                <view class='zan-font-16' style='line-height:120rpx;'>{{brandShops[brandIndex].name}}</view>
+                <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
+              </view>
+            </picker>
           </view>
         </view>
-      </block>
+      </view>
+      <!-- </block> -->
 
       <view style='margin:0 3%;'>
         <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;' bindtap='bindShop'>

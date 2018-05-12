@@ -1,12 +1,12 @@
 {
   "pages": [
-    "pages/start/start",
-    "pages/daily/staff/staff",
-    "pages/staff/staff",
     "pages/manager/index/index",
+    "pages/start/start",
     "pages/shopManager/index/index",
-    "pages/staff/clientList/clientList",
+    "pages/staff/staff",
     "pages/index/index",
+    "pages/daily/staff/staff",
+    "pages/staff/clientList/clientList",
     "pages/hint/audit/audit",
     "pages/shopManager/auditDaily/auditDaily",
     "pages/shopManager/boutiqueDetail/boutiqueDetail",
@@ -44,7 +44,8 @@
     "pages/shopManager/shopList/shopList",
     "pages/manager/clientList/clientList",
     "pages/manager/staffClientList/staffClientList",
-    "pages/manager/auditProductDetail/auditProductDetail"
+    "pages/manager/auditProductDetail/auditProductDetail",
+    "pages/staff/alterClient/alterClient"
   ],
   "window": {
     "backgroundTextStyle": "light",

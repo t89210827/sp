@@ -16,12 +16,10 @@
   </view>
 
   <view class='zan-font-16 daily'>
-    <view style='width:200rpx;height:60rpx;text-align:left;text-align:right;' bindtap='jumpDealList'>
-      <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpRanking'>
-        <view style='position: relative;width:200rpx;height:80rpx;margin:25rpx auto;'>
-          <image src='../../images/button.png' style='opacity: 0.5;width:200rpx;height:70rpx;'></image>
-          <view style='position: absolute;top: 8rpx;left: 36rpx;'>交易列表</view>
-        </view>
+    <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpDealList'>
+      <view style='position: relative;width:200rpx;height:80rpx;margin:25rpx auto;'>
+        <image src='../../images/button.png' style='opacity: 0.5;width:200rpx;height:70rpx;'></image>
+        <view style='position: absolute;top: 8rpx;left: 36rpx;'>交易列表</view>
       </view>
     </view>
   </view>
@@ -30,12 +28,11 @@
     <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpAddDeal' id='deal'>添加交易信息</view>
   </view> -->
 
-
   <view style='height:150rpx;'></view>
   <image src='{{userInfo.avatar}}' style='width:120rpx;height:120rpx;  border-radius: 50%;'></image>
   <view class='zan-font-14' style='color:#fff;'>{{userInfo.name}}</view>
 
-  <view class='zan-font-14' style='color:#fff;margin-bottom:10rpx;'>距离完成本日任务量还有{{task}}元</view>
+  <view class='zan-font-14' style='color:#fff;margin-bottom:10rpx;'>{{task}}</view>
 
   <view style='margin:0 50rpx;'>
     <wxc-progress percent="{{percent}}" activeColor='#ff6f30,#fda92f' stroke-width='20'></wxc-progress>
@@ -74,7 +71,7 @@
 
     <view class='zan-col zan-col-7 zan-font-14 center-style' style='line-height:80rpx;'>
       <picker mode="date" value="{{beginDate}}" start="2000-01-01" end="2020-01-01" bindchange="bindBeginDate">
-        <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{beginDate}}</view>
+        <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{start_time}}</view>
       </picker>
     </view>
 
@@ -84,7 +81,7 @@
 
     <view class='zan-col zan-col-7 zan-font-14 center-style' style='line-height:80rpx;'>
       <picker mode="date" value="{{endDate}}" start="2000-01-01" end="2020-01-01" bindchange="bindEndDate">
-        <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{endDate}}</view>
+        <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{end_time}}</view>
       </picker>
     </view>
 
@@ -100,7 +97,7 @@
     <view style='width:94%;margin:20rpx 3%;'>
       <view style='padding:10rpx 20rpx;'>
         <view class=" zan-font-16" style='line-height:30rpx;width:100%;height:20rpx;' bindtap='targetSwitch'>
-          <view class='zan-col zan-col-19 line-text'>今日目标</view>
+          <view class='zan-col zan-col-19 line-text'>目标</view>
           <block wx:if="{{target == false}}">
             <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>展开</view>
             <view class='zan-col zan-col-2'>
@@ -125,14 +122,22 @@
         <view style='padding:10rpx 20rpx;'>
 
           <view style='height:10rpx;'></view>
-          <block wx:if="{{todayTask.length == 0}}">
-            <view class='zan-font-14'>店长还未发布今日任务</view>
+          <block wx:if="{{todayTask.no_yellow_perot_product == 0}}">
+            <!-- <view class='zan-font-14'>店长还未发布今日任务</view> -->
+            <view class='zan-font-14' style='height:192rpx;line-height:100rpx;'>
+              <view class='zan-col zan-col-8'>非黄铂</view>
+              <view class='zan-col zan-col-16' style='text-align:right;'>店长还未发布今日任务</view>
+              <view class='zan-col zan-col-8'>黄铂</view>
+              <view class='zan-col zan-col-16' style='text-align:right;'>店长还未发布今日任务</view>
+            </view>
           </block>
 
-          <block wx:for="{{todayTask}}">
-            <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-              <view class='zan-col zan-col-8'>{{item.product.name}}</view>
-              <view class='zan-col zan-col-16' style='text-align:right;'>{{item.performance_request}}元</view>
+          <block wx:else>
+            <view class='zan-font-14' style='height:192rpx;line-height:100rpx;'>
+              <view class='zan-col zan-col-8'>非黄铂</view>
+              <view class='zan-col zan-col-16' style='text-align:right;'>{{todayTask.no_yellow_perot_product.performance_request_num_no_yellow_perot}}元</view>
+              <view class='zan-col zan-col-8'>黄铂</view>
+              <view class='zan-col zan-col-16' style='text-align:right;'>{{todayTask.yellow_perot_product.performance_request_num_yellow_perot}}元</view>
             </view>
           </block>
           <view style='height:20rpx;'></view>
@@ -189,13 +194,13 @@
             <view class='zan-col zan-col-12'>黄铂达成率</view>
             <view class='zan-col zan-col-12' style='text-align:right;'>{{main.yellowPerotChanageRate}}%</view>
           </view>
-          <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-12'>其他达成率</view>
+          <!-- <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
+            <view class='zan-col zan-col-12'>大单销售达成率</view>
             <view class='zan-col zan-col-12' style='text-align:right;'>{{main.otherChanageRate}}%</view>
-          </view>
+          </view> -->
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>顾客转化达成率</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>{{main.clientChangeNum}}%</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{main.clientChangeRate}}%</view>
           </view>
           <view style='height:20rpx;'></view>
         </view>
@@ -234,7 +239,7 @@
       <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
         <view style='padding:10rpx 20rpx;'>
           <view style='height:10rpx;'></view>
-          <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
+          <view class='zan-font-16' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-8'>非黄铂</view>
           </view>
 
@@ -262,7 +267,7 @@
             <view class='zan-col zan-col-12'>非黄铂销售额</view>
             <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.noYellowPerotMoneies}}元</view>
           </view>
-          <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
+          <view class='zan-font-16' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-8'>黄铂</view>
           </view>
 
@@ -278,7 +283,7 @@
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>销售笔数</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotPenNum}}</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotPenNum}}笔</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
@@ -293,31 +298,31 @@
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>黄铂任务额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotMoneies}}元</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotPerformanceRequest}}元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>黄铂销售额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotPerformanceRequest}}元</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotMoneies}}元</view>
           </view>
 
 
-          <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>其他</view>
+          <view class='zan-font-16' style='height:100rpx;line-height:100rpx;'>
+            <view class='zan-col zan-col-8'>大单销售</view>
           </view>
 
-          <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
+          <!-- <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>其他任务额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherPerformanceRequest}}</view>
-          </view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherPerformanceRequest}}元</view>
+          </view> -->
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-12'>其他销售额</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherMoneies }}</view>
+            <view class='zan-col zan-col-12'>大单销售额</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherMoneies}}元</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>客流数</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherPassengerFlow}}</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.passengerFlowNums}}</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
@@ -344,4 +349,4 @@
 
 </view>
 
-<wxc-toast is-show="{{toast.show}}" text="已经发布过任务" icon-color="#ff5777"></wxc-toast>
+<wxc-toast is-show="{{toast.show}}" text="{{toastText}}" icon-color="#ff5777"></wxc-toast>

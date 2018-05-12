@@ -20,13 +20,13 @@ Page({
   data: {
 
     brands: ["DW", "千叶", "中国黄金"],
-    brandIndex: 0,
 
     files: [],            //头像预览数组
     image: "",            //头像地址
 
     status: ["店员", "店长", "主管"],
     statusIndex: 0,
+    brandIndex: 0,
     // shopList: [],         //店铺列表
     shopIndex: 0,         //选中店铺索引
     name: '',             //用户输入的名字
@@ -36,16 +36,27 @@ Page({
     shop_id: '',         //选中店铺的id
   },
 
+  onLoad: function () {
+    vm = this
+    vm.getBrandShops()           //获取所有品牌的对应店铺信息
+  },
+
+  //获取所有品牌的对应店铺信息
+  getBrandShops: function () {
+    util.getBrandShops({}, function (res) {
+      if (res.data.result) {
+        var brandShops = res.data.ret
+        vm.setData({ brandShops: brandShops })
+      }
+    })
+  },
+
   // 身份选择
   bindstatus: function (e) {
     // console.log('身份选择 发生选择改变，携带值为', e.detail.value);
     this.setData({
       statusIndex: e.detail.value
     })
-  },
-
-  test: function (e) {
-    console.log("---" + JSON.stringify(e))
   },
   // 品牌选择
   bindBrand: function (e) {
@@ -126,12 +137,6 @@ Page({
     vm.setData({ phone: e.detail.value })
   },
 
-  getShopList: function () {
-    util.getShopList({}, function (res) {
-      vm.setData({ shopList: res.data.ret })
-    })
-  },
-
   submit: function () {
     // wx.navigateTo({
     //   url: '/pages/hint/audit/audit',
@@ -191,10 +196,5 @@ Page({
         url: '/pages/hint/audit/audit',
       })
     })
-  },
-
-  onLoad: function () {
-    vm = this
-    // vm.getShopList()           //获取所有生效的店铺信息
   },
 })

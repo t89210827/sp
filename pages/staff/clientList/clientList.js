@@ -6,7 +6,12 @@ const { extend, Actionsheet, Tab } = require('../../../bower_components/zanui-we
 Page(extend({}, Actionsheet, Tab, {
   data: {
     inputShowed: false,
-    inputVal: "",
+
+    inputVal: "",              //电话号
+    start_time: "",            //开始时间
+    end_time: "",              //结束时间
+    isbuy: "",      //是否购买
+
 
     actionsheet: {
       show: false,
@@ -15,17 +20,14 @@ Page(extend({}, Actionsheet, Tab, {
       componentId: 'actionsheet',
       actions: [{
         name: '全部',
-        // subname: '选项描述语1',
         className: 'action-class',
         loading: false
       }, {
         name: '已购买',
-        // subname: '选项描述语1',
         className: 'action-class',
         loading: false
       }, {
         name: '未购买',
-        // subname: '选项描述语2',
         className: 'action-class',
         loading: false
       },]
@@ -39,59 +41,60 @@ Page(extend({}, Actionsheet, Tab, {
   },
   onLoad: function (options) {
     vm = this
-    vm.getClientByUserId()      //获取所有顾客信息
-    vm.initSearchParam()        //初始化参数
+    var start_time = util.changeDate(-7)
+    var end_time = util.changeDate(1)
+    vm.setData({ start_time: start_time, end_time: end_time })
+    console.log("结束时间" + end_time)
+    vm.getBelongClientByUserId()   //获取隶属于自己的客户信息
+    // vm.getClientByUserId()      //获取所有顾客信息
+    // vm.initSearchParam()        //初始化参数
   },
 
-  //初始化搜索参数
-  initSearchParam: function () {
-    var today = util.getToday()
-    // vm.setData({ start_time: today, end_time: today })
-
-    var search = {
-      user_id: getApp().globalData.userInfo.id,
-      start_time: today,
-      end_time: today,
-      // isbuy: "",
-      // tel: ""
+  //获取隶属于自己的客户信息
+  getBelongClientByUserId: function () {
+    var param = {
+      tel: vm.data.inputVal,
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time,
+      isbuy: vm.data.isbuy
     }
-    vm.setData({ search: search })
-    vm.complete()
-  },
-
-  //用户点击确定以后
-  complete: function () {
-    var search = vm.data.search
-    util.search(search, function (res) {
+    util.getBelongClientByUserId(param, function (res) {
       if (res.data.result) {
-        console.log("搜索返回值" + JSON.stringify(res.data.ret))
-        // var clientList = res.data.ret
-        // for (var i = 0; i < clientList.length; i++) {
-        //   clientList[i].created_at = util.date(clientList[i].created_at)
-        // }
-        // vm.setData({ clientList: res.data.ret })
+        var clientList = res.data.ret
+        for (var i = 0; i < clientList.length; i++) {
+          clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)
+        }
+        vm.setData({ clientList: clientList })
+        console.log("获取隶属于自己的客户信息" + JSON.stringify(clientList))
       }
     })
   },
 
+  //用户搜索框点击确定
+  complete: function () {
+    vm.getBelongClientByUserId()       //搜索    
+  },
+
   //开始录入时间
   bindStartTime: function (e) {
-    var search = vm.data.search
+    // var search = vm.data.search
     var start_time = e.detail.value
-    search.start_time = start_time
+    // search.start_time = start_time
     vm.setData({
-      search: search
+      start_time: start_time
     })
+    vm.getBelongClientByUserId()       //搜索
   },
 
   //结束录入时间
   bindEndTime: function (e) {
-    var search = vm.data.search
+    // var search = vm.data.search
     var end_time = e.detail.value
-    search.end_time = end_time
+    // search.end_time = end_time
     vm.setData({
-      search: search
+      end_time: end_time
     })
+    vm.getBelongClientByUserId()       //搜索    
   },
 
   //返回首页
@@ -127,6 +130,7 @@ Page(extend({}, Actionsheet, Tab, {
     this.setData({
       showLeftPopup: !this.data.showLeftPopup
     });
+    vm.getBelongClientByUserId()       //搜索
   },
 
   toggleActionsheet() {
@@ -144,9 +148,12 @@ Page(extend({}, Actionsheet, Tab, {
   handleZanActionsheetClick({ componentId, index }) {
     console.log(`item index ${index} clicked`);
 
-    // 如果是分享按钮被点击, 不处理关闭
-    if (index === 2) {
-      return;
+    if (index == 0) {
+      vm.setData({ isbuy: "" })
+    } else if (index == 1) {
+      vm.setData({ isbuy: 0 })
+    } else if (index == 2) {
+      vm.setData({ isbuy: 1 })
     }
 
     this.setData({
@@ -158,7 +165,10 @@ Page(extend({}, Actionsheet, Tab, {
         [`${componentId}.show`]: false,
         [`${componentId}.actions[${index}].loading`]: false
       });
-    }, 1500);
+    }, 1000);
+
+    vm.getBelongClientByUserId()       //搜索
+
   },
 
   showInput: function () {
@@ -181,6 +191,7 @@ Page(extend({}, Actionsheet, Tab, {
     this.setData({
       inputVal: e.detail.value
     });
+    vm.getBelongClientByUserId()       //搜索        
   },
 
   //返回上一层
@@ -188,6 +199,23 @@ Page(extend({}, Actionsheet, Tab, {
     wx.navigateBack({
       delta: 1
     })
+  },
+
+  //发布成功提示
+  showToast(showToastText) {
+    vm.setData({
+      showToastText: showToastText,
+      toast: {
+        show: true
+      }
+    })
+    setTimeout(() => {
+      vm.setData({
+        toast: {
+          show: false
+        }
+      })
+    }, 1500)
   },
 
   /**

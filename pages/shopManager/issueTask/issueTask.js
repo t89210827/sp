@@ -98,19 +98,23 @@ Page({
       page: 1
     }
     util.getProductList(param, function (res) {
-      var productList = res.data.ret.data
-      var staffList = vm.data.staffList
+      var productList = res.data.ret.data         //生效产品数组
+      productList.splice(0, 1);
+
+      var staffList = vm.data.staffList           //员工数组
       for (var i = 0; i < staffList.length; i++) {
-        var product = []
+        var product = []                          //每个员工下产品数组
         for (var j = 0; j < productList.length; j++) {
-          var productIndex = {}
-          productIndex.productid = productList[j].id
-          productIndex.value = ""
-          product.push(productIndex)
+          if (productList[j].id != 3) {           //不要大额订单
+            var productIndex = {}
+            productIndex.productid = productList[j].id
+            productIndex.value = ""
+            product.push(productIndex)
+          }
         }
         staffList[i].product = product
       }
-      console.log("员工列表" + JSON.stringify(staffList))
+      console.log("生效产品数组" + JSON.stringify(staffList))
       vm.setData({ productList: productList, staffList: staffList })
     })
   },
@@ -130,7 +134,6 @@ Page({
         }
         console.log("员工列表" + JSON.stringify(staffList))
         vm.setData({ staffList: staffList, shop_id: shop_id })
-
         vm.getProductList() //获取生效产品数组
       }
     })
@@ -147,9 +150,9 @@ Page({
   confirm: function (e) {
     vm.openTarget(e)
     // console.log("index:" + JSON.stringify(e))
-    // var product_id = e.currentTarget.id         //员工id
-    var index = e.currentTarget.dataset.index   //员工索引
-    var staff = vm.data.staffList[index]        //员工信息
+    // var product_id = e.currentTarget.id        //员工id
+    var index = e.currentTarget.dataset.index     //员工索引
+    var staff = vm.data.staffList[index]          //员工信息
 
     var performance = staff.product
     console.log("222:" + JSON.stringify(performance))
@@ -165,6 +168,14 @@ Page({
       }
       param.shopManager.push(paramIndex)
     }
+    param.shopManager.push({
+      audit_id: staff.id,
+      shop_id: vm.data.shop_id,
+      stmt_date: util.getToday(),
+      product_id: 3,
+      performance_request: 0,
+      shop_manager_id: getApp().globalData.userInfo.id
+    })
     util.shopManagerReleaseTask(param, function (res) {
       if (res.data.result) {
         vm.getAudit()

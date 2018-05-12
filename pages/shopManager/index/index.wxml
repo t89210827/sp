@@ -8,11 +8,9 @@
 <view class='bg'>
   <view class='zan-font-16 ranking'>
     <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpRanking'>
-      <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpRanking'>
-        <view style='position: relative;width:200rpx;height:80rpx;margin:25rpx auto;'>
-          <image src='../../../images/button.png' style='opacity: 0.5;width:200rpx;height:70rpx;'></image>
-          <view style='position: absolute;top: 8rpx;left: 66rpx;'>排行</view>
-        </view>
+      <view style='position: relative;width:200rpx;height:80rpx;margin:25rpx auto;'>
+        <image src='../../../images/button.png' style='opacity: 0.5;width:200rpx;height:70rpx;'></image>
+        <view style='position: absolute;top: 8rpx;left: 66rpx;'>排行</view>
       </view>
     </view>
   </view>
@@ -59,7 +57,7 @@
 
     <view class='zan-col zan-col-7 zan-font-14 center-style' style='line-height:80rpx;'>
       <picker mode="date" value="{{beginDate}}" start="2000-01-01" end="2020-01-01" bindchange="bindBeginDate">
-        <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{beginDate}}</view>
+        <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{start_time}}</view>
       </picker>
     </view>
 
@@ -69,7 +67,7 @@
 
     <view class='zan-col zan-col-7 zan-font-14 center-style' style='line-height:80rpx;'>
       <picker mode="date" value="{{endDate}}" start="2000-01-01" end="2020-01-01" bindchange="bindEndDate">
-        <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{endDate}}</view>
+        <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{end_time}}</view>
       </picker>
     </view>
 
@@ -183,10 +181,10 @@
             <view class='zan-col zan-col-12'>黄铂达成率</view>
             <view class='zan-col zan-col-12' style='text-align:right;'>{{main.yellowPerotRate}}%</view>
           </view>
-          <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
+          <!-- <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>其他达成率</view>
             <view class='zan-col zan-col-12' style='text-align:right;'>{{main.otherRate}}%</view>
-          </view>
+          </view> -->
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>顾客转化达成率</view>
             <view class='zan-col zan-col-12' style='text-align:right;'>{{main.clientChangeNum}}%</view>

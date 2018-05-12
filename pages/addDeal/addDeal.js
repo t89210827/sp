@@ -108,22 +108,38 @@ Page({
   addDeal: function () {
     var deal = vm.data.dealData
     for (var i = 0; i < deal.length; i++) {
+
       if (deal[i].product_name == "") {
         util.showToast("货号不能为空")
         return
       }
 
-      if (deal[i].product_id == 3) {
-        if (deal[i].num < 3) {
-          util.showToast("件数必须大于2")
+      if (deal[i].isbuy == 0) {
+        if (deal[i].money == "") {
+          util.showToast("购买金额不能为空")
           return
+        }
+        if (deal[i].num == "") {
+          util.showToast("件数不能为空")
+          return
+        }
+      }
+
+      if (deal[i].product_id == 3) {
+        if (deal[i].isbuy == 0) {
+          if (deal[i].money < 70000) {
+            util.showToast("大单销售金额必须超过70000")
+            return
+          }
         }
       }
 
       if (deal[i].product_id == 1) {
         if (deal[i].money > 70000) {
-          util.showToast("金额超过70000 必须录入到大额销售中")
-          return
+          if (deal[i].num < 3) {
+            util.showToast("金额超过70000 件数必须大于2 单件超7万必须录入在大单销售里面")
+            return
+          }
         }
       }
     }
@@ -138,9 +154,14 @@ Page({
           }
           util.addDeal(param, function (res) {
             if (res.data.result) {
-              wx.navigateTo({
-                url: '/pages/hint/addClient/addClient',
-              })
+              var pages = getCurrentPages();//获取当前页面信息栈
+              var prevPage = pages[pages.length - 2]//获取上一个页面信息栈
+              prevPage.showToast("录入交易成功")
+              prevPage.getDealByClientId()    //更新交易记录
+              vm.back()
+              // wx.navigateTo({
+              //   url: '/pages/hint/addClient/addClient',
+              // })
             }
           })
         } else if (res.cancel) {

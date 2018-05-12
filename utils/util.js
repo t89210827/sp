@@ -37,6 +37,10 @@ function wxRequest(url, param, method, successCallback, errorCallback) {
     if (judgeIsAnyNullStr(param.user_id)) {
       param.user_id = getApp().globalData.userInfo.id
     }
+    //type未设置
+    if (judgeIsAnyNullStr(param.type)) {
+      param.type = getApp().globalData.userInfo.type
+    }
     param.token = getApp().globalData.userInfo.token
   }
   console.log("param：" + JSON.stringify(param))
@@ -406,7 +410,36 @@ function managerReviewDailyPaper(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/manager/managerReviewDailyPaper', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/manager/managerReviewDailyPaper
+//获取所有品牌的对应店铺信息
+function getBrandShops(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/brand/getBrandShops', param, "GET", successCallback, errorCallback)
+}
+
+//获取隶属于自己的客户信息
+function getBelongClientByUserId(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/client/getBelongClientByUserId', param, "GET", successCallback, errorCallback)
+}
+
+//更新用户信息
+function updateById(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/user/updateById', param, "POST", successCallback, errorCallback)
+}
+
+//主管查看店铺排名：非黄珀业绩+大额订单的业绩/非黄珀任务额（按月算，倒叙）（业绩保留两位小数）
+function getShopRanking(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/getShopRanking', param, "GET", successCallback, errorCallback)
+}
+
+//根据店铺id获取员工列表及顾客数量
+function getAuditAndClientByShopId(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/client/getAuditAndClientByShopId', param, "GET", successCallback, errorCallback)
+}
+
+//根据店铺id获取员工列表及顾客数量
+function managerObtainTask(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/managerObtainTask', param, "GET", successCallback, errorCallback)
+}
+//http://localhost/waibaoSrv/public/api/sp/manager/managerObtainTask
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -909,6 +942,25 @@ function getTodayAddThree() {
   return year + "-" + month + "-" + day
 }
 
+function changeDate(days) {
+  var now = new Date()
+  now.setDate(now.getDate() + days);
+
+  var today = ""
+  var year = now.getFullYear()       //年
+  today += year + "-"
+  var month = now.getMonth() + 1     //月
+  if (month < 10) {
+    month = "0" + month
+  }
+  // today += month + "-"
+  var day = now.getDate()            //日
+  if (day < 10) {
+    day = "0" + day
+  }
+  return year + "-" + month + "-" + day
+}
+
 // 获取当前月份
 function getMonth() {
   var now = new Date()
@@ -1088,6 +1140,7 @@ module.exports = {
   getTodayAddOne: getTodayAddOne,   //时间加一
   getTodayAddThree: getTodayAddThree,   //时间加三
   backIndex: backIndex,             //返回首页
+  changeDate: changeDate,             //改变时间
 
 
   showToast: showToast,           //展示空toast
@@ -1153,4 +1206,10 @@ module.exports = {
   getManagerIndexBoutiqueDailyMessage: getManagerIndexBoutiqueDailyMessage,   //主管首页竞品信息
   shopManagerGetBoutiqueDaily: shopManagerGetBoutiqueDaily,     //查询今天店长是否提交过竞品日报
   managerReviewDailyPaper: managerReviewDailyPaper,   //主管审核日报
+  getBrandShops: getBrandShops,                       //获取所有品牌的对应店铺信息
+  getBelongClientByUserId: getBelongClientByUserId,   //获取隶属于自己的客户信息
+  updateById: updateById,                             //更新用户信息
+  getShopRanking: getShopRanking,             //主管查看店铺排名：非黄珀业绩+大额订单的业绩/非黄珀任务额（按月算，倒叙）（业绩保留两位小数）
+  getAuditAndClientByShopId: getAuditAndClientByShopId,   //根据店铺id获取员工列表及顾客数量
+  managerObtainTask: managerObtainTask,       //主管查看发布本月任务
 }

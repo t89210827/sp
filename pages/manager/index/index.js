@@ -24,12 +24,11 @@ Page({
     var today = util.getToday()
     var getTodayAddOne = util.getTodayAddOne()
     var shop_id = getApp().globalData.userInfo.shop_id
-
     vm.setData({ beginDate: today, endDate: getTodayAddOne, shop_id: shop_id })
-    var getTodayAddOne = util.getTodayAddOne()
     vm.getUserInfo()
-
     vm.getShop()        //主管下的店铺列表
+
+    vm.indexRefresh()     //首页刷新
   },
 
   //获取缓存中用户信息
@@ -68,9 +67,7 @@ Page({
       vm.setData({ shopNames: shopNames, shops: shops })
 
       vm.getAuditListByShopId()             // 根据shop_id获取员工列表
-      vm.getManagerIndexKeyMessage()        //主要
-      vm.getManagerIndexMinorMessage()      //相关
-      vm.getManagerIndexBoutiqueDailyMessage()    //竞品
+      vm.indexRefresh()     //首页刷新
     })
   },
 
@@ -139,6 +136,13 @@ Page({
         }
       }
     });
+  },
+
+  //首页刷新
+  indexRefresh: function () {
+    vm.getManagerIndexBoutiqueDailyMessage()               //竞品信息   
+    vm.getManagerIndexKeyMessage()                       //主要信息
+    vm.getManagerIndexMinorMessage()                    //次要信息
   },
 
   //主管首页竞品信息
@@ -319,7 +323,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    vm.getManagerIndexBoutiqueDailyMessage()    //竞品
+    vm.indexRefresh()     //首页刷新
     vm.getUserInfo()
   },
 

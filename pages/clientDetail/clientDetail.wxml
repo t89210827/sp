@@ -165,6 +165,11 @@
   </view>
 </view>
 
+<block wx:if="{{adddeal}}">
+  <view style='height:10rpx;'></view>
+  <button style='height:80rpx;line-height:80rpx;background-color:#4aa5fe;width:88%;border-radius:20rpx;color:#fff;' bindtap='alterClient'>修改顾客信息</button>
+  <view style='height:10rpx;'></view>
+</block>
 
 <view style='width:750rpx;'>
   <view style='width:94%;margin:20rpx 3%;'>
@@ -228,8 +233,15 @@
   </view>
 </view>
 
-<view style='height:120rpx;'></view>
+<!-- <view style='height:120rpx;'></view> -->
+<block wx:if="{{adddeal}}">
+  <view style='height:20rpx;'></view>
+  <button style='height:80rpx;line-height:80rpx;background-color:#4aa5fe;width:88%;border-radius:20rpx;color:#fff;' bindtap='jumpAddDeal'>添加交易记录</button>
+  <view style='height:50rpx;'></view>
+</block>
 
-<view wx:if="{{adddeal}}" class='bottom-addDeal'>
+<!-- <view wx:if="{{adddeal}}" class='bottom-addDeal'>
   <view class='zan-font-16' style='color:#fff;line-height:90rpx;text-align:center;' bindtap='jumpAddDeal'>添加交易记录</view>
-</view>
+</view> -->
+
+<wxc-toast is-show="{{toast.show}}" text="{{showToastText}}" icon="yes" icon-color="#ff5777"></wxc-toast>

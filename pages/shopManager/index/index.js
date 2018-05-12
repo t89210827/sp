@@ -17,11 +17,12 @@ Page({
 
   onLoad: function (options) {
     vm = this
-    var today = util.getToday()
-    var getTodayAddOne = util.getTodayAddOne()
-    vm.setData({ beginDate: today, endDate: getTodayAddOne })
+    var start_time = util.getToday()
+    var end_time = util.getTodayAddOne()
+    vm.setData({ start_time: start_time, end_time: end_time })
     vm.getUserInfo()
     vm.getShopManagerTask()              //店长获取本月任务
+    vm.indexRefresh()                       //首页数据
   },
 
   //发布成功提示
@@ -47,12 +48,35 @@ Page({
     console.log("userInfo : " + JSON.stringify(userInfo))
   },
 
+  //店长获取本月任务
+  getShopManagerTask: function () {
+    var param = {
+      stmt_date: util.getMonth(),
+      shop_id: getApp().globalData.userInfo.shop_id,
+    }
+    util.getShopManagerTask(param, function (res) {
+      if (res.data.result) {
+        console.log("--------------" + JSON.stringify(res))
+        var taskList = res.data.ret.task
+        taskList.splice(2, 1);
+        vm.setData({ taskList: taskList })
+      }
+    })
+  },
+
+  //首页刷新
+  indexRefresh: function () {
+    // vm.getShopManagerTask()                     //月任务    
+    vm.getShopManagerIndexKeyMessage()          //店长首页主要信息
+    vm.getShopManagerIndexMinorMessage()        //店长首页次要信息
+  },
+
   //店长首页主要信息
   getShopManagerIndexKeyMessage: function () {
     var param = {
       shop_id: getApp().globalData.userInfo.shop_id,
-      start_time: vm.data.beginDate,
-      end_time: vm.data.endDate,
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time,
     }
     util.getShopManagerIndexKeyMessage(param, function (res) {
       if (res.data.result) {
@@ -67,8 +91,8 @@ Page({
   getShopManagerIndexMinorMessage: function () {
     var param = {
       shop_id: getApp().globalData.userInfo.shop_id,
-      start_time: vm.data.beginDate,
-      end_time: vm.data.endDate,
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time,
     }
     util.getShopManagerIndexMinorMessage(param, function (res) {
       if (res.data.result) {
@@ -85,22 +109,6 @@ Page({
 
         console.log("店长首页次要信息" + JSON.stringify(res))
         vm.setData({ minorMessage: minorMessage, task: task, percent: percent })
-      }
-    })
-  },
-
-
-  //店长获取本月任务
-  getShopManagerTask: function () {
-    var param = {
-      stmt_date: util.getMonth(),
-      shop_id: getApp().globalData.userInfo.shop_id,
-    }
-    util.getShopManagerTask(param, function (res) {
-      if (res.data.result) {
-        console.log("--------------" + JSON.stringify(res))
-        var taskList = res.data.ret.task
-        vm.setData({ taskList: taskList })
       }
     })
   },
@@ -133,8 +141,9 @@ Page({
 
   //跳转到店员排名页面
   jumpRanking: function () {
+    var shop_id = getApp().globalData.userInfo.shop_id
     wx.navigateTo({
-      url: '/pages/ranking/staff/staff',
+      url: '/pages/ranking/staff/staff?shop_id=' + shop_id,
     })
   },
   //跳转到添加客户页面
@@ -148,8 +157,9 @@ Page({
   },
   //跳转到店员客户信息页面
   jumpStaffList: function () {
+    var shop_id = getApp().globalData.userInfo.shop_id
     wx.navigateTo({
-      url: '/pages/shopManager/staffList/staffList',
+      url: '/pages/shopManager/staffList/staffList?shop_id=' + shop_id,
     })
   },
   //跳转到提交日报页面
@@ -174,16 +184,16 @@ Page({
   //开始时间
   bindBeginDate: function (e) {
     this.setData({
-      beginDate: e.detail.value
+      start_time: e.detail.value
     })
+    vm.indexRefresh()                       //首页数据
   },
   //结束时间
   bindEndDate: function (e) {
     this.setData({
-      endDate: e.detail.value
+      end_time: e.detail.value
     })
-    vm.getShopManagerIndexKeyMessage()    //员工首页主要信息
-    vm.getShopManagerIndexMinorMessage()  //员工首页次要信息
+    vm.indexRefresh()                       //首页数据
   },
   // 选项选择
   bindOption: function (e) {
@@ -206,8 +216,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    vm.getShopManagerIndexKeyMessage()    //员工首页主要信息
-    vm.getShopManagerIndexMinorMessage()  //员工首页次要信息
   },
 
   /**
@@ -228,8 +236,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    vm.getUserInfo()
-    vm.getShopManagerTask()              //店长获取本月任务
+    vm.indexRefresh()                       //首页数据
   },
 
   /**

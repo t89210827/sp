@@ -4,8 +4,8 @@ var util = require("../../utils/util.js")
 Page({
   data: {
     userInfo: {},
-    beginDate: "",
-    endDate: "",
+    start_time: "",
+    end_time: "",
 
     options: ["今日目标", "关键信息", "次要信息"],
     optionsIndex: 0,
@@ -17,16 +17,24 @@ Page({
 
   onLoad: function (options) {
     vm = this
-    var today = util.getToday()
-    var getTodayAddOne = util.getTodayAddOne()
-    vm.setData({ beginDate: today, endDate: getTodayAddOne })
-    vm.getUserInfo()
-    vm.getAuditTask()         //今日任务
+    var start_time = util.getToday()
+    var end_time = util.getTodayAddOne()
+    vm.setData({ start_time: start_time, end_time: end_time })
+    vm.getUserInfo()          //获取用户信息
+    vm.indexRefresh()         //刷新首页
+    console.log("员工首页")
+  },
+
+  //获取缓存中用户信息
+  getUserInfo: function () {
+    var userInfo = getApp().globalData.userInfo
+    vm.setData({ userInfo: userInfo })
   },
 
   //发布成功提示
-  showToast() {
+  showToast(toastText) {
     vm.setData({
+      toastText: toastText,
       toast: {
         show: true
       }
@@ -40,91 +48,19 @@ Page({
     }, 1500)
   },
 
-  //员工首页主要信息
-  getAuditIndexKeyMessage: function () {
-    var param = {
-      start_time: vm.data.beginDate,
-      end_time: vm.data.endDate,
-    }
-    util.getAuditIndexKeyMessage(param, function (res) {
-      if (res.data.result) {
-        var main = res.data.ret
-        console.log("员工首页关键信息" + JSON.stringify(res))
-        if (main.noYellowPerotChanageRate != 0) {
-          main.noYellowPerotChanageRate = main.noYellowPerotChanageRate.toFixed(2)
-        }
-        if (main.yellowPerotChanageRate != 0) {
-          main.yellowPerotChanageRate = main.yellowPerotChanageRate.toFixed(2)
-        }
-        if (main.otherChanageRate != 0) {
-          main.otherChanageRate = main.otherChanageRate.toFixed(2)
-        }
-        if (main.clientChangeNum != 0) {
-          main.clientChangeNum = main.clientChangeNum.toFixed(2)
-        }
-        vm.setData({ main: main })
-      }
-    })
-  },
-
   //开始时间
   bindBeginDate: function (e) {
     this.setData({
       beginDate: e.detail.value
     })
-    vm.getAuditIndexKeyMessage()    //员工首页主要信息
-    vm.getAuditIndexMinorMessage()  //员工首页次要信息
+    vm.indexRefresh()         //刷新首页
   },
   //结束时间
   bindEndDate: function (e) {
     this.setData({
       endDate: e.detail.value
     })
-    vm.getAuditIndexKeyMessage()    //员工首页主要信息
-    vm.getAuditIndexMinorMessage()  //员工首页次要信息
-  },
-
-  //员工首页次要信息
-  getAuditIndexMinorMessage: function () {
-    var param = {
-      start_time: vm.data.beginDate,
-      end_time: vm.data.endDate,
-    }
-    util.getAuditIndexMinorMessage(param, function (res) {
-      if (res.data.result) {
-        var minorMessage = res.data.ret
-        console.log("员工首页次要信息" + JSON.stringify(res))
-
-        var task = minorMessage.noYellowPerotPerformanceRequest - minorMessage.noYellowPerotMoneies
-        if (task < 0) {
-          task = 0
-        }
-        var percent = minorMessage.noYellowPerotMoneies / minorMessage.noYellowPerotPerformanceRequest * 100
-
-        if (percent > 100) {
-          percent = 100
-        }
-
-        console.log("678" + task + "------" + percent)
-        vm.setData({
-          minorMessage: minorMessage,
-          task: task,
-          percent: percent
-        })
-      }
-    })
-  },
-
-  //员工获取今日任务
-  getAuditTask: function () {
-    var param = {
-      stmt_date: util.getToday()
-    }
-    util.getAuditTask(param, function (res) {
-      console.log("678" + JSON.stringify(res))
-      var todayTask = res.data.ret.task
-      vm.setData({ todayTask: todayTask })
-    })
+    vm.indexRefresh()         //刷新首页
   },
 
   //根据id获取用户信息（不带token）
@@ -136,35 +72,6 @@ Page({
       var userInfo = res.data.ret
       vm.setData({ userInfo: userInfo })
     })
-  },
-
-  //获取缓存中用户信息
-  getUserInfo: function () {
-    var userInfo = getApp().globalData.userInfo
-    vm.setData({ userInfo: userInfo })
-
-    // if (userInfo == null) {
-    //   wx.login({
-    //     success: function (res) {
-    //       wx.getUserInfo({
-    //         success: function (res) {
-    //           console.log("---" + JSON.stringify(res))
-    //           var userInfo = {
-    //             name: res.userInfo.nickName,
-    //             avatar: res.userInfo.avatarUrl
-    //           }
-    //           vm.setData({ userInfo: userInfo })
-    //           wx.stopPullDownRefresh()    //停止下拉刷新
-    //         }
-    //       })
-    //     }
-    //   })
-    // } else {
-    //   vm.getByIdWithToken()
-    //   vm.setData({ userInfo: userInfo })
-    //   wx.stopPullDownRefresh()    //停止下拉刷新
-    // }
-    console.log("userInfo : " + JSON.stringify(userInfo))
   },
 
 
@@ -205,8 +112,8 @@ Page({
   },
   //跳转到提交日报页面
   jumpdaily: function () {
-    if (vm.data.todayTask.length == 0) {
-      util.showToast("请等待店长发布今日任务")
+    if (vm.data.todayTask.no_yellow_perot_product == 0) {
+      vm.showToast("请等待店长发布今日任务")
       return
     }
 
@@ -221,8 +128,7 @@ Page({
           url: '/pages/daily/staff/staff',
         })
       } else {
-        vm.showToast()
-        // util.showToast("今日已经提交过日报")
+        vm.showToast("今日已经提交过日报")
       }
     })
   },
@@ -234,6 +140,9 @@ Page({
   },
   //跳转到交易列表页面
   jumpDealList: function () {
+    // wx.navigateTo({
+    //   url: '/pages/dealList/dealList',
+    // })
     wx.navigateTo({
       url: '/pages/dealList/dealList',
     })
@@ -247,6 +156,78 @@ Page({
     })
   },
 
+  //首页刷新
+  indexRefresh: function () {
+    vm.getAuditTask()               //今日任务    
+    vm.getAuditIndexKeyMessage()    //员工首页主要信息
+    vm.getAuditIndexMinorMessage()  //员工首页次要信息
+  },
+
+  //员工获取今日任务
+  getAuditTask: function () {
+    var param = {
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time
+    }
+    util.getAuditTask(param, function (res) {
+      console.log("今日任务" + JSON.stringify(res))
+      var todayTask = res.data.ret
+      if (todayTask.no_yellow_perot_product == 0) {
+        isTask: false
+      }
+      vm.setData({ todayTask: todayTask })
+    })
+  },
+
+  //员工首页主要信息
+  getAuditIndexKeyMessage: function () {
+    var param = {
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time,
+    }
+    util.getAuditIndexKeyMessage(param, function (res) {
+      if (res.data.result) {
+        var main = res.data.ret
+        console.log("员工首页关键信息" + JSON.stringify(res))
+        vm.setData({ main: main })
+      }
+    })
+  },
+
+  //员工首页次要信息
+  getAuditIndexMinorMessage: function () {
+    var param = {
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time,
+    }
+    util.getAuditIndexMinorMessage(param, function (res) {
+      if (res.data.result) {
+        var minorMessage = res.data.ret
+        console.log("员工首页次要信息" + JSON.stringify(res))
+
+        //首页剩余任务量(非黄珀任务额 - （非黄珀业绩+大额订单的业绩))
+        var task = minorMessage.noYellowPerotPerformanceRequest - minorMessage.noYellowPerotMoneies - minorMessage.otherMoneies
+        if (task <= 0) {
+          task = "你真棒 恭喜你完成任务"
+        } else {
+          task = "距离完成任务额还剩 " + task + " 元"
+        }
+        //首页进度条(非黄珀业绩+大额订单的业绩/非黄珀任务额)
+        var percent = minorMessage.noYellowPerotMoneies / minorMessage.noYellowPerotPerformanceRequest * 100
+
+        if (percent > 100) {
+          percent = 100
+        }
+        vm.setData({
+          minorMessage: minorMessage,
+          task: task,
+          percent: percent
+        })
+      }
+    })
+  },
+
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -258,8 +239,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    vm.getAuditIndexKeyMessage()    //员工首页主要信息
-    vm.getAuditIndexMinorMessage()  //员工首页次要信息
+
   },
 
   /**
@@ -283,7 +263,6 @@ Page({
     vm.getAuditTask()         //今日任务
     vm.getAuditIndexKeyMessage()
     vm.getAuditIndexMinorMessage()
-    vm.getUserInfo()
   },
 
   /**

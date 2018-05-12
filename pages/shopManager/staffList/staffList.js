@@ -40,8 +40,25 @@ Page({
   },
   onLoad: function (options) {
     vm = this
+    var shop_id = options.shop_id
+    vm.setData({ shop_id: shop_id })
     vm.getAuditCount()              //店长下的员工列表
+    // vm.getAuditAndClientByShopId()           //店长下的员工列表及顾客数量
   },
+
+  //店长下的员工列表及顾客数量
+  getAuditAndClientByShopId: function () {
+    var param = {
+      shop_id: vm.data.shop_id
+    }
+    util.getAuditAndClientByShopId(param, function (res) {
+      if (res.data.result) {
+        var staffList = res.data.ret
+        vm.setData({ staffList: staffList })
+      }
+    })
+  },
+
   //根据店长id查询员工信息及员工录入顾客数量（对应原型：查看员工录入客户数量）
   getAuditCount: function () {
     var param = {
