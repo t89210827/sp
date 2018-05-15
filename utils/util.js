@@ -465,7 +465,17 @@ function getShopManagerMonthTaskAmount(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/shopManager/getShopManagerMonthTaskAmount', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/shopManager/getShopManagerMonthTaskAmount
+//根据时间和用户获取竞品的日报详情
+function getBoutiqueDailyDetails(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/boutique/getBoutiqueDailyDetails', param, "GET", successCallback, errorCallback)
+}
+
+//根据时间和和用户查看产品日报详情
+function getDailyPaperDetails(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/dailyPaper/getDailyPaperDetails', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/dailyPaper/getDailyPaperDetails
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -1243,4 +1253,6 @@ module.exports = {
   getBelongClientByAuditId: getBelongClientByAuditId,   //根据audit_id获取与我发生交易的客户信息-即我的客户
   getBrandList: getBrandList,             //获取所有的生效品牌信息
   getShopManagerMonthTaskAmount: getShopManagerMonthTaskAmount,   //店长本月剩余任务额
+  getBoutiqueDailyDetails: getBoutiqueDailyDetails,   //根据时间和用户获取竞品的日报详情
+  getDailyPaperDetails: getDailyPaperDetails,     //根据时间和和用户查看产品日报详情
 }

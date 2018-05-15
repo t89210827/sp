@@ -34,26 +34,29 @@ Page({
         if (res.data.result) {
           var userInfo = res.data.ret
           vm.storeUserInfo(userInfo)         //进行本地缓存
+
+          if (status == 1 && type == 1) {
+            wx.redirectTo({
+              url: '/pages/staff/staff',
+            })
+          } else if (status == 2 && type == 2) {
+            wx.redirectTo({
+              url: '/pages/shopManager/index/index',
+            })
+          } else if (status == 2 && type == 3) {
+            wx.redirectTo({
+              url: '/pages/manager/index/index',
+            })
+          } else {
+            util.showToast("请等待审核通过")
+          }
+          vm.setData({ status: status })
+          wx.stopPullDownRefresh()    //停止下拉刷新
+
         }
       })
 
-      if (status == 1 && type == 1) {
-        wx.redirectTo({
-          url: '/pages/staff/staff',
-        })
-      } else if (status == 2 && type == 2) {
-        wx.redirectTo({
-          url: '/pages/shopManager/index/index',
-        })
-      } else if (status == 2 && type == 3) {
-        wx.redirectTo({
-          url: '/pages/manager/index/index',
-        })
-      } else {
-        util.showToast("请等待审核通过")
-      }
-      vm.setData({ status: status })
-      wx.stopPullDownRefresh()    //停止下拉刷新
+
     })
   },
 

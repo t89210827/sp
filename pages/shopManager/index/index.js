@@ -23,8 +23,6 @@ Page({
     vm.getUserInfo()
     vm.getShopManagerTask()               //店长获取本月任务
     vm.indexRefresh()                       //首页数据
-
-    vm.getShopManagerMonthTaskAmount()     //店长本月剩余任务额
   },
 
   getShopManagerMonthTaskAmount: function () {
@@ -35,6 +33,13 @@ Page({
     util.getShopManagerMonthTaskAmount(param, function (res) {
       if (res.data.result) {
         var shopManagerMonthTaskAmount = res.data.ret
+        if (shopManagerMonthTaskAmount.surplusMoney < 0) {
+          shopManagerMonthTaskAmount.surplusMoney = 0
+        }
+        if (shopManagerMonthTaskAmount.finishPercentage < 0) {
+          shopManagerMonthTaskAmount.finishPercentage = 0
+        }
+        console.log("剩余任务" + JSON.stringify(shopManagerMonthTaskAmount))
         vm.setData({ shopManagerMonthTaskAmount: shopManagerMonthTaskAmount })
       }
     })
@@ -82,6 +87,7 @@ Page({
   //首页刷新
   indexRefresh: function () {
     // vm.getShopManagerTask()                     //月任务    
+    vm.getShopManagerMonthTaskAmount()          //店长本月剩余任务额    
     vm.getShopManagerIndexKeyMessage()          //店长首页主要信息
     vm.getShopManagerIndexMinorMessage()        //店长首页次要信息
   },

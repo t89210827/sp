@@ -18,11 +18,9 @@
   <view style='height:150rpx;'></view>
   <image src='{{userInfo.avatar}}' style='width:120rpx;height:120rpx;border-radius: 50%;'></image>
   <view class='zan-font-14' style='color:#fff;'>{{userInfo.name}}</view>
-
   <view class='zan-font-14' style='color:#fff;margin-bottom:10rpx;'>距离完成任务还剩{{shopManagerMonthTaskAmount.surplusMoney}}元</view>
-
   <view style='margin:0 50rpx;'>
-    <wxc-progress percent="{{shopManagerMonthTaskAmount.finishPercentage}}" activeColor='#ff6f30,#fda92f' stroke-width='20'></wxc-progress>
+    <wxc-progress percent="{{100-shopManagerMonthTaskAmount.finishPercentage}}" activeColor='#ff6f30,#fda92f' stroke-width='20'></wxc-progress>
   </view>
 
   <view class='zan-row zan-font-16' style='height:120rpx;color:#fff;'>
@@ -294,7 +292,7 @@
 
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>其他</view>
+            <view class='zan-col zan-col-8'>大单销售</view>
           </view>
 
           <!-- <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
@@ -303,7 +301,7 @@
           </view> -->
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-12'>其他销售额</view>
+            <view class='zan-col zan-col-12'>大单销售额</view>
             <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherMoneies }}</view>
           </view>
 

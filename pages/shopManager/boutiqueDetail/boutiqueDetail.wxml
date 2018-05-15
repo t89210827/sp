@@ -30,10 +30,10 @@
   </view>
 </view>
 
-<view style='width:750rpx;'>
+<view style='width:750rpx;height:50rpx;' bindtap='fixedlySwitch'>
   <view style='width:94%;margin:20rpx 3%;'>
     <view style='padding:10rpx 20rpx;'>
-      <view class=" zan-font-16" style='line-height:30rpx;width:100%;height:20rpx;' bindtap='fixedlySwitch'>
+      <view class="zan-font-16" style='line-height:30rpx;width:100%;height:20rpx;'>
         <view class='zan-col zan-col-19 line-text'>固定竞品业绩</view>
         <block wx:if="{{fixedly == false}}">
           <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>展开</view>

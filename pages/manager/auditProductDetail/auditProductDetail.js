@@ -9,13 +9,32 @@ Page({
 
   onLoad: function (options) {
     vm = this
-    var date = util.getToday()
-    vm.setData({ date: date })
+    var shopManager_id = options.shopManager_id
+    var stmt_date = options.stmt_date
+    var status = options.status
+    console.log("状态：" + JSON.stringify(status))
+    vm.setData({ shopManager_id: shopManager_id, stmt_date: stmt_date, status: status })
+    vm.getDailyPaperDetails()
+    // var date = util.getToday()
+    // vm.setData({ date: date })
+    // var detail = options.detail
+    // vm.setData({ staffId: detail })
+    // vm.getCurrentPages(detail)
+  },
 
-    var detail = options.detail
-    vm.setData({ staffId: detail })
-    // console.log("日报详情" + JSON.stringify(options))
-    vm.getCurrentPages(detail)
+  //根据时间和和用户查看产品日报详情
+  getDailyPaperDetails: function () {
+    var param = {
+      audit_id: vm.data.shopManager_id,
+      stmt_date: vm.data.stmt_date
+    }
+    util.getDailyPaperDetails(param, function (res) {
+      if (res.data.result) {
+        var dailyPaper = res.data.ret
+        console.log("日报详情" + JSON.stringify(dailyPaper))
+        vm.setData({ dailyPaper: dailyPaper })
+      }
+    })
   },
 
   //获取上一个页面日报信息

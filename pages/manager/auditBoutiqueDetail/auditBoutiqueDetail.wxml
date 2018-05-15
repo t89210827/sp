@@ -52,7 +52,7 @@
   </view>
 </view>
 
-<block wx:for="{{boutiqueDaily.boutiqueDaily.data}}">
+<block wx:for="{{boutique}}">
 
   <view style='width:750rpx;'>
     <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
@@ -64,8 +64,8 @@
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{item.boutique.boutique_name}}</view>
-              <!-- <input bindinput='inputClientName' class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入品牌" style='line-height:120rpx;text-align:right;' value='{{item.boutique.boutique_name}}' disabled="true"></input> -->
+              <view wx:if="{{item.custom == 0}}" class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{item.boutique.boutique_name}}</view>
+              <view wx:if="{{item.custom == 1}}" class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{item.boutique_id}}</view>
             </view>
           </view>
         </view>
@@ -108,15 +108,29 @@
 
 <!-- <button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='addBoutique'>确认提交</button> -->
 
-<view class='bottom-addDeal zan-font-16' style='color:#fff;'>
-  <view class='zan-col zan-col-12 center-style' style='line-height:80rpx;' bindtap='auditBoutiqueDaily' id="2">不通过</view>
-  <view class='zan-col zan-col-1'>
-    <view style='width:3rpx;height:90rpx;background-color:#fff;'>
+<block wx:if="{{status == 0}}">
+  <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
+    <view class='zan-col zan-col-12 center-style' style='line-height:80rpx;' bindtap='auditBoutiqueDaily' id="2">不通过</view>
+    <view class='zan-col zan-col-1'>
+      <view style='width:3rpx;height:90rpx;background-color:#fff;'>
 
+      </view>
     </view>
+    <view class='zan-col zan-col-11 center-style' style='line-height:80rpx;padding-right:20rpx;' bindtap='auditBoutiqueDaily' id="1">审核通过</view>
   </view>
-  <view class='zan-col zan-col-11 center-style' style='line-height:80rpx;padding-right:20rpx;' bindtap='auditBoutiqueDaily' id="1">审核通过</view>
-</view>
+</block>
+
+<block wx:if="{{status == 1}}">
+  <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
+    <view class='zan-col zan-col-24 center-style' style='line-height:80rpx;'>已经审核通过</view>
+  </view>
+</block>
+
+<block wx:if="{{status == 2}}">
+  <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
+    <view class='zan-col zan-col-24 center-style' style='line-height:80rpx;'>已经审核驳回</view>
+  </view>
+</block>
 
 <view style='height:70rpx; '></view>
 

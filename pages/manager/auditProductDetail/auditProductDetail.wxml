@@ -4,7 +4,7 @@
   <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
 </view>
 <view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
-  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>审核日报</view>
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>审核产品日报</view>
 
 </view>
 <view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
@@ -22,7 +22,7 @@
         <view class='zan-col zan-col-10'>日期</view>
         <view class='zan-col zan-col-14'>
           <view style='float:right;'>
-            {{dailyPaper.daily_paper[0].created_at}}
+            {{stmt_date}}
           </view>
         </view>
       </view>
@@ -31,13 +31,15 @@
   </view>
 </view>
 
-<block wx:for="{{dailyPaper.daily_paper}}">
+<block wx:for="{{dailyPaper}}">
   <view style='width:750rpx;'>
     <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
 
       <view style='margin:0 3%;'>
         <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-          <view class='zan-font-18' style='line-height:120rpx;'>{{item.product.name}}</view>
+          <view wx:if="{{item.product_id == 1}}" class='zan-font-18' style='line-height:120rpx;'>非黄铂</view>
+          <view wx:if="{{item.product_id == 2}}" class='zan-font-18' style='line-height:120rpx;'>黄铂</view>
+          <view wx:if="{{item.product_id == 3}}" class='zan-font-18' style='line-height:120rpx;'>大单销售</view>
         </view>
       </view>
 
@@ -107,17 +109,26 @@
 
 <view style='height:100rpx;'></view>
 
-<view class='bottom-addDeal zan-font-16' style='color:#fff;'>
-  <view class='zan-col zan-col-12 center-style' style='line-height:80rpx;' bindtap='auditNoPass'>不通过</view>
-  <view class='zan-col zan-col-1'>
-    <view style='width:3rpx;height:90rpx;background-color:#fff;'>
+<block wx:if="{{status == 0}}">
+  <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
+    <view class='zan-col zan-col-12 center-style' style='line-height:80rpx;' bindtap='auditNoPass'>不通过</view>
+    <view class='zan-col zan-col-1'>
+      <view style='width:3rpx;height:90rpx;background-color:#fff;'>
 
+      </view>
     </view>
+    <view class='zan-col zan-col-11 center-style' style='line-height:80rpx;padding-right:20rpx;' bindtap='auditPass'>审核通过</view>
   </view>
-  <view class='zan-col zan-col-11 center-style' style='line-height:80rpx;padding-right:20rpx;' bindtap='auditPass'>审核通过</view>
-  <!-- <view class='zan-font-16' style='color:#fff;line-height:90rpx;text-align:center;' bindtap='jumpAddDeal'>添加交易记录</view> -->
-</view>
+</block>
 
-<!-- <button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='apply'>提交日报</button>
+<block wx:if="{{status == 1}}">
+  <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
+    <view class='zan-col zan-col-24 center-style' style='line-height:80rpx;'>已经审核通过</view>
+  </view>
+</block>
 
-<view style='height:50rpx;'></view> -->
+<block wx:if="{{status == 2}}">
+  <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
+    <view class='zan-col zan-col-24 center-style' style='line-height:80rpx;'>已经审核驳回</view>
+  </view>
+</block>

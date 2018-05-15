@@ -9,10 +9,30 @@ Page({
 
   onLoad: function (options) {
     vm = this
-    var index = options.index
-    vm.setData({ date: util.getToday(), index: index })
+    var boutiqueDaily_id = options.boutiqueDaily_id
+    var stmt_date = options.stmt_date
+    var status = options.status
+    console.log("状态为" + status)
+    vm.setData({ boutiqueDaily_id: boutiqueDaily_id, stmt_date: stmt_date, status: status })
+    // vm.setData({ date: util.getToday(), index: index })
     // vm.getBoutique()
-    vm.getUppage()        //获取上一个页面数据
+    // vm.getUppage()                //获取上一个页面数据
+    vm.getBoutiqueDailyDetails()     //根据时间和用户获取竞品的日报详情
+  },
+
+  //根据时间和用户获取竞品的日报详情
+  getBoutiqueDailyDetails: function () {
+    var param = {
+      shop_manager_id: vm.data.boutiqueDaily_id,
+      stmt_date: vm.data.stmt_date
+    }
+    util.getBoutiqueDailyDetails(param, function (res) {
+      if (res.data.result) {
+        var boutique = res.data.ret
+        console.log("日报详情" + JSON.stringify(boutique))
+        vm.setData({ boutique: boutique })
+      }
+    })
   },
 
   //审核竞品日报
