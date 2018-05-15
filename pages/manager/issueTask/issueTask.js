@@ -151,22 +151,6 @@ Page({
     vm.openTarget(e)
     var index = e.currentTarget.dataset.index        //员工索引
     var shop = vm.data.shops[index]                  //店铺信息
-
-    // var performance = shop.product                   //店铺业绩要求
-    // console.log("222:" + JSON.stringify(performance))
-    // var param = { manager: [] }
-    // for (var i = 0; i < performance.length; i++) {
-    //   var paramIndex = {
-    //     user_id: getApp().globalData.userInfo.id,
-    //     shop_id: shop.id,
-    //     stmt_date: util.getMonth(),
-    //     product_id: performance[i].productid,
-    //     product_request: performance[i].value,
-    //     product_finish: performance[i].value,
-    //   }
-    //   param.manager.push(paramIndex)
-    // }
-
     var param = {
       manager: [
         {
@@ -184,6 +168,14 @@ Page({
           "product_id": "2",
           "product_request": shop.yellowTask,
           "product_finish": shop.yellowTask
+        },
+        {
+          "user_id": getApp().globalData.userInfo.id,
+          "shop_id": shop.id,
+          "stmt_date": util.getMonth(),
+          "product_id": "3",
+          "product_request": 0,
+          "product_finish": 0
         },
       ]
     }

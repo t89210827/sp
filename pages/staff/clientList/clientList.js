@@ -53,7 +53,7 @@ Page(extend({}, Actionsheet, Tab, {
   //获取隶属于自己的客户信息
   getBelongClientByUserId: function () {
     var param = {
-      tel: vm.data.inputVal,
+      client_tel: vm.data.inputVal,
       start_time: vm.data.start_time,
       end_time: vm.data.end_time,
       isbuy: vm.data.isbuy

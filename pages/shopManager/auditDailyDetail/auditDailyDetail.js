@@ -11,58 +11,83 @@ Page({
     vm = this
     var date = util.getToday()
     vm.setData({ date: date })
-
-    var detail = options.detail
-    vm.setData({ staffId: detail })
-    // console.log("日报详情" + JSON.stringify(options))
-    vm.dailyPaper(detail)
+    var staff_id = options.staff_id               //员工id
+    var stmt_date = options.stmt_date             //时间
+    var status = options.status                   //状态
+    vm.setData({ staff_id: staff_id, stmt_date: stmt_date, status: status })
+    vm.dailyPaper()
   },
 
   //审核通过日报
   auditPass: function () {
-    var param = {
-      clerk_id: vm.data.staffId,
-      status: 2,
-      shop_manager_id: getApp().globalData.userInfo.id,
-      shop_manager_opt_time: util.getToday(),
-      // shop_manager_remark: "",
-      stmt_date: vm.data.dailyPaper[0].stmt_date,
-    }
-    util.shopManagerReviewDailyPaper(param, function (res) {
-      if (res.data.result) {
-        vm.back()
-        console.log("6666" + JSON.stringify(res))
+    wx.showModal({
+      title: '确认',
+      content: '确定审核通过吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          var param = {
+            clerk_id: vm.data.staff_id,
+            status: 2,
+            shop_manager_id: getApp().globalData.userInfo.id,
+            shop_manager_opt_time: util.getToday(),
+            // shop_manager_remark: "",
+            stmt_date: vm.data.dailyPaper[0].stmt_date,
+          }
+          util.shopManagerReviewDailyPaper(param, function (res) {
+            if (res.data.result) {
+              vm.back()
+              console.log("6666" + JSON.stringify(res))
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
     })
   },
-
   //审核不通过日报
   auditNoPass: function () {
-    var param = {
-      clerk_id: vm.data.staffId,
-      status: 4,
-      shop_manager_id: getApp().globalData.userInfo.id,
-      shop_manager_opt_time: util.getToday(),
-      // shop_manager_remark: "",
-      stmt_date: vm.data.dailyPaper[0].stmt_date,
-    }
-    util.shopManagerReviewDailyPaper(param, function (res) {
-      if (res.data.result) {
-        vm.back()
-        console.log("6666" + JSON.stringify(res))
+    wx.showModal({
+      title: '确认',
+      content: '确定审核驳回吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+
+          var param = {
+            clerk_id: vm.data.staff_id,
+            status: 4,
+            shop_manager_id: getApp().globalData.userInfo.id,
+            shop_manager_opt_time: util.getToday(),
+            stmt_date: vm.data.dailyPaper[0].stmt_date,
+          }
+          util.shopManagerReviewDailyPaper(param, function (res) {
+            if (res.data.result) {
+              vm.back()
+              console.log("6666" + JSON.stringify(res))
+            }
+          })
+
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
     })
+
+
   },
 
   // 根据日报店员clerk_id查看日报详情
-  dailyPaper: function (detail) {
+  dailyPaper: function () {
     var param = {
-      clerk_id: detail,
-      status: 1,
+      clerk_id: vm.data.staff_id,
+      stmt_date: vm.data.stmt_date,
     }
     util.dailyPaper(param, function (res) {
       if (res.data.result) {
         var dailyPaper = res.data.ret
+        dailyPaper.reverse()
         vm.setData({ dailyPaper: dailyPaper })
         console.log("日报详情" + JSON.stringify(dailyPaper))
       }

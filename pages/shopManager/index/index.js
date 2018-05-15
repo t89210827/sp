@@ -21,8 +21,23 @@ Page({
     var end_time = util.getTodayAddOne()
     vm.setData({ start_time: start_time, end_time: end_time })
     vm.getUserInfo()
-    vm.getShopManagerTask()              //店长获取本月任务
+    vm.getShopManagerTask()               //店长获取本月任务
     vm.indexRefresh()                       //首页数据
+
+    vm.getShopManagerMonthTaskAmount()     //店长本月剩余任务额
+  },
+
+  getShopManagerMonthTaskAmount: function () {
+    var param = {
+      shop_id: getApp().globalData.userInfo.shop_id,
+      stmt_date: util.getMonth()
+    }
+    util.getShopManagerMonthTaskAmount(param, function (res) {
+      if (res.data.result) {
+        var shopManagerMonthTaskAmount = res.data.ret
+        vm.setData({ shopManagerMonthTaskAmount: shopManagerMonthTaskAmount })
+      }
+    })
   },
 
   //发布成功提示
@@ -58,7 +73,7 @@ Page({
       if (res.data.result) {
         console.log("--------------" + JSON.stringify(res))
         var taskList = res.data.ret.task
-        taskList.splice(2, 1);
+        taskList.splice(0, 1);
         vm.setData({ taskList: taskList })
       }
     })
@@ -87,6 +102,31 @@ Page({
     })
   },
 
+  //获取本月剩余业绩
+  shopManagerSurplusTask: function () {
+    var param = {
+      shop_id: getApp().globalData.userInfo.shop_id,
+      stmt_date: util.getMonth()
+    }
+    util.shopManagerSurplusTask(param, function (res) {
+      if (res.data.result) {
+        var minorMessage = vm.data.minorMessage
+        var surplusTask = res.data.ret
+        var task = surplusTask.noYellowPerotProductNum
+        if (task < 0) {
+          task = "你真棒 恭喜你完成任务"
+        } else {
+          task = "距离完成任务额还剩 " + task + " 元"
+        }
+        var percent = 100 - (surplusTask.noYellowPerotProductNum + surplusTask.otherProductNum / minorMessage.noYellowPerotTask * 100)
+        if (percent > 100) {
+          percent = 100
+        }
+        vm.setData({ task: task, percent: percent })
+      }
+    })
+  },
+
   //店长首页次要信息
   getShopManagerIndexMinorMessage: function () {
     var param = {
@@ -96,19 +136,19 @@ Page({
     }
     util.getShopManagerIndexMinorMessage(param, function (res) {
       if (res.data.result) {
-        var minorMessage = res.data.ret
-
-        var task = minorMessage.noYellowPerotTask - minorMessage.noYellowPerotMoneies
-        if (task < 0) {
-          task = 0
+        var minorMessage = res.data.ret     //次要信息
+        vm.setData({ minorMessage: minorMessage })
+        if (minorMessage.noYellowPerotTask == 0) {
+          var task = "请等待店长发布任务"
+          var percent = 0
+          vm.setData({
+            task: task,
+            percent: percent
+          })
+        } else {
+          vm.shopManagerSurplusTask()       //获取本月剩余业绩
         }
-        var percent = minorMessage.noYellowPerotMoneies / minorMessage.noYellowPerotTask * 100
-        if (percent > 100) {
-          percent = 100
-        }
-
         console.log("店长首页次要信息" + JSON.stringify(res))
-        vm.setData({ minorMessage: minorMessage, task: task, percent: percent })
       }
     })
   },

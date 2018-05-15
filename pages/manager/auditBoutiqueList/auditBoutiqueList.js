@@ -35,27 +35,36 @@ Page(extend({}, Actionsheet, Tab, {
 
   onLoad: function (options) {
     vm = this
+    var stmt_date = util.getToday()
+    vm.setData({ stmt_date: stmt_date })
     vm.getBoutiqueDaily()         //主管查看未审核的竞品日报
+  },
+
+  //时间
+  dailyPaperDate: function (e) {
+    this.setData({
+      stmt_date: e.detail.value
+    })
+    vm.getBoutiqueDaily()         //店长查看未审核的竞品日报
   },
 
   //主管查看未审核的竞品日报
   getBoutiqueDaily: function () {
     var param = {
       manager_id: getApp().globalData.userInfo.id,
+      stmt_date: util.getToday()
     }
     util.getBoutiqueDaily(param, function (res) {
       if (res.data.result) {
-        console.log("未审核竞品日报" + JSON.stringify(res.data.ret))
-
         var boutiqueDaily = res.data.ret
-        for (var i = 0; i < boutiqueDaily.length; i++) {
-          if (boutiqueDaily[i].boutiqueDaily.data.length == 0) {
-            boutiqueDaily.splice(i, 1)
-            break;
-          }
+        // for (var i = 0; i < boutiqueDaily.length; i++) {
+        //   if (boutiqueDaily[i].boutiqueDaily.data.length == 0) {
+        //     boutiqueDaily.splice(i, 1)
+        //     break;
+        //   }
 
-          boutiqueDaily[i].boutiqueDaily.data[0].created_at = util.convertDateFormateM(boutiqueDaily[i].boutiqueDaily.data[0].created_at)
-        }
+        //   boutiqueDaily[i].boutiqueDaily.data[0].created_at = util.convertDateFormateM(boutiqueDaily[i].boutiqueDaily.data[0].created_at)
+        // }
         console.log("未审核竞品日报" + JSON.stringify(boutiqueDaily))
         vm.setData({ boutiqueDaily: boutiqueDaily })
       }

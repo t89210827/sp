@@ -173,7 +173,6 @@
         <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
           {{dailyPaper[0].passenger_flow_num}}
         </view>
-
       </view>
     </view>
 
@@ -203,16 +202,30 @@
 
 <view style='height:100rpx;'></view>
 
-<view class='bottom-addDeal zan-font-16' style='color:#fff;'>
-  <view class='zan-col zan-col-12 center-style' style='line-height:80rpx;' bindtap='auditNoPass'>不通过</view>
-  <view class='zan-col zan-col-1'>
-    <view style='width:3rpx;height:90rpx;background-color:#fff;'>
+<block wx:if="{{status == 1}}">
+  <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
+    <view class='zan-col zan-col-12 center-style' style='line-height:80rpx;' bindtap='auditNoPass'>不通过</view>
+    <view class='zan-col zan-col-1'>
+      <view style='width:3rpx;height:90rpx;background-color:#fff;'>
 
+      </view>
     </view>
+    <view class='zan-col zan-col-11 center-style' style='line-height:80rpx;padding-right:20rpx;' bindtap='auditPass'>审核通过</view>
   </view>
-  <view class='zan-col zan-col-11 center-style' style='line-height:80rpx;padding-right:20rpx;' bindtap='auditPass'>审核通过</view>
-  <!-- <view class='zan-font-16' style='color:#fff;line-height:90rpx;text-align:center;' bindtap='jumpAddDeal'>添加交易记录</view> -->
-</view>
+</block>
+
+<block wx:if="{{status == 2}}">
+  <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
+    <view class='zan-col zan-col-24 center-style' style='line-height:80rpx;'>已经审核通过</view>
+  </view>
+</block>
+
+<block wx:if="{{status == 3}}">
+  <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
+    <view class='zan-col zan-col-24 center-style' style='line-height:80rpx;'>已经审核驳回</view>
+  </view>
+</block>
+
 
 <!-- <button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='apply'>提交日报</button>
 

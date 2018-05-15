@@ -43,7 +43,6 @@
         <!-- <view class="weui-search-bar__cancel-btn zan-font-16" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view> -->
       </view>
     </view>
-
   </view>
 
   <view class='zan-col zan-col-6'>
@@ -58,27 +57,21 @@
 
   <view class="zan-popup__container">
     <view class="zan-btns">
-
-      <picker mode="date" value="{{date}}" start="2000-01-01" end="2020-01-01" bindchange="bindDateChange">
+      <picker mode="date" value="{{start_time}}" start="2000-01-01" end="2020-01-01" bindchange="bindStartTime">
         <button class="zan-btn" style='margin-top:160rpx;'>
           请选择开始时间
         </button>
-        <view class="zan-font-14 zan-c-gray-darker" style='margin-left:60rpx;line-height:100rpx;'>{{date}}</view>
+        <view class="zan-font-14 zan-c-gray-darker" style='margin-left:60rpx;line-height:100rpx;'>{{start_time}}</view>
       </picker>
-
-
-
       <!-- <view style='height:100rpx;'></view> -->
-
-      <picker mode="date" value="{{date}}" start="2000-01-01" end="2020-01-01" bindchange="bindDateChange">
+      <picker mode="date" value="{{end_time}}" start="2000-01-01" end="2020-01-01" bindchange="bindEndTime">
         <button class="zan-btn">
           请选择结束时间
         </button>
-        <view class="zan-font-14 zan-c-gray-darker" style='margin-left:60rpx;line-height:100rpx;'>{{date}}</view>
+        <view class="zan-font-14 zan-c-gray-darker" style='margin-left:60rpx;line-height:100rpx;'>{{end_time}}</view>
       </picker>
 
       <!-- <view style='height:100rpx;'></view> -->
-
       <button class="zan-btn" catchtap="toggleLeftPopup">
         确定
       </button>
@@ -114,3 +107,10 @@
     </scroll-view>
   </view>
 </view>
+
+
+<view bindtap='backIndex' style='position:fixed;bottom:145px;right:10px;z-index:99;'>
+  <image src='../../../images/enterprise.png' style='width:48px;height:48px;'></image>
+</view>
+
+<wxc-toast is-show="{{toast.show}}" text="{{showToastText}}" icon="yes" icon-color="#ff5777"></wxc-toast>

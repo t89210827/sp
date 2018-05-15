@@ -18,7 +18,6 @@ Page({
     vm.getCurrentPages(detail)
   },
 
-
   //获取上一个页面日报信息
   getCurrentPages: function (detail) {
     var pages = getCurrentPages();//获取当前页面信息栈

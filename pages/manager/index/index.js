@@ -15,7 +15,8 @@ Page({
     minor: true,
 
     shopName: "全部店铺",       //店铺名字
-    staffName: "全部员工",       //店铺名字
+    brandName: "全部品牌",       //品牌名字
+    staffName: "全部员工",        //员工名字
     shop_id: null,                 //选择的店铺id
   },
 
@@ -27,6 +28,7 @@ Page({
     vm.setData({ beginDate: today, endDate: getTodayAddOne, shop_id: shop_id })
     vm.getUserInfo()
     vm.getShop()        //主管下的店铺列表
+    vm.getBrandList()   //全部品牌
 
     vm.indexRefresh()     //首页刷新
   },
@@ -42,6 +44,21 @@ Page({
     vm.getManagerIndexKeyMessage()              //主要
     vm.getManagerIndexMinorMessage()            //相关
     vm.getManagerIndexBoutiqueDailyMessage()    //竞品
+  },
+
+  //获取所有的生效品牌信息
+  getBrandList: function () {
+    util.getBrandList({}, function (res) {
+      if (res.data.result) {
+        var brandList = res.data.ret
+        var brandNames = []
+        for (var i = 0; i < brandList.length; i++) {
+          brandNames.push(brandList[i].name)
+        }
+        brandNames.push("全部品牌")
+        vm.setData({ brandList: brandList, brandNames: brandNames })
+      }
+    })
   },
 
   //主管下的店铺列表
@@ -133,6 +150,33 @@ Page({
 
           vm.getAuditListByShopId()
           console.log("店铺" + JSON.stringify(vm.data.shopName))
+        }
+      }
+    });
+  },
+
+  //选择品牌
+  brandNames: function () {
+    var brandNames = vm.data.brandNames
+    var last = brandNames.length - 1
+
+    wx.showActionSheet({
+      itemList: brandNames,
+      success: function (res) {
+        if (!res.cancel) {
+          if (last == res.tapIndex) {
+            vm.setData({
+              brand_id: "",
+              brandName: "全部品牌"
+            })
+          } else {
+            vm.setData({
+              brand_id: vm.data.brandList[res.tapIndex].id,
+              brandName: vm.data.brandNames[res.tapIndex]
+            })
+          }
+          // vm.getAuditListByShopId()
+          console.log("店铺" + JSON.stringify(vm.data.brand_id))
         }
       }
     });

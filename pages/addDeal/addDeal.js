@@ -97,6 +97,7 @@ Page({
   initItemList: function () {
     var itemList = []
     var productList = vm.data.productList
+    productList.reverse()
     for (var i = 0; i < productList.length; i++) {
       itemList.push(productList[i].name)
     }

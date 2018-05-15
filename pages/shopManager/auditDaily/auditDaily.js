@@ -30,31 +30,46 @@ Page(extend({}, Actionsheet, Tab, {
     showLeftPopup: false,
     date: "2016-09-01",
 
-    dailyList: [],           //审核员工列表
+    dailyList: [],                                //审核员工列表
   },
 
   onLoad: function (options) {
     vm = this
     // vm.getAudit()       //店长下的员工列表
-    vm.dailyList()         //店长查看日报列表(对应原型审核日报)
+    var stmt_date = util.getToday()
+    vm.setData({ stmt_date: stmt_date })
   },
+
+  //时间
+  dailyPaperDate: function (e) {
+    this.setData({
+      stmt_date: e.detail.value
+    })
+    vm.dailyList()         //店长查看日报列表(对应原型审核日报) 
+  },
+
   //店长查看日报列表(对应原型审核日报)
   dailyList: function () {
     var param = {
-      status: 1
+      shop_id: getApp().globalData.userInfo.shop_id,
+      stmt_date: vm.data.stmt_date
+      // status: 1
     }
     util.dailyList(param, function (res) {
       if (res.data.result) {
-        var dailyList = res.data.ret.data[0].audit
-        for (var i = 0; i < dailyList.length; i++) {
-          if (dailyList[i].daily_paper.length == 0) {
-            dailyList.splice(i, 1)
-            continue;
-          }
 
-          dailyList[i].daily_paper[0].created_at = util.convertDateFormateM(dailyList[i].daily_paper[0].created_at)
-        }
-        console.log("000000" + JSON.stringify(dailyList))
+        var dailyList = res.data.ret
+
+        // var dailyList = res.data.ret.data[0].audit
+        // for (var i = 0; i < dailyList.length; i++) {
+        //   if (dailyList[i].daily_paper.length == 0) {
+        //     dailyList.splice(i, 1)
+        //     continue;
+        //   }
+
+        //   dailyList[i].daily_paper[0].created_at = util.convertDateFormateM(dailyList[i].daily_paper[0].created_at)
+        // }
+        console.log("日报列表" + JSON.stringify(dailyList))
         vm.setData({ dailyList: dailyList })
       }
     })

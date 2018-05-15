@@ -181,7 +181,7 @@
         <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>客流量(自动)：</view>
 
         <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          {{passenger_flow == 1?'店长未录入客流':passenger_flow}}
+          {{ daily.passenger_flow_num == 0?'店长未录入客流': daily.passenger_flow_num}}
         </view>
 
       </view>

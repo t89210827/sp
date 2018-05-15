@@ -77,13 +77,20 @@
 
 
   <view style='height:80rpx;background-color:#ececec;'>
-    <view class='zan-col zan-col-9' style='height:80rpx;'>
+
+    <view class='zan-col zan-col-6' style='height:80rpx;'>
+      <view class='center-style'>
+        <text style='background-color:#ececec;border-radius:20rpx;padding:10rpx 20rpx;margin-top:10rpx;' class='zan-font-14 text-oneline' bindtap='brandNames'>{{brandName}}</text>
+      </view>
+    </view>
+
+    <view class='zan-col zan-col-6' style='height:80rpx;'>
       <view class='center-style'>
         <text style='background-color:#ececec;border-radius:20rpx;padding:10rpx 20rpx;margin-top:10rpx;' class='zan-font-14 text-oneline' bindtap='shopNames'>{{shopName}}</text>
       </view>
     </view>
 
-    <view class='zan-col zan-col-9' style='height:80rpx;'>
+    <view class='zan-col zan-col-6' style='height:80rpx;'>
       <view class='center-style'>
         <text style='background-color:#ececec;border-radius:20rpx;padding:10rpx 20rpx;margin-top:10rpx;' class='zan-font-14 text-oneline' bindtap='staffNames'>{{staffName}}</text>
       </view>
@@ -301,7 +308,6 @@
             <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.yellowPerotMoneies}}元</view>
           </view>
 
-
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-8'>其他</view>
           </view>
@@ -318,7 +324,7 @@
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
             <view class='zan-col zan-col-12'>客流数</view>
-            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherPassengerFlow}}</view>
+            <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.passengerFlowNums}}</view>
           </view>
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>

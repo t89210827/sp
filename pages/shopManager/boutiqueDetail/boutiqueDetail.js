@@ -4,13 +4,75 @@ var util = require("../../../utils/util.js")
 Page({
 
   data: {
-    boutiqueList: [],
+    boutiqueList: [],             //固定四个竞品表单
+    customBoutique: [],           //自定义表单
+
+    fixedly: false,             //固定业绩开关
+    // custom: false,              //自定义业绩开关
   },
 
   onLoad: function (options) {
     vm = this
     vm.setData({ date: util.getToday() })
     vm.getBoutique()
+  },
+
+  //固定竞品业绩展开与收取
+  fixedlySwitch: function () {
+    vm.setData({ fixedly: !vm.data.fixedly })
+  },
+
+  //自定义展开与收取
+  // customSwitch: function () {
+  //   vm.setData({ custom: !vm.data.custom })
+  // },
+
+  //添加自定义竞品
+  addCustomBoutique: function () {
+    var customBoutique = vm.data.customBoutique
+    var boutiqueIndex = {
+      "stmt_date": util.getToday(),
+      "boutique_id": "",
+      "performance": "",
+      "user_id": getApp().globalData.userInfo.id,
+      "activity": "",
+      "custom": 1
+    }
+    customBoutique.push(boutiqueIndex)
+    vm.setData({ customBoutique: customBoutique })
+  },
+
+  //输入自定义品牌
+  customClientName: function (e) {
+    var index = e.currentTarget.dataset.index
+    var customBoutique = vm.data.customBoutique
+    var value = e.detail.value
+    customBoutique[index].boutique_id = value
+
+    console.log("---" + JSON.stringify(customBoutique))
+    vm.setData({ customBoutique: customBoutique })
+  },
+
+  //输入自定义业绩
+  customPerformance: function (e) {
+    var index = e.currentTarget.dataset.index
+    var customBoutique = vm.data.customBoutique
+    var value = e.detail.value
+    customBoutique[index].performance = value
+
+    console.log("---" + JSON.stringify(customBoutique))
+    vm.setData({ customBoutique: customBoutique })
+  },
+
+  //输入自定义活动
+  customActivity: function (e) {
+    var index = e.currentTarget.dataset.index
+    var customBoutique = vm.data.customBoutique
+    var value = e.detail.value
+    customBoutique[index].activity = value
+
+    console.log("---" + JSON.stringify(e))
+    vm.setData({ customBoutique: customBoutique })
   },
 
   //发布成功提示
@@ -47,8 +109,10 @@ Page({
   //提交竞品日报
   boutique: function () {
     var boutiqueList = vm.data.boutiqueList
+    var customBoutique = vm.data.customBoutique
+    var boutiqueParam = boutiqueList.concat(customBoutique)
     var param = {
-      boutiqueDaily: boutiqueList
+      boutiqueDaily: boutiqueParam
     }
     util.addBoutique(param, function (res) {
       if (res.data.result) {
@@ -58,6 +122,7 @@ Page({
       }
     })
   },
+
   //输入竞品业绩
   inputPerformance: function (e) {
     var index = e.currentTarget.dataset.index

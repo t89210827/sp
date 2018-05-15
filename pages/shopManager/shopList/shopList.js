@@ -55,15 +55,30 @@ Page(Object.assign({}, Zan.Select, Zan.TopTips, {
     if (vm.data.value === '') {
       util.showToast("请选择一个店铺")
     }
-    var param = {
-      audit_id: vm.data.audit_id,
-      shop_id: vm.data.shop_id
-    }
-    util.auditChangeShop(param, function (res) {
-      if (res.data.result) {
-        wx.navigateBack({
-          delta: 1
-        })
+
+    var shopList = vm.data.shopList
+    var value = vm.data.value
+    var shop_name = shopList[value].name
+
+    wx.showModal({
+      title: '确认',
+      content: '确定把该员工转移到' + shop_name,
+      success: function (res) {
+        if (res.confirm) {
+          var param = {
+            audit_id: vm.data.audit_id,
+            shop_id: vm.data.shop_id
+          }
+          util.auditChangeShop(param, function (res) {
+            if (res.data.result) {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
     })
   },

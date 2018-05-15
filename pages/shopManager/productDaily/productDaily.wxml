@@ -42,14 +42,16 @@
         </view>
       </view>
 
-      <view style='margin:0 3%;'>
-        <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
-          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>目标(自动生成)：</view>
-          <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-            {{item.product_request}}
+      <block wx:if="{{item.product_id != 3}}">
+        <view style='margin:0 3%;'>
+          <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
+            <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>目标(自动生成)：</view>
+            <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
+              {{item.product_request}}
+            </view>
           </view>
         </view>
-      </view>
+      </block>
 
       <block wx:if="{{item.product_id == 2}}">
 
@@ -96,7 +98,7 @@
           <view class='zan-col zan-col-13'>
 
             <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-              <input class='zan-font-16 zan-c-gray-dark' placeholder-style="text-align:right; " placeholder="请输入件数 " bindinput='inputName' style='line-height:120rpx;text-align:right;' value='{{item.daily_paper_num}}' disabled="true "></input>
+              <input class='zan-font-16 zan-c-gray-dark' placeholder-style="text-align:right; " placeholder="请输入件数 " bindinput='inputName' style='line-height:120rpx;text-align:right;' value='{{item.num}}' disabled="true "></input>
             </view>
           </view>
         </view>
@@ -105,197 +107,6 @@
     </view>
   </view>
 </block>
-
-
-<!-- <view style='width:750rpx;'>
-  <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-font-18' style='line-height:120rpx;'>非黄铂</view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>目标(自动生成)：</view>
-        <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          31414
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>实销额：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入实销额 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>件数：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入件数 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-  </view>
-</view>
-
-
-<view style='width:750rpx;'>
-  <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-font-18' style='line-height:120rpx;'>其他</view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>目标(自动生成)：</view>
-        <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          31414
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>实销额：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入实销额 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>件数：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入件数 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-  </view>
-</view> -->
-
-
-<!-- <view style='width:750rpx;'>
-  <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-font-18' style='line-height:120rpx;'>订货管理</view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>订货金额：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入订货金额 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>货号：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入货号 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-  </view>
-</view> -->
-
-
-<!-- <view style='width:750rpx;'>
-  <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>总件数(自动)：</view>
-        <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          357
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>总笔数：</view>
-        <view class='zan-col zan-col-13'>
-
-          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <input class='zan-font-16' placeholder-style="text-align:right; " placeholder="请输入笔数 " bindinput='inputName' style='line-height:120rpx;text-align:right;'></input>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>客流量(自动)：</view>
-
-        <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          357
-        </view>
-
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>留电话数(抓取)：</view>
-
-        <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          357
-        </view>
-
-      </view>
-    </view>
-
-    <view style='margin:0 3%;'>
-      <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
-        <view class='zan-c-gray-dark zan-col zan-col-17 zan-font-16' style='line-height:120rpx;'>留电话数占比标准(5%)(自动)：</view>
-
-        <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-6' style='text-align:right;'>
-          357
-        </view>
-
-      </view>
-    </view>
-
-  </view>
-</view> -->
-
 
 <view style='height:50rpx;'></view>
 

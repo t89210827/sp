@@ -11,7 +11,10 @@
   <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>请输入今日客流</view>
 </view>
 
-<view style='height:500rpx;'></view>
+<view style='height:500rpx;'>
+  <view wx:if="{{passenger_flow.length > 0}}" class='center-style zan-font-16' style='height:100rpx;line-height:100rpx;padding-top:250rpx;'>今日已发布客流数: {{passenger_flow[0].passenger_flow}}</view>
+</view>
+
 <view class='center-style'>
   <view class='phoneInput center-style'>
     <input class='zan-font-16' placeholder-style="text-align:center;" placeholder="请输入今日客流" bindinput='inputPhone' style='width:500rpx;text-align:center;height:100rpx;line-height:100rpx;'></input>
@@ -21,5 +24,8 @@
 <view style='height:100rpx;'></view>
 
 <view class='center-style'>
-  <view bindtap="addPassengerFlow" class="abnor__btn">确定</view>
+  <view bindtap="addPassengerFlow" class="abnor__btn">{{passenger_flow.length == 0?'确定':'修改'}}</view>
 </view>
+
+
+<wxc-toast is-show="{{toast.show}}" text="{{passenger_flow.length == 0?'提交成功':'修改成功'}}" icon="yes" icon-color="#ff5777"></wxc-toast>

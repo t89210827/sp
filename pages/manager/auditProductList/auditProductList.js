@@ -35,27 +35,38 @@ Page(extend({}, Actionsheet, Tab, {
 
   onLoad: function (options) {
     vm = this
+    var stmt_date = util.getToday()
+    vm.setData({ stmt_date: stmt_date })
     vm.getUnauditedShopManagerDailyPaper()
+  },
+
+  //时间
+  dailyPaperDate: function (e) {
+    this.setData({
+      stmt_date: e.detail.value
+    })
+    // vm.dailyList()         //店长查看日报列表(对应原型审核日报) 
   },
 
   // 主管查看未审核店长日报
   getUnauditedShopManagerDailyPaper: function () {
     var param = {
-      user_id: getApp().globalData.userInfo.id,
+      // user_id: getApp().globalData.userInfo.id,
       shop_id: getApp().globalData.userInfo.shop_id,
+      stmt_date: util.getToday()
     }
     util.getUnauditedShopManagerDailyPaper(param, function (res) {
       if (res.data.result) {
         var dailyPaper = res.data.ret
 
-        for (var i = 0; i < dailyPaper.length; i++) {
-          if (dailyPaper[i].daily_paper.length == 0) {
-            dailyPaper.splice(i, 1)
-            break;
-          }
+        // for (var i = 0; i < dailyPaper.length; i++) {
+        //   if (dailyPaper[i].daily_paper.length == 0) {
+        //     dailyPaper.splice(i, 1)
+        //     break;
+        //   }
 
-          dailyPaper[i].daily_paper[0].created_at = util.convertDateFormateM(dailyPaper[i].daily_paper[0].created_at)
-        }
+        //   dailyPaper[i].daily_paper[0].created_at = util.convertDateFormateM(dailyPaper[i].daily_paper[0].created_at)
+        // }
         vm.setData({ dailyPaper: dailyPaper })
 
       }

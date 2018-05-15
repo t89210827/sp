@@ -13,13 +13,28 @@
 
 <view style='height:140rpx;'></view>
 
-<block wx:if="{{dailyList.length == 0}}">
+<view style='height:80rpx;background-color:#ececec;'>
+
+  <view class='zan-col zan-col-12 zan-font-14 center-style' style='line-height:80rpx;'>
+    时间
+  </view>
+
+  <view class='zan-col zan-col-12 zan-font-14 center-style' style='line-height:80rpx;'>
+    <picker mode="date" value="{{stmt_date}}" start="2018-01-01" end="2020-01-01" bindchange="dailyPaperDate">
+      <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{stmt_date}}</view>
+    </picker>
+  </view>
+</view>
+
+
+
+
+<!-- <block wx:if="{{dailyList.length == 0}}">
   <wxc-abnor type="ORDER" title="没有日报需要审核"></wxc-abnor>
-</block>
+</block> -->
 
 <block wx:if="{{dailyList.length>0}}">
-  <!-- <button bindtap='clickSwitch'>正序倒序</button> -->
-  <view style='height:90rpx; background-color:#ececec;' class='zan-font-14 center-style'>点击审核该员工日报</view>
+  <!-- <view style='height:90rpx; background-color:#ececec;' class='zan-font-14 center-style'>点击审核该员工日报</view> -->
 
   <view style='width:750rpx;'>
     <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
@@ -27,21 +42,53 @@
       <scroll-view scroll-y style="height: 1000rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-top='0'>
 
         <block wx:for="{{dailyList}}">
-          <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;'>
-            <navigator url='/pages/shopManager/auditDailyDetail/auditDailyDetail?detail={{item.user.id}}'>
-              <view class='zan-row'>
-                <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index}}</view>
-                <view class='zan-col zan-col-3'>
-                  <view class='center-style' style='height:100rpx;'>
-                    <image src='{{item.user.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
+
+          <block wx:if="{{item.dailyPaper_status != -1 && item.dailyPaper_status != 0}}">
+            <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;'>
+              <navigator url='/pages/shopManager/auditDailyDetail/auditDailyDetail?staff_id={{item.id}}&stmt_date={{stmt_date}}&status={{item.dailyPaper_status}}'>
+                <view class='zan-row'>
+                  <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index+1}}</view>
+                  <view class='zan-col zan-col-3'>
+                    <view class='center-style' style='height:100rpx;'>
+                      <image src='{{item.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
+                    </view>
                   </view>
+                  <view class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>{{item.name}}</view>
+                  <view wx:if="{{item.dailyPaper_status == -1}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>没发布任务</view>
+                  <view wx:elif="{{item.dailyPaper_status == 0}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>未提交</view>
+                  <view wx:if="{{item.dailyPaper_status == 1}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>待审核</view>
+                  <view wx:if="{{item.dailyPaper_status == 2}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>审核通过</view>
+                  <view wx:if="{{item.dailyPaper_status == 3}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>审核驳回</view>
+                  <view class='zan-col zan-col-1 zan-arrow '></view>
                 </view>
-                <view class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>{{item.user.name}}</view>
-                <view class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>{{item.daily_paper[0].created_at}}</view>
-                <view class='zan-col zan-col-1 zan-arrow '></view>
-              </view>
-            </navigator>
-          </view>
+              </navigator>
+            </view>
+
+          </block>
+          <block wx:else>
+            <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;'>
+              <navigator url=''>
+                <view class='zan-row'>
+                  <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index+1}}</view>
+                  <view class='zan-col zan-col-3'>
+                    <view class='center-style' style='height:100rpx;'>
+                      <image src='{{item.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
+                    </view>
+                  </view>
+                  <view class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>{{item.name}}</view>
+                  <view wx:if="{{item.dailyPaper_status == -1}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>没发布任务</view>
+                  <view wx:elif="{{item.dailyPaper_status == 0}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>未提交</view>
+                  <view wx:if="{{item.dailyPaper_status == 1}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>待审核</view>
+                  <view wx:if="{{item.dailyPaper_status == 2}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>审核通过</view>
+                  <view wx:if="{{item.dailyPaper_status == 3}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>审核驳回</view>
+                  <view class='zan-col zan-col-1 zan-arrow '></view>
+                </view>
+              </navigator>
+            </view>
+
+          </block>
+
+
 
         </block>
 

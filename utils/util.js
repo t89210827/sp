@@ -439,7 +439,33 @@ function getAuditAndClientByShopId(param, successCallback, errorCallback) {
 function managerObtainTask(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/manager/managerObtainTask', param, "GET", successCallback, errorCallback)
 }
-//http://localhost/waibaoSrv/public/api/sp/manager/managerObtainTask
+
+//查看店长今天是否发布过客流
+function releasePassengerFlow(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/releasePassengerFlow', param, "GET", successCallback, errorCallback)
+}
+
+//查看店长本月剩余任务
+function shopManagerSurplusTask(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/shopManagerSurplusTask', param, "GET", successCallback, errorCallback)
+}
+
+//根据员工id 获取该员工下客户信息
+function getBelongClientByAuditId(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/client/getBelongClientByAuditId', param, "GET", successCallback, errorCallback)
+}
+
+//获取所有的生效品牌信息
+function getBrandList(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/brand/getBrandList', param, "GET", successCallback, errorCallback)
+}
+
+//店长本月剩余任务额
+function getShopManagerMonthTaskAmount(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getShopManagerMonthTaskAmount', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/shopManager/getShopManagerMonthTaskAmount
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -1212,4 +1238,9 @@ module.exports = {
   getShopRanking: getShopRanking,             //主管查看店铺排名：非黄珀业绩+大额订单的业绩/非黄珀任务额（按月算，倒叙）（业绩保留两位小数）
   getAuditAndClientByShopId: getAuditAndClientByShopId,   //根据店铺id获取员工列表及顾客数量
   managerObtainTask: managerObtainTask,       //主管查看发布本月任务
+  releasePassengerFlow: releasePassengerFlow,   //查看店长今天是否发布过客流
+  shopManagerSurplusTask: shopManagerSurplusTask, //查看店长本月剩余任务
+  getBelongClientByAuditId: getBelongClientByAuditId,   //根据audit_id获取与我发生交易的客户信息-即我的客户
+  getBrandList: getBrandList,             //获取所有的生效品牌信息
+  getShopManagerMonthTaskAmount: getShopManagerMonthTaskAmount,   //店长本月剩余任务额
 }

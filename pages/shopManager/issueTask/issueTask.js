@@ -3,9 +3,6 @@ var vm = null
 var util = require('../../../utils/util.js')
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     inputShowed: false,
     inputVal: "",
@@ -45,7 +42,22 @@ Page({
   onLoad: function (options) {
     vm = this
     vm.getAudit()             //店长下的员工列表
-    vm.getShopManagerTask()   //店长获取本月剩余任务
+    // vm.getShopManagerTask()   //店长获取本月目标
+    vm.shopManagerSurplusTask()   //店长获取本月剩余任务
+  },
+
+  shopManagerSurplusTask: function () {
+    var param = {
+      shop_id: getApp().globalData.userInfo.shop_id,
+      stmt_date: util.getMonth()
+    }
+    util.shopManagerSurplusTask(param, function (res) {
+      if (res.data.result) {
+        var surplusTask = res.data.ret
+        console.log("本月剩余任务" + JSON.stringify(surplusTask))
+        vm.setData({ surplusTask: surplusTask })
+      }
+    })
   },
 
   // 本月任务开关
@@ -164,7 +176,10 @@ Page({
         stmt_date: util.getToday(),
         product_id: performance[i].productid,
         performance_request: performance[i].value,
-        shop_manager_id: getApp().globalData.userInfo.id
+        shop_manager_id: getApp().globalData.userInfo.id,
+
+        type: "1",
+        status: "0"
       }
       param.shopManager.push(paramIndex)
     }
@@ -174,7 +189,10 @@ Page({
       stmt_date: util.getToday(),
       product_id: 3,
       performance_request: 0,
-      shop_manager_id: getApp().globalData.userInfo.id
+      shop_manager_id: getApp().globalData.userInfo.id,
+
+      type: "1",
+      status: "0"
     })
     util.shopManagerReleaseTask(param, function (res) {
       if (res.data.result) {

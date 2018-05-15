@@ -51,14 +51,14 @@ Page({
   //开始时间
   bindBeginDate: function (e) {
     this.setData({
-      beginDate: e.detail.value
+      start_time: e.detail.value
     })
     vm.indexRefresh()         //刷新首页
   },
   //结束时间
   bindEndDate: function (e) {
     this.setData({
-      endDate: e.detail.value
+      end_time: e.detail.value
     })
     vm.indexRefresh()         //刷新首页
   },
@@ -205,18 +205,25 @@ Page({
         var minorMessage = res.data.ret
         console.log("员工首页次要信息" + JSON.stringify(res))
 
-        //首页剩余任务量(非黄珀任务额 - （非黄珀业绩+大额订单的业绩))
-        var task = minorMessage.noYellowPerotPerformanceRequest - minorMessage.noYellowPerotMoneies - minorMessage.otherMoneies
-        if (task <= 0) {
-          task = "你真棒 恭喜你完成任务"
+        var task = null
+        var percent = null
+        if (minorMessage.noYellowPerotPerformanceRequest == 0) {
+          task = "请等待店长发布任务"
+          percent = 0
         } else {
-          task = "距离完成任务额还剩 " + task + " 元"
-        }
-        //首页进度条(非黄珀业绩+大额订单的业绩/非黄珀任务额)
-        var percent = minorMessage.noYellowPerotMoneies / minorMessage.noYellowPerotPerformanceRequest * 100
+          //首页剩余任务量(非黄珀任务额 - （非黄珀业绩+大额订单的业绩))
+          task = minorMessage.noYellowPerotPerformanceRequest - minorMessage.noYellowPerotMoneies - minorMessage.otherMoneies
+          if (task <= 0) {
+            task = "你真棒 恭喜你完成任务"
+          } else {
+            task = "距离完成任务额还剩 " + task + " 元"
+          }
+          //首页进度条(非黄珀业绩+大额订单的业绩/非黄珀任务额)
+          percent = minorMessage.noYellowPerotMoneies / minorMessage.noYellowPerotPerformanceRequest * 100
 
-        if (percent > 100) {
-          percent = 100
+          if (percent > 100) {
+            percent = 100
+          }
         }
         vm.setData({
           minorMessage: minorMessage,

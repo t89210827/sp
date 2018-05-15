@@ -34,21 +34,37 @@
 
 
     <block wx:if="{{monthTask}}">
-      <block wx:if="{{taskList.length == 0}}">
+      <!-- <block wx:if="{{taskList.length == 0}}">
         <view class='zan-font-14'>主管还未发布本月任务</view>
-      </block>
-
-      <block wx:if="{{taskList.length>0}}">
-        <view>
-          <view class='zan-row zan-font-16'>
-            <view class='zan-col zan-col-12' style='line-height:100rpx;padding-left:48rpx;'>产品</view>
-            <view class='zan-col zan-col-12' style='line-height:100rpx;text-align:right;padding-right:48rpx;'>
-              本月剩余目标
-            </view>
+      </block> -->
+      <view>
+        <view class='zan-row zan-font-16'>
+          <view class='zan-col zan-col-12' style='line-height:100rpx;padding-left:48rpx;'>产品</view>
+          <view class='zan-col zan-col-12' style='line-height:100rpx;text-align:right;padding-right:48rpx;'>
+            本月剩余目标
           </view>
         </view>
+      </view>
 
-        <block wx:for="{{taskList}}" wx:for-index="productIndex">
+      <view>
+        <view class='zan-row zan-font-14'>
+          <view class=' zan-col zan-col-12' style='line-height:120rpx;padding-left:48rpx;'>黄铂</view>
+          <view class='zan-col zan-col-12' style='height:120rpx;'>
+            <view class='zan-font-14' style='line-height:120rpx;text-align:right;padding-right:48rpx;'>{{surplusTask.yellowPerotProductNum}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view>
+        <view class='zan-row zan-font-14'>
+          <view class=' zan-col zan-col-12' style='line-height:120rpx;padding-left:48rpx;'>非黄铂</view>
+          <view class='zan-col zan-col-12' style='height:120rpx;'>
+            <view class='zan-font-14' style='line-height:120rpx;text-align:right;padding-right:48rpx;'>{{surplusTask.noYellowPerotProductNum}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- <block wx:for="{{taskList}}" wx:for-index="productIndex">
           <block wx:if="{{item.product.id !=3}}">
             <view>
               <view class='zan-row zan-font-14'>
@@ -59,10 +75,10 @@
               </view>
             </view>
           </block>
-        </block>
-        <view style='height:20rpx;'></view>
-      </block>
+        </block> -->
+      <view style='height:20rpx;'></view>
     </block>
+
 
   </view>
 </view>

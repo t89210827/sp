@@ -98,6 +98,7 @@ Page({
       if (res.data.result) {
         console.log("店长查看产品日报" + JSON.stringify(res))
         var dailyPaperData = res.data.ret
+        dailyPaperData.reverse()
         vm.setData({ dailyPaperData: dailyPaperData })
       } else {
         util.showToast(res.data.message)

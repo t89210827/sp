@@ -29,13 +29,13 @@ Page({
         var submitDaily = res.data.ret.dailPapers   //产品日报数据
         submitDaily.reverse()
         //客流信息
-        var passenger_flow = res.data.ret.passenger_flow.passenger_flow
-        if (passenger_flow == 1) {
+        // var passenger_flow_num = daily.passenger_flow_num
+        if (daily.passenger_flow_num == 0) {
           var percentage = "无"
         } else {
-          var percentage = util.Percentage(daily.tel_num, passenger_flow)
+          var percentage = util.Percentage(daily.tel_num, daily.passenger_flow_num)
         }
-        vm.setData({ submitDaily: submitDaily, passenger_flow: passenger_flow, daily: daily, percentage: percentage })
+        vm.setData({ submitDaily: submitDaily, daily: daily, percentage: percentage })
       }
     })
   },
@@ -44,8 +44,8 @@ Page({
   getShopManagerTask: function () {
     var submitDaily = vm.data.submitDaily
     var daily = vm.data.daily
-    var today = util.getToday()
-    var auditDailyPaper = { stmt_date: today, auditDailyPaper: [] }
+    // var today = util.getToday()
+    var auditDailyPaper = { auditDailyPaper: [] }
     for (var i = 0; i < submitDaily.length; i++) {
       var auditDailyPaperIndex = null
       if (submitDaily[i].product_id == 2) {
@@ -60,9 +60,10 @@ Page({
 
           "total_piece_number": daily.tel_num,
           "total_than_number": daily.total_pen_num,
-          "passenger_flow_num": vm.data.passenger_flow,
+          "passenger_flow_num": vm.data.daily.passenger_flow_num,
           "phone_num": daily.tel_num,
           "phone_ratio": vm.data.percentage,
+          "type": getApp().globalData.userInfo.type,
 
           "gram_weight": vm.data.gram_weight,
           "gold_number": vm.data.gold_number,
@@ -74,15 +75,16 @@ Page({
           // "shop_id": submitDaily[i].shop_id,
           "dailyPaper_id": submitDaily[i].id,
           "product_id": submitDaily[i].product_id,
-          "performance_finish": submitDaily[i].product[0].real_sale,
+          "performance_finish": submitDaily[i].real_sale,
           "status": "1",
-          "num": submitDaily[i].product[0].num,
+          "num": submitDaily[i].pen_num,
 
-          "total_piece_number": submitDaily[i].total_num == null ? "0" : submitDaily[i].total_num,
-          "total_than_number": submitDaily[i].total_pen_num == null ? "0" : submitDaily[i].total_pen_num,
-          "passenger_flow_num": vm.data.passenger_flow,
-          "phone_num": daily.tel_num == null ? "0" : daily.tel_num,
+          "total_piece_number": daily.tel_num,
+          "total_than_number": daily.total_pen_num,
+          "passenger_flow_num": vm.data.daily.passenger_flow_num,
+          "phone_num": daily.tel_num,
           "phone_ratio": vm.data.percentage,
+          "type": getApp().globalData.userInfo.type,
         }
       }
       auditDailyPaper.auditDailyPaper.push(auditDailyPaperIndex)
@@ -173,7 +175,7 @@ Page({
       util.showToast("店长还未发布今日目标")
       return
     }
-    if (vm.data.passenger_flow == 1) {
+    if (vm.data.daily.passenger_flow_num == 0) {
       util.showToast("等待店长录入客流")
       return
     }

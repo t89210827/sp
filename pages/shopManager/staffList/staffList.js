@@ -42,8 +42,8 @@ Page({
     vm = this
     var shop_id = options.shop_id
     vm.setData({ shop_id: shop_id })
-    vm.getAuditCount()              //店长下的员工列表
-    // vm.getAuditAndClientByShopId()           //店长下的员工列表及顾客数量
+    // vm.getAuditCount()              //店长下的员工列表
+    vm.getAuditAndClientByShopId()           //店长下的员工列表及顾客数量
   },
 
   //店长下的员工列表及顾客数量
@@ -54,6 +54,7 @@ Page({
     util.getAuditAndClientByShopId(param, function (res) {
       if (res.data.result) {
         var staffList = res.data.ret
+        console.log("店长下的员工列表及顾客数量" + JSON.stringify(staffList))
         vm.setData({ staffList: staffList })
       }
     })
