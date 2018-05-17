@@ -43,13 +43,13 @@ Page({
           "product_id": dailyPaperData[i].product_id,
 
           "performance_request": dailyPaperData[i].product_request,
-
+          "type": "2",
           "performance_finish": dailyPaperData[i].performance_finish,
           "gram_weight": dailyPaperData[i].gram_weight,
           "gold_number": dailyPaperData[i].gold_number,
-          "status": 5,
+          "status": 1,
           "shop_manager_id": getApp().globalData.userInfo.id,
-          "num": dailyPaperData[i].daily_paper_num,
+          "num": dailyPaperData[i].num,
           // "total_piece_number": "2000",
           // "total_than_number": "6",
           // "passenger_flow_num": "36",
@@ -65,11 +65,11 @@ Page({
           "product_id": dailyPaperData[i].product_id,
 
           "performance_request": dailyPaperData[i].product_request,
-
+          "type": "2",
           "performance_finish": dailyPaperData[i].performance_finish,
-          "status": 5,
+          "status": 1,
           "shop_manager_id": getApp().globalData.userInfo.id,
-          "num": dailyPaperData[i].daily_paper_num,
+          "num": dailyPaperData[i].num,
           // "total_piece_number": "2000",
           // "total_than_number": "6",
           // "passenger_flow_num": "36",

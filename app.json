@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/staff/staff",
     "pages/start/start",
     "pages/index/index",
     "pages/manager/index/index",
     "pages/shopManager/index/index",
-    "pages/staff/staff",
     "pages/daily/staff/staff",
     "pages/staff/clientList/clientList",
     "pages/hint/audit/audit",

@@ -21,17 +21,12 @@ Page({
 
   //根据id获取顾客信息
   getClientDetail: function () {
-    // var param = {
-    //   id: clientId
-    // }
-    // util.getClientById(param, function (res) {
-    //   var clientDetail = res.data.ret
-    //   clientDetail.created_at = util.date(clientDetail.created_at)
-    //   vm.setData({ clientDetail: res.data.ret })
-    // })
     var page = getCurrentPages()
     var upPage = page[page.length - 2]
     var clientDetail = upPage.data.clientDetail
+
+    clientDetail.created_at = util.date(clientDetail.created_at)
+
     vm.setData({ clientDetail: clientDetail })
     console.log("111111" + JSON.stringify(clientDetail))
   },

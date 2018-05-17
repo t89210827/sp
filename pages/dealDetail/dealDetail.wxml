@@ -113,7 +113,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <view class='zan-font-16 zan-c-gray-dark'>{{deal.purpose}}</view>
+            <view class='zan-font-16 zan-c-gray-dark'>{{deal.purpose == null?'无':deal.purpose}}</view>
             <!-- <input class='zan-font-16' placeholder-style="text-align:right;" placeholder="请输入用途" bindinput='inputName' style='line-height:120rpx;text-align:right;'></input> -->
           </view>
         </view>

@@ -86,7 +86,7 @@ Page({
 
   //首页刷新
   indexRefresh: function () {
-    // vm.getShopManagerTask()                     //月任务    
+    vm.getShopManagerTask()                     //月任务    
     vm.getShopManagerMonthTaskAmount()          //店长本月剩余任务额    
     vm.getShopManagerIndexKeyMessage()          //店长首页主要信息
     vm.getShopManagerIndexMinorMessage()        //店长首页次要信息

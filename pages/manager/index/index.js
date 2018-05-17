@@ -14,23 +14,74 @@ Page({
     key: true,
     minor: true,
 
-    shopName: "全部店铺",       //店铺名字
-    brandName: "全部品牌",       //品牌名字
-    staffName: "全部员工",        //员工名字
-    shop_id: null,                 //选择的店铺id
+    shopName: "全部店铺",         //店铺名字
+    shopsIndex: 0,               //店铺索引
+    brandName: "全部品牌",        //品牌名字
+    brandIndex: 0,               //品牌索引
+    staffList: [],               //员工数组
+    NewstaffList: [],            //picker展示的员工数组
+    staffIndex: 0,               //员工索引
+    shop_id: "",                 //选择的店铺id
+
+    audit_id: "",                 //员工id
+    brand_id: "",                 //品牌id
   },
 
   onLoad: function (options) {
     vm = this
-    var today = util.getToday()
-    var getTodayAddOne = util.getTodayAddOne()
+    var start_time = util.getToday()
+    var end_time = util.getTodayAddOne()
     var shop_id = getApp().globalData.userInfo.shop_id
-    vm.setData({ beginDate: today, endDate: getTodayAddOne, shop_id: shop_id })
-    vm.getUserInfo()
+    vm.setData({ start_time: start_time, end_time: end_time, shop_id: shop_id })
+    vm.init()             //首页数据初始化
+    vm.indexRefresh()     //首页刷新
+  },
+
+  //首页数据初始化
+  init: function () {
+    vm.getUserInfo()    //用户数据
     vm.getShop()        //主管下的店铺列表
     vm.getBrandList()   //全部品牌
+  },
 
-    vm.indexRefresh()     //首页刷新
+  //首页刷新
+  indexRefresh: function () {
+    vm.getUserInfo()    //用户数据    
+    vm.getManagerIndexBoutiqueDailyMessage()              //竞品信息   
+    vm.getManagerIndexData()                              //主管首页数据
+    // vm.getManagerIndexKeyMessage()                     //主要信息
+    // vm.getManagerIndexMinorMessage()                   //次要信息
+  },
+
+  //主管首页数据
+  getManagerIndexData: function () {
+    var param = {
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time,
+      shop_id: vm.data.shop_id,
+      brand_id: vm.data.brand_id,
+      audit_id: vm.data.audit_id,
+    }
+    util.getManagerIndexData(param, function (res) {
+      if (res.data.result) {
+        var indexData = res.data.ret
+        console.log("主管首页数据 ==" + JSON.stringify(indexData))
+        vm.setData({ indexData: indexData })
+      }
+    })
+  },
+
+  //开始时间
+  bindBeginDate: function (e) {
+    this.setData({
+      start_time: e.detail.value
+    })
+  },
+  //结束时间
+  bindEndDate: function (e) {
+    this.setData({
+      end_time: e.detail.value
+    })
   },
 
   //获取缓存中用户信息
@@ -41,9 +92,11 @@ Page({
 
   //查询
   confirm: function () {
-    vm.getManagerIndexKeyMessage()              //主要
-    vm.getManagerIndexMinorMessage()            //相关
-    vm.getManagerIndexBoutiqueDailyMessage()    //竞品
+    vm.indexRefresh()     //首页刷新
+
+    // vm.getManagerIndexKeyMessage()              //主要
+    // vm.getManagerIndexMinorMessage()            //相关
+    // vm.getManagerIndexBoutiqueDailyMessage()    //竞品
   },
 
   //获取所有的生效品牌信息
@@ -51,13 +104,23 @@ Page({
     util.getBrandList({}, function (res) {
       if (res.data.result) {
         var brandList = res.data.ret
-        var brandNames = []
-        for (var i = 0; i < brandList.length; i++) {
-          brandNames.push(brandList[i].name)
-        }
-        brandNames.push("全部品牌")
-        vm.setData({ brandList: brandList, brandNames: brandNames })
+        brandList.unshift({ "name": "全部品牌" })
+        vm.setData({ brandList: brandList })
       }
+    })
+  },
+
+  // 品牌选择
+  brandNames: function (e) {
+    var brandIndex = e.detail.value
+    if (brandIndex == 0) {
+      vm.setData({ brand_id: "" })
+    } else {
+      var brandList = vm.data.brandList
+      vm.setData({ brand_id: brandList[brandIndex - 1].id })
+    }
+    vm.setData({
+      brandIndex: brandIndex
     })
   },
 
@@ -69,125 +132,79 @@ Page({
     }
     util.getShop(param, function (res) {
       var shops = res.data.ret.shop.data
-      vm.setData({
-        // shop_id: shops[0].id,
-        // shopName: shops[0].name
-      })
-
-      var shopNames = []
-      for (var i = 0; i < shops.length; i++) {
-        shopNames.push(shops[i].name)
-      }
-      shopNames.push("全部店铺")
-
-      console.log("店铺列表" + JSON.stringify(shopNames))
-      vm.setData({ shopNames: shopNames, shops: shops })
-
-      vm.getAuditListByShopId()             // 根据shop_id获取员工列表
-      vm.indexRefresh()     //首页刷新
+      shops.unshift({ "name": "全部店铺" })
+      console.log("店铺列表" + JSON.stringify(shops))
+      vm.setData({ shops: shops })
+      // vm.indexRefresh()     //首页刷新
     })
+  },
+
+  // 店铺选择
+  shopNames: function (e) {
+    var shopsIndex = e.detail.value
+    vm.setData({
+      shopsIndex: shopsIndex,
+      audit_id: ""              //无论选择什么店铺  staff_id都置为空
+    })
+    if (shopsIndex != 0) {
+      var shops = vm.data.shops
+      var shop_id = vm.data.shops[shopsIndex - 1].id
+      vm.setData({ shop_id: shop_id })
+      vm.getAuditListByShopId()       // 根据shop_id获取员工列表
+    } else {
+      vm.setData({ NewstaffList: [], staffIndex: 0, shop_id: getApp().globalData.userInfo.shop_id })
+    }
   },
 
   // 根据shop_id获取员工列表
   getAuditListByShopId: function () {
+    var shops = vm.data.shops
+    var shopsIndex = vm.data.shopsIndex
+    var shop_id = vm.data.shops[shopsIndex].id
     var param = {
-      shop_id: vm.data.shop_id
+      shop_id: shop_id
     }
     util.getAuditListByShopId(param, function (res) {
       if (res.data.result) {
         var staffList = res.data.ret.userRole.data
-        var staffNameList = []
-        for (var i = 0; i < staffList.length; i++) {
-          staffNameList.push(staffList[i].user.name)
+        if (staffList.length == 0) {
+          vm.setData({ NewstaffList: [], staffIndex: 0 })
+        } else {
+          var NewstaffList = [{ "name": "全部员工" }]
+          for (var index in staffList) {
+            NewstaffList.push({ name: staffList[index].user.name })
+          }
+          console.log("员工列表" + JSON.stringify(NewstaffList))
+          vm.setData({ staffList: staffList, NewstaffList: NewstaffList })
         }
-        console.log("员工列表" + JSON.stringify(staffList))
-        vm.setData({ staffList: staffList, staffNameList: staffNameList })
       }
     })
   },
 
-  //选择员工
-  staffNames: function () {
-    if (vm.data.shopName == "全部店铺") {
-      util.showToast("请先选择店铺")
-      return
+  // 员工选择
+  selectStaff: function (e) {
+    var staffList = vm.data.staffList
+    var staffIndex = e.detail.value
+
+    if (staffIndex != 0) {
+      var audit_id = vm.data.staffList[staffIndex - 1].user.id
+      vm.setData({ audit_id: audit_id })
+    } else {
+      vm.setData({ audit_id: "" })
     }
-    wx.showActionSheet({
-      itemList: vm.data.staffNameList,
-      success: function (res) {
-        if (!res.cancel) {
-          vm.setData({
-            staff_id: vm.data.staffList[res.tapIndex].id,
-            staffName: vm.data.staffNameList[res.tapIndex]
-          })
-          console.log("员工" + JSON.stringify(vm.data.staffName))
-        }
-      }
-    });
+
+
+    vm.setData({
+      staffIndex: staffIndex
+    })
   },
 
-  //选择店铺
-  shopNames: function () {
-    var shopNames = vm.data.shopNames
-    var last = shopNames.length - 1
-
-    wx.showActionSheet({
-      itemList: shopNames,
-      success: function (res) {
-        if (!res.cancel) {
-          if (last == res.tapIndex) {
-            vm.setData({
-              shop_id: getApp().globalData.userInfo.shop_id,
-              shopName: shopNames[res.tapIndex],
-              staffName: "全部员工"
-            })
-          } else {
-            vm.setData({
-              shop_id: vm.data.shops[res.tapIndex].id,
-              shopName: shopNames[res.tapIndex]
-            })
-          }
-
-          vm.getAuditListByShopId()
-          console.log("店铺" + JSON.stringify(vm.data.shopName))
-        }
-      }
-    });
+  //提示先选择店铺
+  showToastSelectShop: function () {
+    util.showToast("请先选择有店员的店铺")
   },
 
-  //选择品牌
-  brandNames: function () {
-    var brandNames = vm.data.brandNames
-    var last = brandNames.length - 1
 
-    wx.showActionSheet({
-      itemList: brandNames,
-      success: function (res) {
-        if (!res.cancel) {
-          if (last == res.tapIndex) {
-            vm.setData({
-              brand_id: "",
-              brandName: "全部品牌"
-            })
-          } else {
-            vm.setData({
-              brand_id: vm.data.brandList[res.tapIndex].id,
-              brandName: vm.data.brandNames[res.tapIndex]
-            })
-          }
-          // vm.getAuditListByShopId()
-          console.log("店铺" + JSON.stringify(vm.data.brand_id))
-        }
-      }
-    });
-  },
-
-  //首页刷新
-  indexRefresh: function () {
-    vm.getManagerIndexBoutiqueDailyMessage()               //竞品信息   
-    vm.getManagerIndexKeyMessage()                       //主要信息
-    vm.getManagerIndexMinorMessage()                    //次要信息
-  },
 
   //主管首页竞品信息
   getManagerIndexBoutiqueDailyMessage: function () {
@@ -316,25 +333,7 @@ Page({
       url: '/pages/dealList/dealList',
     })
   },
-  //开始时间
-  bindBeginDate: function (e) {
-    this.setData({
-      beginDate: e.detail.value
-    })
-  },
-  //结束时间
-  bindEndDate: function (e) {
-    this.setData({
-      endDate: e.detail.value
-    })
-  },
-  // 选项选择
-  bindOption: function (e) {
-    console.log('选项选择 发生选择改变，携带值为', e.detail.value);
-    this.setData({
-      optionsIndex: e.detail.value
-    })
-  },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -368,7 +367,6 @@ Page({
    */
   onPullDownRefresh: function () {
     vm.indexRefresh()     //首页刷新
-    vm.getUserInfo()
   },
 
   /**

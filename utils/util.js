@@ -475,7 +475,12 @@ function getDailyPaperDetails(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/dailyPaper/getDailyPaperDetails', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/dailyPaper/getDailyPaperDetails
+//主管首页数据
+function getManagerIndexData(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/getManagerIndexData', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/manager/getManagerIndexData
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -503,6 +508,11 @@ function convertDateFormateM(date_str) {
   return convertDateFormate(date_arr[0], 2);
 }
 
+
+//日期时间转换
+/*
+ * 将2017-11-08 10:57:11转换为11月8日
+ */
 function date(date_str) {
 
   var date_arr = date_str.split(' ');
@@ -1255,4 +1265,5 @@ module.exports = {
   getShopManagerMonthTaskAmount: getShopManagerMonthTaskAmount,   //店长本月剩余任务额
   getBoutiqueDailyDetails: getBoutiqueDailyDetails,   //根据时间和用户获取竞品的日报详情
   getDailyPaperDetails: getDailyPaperDetails,     //根据时间和和用户查看产品日报详情
+  getManagerIndexData: getManagerIndexData,     //主管首页数据
 }

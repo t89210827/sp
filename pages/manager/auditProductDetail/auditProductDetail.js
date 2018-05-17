@@ -19,7 +19,6 @@ Page({
     // vm.setData({ date: date })
     // var detail = options.detail
     // vm.setData({ staffId: detail })
-    // vm.getCurrentPages(detail)
   },
 
   //根据时间和和用户查看产品日报详情
@@ -37,24 +36,14 @@ Page({
     })
   },
 
-  //获取上一个页面日报信息
-  getCurrentPages: function (detail) {
-    var pages = getCurrentPages();//获取当前页面信息栈
-    var prevPage = pages[pages.length - 2]//获取上一个页面信息栈
-    var dailyPaper = prevPage.data.dailyPaper[detail]
-    vm.setData({ dailyPaper: dailyPaper })
-    console.log("上一个页面日报信息" + JSON.stringify(dailyPaper))
-  },
-
   //审核通过日报
   auditPass: function () {
     var param = {
-      clerk_id: vm.data.dailyPaper.user_id,
-      status: 3,
+      clerk_id: vm.data.shopManager_id,
+      status: 2,
       manager_id: getApp().globalData.userInfo.id,
       manager_opt_time: util.getToday(),
-      // shop_manager_remark: "",
-      stmt_date: vm.data.dailyPaper.daily_paper[0].stmt_date,
+      stmt_date: vm.data.stmt_date,
     }
     util.managerReviewDailyPaper(param, function (res) {
       if (res.data.result) {
@@ -68,10 +57,10 @@ Page({
   auditNoPass: function () {
     var param = {
       clerk_id: vm.data.dailyPaper.user_id,
-      status: 4,
+      status: 3,
       manager_id: getApp().globalData.userInfo.id,
       manager_opt_time: util.getToday(),
-      stmt_date: vm.data.dailyPaper.daily_paper[0].stmt_date,
+      stmt_date: vm.data.stmt_date,
     }
     util.managerReviewDailyPaper(param, function (res) {
       if (res.data.result) {

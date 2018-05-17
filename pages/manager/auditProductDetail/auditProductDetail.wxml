@@ -109,7 +109,7 @@
 
 <view style='height:100rpx;'></view>
 
-<block wx:if="{{status == 0}}">
+<block wx:if="{{status == 1}}">
   <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
     <view class='zan-col zan-col-12 center-style' style='line-height:80rpx;' bindtap='auditNoPass'>不通过</view>
     <view class='zan-col zan-col-1'>
@@ -121,13 +121,13 @@
   </view>
 </block>
 
-<block wx:if="{{status == 1}}">
+<block wx:if="{{status == 2}}">
   <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
     <view class='zan-col zan-col-24 center-style' style='line-height:80rpx;'>已经审核通过</view>
   </view>
 </block>
 
-<block wx:if="{{status == 2}}">
+<block wx:if="{{status == 3}}">
   <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
     <view class='zan-col zan-col-24 center-style' style='line-height:80rpx;'>已经审核驳回</view>
   </view>

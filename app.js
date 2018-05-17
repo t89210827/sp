@@ -1,8 +1,6 @@
 //app.js
 const util = require('./utils/util.js')
-
 var vm = null
-
 App({
   onLaunch: function () {
     //获取vm
@@ -190,7 +188,6 @@ App({
       if (res.data.result) {
         vm.storeUserInfo(res.data.ret)
         vm.getAuditByUserId()
-        // console.log("000000000" + JSON.stringify(res.data.ret))
       }
     })
   },
@@ -200,10 +197,6 @@ App({
     util.getAuditByUserId({}, function (res) {
       if (res.data.result) {
         var position = res.data.ret
-        // console.log("--" + JSON.stringify(res))
-        // vm.setData({
-        //   position: position,
-        // })
         vm.goToIndex(position)
       }
     })

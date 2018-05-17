@@ -18,18 +18,18 @@
         <!-- <image class="smalltitle" src="/images/more/confirm-word1.png"></image> -->
 
         <!-- 如果本地有用户信息并且用户没有授权 -->
-        <block wx:if='{{userInfo.nick_name == null}}'>
+        <!-- <block wx:if='{{userInfo.nick_name == null}}'>
           <block wx:if="{{!scopeUserInfo}}">
             <view style='height:100rpx;color:#999;width:750rpx;text-align:center;line-height:100rpx;' class='zan-font-14'>第一次登陆需要获取您的用户信息</view>
             <button style='height:80rpx;line-height:80rpx;background-color:#69c3aa;width:50%;border-radius:50rpx;color:#fff;' lang='zh_CN' bindgetuserinfo="getUserInfo" open-type="getUserInfo">进入管理系统</button>
           </block>
-        </block>
+        </block> -->
 
-        <block wx:else>
-          <view class="confirm-btn" bindtap='getAuditByUserId'>
-            <text>进入管理系统</text>
-          </view>
-        </block>
+        <!-- <block wx:else> -->
+        <view class="confirm-btn" bindtap='getAuditByUserId'>
+          <text>进入管理系统</text>
+        </view>
+        <!-- </block> -->
 
         <text class="copyright">本小程序由ISART艺术互联网公司开发</text>
       </view>
