@@ -28,6 +28,7 @@ App({
         util.getOpenId({ code: code }, function (ret) {
           if (ret.data.result) {
             var openId = ret.data.ret.openid
+            console.log('获取openId : ' + JSON.stringify(openId))            
             vm.loginServer(openId)
           }
         })

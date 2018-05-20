@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/staff/staff",
     "pages/start/start",
+    "pages/staff/staff",
     "pages/index/index",
     "pages/manager/index/index",
     "pages/shopManager/index/index",

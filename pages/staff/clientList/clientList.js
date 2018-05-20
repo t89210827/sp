@@ -60,7 +60,7 @@ Page(extend({}, Actionsheet, Tab, {
     }
     util.getBelongClientByUserId(param, function (res) {
       if (res.data.result) {
-        var clientList = res.data.ret
+        var clientList = res.data.ret.data
         for (var i = 0; i < clientList.length; i++) {
           clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)
         }
