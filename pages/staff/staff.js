@@ -22,7 +22,30 @@ Page({
     vm.setData({ start_time: start_time, end_time: end_time })
     vm.getUserInfo()          //获取用户信息
     vm.indexRefresh()         //刷新首页
+    vm.shopGetShopName()         //刷新首页店铺名字
     console.log("员工首页")
+  },
+
+  //跳转到修改资料页
+  alterUserInfo: function () {
+    wx.navigateTo({
+      url: '/pages/alterUserInfo/alterUserInfo',
+    })
+  },
+
+  //根据店铺id获取店铺名字
+  shopGetShopName: function () {
+    var param = {
+      id: getApp().globalData.userInfo.shop_id
+    }
+    util.shopGetShopName(param, function (res) {
+      if (res.data.result) {
+        var shopName = res.data.ret.name
+        vm.setData({ shopName: shopName })
+        console.log("员工店铺名字" + JSON.stringify(shopName))
+
+      }
+    })
   },
 
   //获取缓存中用户信息

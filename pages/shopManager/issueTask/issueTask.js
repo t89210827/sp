@@ -46,6 +46,19 @@ Page({
     vm.shopManagerSurplusTask()   //店长获取本月剩余任务
   },
 
+
+  //修改该员工任务
+  alterShopTask: function (e) {
+    var index = e.currentTarget.dataset.index        //员工索引
+    var task = vm.data.staffList[index].daily_paper             //员工任务
+    vm.setData({ task: task })
+    console.log("修改该员工任务:" + JSON.stringify(task))
+    wx.navigateTo({
+      url: '/pages/shopManager/alterStaffTask/alterStaffTask',
+    })
+  },
+
+  //店长获取本月剩余任务
   shopManagerSurplusTask: function () {
     var param = {
       shop_id: getApp().globalData.userInfo.shop_id,
@@ -207,12 +220,9 @@ Page({
     console.log("inputOne:" + JSON.stringify(e))
     var productIndex = e.target.dataset.productindex
     var staffIndex = e.target.dataset.staffindex    //员工索引
-
     // var productid = e.target.dataset.productid      //产品id
     var value = e.detail.value                      //目标金额
-
     var staffList = vm.data.staffList               //员工列表
-
     staffList[staffIndex].product[productIndex].value = value
     vm.setData({ staffList: staffList })
     // console.log("333" + JSON.stringify(staffList[staffIndex].product))

@@ -59,6 +59,13 @@ Page({
     })
   },
 
+  //跳转到产看竞品日报页面
+  lookBoutiqueDetail: function () {
+    wx.navigateTo({
+      url: '/pages/shopManager/lookboutiqueDetail/lookboutiqueDetail',
+    })
+  },
+
   //返回上一层
   back: function () {
     wx.navigateBack({

@@ -1,7 +1,7 @@
 <!--pages/shopManager/index/index.wxml-->
 <cover-view class='title-top-index zan-font-16' style='color:#fff'>
   <cover-view style='width:750rpx; height:120rpx;'>
-    <cover-view class='zan-col zan-col-24' style='line-height:172rpx;text-align:center;'>店长首页</cover-view>
+    <cover-view class='zan-col zan-col-24' style='line-height:172rpx;text-align:center;'>{{shopName}}</cover-view>
   </cover-view>
 </cover-view>
 
@@ -16,8 +16,8 @@
   </view>
 
   <view style='height:150rpx;'></view>
-  <image src='{{userInfo.avatar}}' style='width:120rpx;height:120rpx;border-radius: 50%;'></image>
-  <view class='zan-font-14' style='color:#fff;'>{{userInfo.name}}</view>
+  <image bindtap='alterUserInfo' src='{{userInfo.avatar}}' style='width:120rpx;height:120rpx;border-radius: 50%;'></image>
+  <view bindtap='alterUserInfo' class='zan-font-14' style='color:#fff;'>{{userInfo.name}}</view>
   <view class='zan-font-14' style='color:#fff;margin-bottom:10rpx;'>距离完成任务还剩{{shopManagerMonthTaskAmount.surplusMoney}}元</view>
   <view style='margin:0 50rpx;'>
     <wxc-progress percent="{{100-shopManagerMonthTaskAmount.finishPercentage}}" activeColor='#ff6f30,#fda92f' stroke-width='20'></wxc-progress>

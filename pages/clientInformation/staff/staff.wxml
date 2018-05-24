@@ -45,11 +45,25 @@
     </view>
   </view>
 
-  <view class='zan-col zan-col-6'>
+  <!-- <view class='zan-col zan-col-6'>
     <view class='center-style'>
       <text style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>已购买</text>
     </view>
+  </view> -->
+
+
+
+
+  <view class='zan-col zan-col-6'>
+    <view class='center-style'>
+      <text wx:if="{{isbuy === ''}}" style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>全部</text>
+      <text wx:elif="{{isbuy === 0}}" style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>已购买</text>
+      <text wx:else style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>未购买</text>
+    </view>
   </view>
+
+
+
 </view>
 
 <view class="popup-example--left zan-popup zan-popup--left {{ showLeftPopup ? 'zan-popup--show' : ''}}">

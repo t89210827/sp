@@ -1,0 +1,8 @@
+/* pages/alterUserInfo/alterUserInfo.wxss */
+.intro-content {
+  height: 260rpx;
+  border-radius: 8px;
+  border: #dcdcdc 1rpx solid;
+  font-size: 30rpx;
+  color: #b4b4b4;
+}

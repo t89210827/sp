@@ -1,0 +1,90 @@
+<!--pages/selectShop/selectShop.wxml-->
+<view class='top'>
+  <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
+</view>
+
+<view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
+  <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../images/back.png"></image>
+</view>
+
+<view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>店铺</view>
+</view>
+
+<view style='height:140rpx;'></view>
+
+<view style='width:750rpx;'>
+
+  <wxc-tab bind:tabchange="onClick" default-index="{{0}}" active-text-color="#108ee9" active-line-color="#108ee9" component-id="c1" animate="{{true}}">
+    <wxc-tab-panel wx:for="{{tabs}}" wx:for-item="tab" wx:key="{{tab.content}}" tab-index="{{index}}" component-id="c1" label="{{tab.title}}">
+
+      <block wx:if="{{index == 0}}">
+        <block wx:for="{{brandShops}}">
+
+          <view style='width:750rpx;'>
+            <view style='width:94%;margin:30rpx 3%;'>
+              <view style='padding:10rpx 20rpx;'>
+                <view class=" zan-font-16" style='line-height:30rpx;width:100%;height:20rpx;' bindtap='targetSwitch' id="{{index}}">
+                  <view class='zan-col zan-col-19 line-text'>{{item.name}}</view>
+                  <block wx:if="{{item.check == false}}">
+                    <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>展开</view>
+                    <view class='zan-col zan-col-2'>
+                      <image src='../../images/right.png' style='margin-top:5rpx;float:right;width:20rpx;height:20rpx;'></image>
+                    </view>
+                  </block>
+                  <block wx:if="{{item.check == true}}">
+                    <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>收起</view>
+                    <view class='zan-col zan-col-2'>
+                      <image src='../../images/bottom.png' style='float:right;width:20rpx;height:20rpx;'></image>
+                    </view>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <block wx:if="{{item.check == true}}">
+            <view class="weui-cells weui-cells_after-title">
+              <checkbox-group bindchange="checkboxChange" id="{{index}}">
+                <label class="weui-cell weui-check__label" wx:for="{{item.arr}}" wx:key="value">
+                  <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+
+                  <view class="weui-cell__hd weui-check__hd_in-checkbox">
+                    <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+                    <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+                  </view>
+                  <view class="weui-cell__bd">{{item.name}}</view>
+                </label>
+              </checkbox-group>
+            </view>
+          </block>
+
+        </block>
+        <view style='height:100rpx;'></view>
+
+        <view class='bottom-affirm'>
+          <view style='width:750rpx;height:90rpx;background-color:#5A94FF;text-align:center;line-height:90rpx;color:#fff;' class='zan-font-16' bindtap='selectShops'>确认我的店铺</view>
+        </view>
+
+      </block>
+
+
+      <block wx:if="{{index == 1}}">
+        <block wx:for="{{shops}}">
+
+          <view style='width:750rpx;'>
+            <view style='width:94%;margin:20rpx 6%;'>
+              <view class='zan-font-16'>{{item.name}}</view>
+            </view>
+          </view>
+          <view style='height:2rpx;background-color:#ececec;'></view>
+        </block>
+
+      </block>
+
+    </wxc-tab-panel>
+  </wxc-tab>
+
+</view>
+
+<wxc-toast is-show="{{toast.show}}" text="修改店铺成功" icon="yes" icon-color="#ff5777"></wxc-toast>

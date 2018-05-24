@@ -162,7 +162,7 @@
       <view class='zan-row' style='line-height:120rpx;border-bottom:1rpx solid #ececec;height:120rpx;'>
         <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style=''>总件数(自动)：</view>
         <view class='zan-c-gray-dark zan-font-16 zan-col zan-col-13' style='text-align:right;'>
-          {{daily.tel_num}}
+          {{daily.total_num}}
         </view>
       </view>
     </view>

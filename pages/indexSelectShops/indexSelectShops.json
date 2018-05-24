@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "wxc-progress": "../../../dist/packages/@minui/wxc-progress/dist/index",
+    "wxc-tab": "../../../dist/packages/@minui/wxc-tab/dist/index",
+    "wxc-tab-panel": "../../../dist/packages/@minui//wxc-tab/dist/panel"
+  }
+}

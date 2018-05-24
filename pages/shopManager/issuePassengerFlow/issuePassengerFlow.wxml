@@ -28,4 +28,4 @@
 </view>
 
 
-<wxc-toast is-show="{{toast.show}}" text="{{passenger_flow.length == 0?'提交成功':'修改成功'}}" icon="yes" icon-color="#ff5777"></wxc-toast>
+<wxc-toast is-show="{{toast.show}}" text="发布成功" icon="yes" icon-color="#ff5777"></wxc-toast>

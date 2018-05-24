@@ -1,0 +1,32 @@
+<!--pages/alterUserInfo/alterUserInfo.wxml-->
+<view class='top'>
+  <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
+</view>
+
+<view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
+  <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../images/back.png"></image>
+</view>
+
+<view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>修改</view>
+</view>
+
+<view style='height:140rpx;'></view>
+<view style='height:100rpx;'></view>
+
+<view class='center-style'>
+  <image src='{{userInfo.avatar}}' style='width:300rpx;height:300rpx;'></image>
+</view>
+
+<view style='height:100rpx;'></view>
+<button style='height:80rpx;line-height:80rpx;background-color:#4aa5fe;width:60%;border-radius:20rpx;color:#fff;' bindtap='alterAvatar'>修改头像</button>
+<view style='height:50rpx;'></view>
+
+<view class='center-style zan-font-16' style='border: 2rpx #ececec solid; border-radius: 20rpx;margin:50rpx 100rpx;'>
+  <input value="{{userInfo.name}}" placeholder="请输入姓名" bindinput="inputName" style='width:400rpx;height:100rpx;text-align:center;'></input>
+</view>
+
+
+<view style='height:20rpx;'></view>
+<button style='height:80rpx;line-height:80rpx;background-color:#4aa5fe;width:88%;border-radius:20rpx;color:#fff;' bindtap='updateById'>提交</button>
+<view style='height:50rpx;'></view>

@@ -1,0 +1,103 @@
+<!--pages/shopManager/lookboutiqueDetail/lookboutiqueDetail.wxml-->
+<view class='top'>
+  <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
+</view>
+
+<view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
+  <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../../images/back.png"></image>
+</view>
+
+<view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>查看竞品日报</view>
+</view>
+
+<view style='height:140rpx;'></view>
+
+<view style='height:80rpx;background-color:#ececec;'>
+
+  <view class='zan-col zan-col-12 zan-font-14 center-style' style='line-height:80rpx;'>
+    时间
+  </view>
+  <view class='zan-col zan-col-12 zan-font-14 center-style' style='line-height:80rpx;'>
+    <picker mode="date" value="{{stmt_date}}" start="2018-01-01" end="2020-01-01" bindchange="selectDate">
+      <view class="zan-font-14 zan-c-gray-darker" style='line-height:80rpx;'>{{stmt_date}}</view>
+    </picker>
+  </view>
+</view>
+
+<!-- <view style='width:750rpx;'>
+  <view style='width:94%;margin:20rpx 3%;'>
+    <view style='padding:10rpx 20rpx;'>
+      <view class=" zan-font-16" style='line-height:30rpx;width:100%;height:20rpx;' bindtap='targetSwitch'>
+        <view class='zan-col zan-col-19 line-text'>竞品业绩</view>
+        <block wx:if="{{target == false}}">
+          <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>展开</view>
+          <view class='zan-col zan-col-2'>
+            <image src='../../images/right.png' style='margin-top:5rpx;float:right;width:20rpx;height:20rpx;'></image>
+          </view>
+        </block>
+        <block wx:if="{{target == true}}">
+          <view class='zan-col zan-col-3 zan-font-12 zan-c-gray-dark' style='text-align:right;'>收起</view>
+          <view class='zan-col zan-col-2'>
+            <image src='../../images/bottom.png' style='float:right;width:20rpx;height:20rpx;'></image>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view> -->
+
+<block wx:if="{{boutique.length == 0}}">
+  <wxc-abnor type="ORDER" title="该日期没有提交竞品日报"></wxc-abnor>
+</block>
+
+<block wx:for="{{boutique}}">
+
+  <view style='width:750rpx;'>
+    <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>品牌</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <!-- <view wx:if="{{item.custom == 0}}" class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{item.boutique.boutique_name}}</view> -->
+              <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{item.boutique_id}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>业绩</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+                <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{item.performance}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view style='margin:0 3%;'>
+        <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;'>
+
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>活动</view>
+          <view class='zan-col zan-col-13'>
+
+            <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+              <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{item.activity}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+
+</block>

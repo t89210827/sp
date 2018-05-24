@@ -95,6 +95,11 @@
               </block>
             </block>
 
+            <view class='center-style'>
+              <view bindtap="alterShopTask" id="{{item.id}}" data-index="{{index}}" class="abnor__btn">修改该店铺任务</view>
+            </view>
+            <view style='height:20rpx;'></view>
+
           </block>
         </block>
 

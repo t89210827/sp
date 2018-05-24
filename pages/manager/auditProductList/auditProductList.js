@@ -45,7 +45,7 @@ Page(extend({}, Actionsheet, Tab, {
     this.setData({
       stmt_date: e.detail.value
     })
-    // vm.dailyList()         //店长查看日报列表(对应原型审核日报) 
+    vm.getUnauditedShopManagerDailyPaper()  //店长查看日报列表(对应原型审核日报)
   },
 
   // 主管查看未审核店长日报
@@ -53,7 +53,7 @@ Page(extend({}, Actionsheet, Tab, {
     var param = {
       // user_id: getApp().globalData.userInfo.id,
       shop_id: getApp().globalData.userInfo.shop_id,
-      stmt_date: util.getToday()
+      stmt_date: vm.data.stmt_date
     }
     util.getUnauditedShopManagerDailyPaper(param, function (res) {
       if (res.data.result) {

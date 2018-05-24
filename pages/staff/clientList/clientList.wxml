@@ -94,7 +94,11 @@
               <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index}}</view>
               <view class='zan-col zan-col-3'>
                 <view class='center-style' style='height:100rpx;'>
-                  <image src='{{item.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
+
+                  <block wx:if="{{item.avatar != null}}">
+                    <image src='{{item.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
+                  </block>
+
                 </view>
               </view>
               <view class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>{{item.name}}</view>
@@ -113,5 +117,5 @@
 <view bindtap='backIndex' style='position:fixed;bottom:145px;right:10px;z-index:99;'>
   <image src='../../../images/enterprise.png' style='width:48px;height:48px;'></image>
 </view>
-
+`
 <wxc-toast is-show="{{toast.show}}" text="{{showToastText}}" icon="yes" icon-color="#ff5777"></wxc-toast>

@@ -1,7 +1,7 @@
 <!--pages/staff/staff.wxml-->
 <cover-view class='title-top-index zan-font-16' style='color:#fff'>
   <cover-view style='width:750rpx; height:120rpx;'>
-    <cover-view class='zan-col zan-col-24' style='line-height:172rpx;text-align:center;'>店员首页</cover-view>
+    <cover-view class='zan-col zan-col-24' style='line-height:172rpx;text-align:center;'>{{shopName}}</cover-view>
   </cover-view>
 </cover-view>
 
@@ -29,8 +29,8 @@
   </view> -->
 
   <view style='height:150rpx;'></view>
-  <image src='{{userInfo.avatar}}' style='width:120rpx;height:120rpx;  border-radius: 50%;'></image>
-  <view class='zan-font-14' style='color:#fff;'>{{userInfo.name}}</view>
+  <image bindtap='alterUserInfo' src='{{userInfo.avatar}}' style='width:120rpx;height:120rpx;  border-radius: 50%;'></image>
+  <view class='zan-font-14' bindtap='alterUserInfo' style='color:#fff;'>{{userInfo.name}}</view>
 
   <view class='zan-font-14' style='color:#fff;margin-bottom:10rpx;'>{{task}}</view>
 

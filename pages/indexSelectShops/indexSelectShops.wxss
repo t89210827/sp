@@ -1,0 +1,22 @@
+/* pages/indexSelectShops/indexSelectShops.wxss */
+
+.title-top-index {
+  position: fixed;
+  top: 60rpx;
+  left: 340rpx;
+  overflow: hidden;
+  z-index: 810;
+  color: #fff;
+  letter-spacing: 2rpx;
+}
+
+.is_checked {
+  /* margin: 20rpx 25rpx; */
+  color: blue;
+}
+
+.bottom-affirm {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0rpx;
+}

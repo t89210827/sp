@@ -480,7 +480,27 @@ function getManagerIndexData(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/manager/getManagerIndexData', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/manager/getManagerIndexData
+//主管更新店铺信息
+function managerUpdateShop(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/managerUpdateShop', param, "POST", successCallback, errorCallback)
+}
+
+//根据店铺id获取店铺名字
+function shopGetShopName(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shop/getShopName', param, "GET", successCallback, errorCallback)
+}
+
+//店长根据日期段查看自己提交的竞品日报
+function shopManager_getBoutiqueByDate(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/shopManager/getBoutiqueByDate', param, "GET", successCallback, errorCallback)
+}
+
+//根据时间和店长id审核竞品日报
+function managerReviewBoutiqueDailyByTimeAndShopManager(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/managerReviewBoutiqueDailyByTimeAndShopManager', param, "POST", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/manager/managerReviewBoutiqueDailyByTimeAndShopManager
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -1264,6 +1284,10 @@ module.exports = {
   getBrandList: getBrandList,             //获取所有的生效品牌信息
   getShopManagerMonthTaskAmount: getShopManagerMonthTaskAmount,   //店长本月剩余任务额
   getBoutiqueDailyDetails: getBoutiqueDailyDetails,   //根据时间和用户获取竞品的日报详情
-  getDailyPaperDetails: getDailyPaperDetails,     //根据时间和和用户查看产品日报详情
+  getDailyPaperDetails: getDailyPaperDetails,   //根据时间和和用户查看产品日报详情
   getManagerIndexData: getManagerIndexData,     //主管首页数据
+  managerUpdateShop: managerUpdateShop,         //主管更新店铺信息
+  shopGetShopName: shopGetShopName,             //根据店铺id获取店铺名字
+  shopManager_getBoutiqueByDate: shopManager_getBoutiqueByDate, //店长根据日期段查看自己提交的竞品日报
+  managerReviewBoutiqueDailyByTimeAndShopManager: managerReviewBoutiqueDailyByTimeAndShopManager, //根据时间和店长id审核竞品日报
 }

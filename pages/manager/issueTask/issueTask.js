@@ -39,6 +39,17 @@ Page({
     vm.managerObtainTask()      //主管查看发布本月任务
   },
 
+  //修改该店铺任务
+  alterShopTask: function (e) {
+    var index = e.currentTarget.dataset.index        //员工索引
+    var task = vm.data.shops[index].task                  //店铺信息
+    vm.setData({ task: task })
+    // console.log("店铺id:" + JSON.stringify(shop))
+    wx.navigateTo({
+      url: '/pages/manager/alterShopTask/alterShopTask',
+    })
+  },
+
   //主管查看发布本月任务
   managerObtainTask: function () {
     var param = {
@@ -159,7 +170,7 @@ Page({
           "stmt_date": util.getMonth(),
           "product_id": "1",
           "product_request": shop.no_yellowTask,
-          "product_finish": shop.no_yellowTask
+          // "product_finish": shop.no_yellowTask
         },
         {
           "user_id": getApp().globalData.userInfo.id,
@@ -167,7 +178,7 @@ Page({
           "stmt_date": util.getMonth(),
           "product_id": "2",
           "product_request": shop.yellowTask,
-          "product_finish": shop.yellowTask
+          // "product_finish": shop.yellowTask
         },
         {
           "user_id": getApp().globalData.userInfo.id,
@@ -175,7 +186,7 @@ Page({
           "stmt_date": util.getMonth(),
           "product_id": "3",
           "product_request": 0,
-          "product_finish": 0
+          // "product_finish": 0
         },
       ]
     }

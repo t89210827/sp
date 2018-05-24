@@ -142,6 +142,10 @@
                 </view>
               </block>
             </block>
+            <view class='center-style' style='background-color:#efefef;'>
+              <view bindtap="alterShopTask" id="{{item.id}}" data-index="{{index}}" class="abnor__btn">修改该员工任务</view>
+            </view>
+            <view style='height:20rpx;'></view>
           </block>
 
           <block wx:if="{{item.daily_paper.length == 0}}">
@@ -154,18 +158,15 @@
                     <input class='zan-font-14 ' placeholder-style="text-align:right;background-color:#fff;border-radius:20rpx;height:80rpx;line-height:80rpx;" placeholder="请输入金额" bindinput='inputOne' data-productIndex='{{productIndex}}' data-staffIndex='{{index}}' data-productid='{{item.id}}'
                       style='height:80rpx;line-height:80rpx;text-align:right;border-radius:20rpx;margin-top:20rpx;background-color:#fff;padding-right:20rpx;'></input>
                   </view>
-                  <!-- <view class='zan-col zan-col-8 center-style' style='height:120rpx;'>
-                  <view>40000</view>
-                </view> -->
                 </view>
               </view>
             </block>
+            <view class='center-style' style='background-color:#efefef;'>
+              <view bindtap="confirm" id="{{item.id}}" data-index="{{index}}" class="abnor__btn">确认该员工任务</view>
+            </view>
+            <view style='height:20rpx;'></view>
           </block>
 
-          <view wx:if="{{item.daily_paper.length == 0}}" class='center-style' style='background-color:#efefef;'>
-            <view bindtap="confirm" id="{{item.id}}" data-index="{{index}}" class="abnor__btn">确认该员工任务</view>
-          </view>
-          <view style='height:20rpx;'></view>
         </block>
 
         <!-- </view> -->
@@ -178,6 +179,5 @@
 <!-- <view class='bottom-addDeal'>
   <view class='zan-font-16' style='color:#fff;line-height:90rpx;text-align:center;' bindtap='jumpAddDeal'>确认</view>
 </view> -->
-
 
 <wxc-toast is-show="{{toast.show}}" text="发布成功" icon="yes" icon-color="#ff5777"></wxc-toast>

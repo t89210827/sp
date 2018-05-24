@@ -17,12 +17,17 @@ Page({
 
   onLoad: function (options) {
     vm = this
+    var start_time = util.changeDate(-7)
+    var end_time = util.changeDate(1)
+    vm.setData({ start_time: start_time, end_time: end_time })
     vm.getShopRanking()
   },
   // 主管查看店铺排名：非黄珀业绩+大额订单的业绩 / 非黄珀任务额（按月算，倒叙）（业绩保留两位小数）
   getShopRanking: function () {
     var param = {
       shop_id: getApp().globalData.userInfo.shop_id,
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time,
     }
     util.getShopRanking(param, function (res) {
       if (res.data.result) {
@@ -34,20 +39,19 @@ Page({
     })
   },
 
-  //主管下的店铺列表
-  getShop: function () {
-    var param = {
-      manager_id: getApp().globalData.userInfo.id,
-      page: 1,
-    }
-    util.getShop(param, function (res) {
-      if (res.data.result) {
-        var shops = res.data.ret.shop.data
-        vm.setData({
-          shops: shops,
-        })
-      }
+  //开始时间
+  bindBeginDate: function (e) {
+    this.setData({
+      start_time: e.detail.value
     })
+    vm.getShopRanking()
+  },
+  //结束时间
+  bindEndDate: function (e) {
+    this.setData({
+      end_time: e.detail.value
+    })
+    vm.getShopRanking()
   },
 
   //返回上一层

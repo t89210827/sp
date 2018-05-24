@@ -36,54 +36,60 @@ Page(extend({}, Actionsheet, Tab, {
   },
   onLoad: function (options) {
     vm = this
-    var staffid = options.staffid  //员工id
-    vm.setData({ staffid: staffid })
-    vm.getClientByUserId()      //获取所有顾客信息
+    var audit_id = options.staffid  //员工id
+
+    var start_time = util.changeDate(-7)
+    var end_time = util.changeDate(1)
+    vm.setData({ start_time: start_time, end_time: end_time, audit_id: audit_id })
+    console.log("结束时间" + end_time)
+    vm.getBelongClientByAuditId()              //获取隶属于该员工的客户信息
+    // vm.setData({ staffid: staffid })
+    // vm.getBelongClientByAuditId()      //获取所有顾客信息
   },
 
-  search: function () {
-
+  //获取隶属于自己的客户信息
+  getBelongClientByAuditId: function () {
+    var param = {
+      audit_id: vm.data.audit_id,
+      client_tel: vm.data.inputVal,
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time,
+      isbuy: vm.data.isbuy
+    }
+    util.getBelongClientByAuditId(param, function (res) {
+      if (res.data.result) {
+        var clientList = res.data.ret.data
+        for (var i = 0; i < clientList.length; i++) {
+          clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)
+        }
+        vm.setData({ clientList: clientList })
+        console.log("获取隶属于自己的客户信息" + JSON.stringify(clientList))
+      }
+    })
   },
 
   //根据员工id获取客户信息
-  getClientByUserId: function () {
-    var param = {
-      audit_id: vm.data.staffid,
-      page: 1,
-    }
-    util.getClientByUserId(param, function (res) {
-      console.log("客户信息" + JSON.stringify(res))
-      var clientList = res.data.ret.data
-      for (var i = 0; i < clientList.length; i++) {
-        clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)
-      }
-      vm.setData({ clientList: clientList })
-    })
-  },
-
-  //获取所有顾客信息
-  // getClient: function () {
+  // getClientByUserId: function () {
   //   var param = {
-  //     page: 1
+  //     audit_id: vm.data.staffid,
+  //     page: 1,
   //   }
-  //   util.getClient(param, function (res) {
-  //     if (res.data.result == true) {
-  //       var clientList = res.data.ret.data
-  //       for (var i = 0; i < clientList.length; i++) {
-  //         clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)
-  //       }
-  //       vm.setData({ clientList: clientList })
+  //   util.getClientByUserId(param, function (res) {
+  //     console.log("客户信息" + JSON.stringify(res))
+  //     var clientList = res.data.ret.data
+  //     for (var i = 0; i < clientList.length; i++) {
+  //       clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)
   //     }
+  //     vm.setData({ clientList: clientList })
   //   })
   // },
 
-
-  //跳转到客户详情页
-  jumpClientDetail: function () {
-    wx.navigateTo({
-      url: '/pages/clientDetail/clientDetail',
-    })
-  },
+  // //跳转到客户详情页
+  // jumpClientDetail: function () {
+  //   wx.navigateTo({
+  //     url: '/pages/clientDetail/clientDetail',
+  //   })
+  // },
 
   //入职时间
   bindDateChange: function (e) {

@@ -16,7 +16,7 @@ Page({
   addShopManagerDailyPaper: function () {
     wx.showModal({
       title: '确认',
-      content: '确定提交产品日报吗？',
+      content: '如果数据不正确,可能是还未审核过某员工日报哦。',
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')

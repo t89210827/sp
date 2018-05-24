@@ -1,9 +1,11 @@
 {
   "pages": [
     "pages/start/start",
-    "pages/staff/staff",
-    "pages/index/index",
     "pages/manager/index/index",
+    "pages/alterUserInfo/alterUserInfo",
+    "pages/index/index",
+    "pages/selectShop/selectShop",
+    "pages/staff/staff",
     "pages/shopManager/index/index",
     "pages/daily/staff/staff",
     "pages/staff/clientList/clientList",
@@ -45,7 +47,11 @@
     "pages/manager/clientList/clientList",
     "pages/manager/staffClientList/staffClientList",
     "pages/manager/auditProductDetail/auditProductDetail",
-    "pages/staff/alterClient/alterClient"
+    "pages/staff/alterClient/alterClient",
+    "pages/indexSelectShops/indexSelectShops",
+    "pages/manager/alterShopTask/alterShopTask",
+    "pages/shopManager/lookboutiqueDetail/lookboutiqueDetail",
+    "pages/shopManager/alterStaffTask/alterStaffTask"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -6,9 +6,8 @@ Page({
   data: {
     boutiqueList: [],             //固定四个竞品表单
     customBoutique: [],           //自定义表单
-
-    fixedly: false,             //固定业绩开关
-    // custom: false,              //自定义业绩开关
+    fixedly: false,               //固定业绩开关
+    // custom: false,             //自定义业绩开关
   },
 
   onLoad: function (options) {
@@ -48,7 +47,6 @@ Page({
     var customBoutique = vm.data.customBoutique
     var value = e.detail.value
     customBoutique[index].boutique_id = value
-
     console.log("---" + JSON.stringify(customBoutique))
     vm.setData({ customBoutique: customBoutique })
   },
@@ -59,7 +57,6 @@ Page({
     var customBoutique = vm.data.customBoutique
     var value = e.detail.value
     customBoutique[index].performance = value
-
     console.log("---" + JSON.stringify(customBoutique))
     vm.setData({ customBoutique: customBoutique })
   },
@@ -108,11 +105,12 @@ Page({
 
   //提交竞品日报
   boutique: function () {
-    var boutiqueList = vm.data.boutiqueList
-    var customBoutique = vm.data.customBoutique
+    var boutiqueList = vm.data.boutiqueList           //固定竞品业绩
+    var customBoutique = vm.data.customBoutique       //自定义竞品业绩
     var boutiqueParam = boutiqueList.concat(customBoutique)
     var param = {
-      boutiqueDaily: boutiqueParam
+      // boutiqueDaily: boutiqueParam
+      boutiqueDaily: customBoutique
     }
     util.addBoutique(param, function (res) {
       if (res.data.result) {

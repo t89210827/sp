@@ -21,6 +21,7 @@
   position: absolute;
   top: 160rpx;
   right: 35rpx;
+  color: #fff;
 }
 
 .deal {

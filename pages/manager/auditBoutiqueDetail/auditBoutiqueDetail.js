@@ -35,6 +35,24 @@ Page({
     })
   },
 
+  //根据时间和店长id审核竞品日报
+  managerReviewBoutiqueDailyByTimeAndShopManager: function (e) {
+    console.log("-------" + JSON.stringify(e))
+    var status = e.target.id
+    var param = {
+      stmt_date: vm.data.stmt_date,
+      status: status,
+      manager_id: getApp().globalData.userInfo.id,
+      shop_manager_id: vm.data.boutiqueDaily_id,      //店长日报id
+    }
+    util.managerReviewBoutiqueDailyByTimeAndShopManager(param, function (res) {
+      if (res.data.result) {
+        vm.back()
+        console.log("根据时间和店长id审核竞品日报" + JSON.stringify(res.data.ret))
+      }
+    })
+  },
+
   //审核竞品日报
   auditBoutiqueDaily: function (e) {
     var status = e.currentTarget.id

@@ -16,16 +16,21 @@
     </view>
   </view>
 
-  <view style='height:150rpx;'></view>
-  <image src='{{userInfo.avatar}}' style='width:120rpx;height:120rpx;border-radius: 50%;'></image>
-  <!-- <image src='http://dsyy.isart.me/tmp_67cb50620ad65192b67cfa9c33b54d02c3ef2849ea6a2620.jpg?imageView2/1/w/120/h/120/interlace/1' style='width:120rpx;height:120rpx;border-radius: 50%;'></image> -->
-  <view class='zan-font-14' style='color:#fff;'>{{userInfo.name}}</view>
-  <view style='height:50rpx;'></view>
-  <!-- <view class='zan-font-14' style='color:#fff;margin-bottom:10rpx;'>距离完成本月任务量还有520元</view>
 
-  <view style='margin:0 50rpx;'>
-    <wxc-progress percent="80" activeColor='#ff6f30,#fda92f' stroke-width='20'></wxc-progress>
-  </view> -->
+  <view class='zan-font-16 daily'>
+    <view style='width:200rpx;height:60rpx;text-align:left;' bindtap='jumpSelectShops'>
+      <view style='position: relative;width:200rpx;height:80rpx;margin:25rpx auto;'>
+        <image src='../../../images/button.png' style='opacity: 0.5;width:200rpx;height:70rpx;'></image>
+        <view style='position: absolute;top: 8rpx;left: 36rpx;'>我的店铺</view>
+      </view>
+    </view>
+  </view>
+
+
+  <view style='height:150rpx;'></view>
+  <image bindtap='alterUserInfo' src='{{userInfo.avatar}}' style='width:120rpx;height:120rpx;border-radius: 50%;'></image>
+  <view bindtap='alterUserInfo' class='zan-font-14' style='color:#fff;'>{{userInfo.name}}</view>
+  <view style='height:50rpx;'></view>
 
   <view class='zan-row zan-font-18' style='height:120rpx;color:#fff;'>
     <view class='zan-col zan-col-8 line-height' bindtap='jumpAudit'>
@@ -184,11 +189,9 @@
     </view>
   </block>
 
-  <!-- <view style='height:20rpx;'></view> -->
-
   <view wx:if="{{target == false}}" style='height:40rpx;'></view>
 
-  <view style='width:750rpx;'>
+  <!-- <view style='width:750rpx;'>
     <view style='width:94%;margin:20rpx 3%;'>
       <view style='padding:10rpx 20rpx;'>
         <view class=" zan-font-16" style='line-height:30rpx;width:100%;height:20rpx;' bindtap='targetSwitch'>
@@ -208,7 +211,7 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
 
   <block wx:if="{{target == true}}">
     <view style='width:750rpx;'>

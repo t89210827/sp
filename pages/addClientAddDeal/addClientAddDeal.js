@@ -346,10 +346,10 @@ Page({
     var deal = vm.data.dealData
     for (var i = 0; i < deal.length; i++) {
 
-      if (deal[i].product_name == "") {
-        util.showToast("货号不能为空")
-        return
-      }
+      // if (deal[i].product_name == "") {
+      //   util.showToast("货号不能为空")
+      //   return
+      // }
 
       if (deal[i].isbuy == 0) {
         if (deal[i].money == "") {

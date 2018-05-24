@@ -122,6 +122,7 @@ Page(Object.assign({}, Zan.Select, Zan.TopTips, {
     vm.setData({ statusType: statusType })
     console.log("身份类型：" + JSON.stringify(statusType))
   },
+
   //返回审核页面
   confirm: function () {
     if (vm.data.value === '') {

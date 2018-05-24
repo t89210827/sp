@@ -92,7 +92,7 @@ Page(extend({}, Actionsheet, Tab, {
     var end_time = e.detail.value
     // search.end_time = end_time
     vm.setData({
-      end_time: end_time4
+      end_time: end_time
     })
     vm.getBelongClientByUserId()       //搜索    
   },

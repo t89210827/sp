@@ -1,5 +1,4 @@
 // pages/clientInformation/staff/staff.js
-// pages/staff/clientList/clientList.js
 var vm = null
 var util = require('../../../utils/util.js')
 const { extend, Actionsheet, Tab } = require('../../../bower_components/zanui-weapp/dist/index');
@@ -42,15 +41,14 @@ Page(extend({}, Actionsheet, Tab, {
   },
   onLoad: function (options) {
     vm = this
-    var audit_id = options.audit_id         //员工id
-
+    var audit_id = options.audit_id                           //员工id
     var start_time = util.changeDate(-7)
     var end_time = util.changeDate(1)
     vm.setData({ start_time: start_time, end_time: end_time, audit_id: audit_id })
     console.log("结束时间" + end_time)
-    vm.getBelongClientByAuditId()   //获取隶属于该员工的客户信息
-    // vm.getClientByUserId()      //获取所有顾客信息
-    // vm.initSearchParam()        //初始化参数
+    vm.getBelongClientByAuditId()              //获取隶属于该员工的客户信息
+    // vm.getClientByUserId()                  //获取所有顾客信息
+    // vm.initSearchParam()                    //初始化参数
   },
 
   //获取隶属于自己的客户信息
@@ -64,7 +62,7 @@ Page(extend({}, Actionsheet, Tab, {
     }
     util.getBelongClientByAuditId(param, function (res) {
       if (res.data.result) {
-        var clientList = res.data.ret
+        var clientList = res.data.ret.data
         for (var i = 0; i < clientList.length; i++) {
           clientList[i].created_at = util.convertDateFormateM(clientList[i].created_at)
         }

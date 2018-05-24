@@ -52,7 +52,7 @@ Page(extend({}, Actionsheet, Tab, {
   getBoutiqueDaily: function () {
     var param = {
       manager_id: getApp().globalData.userInfo.id,
-      stmt_date: util.getToday()
+      stmt_date: vm.data.stmt_date
     }
     util.getBoutiqueDaily(param, function (res) {
       if (res.data.result) {

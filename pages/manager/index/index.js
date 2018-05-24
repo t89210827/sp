@@ -37,20 +37,26 @@ Page({
     vm.indexRefresh()     //首页刷新
   },
 
+  //跳转到修改资料页
+  alterUserInfo: function () {
+    wx.navigateTo({
+      url: '/pages/alterUserInfo/alterUserInfo',
+    })
+  },
+
   //首页数据初始化
   init: function () {
     vm.getUserInfo()    //用户数据
-    vm.getShop()        //主管下的店铺列表
     vm.getBrandList()   //全部品牌
+    vm.getShop()        //主管下的店铺列表        
   },
 
   //首页刷新
   indexRefresh: function () {
     vm.getUserInfo()    //用户数据    
-    vm.getManagerIndexBoutiqueDailyMessage()              //竞品信息   
     vm.getManagerIndexData()                              //主管首页数据
-    // vm.getManagerIndexKeyMessage()                     //主要信息
-    // vm.getManagerIndexMinorMessage()                   //次要信息
+    vm.getShop()        //主管下的店铺列表    
+    // vm.getManagerIndexBoutiqueDailyMessage()              //竞品信息   
   },
 
   //主管首页数据
@@ -117,7 +123,7 @@ Page({
       vm.setData({ brand_id: "" })
     } else {
       var brandList = vm.data.brandList
-      vm.setData({ brand_id: brandList[brandIndex - 1].id })
+      vm.setData({ brand_id: brandList[brandIndex].id })
     }
     vm.setData({
       brandIndex: brandIndex
@@ -142,14 +148,17 @@ Page({
   // 店铺选择
   shopNames: function (e) {
     var shopsIndex = e.detail.value
+
     vm.setData({
       shopsIndex: shopsIndex,
       audit_id: ""              //无论选择什么店铺  staff_id都置为空
     })
     if (shopsIndex != 0) {
       var shops = vm.data.shops
-      var shop_id = vm.data.shops[shopsIndex - 1].id
-      vm.setData({ shop_id: shop_id })
+      var shop_id = shops[shopsIndex].id
+      console.log("店铺选择" + JSON.stringify(shops[shopsIndex]))
+
+      vm.setData({ shop_id: shop_id, staffIndex: 0})
       vm.getAuditListByShopId()       // 根据shop_id获取员工列表
     } else {
       vm.setData({ NewstaffList: [], staffIndex: 0, shop_id: getApp().globalData.userInfo.shop_id })
@@ -212,8 +221,8 @@ Page({
       user_id: getApp().globalData.userInfo.id,
       // shop_id: getApp().globalData.userInfo.shop_id,
       shop_id: vm.data.shop_id,
-      start_time: vm.data.beginDate,
-      end_time: vm.data.endDate,
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time,
     }
     util.getManagerIndexBoutiqueDailyMessage(param, function (res) {
       if (res.data.result) {
@@ -299,13 +308,10 @@ Page({
       url: '/pages/ranking/shop/shop',
     })
   },
-  //跳转到添加客户页面
-  jumpAddClient: function () {
-    // wx.navigateTo({
-    //   url: '/pages/addClient/addClient',
-    // })
+  //跳转到我的店铺
+  jumpSelectShops: function () {
     wx.navigateTo({
-      url: '/pages/queryClient/queryClient',
+      url: '/pages/selectShop/selectShop',
     })
   },
   //跳转到店员客户信息页面

@@ -13,6 +13,11 @@ Page({
   onLoad: function (options) {
     vm = this
     var shop_id = options.shop_id
+
+    var start_time = util.changeDate(-7)
+    var end_time = util.changeDate(1)
+    vm.setData({ start_time: start_time, end_time: end_time })
+
     vm.setData({ shop_id: shop_id })
     vm.getAuditRanking()                     //本店员工排名
   },
@@ -21,14 +26,34 @@ Page({
   getAuditRanking: function () {
     var param = {
       shop_id: vm.data.shop_id,
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time,
     }
     util.getAuditRanking(param, function (res) {
       if (res.data.result) {
         var staffRanking = res.data.ret
+        console.log("员工排名" + JSON.stringify(staffRanking))
         vm.setData({ staffRanking: staffRanking })
       }
     })
   },
+
+
+  //开始时间
+  bindBeginDate: function (e) {
+    this.setData({
+      start_time: e.detail.value
+    })
+    vm.getAuditRanking()                     //本店员工排名    
+  },
+  //结束时间
+  bindEndDate: function (e) {
+    this.setData({
+      end_time: e.detail.value
+    })
+    vm.getAuditRanking()                     //本店员工排名
+  },
+
 
   //正序倒序
   clickSwitch: function () {

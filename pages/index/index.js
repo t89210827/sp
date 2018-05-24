@@ -20,7 +20,6 @@ Page({
   data: {
 
     brands: ["DW", "千叶", "中国黄金"],
-
     files: [],            //头像预览数组
     image: "",            //头像地址
 
@@ -32,8 +31,9 @@ Page({
     name: '',             //用户输入的名字
     phone: '',            //用户输入的电话
     date: "2016-09-01",   //入职时间
-    shop: "点击选择店铺",   //选中店铺
-    shop_id: '',         //选中店铺的id
+    shop: "点击选择店铺",  //选中店铺
+    shop_id: '',          //选中店铺的id
+    shopsName: [],        //选中的店铺名字
   },
 
   onLoad: function () {
@@ -69,13 +69,16 @@ Page({
   // 店铺选择
   bindShop: function (e) {
     // console.log('店铺选择 发生选择改变，携带值为', e.detail.value);
-    wx.navigateTo({
-      url: '/pages/shopList/shopList',
-    })
-
-    // this.setData({
-    //   shopIndex: e.detail.value
-    // })
+    var statusIndex = vm.data.statusIndex
+    if (statusIndex == 2) {
+      wx.navigateTo({
+        url: '/pages/indexSelectShops/indexSelectShops',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/shopList/shopList',
+      })
+    }
   },
   //入职时间
   bindDateChange: function (e) {
