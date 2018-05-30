@@ -163,12 +163,12 @@
       <view class='zan-col zan-col-13'>
 
         <view class='center-style' style='height:100rpx;align-items: center;float:right;'>
-          <wxc-counter number="0" max="{{20}}" min="0" bind:changenumber="onChangeNumber"></wxc-counter>
+          <wxc-counter number="1" max="{{20}}" min="1" bind:changenumber="onChangeNumber"></wxc-counter>
         </view>
       </view>
     </view>
     <view class=' zan-font-10' style='line-height:100rpx;'>--
-      <text style='color:red'>请先输入不同商品数量数量后再输入详细信息</text>
+      <text style='color:red'>选购数量超过2件以上，可安数量选择右侧+、-</text>
     </view>
   </view>
 </view>
@@ -191,7 +191,7 @@
           <view class='zan-col zan-col-13 '>
 
             <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
-              <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入货号" bindinput='inputName' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right; '></input>
+              <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入货号" bindinput='inputName' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right;' value='{{dealData[index].product_name}}'></input>
             </view>
           </view>
         </view>
@@ -239,7 +239,7 @@
             <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>购买金额</view>
             <view class='zan-col zan-col-13 '>
               <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
-                <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入购买金额" bindinput='inputMoney' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right;' type='number'></input>
+                <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入购买金额" bindinput='inputMoney' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right;' type='number' value='{{dealData[index].money}}'></input>
               </view>
             </view>
           </view>
@@ -251,7 +251,7 @@
             <view class='zan-col zan-col-13 '>
 
               <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
-                <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputNum' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right;' type='number'></input>
+                <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputNum' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right;' type='number' value='{{dealData[index].num}}'></input>
               </view>
             </view>
           </view>
@@ -277,7 +277,7 @@
             <view class='zan-col zan-col-13 '>
 
               <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
-                <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入定金金额" bindinput='inputIsearnestMoney' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right; '></input>
+                <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入定金金额" bindinput='inputIsearnestMoney' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right;' value='{{dealData[index].isearnest_money}}'></input>
               </view>
             </view>
           </view>
@@ -290,7 +290,7 @@
           <view class='zan-col zan-col-13 '>
 
             <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
-              <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入用途" bindinput='inputPurpose' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right; '></input>
+              <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入用途" bindinput='inputPurpose' data-productIndex='{{index}}' style='line-height:120rpx;text-align:right;' value='{{dealData[index].purpose}}'></input>
             </view>
           </view>
         </view>
@@ -315,7 +315,7 @@
 
             <picker mode="date" start="2000-01-01" end="2020-01-01" bindchange="bindDateChange" data-productIndex='{{index}}'>
               <view class='flex-row ' style='align-items: center;float:right; '>
-                <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx; '>{{dealData[index].purpose_time}}</view>
+                <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx;'>{{dealData[index].purpose_time}}</view>
                 <image src='../../images/right.png ' style='margin-left:10rpx;width:30rpx;height:30rpx; '></image>
               </view>
             </picker>
@@ -334,7 +334,7 @@
       <view style='margin:0 3%; '>
         <view style="position: relative;">
           <view class="intro-content">
-            <textarea style='padding:10rpx 20rpx;height:260rpx; ' name="intro" cursor-spacing="100" bindinput="textAreaEventListener" data-productIndex='{{index}}' maxlength='100 ' placeholder="" />
+            <textarea style='padding:10rpx 20rpx;height:260rpx;' name="intro" cursor-spacing="100" bindinput="textAreaEventListener" data-productIndex='{{index}}' maxlength='100' value='{{dealData[index].remark}}' />
           </view>
           <!-- <view class='zan-font-14' style="position: absolute; right: 10rpx; bottom: 0;">{{remark.length}} /100</view> -->
         </view>

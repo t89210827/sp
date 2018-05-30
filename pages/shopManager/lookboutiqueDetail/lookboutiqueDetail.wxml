@@ -101,3 +101,11 @@
   </view>
 
 </block>
+
+<view style='height:100rpx;'></view>
+
+<block wx:if="{{boutique.length != 0}}">
+  <view wx:if="{{boutique[0].status == 0}}" class='submit-daily'>待审核</view>
+  <view wx:if="{{boutique[0].status == 1}}" class='submit-daily'>审核通过</view>
+  <view wx:if="{{boutique[0].status == 2}}" class='submit-daily' bindtap='alterBoutique'>审核驳回(点击可以重新填写)</view>
+</block>

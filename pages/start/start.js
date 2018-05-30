@@ -41,12 +41,11 @@ Page({
   //点击获取用户信息接口返回信息
   getUserInfo: function (e) {
     if (e.detail.errMsg == "getUserInfo:ok") {
-      var userInfo = e.detail.userInfo
-      getApp().updateById(userInfo)
+      getApp().login()
     } else if (e.detail.errMsg == "getUserInfo:fail auth deny") {
       getApp().showModal()
     }
-    console.log("用户信息" + JSON.stringify(e))
+    // console.log("用户信息" + JSON.stringify(e))
   },
 
   getAuditByUserId: function () {

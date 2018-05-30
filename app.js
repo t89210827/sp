@@ -1,6 +1,7 @@
 //app.js
 const util = require('./utils/util.js')
 var vm = null
+var code = null
 App({
   onLaunch: function () {
     //获取vm
@@ -11,7 +12,10 @@ App({
     //如果没有缓存
     if (userInfo == null || userInfo == undefined || userInfo == "") {
       //调用登录接口
-      vm.getOpenid()
+      wx.redirectTo({
+        url: '/pages/start/start',
+      })
+      // vm.getOpenid()
       // vm.login(null);
     } else {
       vm.globalData.userInfo = wx.getStorageSync("userInfo");
@@ -28,7 +32,8 @@ App({
         util.getOpenId({ code: code }, function (ret) {
           if (ret.data.result) {
             var openId = ret.data.ret.openid
-            console.log('获取openId : ' + JSON.stringify(openId))            
+            // var unionid = ret.data.ret.unionid
+            // console.log('获取openId : ' + JSON.stringify(openId))
             vm.loginServer(openId)
           }
         })
@@ -36,19 +41,48 @@ App({
     })
   },
 
+
+  // getUnionId: function () {
+  //   wx.login({
+  //     success: function (res) {
+  //       var code = res.code
+  //       wx.getUserInfo({
+  //         success: function (res) {
+  //           var param = {
+  //             code: code,
+  //             encryptedData: res.encryptedData,
+  //             iv: res.iv
+  //           }
+  //           util.getUnionId(param, function (res) {
+  //             if (res.data.result) {
+  //               console.log("返回getUnionId" + JSON.stringify(res))
+  //               var openId = res.data.ret.openId
+  //               var unionId = res.data.ret.unionId
+
+  //             }
+  //           })
+  //         }
+  //       })
+  //     }
+  //   })
+  // },
+
+  // vm.getAuditByUserId()
+
   // loginServer 登陆
   loginServer: function (openId) {
     var param = {
       account_type: "xcx",
-      xcx_openid: openId
+      xcx_openid: openId,
+      // unionid: unionid
     }
     util.loginServer(param, function (res) {
       if (res.data.result) {
         var userInfo = res.data.ret
         vm.storeUserInfo(userInfo)
-        wx.redirectTo({
-          url: '/pages/start/start',
-        })
+        // wx.redirectTo({
+        //   url: '/pages/start/start',
+        // })
       }
     })
   },
@@ -69,15 +103,18 @@ App({
               console.log('getUserInfo res is : ' + JSON.stringify(res))
               var userInfo = res.userInfo;
               var getOpenIdParam = {
-                code: code
+                code: code,
+                encryptedData: res.encryptedData,
+                iv: res.iv
               }
               console.log('getOpenIdParam is : ' + JSON.stringify(getOpenIdParam))
               //获取用户uniond_id
-              util.getOpenId(getOpenIdParam, function (ret) {
+              util.getUnionId(getOpenIdParam, function (ret) {
                 console.log('getOpenId ret is : ' + JSON.stringify(ret))
                 var msgObj = ret.data.ret;
                 var param = {
-                  xcx_openid: msgObj.openid,
+                  xcx_openid: msgObj.openId,
+                  unionid: msgObj.unionId,
                   account_type: "xcx",
                   nick_name: userInfo.nickName,
                   avatar: userInfo.avatarUrl,
@@ -92,6 +129,7 @@ App({
                   //如果后台存在该用户数据，则代表已经注册，在本地建立缓存，下次无需二次登录校验
                   if (ret.data.code == "200" && ret.data.result == true) {
                     vm.storeUserInfo(ret.data.ret)
+                    vm.getAuditByUserId()   //根据user_id获取员工入职信息
                   } else {
                     //进行客户注册
                     util.showToast(ret.data.message);
@@ -101,7 +139,6 @@ App({
               }, function (err) {
                 console.log('getUnionId err is : ' + JSON.stringify(err))
               })
-
             },
             fail: function (res) {
               console.log('getUserInfo fail res is:' + JSON.stringify(res));
@@ -112,10 +149,12 @@ App({
       }
     })
   },
+
   //监听小程序打开
   onShow: function () {
 
   },
+
   //进行本地缓存
   storeUserInfo: function (obj) {
     console.log("storeUserInfo :" + JSON.stringify(obj));
@@ -154,6 +193,7 @@ App({
       }
     })
   },
+
   //设置页面
   openSetting: function () {
     wx.openSetting({
@@ -165,30 +205,12 @@ App({
         else {
           wx.getUserInfo({
             success: function (res) {
-              vm.updateById(res.userInfo)
-              // console.log("---------" + JSON.stringify(res))
+              // vm.getAuditByUserId()
+              vm.getUnionId()
             }
           })
           // vm.login();
         }
-      }
-    })
-  },
-
-  //更新用户信息接口
-  updateById: function (userInfo) {
-    var param = {
-      user_id: vm.globalData.userInfo.id,
-      nick_name: userInfo.nickName,
-      avatar: userInfo.avatarUrl,
-      gender: userInfo.gender,
-      province: userInfo.province,
-      city: userInfo.city
-    }
-    util.updateById(param, function (res) {
-      if (res.data.result) {
-        vm.storeUserInfo(res.data.ret)
-        vm.getAuditByUserId()
       }
     })
   },

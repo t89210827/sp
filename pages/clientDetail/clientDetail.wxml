@@ -64,10 +64,19 @@
         </view>
         <view class='zan-c-gray-dark zan-col zan-col-18 zan-font-16' style='line-height:120rpx;'>头像</view>
 
-        <view class='zan-col zan-col-3' bindtap='previewImage' style='margin-top:20rpx;'>
-          <!-- <image src='../../images/avatar.png' class='userInfo-image'></image> -->
-          <image src='{{clientDetail.avatar}}' class='userInfo-image'></image>
-        </view>
+        <block wx:if="{{clientDetail.avatar == null}}">
+          <view class='zan-col zan-col-3'>
+            <view class='flex-row' style='height:120rpx;line-height:120rpx;align-items: center;float:right;'>
+              <view class='zan-c-gray-darker zan-font-16'>无</view>
+            </view>
+          </view>
+        </block>
+
+        <block wx:if="{{clientDetail.avatar != null}}">
+          <view class='zan-col zan-col-3' bindtap='previewImage' style='margin-top:20rpx;'>
+            <image src='{{clientDetail.avatar}}' class='userInfo-image'></image>
+          </view>
+        </block>
 
       </view>
     </view>
@@ -97,7 +106,7 @@
         <view class='zan-col zan-col-13'>
 
           <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
-            <view class='zan-c-gray-darker zan-font-16'>{{clientDetail.age}}</view>
+            <view class='zan-c-gray-darker zan-font-16'>{{clientDetail.age == null?"无":"clientDetail.age"}}</view>
           </view>
 
         </view>
@@ -215,15 +224,15 @@
     <block wx:for="{{deals}}">
       <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;' bindtap='jumpDealDetail' id='{{index}}'>
         <view class='zan-row'>
-          <view class='zan-col zan-col-3 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index}}</view>
+          <view class='zan-col zan-col-3 zan-font-14' style="line-height:100rpx;text-align:center;{{item.isearnest == 0 ?'background-color:yellow':''}}">{{index + 1}}</view>
           <view class='zan-col zan-col-8'>
             <view class='center-style' style='height:100rpx;'>
               <!-- <image src='{{userInfo.avatarUrl}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image> -->
               <view class='zan-font-14'>{{item.product.name}}</view>
             </view>
           </view>
-          <view class='zan-col zan-col-6 zan-font-14 center-style' style='line-height:100rpx;'>{{item.product_name}}</view>
-          <view class='zan-col zan-col-5 zan-font-14 center-style' style='line-height:100rpx;'>{{item.money}}</view>
+          <view class='zan-col zan-col-6 zan-font-14 center-style' style='line-height:100rpx;'>{{item.product_name == null?'无':item.product_name}}</view>
+          <view class='zan-col zan-col-5 zan-font-14 center-style' style='line-height:100rpx;'>{{item.money == null?'无':item.money}}</view>
           <view class=' zan-col zan-col-1 zan-arrow '></view>
         </view>
       </view>

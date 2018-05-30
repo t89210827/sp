@@ -36,7 +36,14 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": -1,
+					"name": "添加交易",
+					"pathName": "pages/addClientAddDeal/addClientAddDeal",
+					"query": "tel=15812345678"
+				}
+			]
 		}
 	}
 }

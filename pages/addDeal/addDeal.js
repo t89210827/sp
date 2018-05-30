@@ -213,9 +213,9 @@ Page({
   budget: function (e) {
     var productindex = e.currentTarget.dataset.productindex
     var dealData = vm.data.dealData
-    var budget = ['0-5000', '5000-10000', '10000-15000', '15000-20000']
+    var budget = ['0-10000', '10000-20000', '20000-50000', '50000以上']
     wx.showActionSheet({
-      itemList: ['0-5000', '5000-10000', '10000-15000', '15000-20000'],
+      itemList: ['0-10000', '10000-20000', '20000-50000', '50000以上'],
       success: function (res) {
         if (!res.cancel) {
           console.log(res.tapIndex)

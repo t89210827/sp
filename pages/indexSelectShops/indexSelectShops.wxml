@@ -55,13 +55,16 @@
       </view>
     </block>
 
-    <!-- </block> 
-    <view style='height:100rpx;'></view> -->
+    <!-- </block>  -->
 
-    <view class='bottom-affirm'>
-      <view style='width:750rpx;height:90rpx;background-color:#5A94FF;text-align:center;line-height:90rpx;color:#fff;' class='zan-font-16' bindtap='selectShops'>确认我的店铺</view>
-    </view>
+
 
   </block>
 
+  <view style='height:100rpx;'></view>
+
+</view>
+
+<view class='bottom-affirm'>
+  <view style='width:750rpx;height:90rpx;background-color:#5A94FF;text-align:center;line-height:90rpx;color:#fff;' class='zan-font-16' bindtap='selectShops'>确认我的店铺</view>
 </view>

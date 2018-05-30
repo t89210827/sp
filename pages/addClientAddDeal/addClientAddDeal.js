@@ -22,8 +22,6 @@ Page({
     // isReservation: false,    //是否交定金
     // date: '2018-04-10',      //提醒时间
 
-
-
     clientName: '',          //顾客姓名
     image: '',               //头像
     city: '',                //城市
@@ -31,7 +29,7 @@ Page({
     birthDate: "2016-09-01", //生日
     day: "",                 //接待时间
 
-    num: 0,                  //产品数量
+    num: 1,                  //产品数量
     productList: [],         //所有产品数组
     dealData: [],            //提交交易参数
     // productType: "黄铂",  //产品类型默认值
@@ -67,7 +65,7 @@ Page({
     arr.push({
       "user_id": getApp().globalData.userInfo.id,
       "shop_id": getApp().globalData.userInfo.shop_id,
-      "client_id": vm.data.clientId,
+      "client_id": "",
       "product_id": id,
       "product_name": "",
       "budget": "0-5000",
@@ -96,7 +94,7 @@ Page({
       arr.push({
         "user_id": getApp().globalData.userInfo.id,
         "shop_id": getApp().globalData.userInfo.shop_id,
-        "client_id": vm.data.clientId,
+        "client_id": "",
         "product_id": vm.data.productList[0].id,
         "product_name": "",
         "budget": "0-5000",
@@ -126,7 +124,7 @@ Page({
       itemList.push(productList[i].name)
     }
     vm.setData({ itemList: itemList })
-    // vm.init(vm.data.productList[0].id)     //初始化参数 
+    vm.init(vm.data.productList[0].id)     //初始化参数 
   },
 
   //添加交易信息
@@ -185,9 +183,9 @@ Page({
   budget: function (e) {
     var productindex = e.currentTarget.dataset.productindex
     var dealData = vm.data.dealData
-    var budget = ['0-5000', '5000-10000', '10000-15000', '15000-20000']
+    var budget = ['0-10000', '10000-20000', '20000-50000', '50000以上']
     wx.showActionSheet({
-      itemList: ['0-5000', '5000-10000', '10000-15000', '15000-20000'],
+      itemList: ['0-10000', '10000-20000', '20000-50000', '50000以上'],
       success: function (res) {
         if (!res.cancel) {
           console.log(res.tapIndex)

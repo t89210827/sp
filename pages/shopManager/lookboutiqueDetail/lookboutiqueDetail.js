@@ -5,13 +5,20 @@ Page({
 
   data: {
     stmt_date: '',          //竞品时间
+    boutique: [],           //竞品日报列表
   },
 
   onLoad: function (options) {
     vm = this
     var stmt_date = util.getToday()
     vm.setData({ stmt_date: stmt_date })
-    vm.getBoutiqueByBetweenDate()          //店长根据日期段查看自己提交的竞品日报
+  },
+
+  //修改竞品日报
+  alterBoutique: function () {
+    wx.navigateTo({
+      url: '/pages/shopManager/alterBoutiqueDetail/alterBoutiqueDetail?stmt_date=' + vm.data.stmt_date,
+    })
   },
 
   //竞品日报时间
@@ -19,7 +26,7 @@ Page({
     this.setData({
       stmt_date: e.detail.value
     })
-    vm.getBoutiqueByBetweenDate()          //店长根据日期段查看自己提交的竞品日报    
+    vm.getBoutiqueByBetweenDate()          //店长根据日期段查看自己提交的竞品日报  
   },
 
   //店长根据日期段查看自己提交的竞品日报
@@ -51,7 +58,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    vm.getBoutiqueByBetweenDate()          //店长根据日期段查看自己提交的竞品日报
   },
 
   /**

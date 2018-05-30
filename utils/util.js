@@ -95,10 +95,8 @@ function register(param, successCallback, errorCallback) {
 
 //获取用户信息
 function getByIdWithToken(param, successCallback, errorCallback) {
-  wxRequest(SERVER_URL + '/api/user/getByIdWithToken', param, "GET", successCallback, errorCallback)
-
+  wxRequest(SERVER_URL + '/api/sp/user/getByIdWithToken', param, "GET", successCallback, errorCallback)
 }
-
 
 //首页提交申请接口
 function apply(param, successCallback, errorCallback) {
@@ -273,11 +271,6 @@ function getShopList(param, successCallback, errorCallback) {
 // 根据id获取用户信息（不带token）
 function getById(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/user/getById', param, "GET", successCallback, errorCallback)
-}
-
-// 根据id获取用户信息（带token）
-function getByIdWithToken(param, successCallback, errorCallback) {
-  wxRequest(SERVER_URL + '/api/sp/user/getByIdWithToken', param, "GET", successCallback, errorCallback)
 }
 
 // 店长获取本月任务
@@ -500,7 +493,22 @@ function managerReviewBoutiqueDailyByTimeAndShopManager(param, successCallback, 
   wxRequest(SERVER_URL + '/api/sp/manager/managerReviewBoutiqueDailyByTimeAndShopManager', param, "POST", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/manager/managerReviewBoutiqueDailyByTimeAndShopManager
+//根据code获取unionId
+function getUnionId(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/user/getUnionId', param, "GET", successCallback, errorCallback)
+}
+
+//根据时间段获取已购买的交易记录
+function getDealsByTime(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/getDealsByTime', param, "GET", successCallback, errorCallback)
+}
+
+//店员可以修改有定金的交易记录
+function updateDealById(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/audit/updateDealById', param, "POST", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/audit/updateDealById
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -1245,7 +1253,6 @@ module.exports = {
   getProductById: getProductById,           //根据产品id获取产品信息
   getShopList: getShopList,                 //获取所有生效的店铺信息
   getById: getById,                         //根据id获取用户信息（不带token）
-  getByIdWithToken: getByIdWithToken,       //根据id获取用户信息（带token）
   getShopManagerTask: getShopManagerTask,   //店长获取本月任务
   getAuditTask: getAuditTask,               //员工获取今日任务
   getAuditDailyPaper: getAuditDailyPaper,   //查看员工是否提交过日报
@@ -1290,4 +1297,7 @@ module.exports = {
   shopGetShopName: shopGetShopName,             //根据店铺id获取店铺名字
   shopManager_getBoutiqueByDate: shopManager_getBoutiqueByDate, //店长根据日期段查看自己提交的竞品日报
   managerReviewBoutiqueDailyByTimeAndShopManager: managerReviewBoutiqueDailyByTimeAndShopManager, //根据时间和店长id审核竞品日报
+  getUnionId: getUnionId,                       //根据code获取unionId
+  getDealsByTime: getDealsByTime,               //根据时间段获取已购买的交易记录
+  updateDealById: updateDealById,               //店员可以修改有定金的交易记录
 }

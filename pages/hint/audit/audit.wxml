@@ -5,8 +5,8 @@
 <view style='height:130rpx;'></view>
 <wxc-abnor type="FOLLOW" title="{{title}}" tip="{{tip}}" bind:abnortap="alter"></wxc-abnor>
 
-<!-- <view style='margin:0 100rpx;'>
-  <button class="zan-btn zan-btn--warn" bindtap='jumpStaffIndex'>进入店员首页</button>
-  <button class="zan-btn zan-btn--warn" bindtap='lookOrder'>进入店长首页</button>
-  <button class="zan-btn zan-btn--warn" bindtap='lookOrder'>进入主管首页</button>
-</view> -->
+<block wx:if="{{showButton}}">
+  <view style='margin:0 100rpx;'>
+    <button class="zan-btn zan-btn--warn" style='border-radius:50rpx;' bindtap='jumpIndex'>重新提交</button>
+  </view>
+</block>

@@ -1,11 +1,12 @@
-/* pages/dealDetail/dealDetail.wxss */
+/* pages/shopManager/alterBoutiqueDetail/alterBoutiqueDetail.wxss */
 
-.intro-content {
-  height: 260rpx;
-  border-radius: 8px;
-  border: #dcdcdc 1rpx solid;
-  font-size: 30rpx;
-  color: #b4b4b4;
+.bottom-addDeal {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0rpx;
+  width: 750rpx;
+  height: 90rpx;
+  background: #4aa5fe;
 }
 
 .submit-daily {

@@ -2,7 +2,6 @@
 var util = require('../../utils/util.js')
 var vm = null
 Page({
-
   data: {
     clientDetail: {},      //客户信息
     deals: [],             //交易信息

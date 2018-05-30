@@ -49,11 +49,11 @@
                   </view>
                 </view>
                 <view class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>{{item.name}}</view>
-                <view wx:if="{{item.dailyPaper_status == 0}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>已发任务</view>
+                <view wx:if="{{item.dailyPaper_status == 0}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>无</view>
                 <view wx:elif="{{item.dailyPaper_status == 1}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>待审核</view>
                 <view wx:elif="{{item.dailyPaper_status == 2}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>审核通过</view>
                 <view wx:elif="{{item.dailyPaper_status == 3}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>审核驳回</view>
-                <view wx:elif="{{item.dailyPaper_status == -1}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>未发任务</view>
+                <view wx:elif="{{item.dailyPaper_status == -1}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>未提交</view>
                 <!-- <view class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>{{item.daily_paper[0].created_at}}</view> -->
                 <view class='zan-col zan-col-1 zan-arrow '></view>
               </view>
@@ -77,7 +77,7 @@
                 <view wx:elif="{{item.dailyPaper_status == 1}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>待审核</view>
                 <view wx:elif="{{item.dailyPaper_status == 2}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>审核通过</view>
                 <view wx:elif="{{item.dailyPaper_status == 3}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>审核驳回</view>
-                <view wx:elif="{{item.dailyPaper_status == -1}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>未发任务</view>
+                <view wx:elif="{{item.dailyPaper_status == -1}}" class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>未提交</view>
                 <!-- <view class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>{{item.daily_paper[0].created_at}}</view> -->
                 <view class='zan-col zan-col-1 zan-arrow '></view>
               </view>

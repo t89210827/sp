@@ -24,8 +24,8 @@
         </view>
       </view>
     </view>
-    <view class=' zan-font-10' style='line-height:100rpx;'>--
-      <text style='color:red'>请先选择不同商品数量后再输入详细信息</text>
+    <view class=' zan-font-10' style='line-height:100rpx;'>
+      <text style='color:red'>(选购数量超过2件以上，可按数量选择右侧+、-)</text>
     </view>
   </view>
 </view>

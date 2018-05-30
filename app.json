@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/start/start",
+    "pages/shopManager/index/index",
+    "pages/staff/staff",
     "pages/manager/index/index",
     "pages/alterUserInfo/alterUserInfo",
     "pages/index/index",
     "pages/selectShop/selectShop",
-    "pages/staff/staff",
-    "pages/shopManager/index/index",
     "pages/daily/staff/staff",
     "pages/staff/clientList/clientList",
     "pages/hint/audit/audit",
@@ -51,7 +51,9 @@
     "pages/indexSelectShops/indexSelectShops",
     "pages/manager/alterShopTask/alterShopTask",
     "pages/shopManager/lookboutiqueDetail/lookboutiqueDetail",
-    "pages/shopManager/alterStaffTask/alterStaffTask"
+    "pages/shopManager/alterStaffTask/alterStaffTask",
+    "pages/shopManager/alterBoutiqueDetail/alterBoutiqueDetail",
+    "pages/staff/alterDeal/alterDeal"
   ],
   "window": {
     "backgroundTextStyle": "light",

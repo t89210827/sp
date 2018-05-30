@@ -37,7 +37,6 @@ Page(extend({}, Actionsheet, Tab, {
     vm = this
     var stmt_date = util.getToday()
     vm.setData({ stmt_date: stmt_date })
-    vm.getUnauditedShopManagerDailyPaper()
   },
 
   //时间

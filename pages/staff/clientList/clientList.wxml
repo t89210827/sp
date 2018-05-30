@@ -84,21 +84,18 @@
 
 <view style='width:750rpx;'>
   <view style='width:94%;height:1000rpx;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
-
     <scroll-view scroll-y style="height: 1000rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-top='0'>
-
       <block wx:for="{{clientList}}">
-        <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;'>
+        <view style="position: relative;height:100rpx;border-bottom:1rpx solid #ececec;">
           <navigator url='/pages/clientDetail/clientDetail?clientId={{item.id}}'>
             <view class='zan-row'>
-              <view class='zan-col zan-col-2 zan-font-14' style='line-height:100rpx;text-align:center;'>{{index}}</view>
+              <view class='zan-col zan-col-2 zan-font-14' style="line-height:100rpx;text-align:center;{{item.isearnest_flag ?'background-color:yellow':''}}">{{index + 1}}</view>
               <view class='zan-col zan-col-3'>
                 <view class='center-style' style='height:100rpx;'>
 
                   <block wx:if="{{item.avatar != null}}">
                     <image src='{{item.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
                   </block>
-
                 </view>
               </view>
               <view class='zan-col zan-col-9 zan-font-14 center-style' style='line-height:100rpx;'>{{item.name}}</view>
@@ -108,7 +105,6 @@
           </navigator>
         </view>
       </block>
-
     </scroll-view>
   </view>
 </view>

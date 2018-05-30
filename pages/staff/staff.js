@@ -20,7 +20,6 @@ Page({
     var start_time = util.getToday()
     var end_time = util.getTodayAddOne()
     vm.setData({ start_time: start_time, end_time: end_time })
-    vm.getUserInfo()          //获取用户信息
     vm.indexRefresh()         //刷新首页
     vm.shopGetShopName()         //刷新首页店铺名字
     console.log("员工首页")
@@ -50,8 +49,17 @@ Page({
 
   //获取缓存中用户信息
   getUserInfo: function () {
-    var userInfo = getApp().globalData.userInfo
-    vm.setData({ userInfo: userInfo })
+    var param = {
+      id: getApp().globalData.userInfo.id
+    }
+    util.getByIdWithToken(param, function (res) {
+      if (res.data.result) {
+        var userInfo = res.data.ret
+        getApp().storeUserInfo(userInfo)
+        vm.setData({ userInfo: userInfo })
+      }
+    })
+    // var userInfo = getApp().globalData.userInfo
   },
 
   //发布成功提示
@@ -86,7 +94,7 @@ Page({
     vm.indexRefresh()         //刷新首页
   },
 
-  //根据id获取用户信息（不带token）
+  //根据id获取用户信息（带token）
   getByIdWithToken: function () {
     var param = {
       id: getApp().globalData.userInfo.id
@@ -184,6 +192,8 @@ Page({
     vm.getAuditTask()               //今日任务    
     vm.getAuditIndexKeyMessage()    //员工首页主要信息
     vm.getAuditIndexMinorMessage()  //员工首页次要信息
+    vm.shopGetShopName()            //刷新首页店铺名字
+    vm.getUserInfo()                //获取用户信息    
   },
 
   //员工获取今日任务
@@ -235,7 +245,7 @@ Page({
           percent = 0
         } else {
           //首页剩余任务量(非黄珀任务额 - （非黄珀业绩+大额订单的业绩))
-          task = minorMessage.noYellowPerotPerformanceRequest - minorMessage.noYellowPerotMoneies - minorMessage.otherMoneies
+          task = minorMessage.noYellowPerotPerformanceRequest - minorMessage.noYellowPerotMoneies
           if (task <= 0) {
             task = "你真棒 恭喜你完成任务"
           } else {

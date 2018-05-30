@@ -138,17 +138,33 @@ Page({
   },
 
   managerUpdateShop: function (shop_id) {
-    var param = {
-      manager_id: getApp().globalData.userInfo.id,
-      shop_id: shop_id
-    }
-    util.managerUpdateShop(param, function (res) {
-      if (res.data.result) {
-        vm.showToast()
-        console.log("设置成功 " + JSON.stringify(res.data.ret))
-        vm.getShop()
+
+    wx.showModal({
+      title: '提示',
+      content: '若更换店铺则小程序暂不可使用,需要后台审核之后才可使用。',
+      confirmText: "确定",
+      success: function (res) {
+        if (res.confirm) {
+          var param = {
+            manager_id: getApp().globalData.userInfo.id,
+            shop_id: shop_id
+          }
+          util.managerUpdateShop(param, function (res) {
+            if (res.data.result) {
+              var userInfo = res.data.ret.user
+              getApp().storeUserInfo(userInfo)
+              console.log("设置成功 " + JSON.stringify(userInfo))
+              vm.showToast()
+              vm.getShop()
+              wx.navigateTo({
+                url: '/pages/hint/audit/audit',
+              })
+            }
+          })
+        }
       }
     })
+
   },
 
   //返回上一层

@@ -7,7 +7,9 @@ Page({
     title: '管理员审核中',
     // tip: '请耐心等待管理员审核通过',
     tip: '下拉即可刷新状态',
-    button: '修改信息'
+    button: '修改信息',
+
+    showButton: false,
   },
   //返回首页
   alter: function () {
@@ -20,6 +22,7 @@ Page({
   },
   onLoad: function (options) {
     vm = this
+    vm.getAuditByUserId()
   },
 
   //根据user_id获取员工入职信息
@@ -34,6 +37,10 @@ Page({
         if (res.data.result) {
           var userInfo = res.data.ret
           vm.storeUserInfo(userInfo)         //进行本地缓存
+
+          if (status == 3) {
+            vm.setData({ title: '审核未通过', showButton: true })
+          }
 
           if (status == 1 && type == 1) {
             wx.redirectTo({
@@ -57,6 +64,12 @@ Page({
       })
 
 
+    })
+  },
+
+  jumpIndex: function () {
+    wx.navigateTo({
+      url: '/pages/index/index',
     })
   },
 

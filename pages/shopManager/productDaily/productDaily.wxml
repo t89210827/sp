@@ -26,8 +26,8 @@
           </view>
         </view>
       </view>
-    </view>
 
+    </view>
   </view>
 </view>
 
@@ -110,6 +110,7 @@
 
 <view style='height:50rpx;'></view>
 
-<button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='addShopManagerDailyPaper'>提交日报</button>
+<!-- <button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='addShopManagerDailyPaper'>提交日报</button> -->
 
+<view class='submit-daily' bindtap='addShopManagerDailyPaper'>提交日报</view>
 <view style='height:50rpx;'></view>

@@ -33,8 +33,9 @@ Page({
     var end_time = util.getTodayAddOne()
     var shop_id = getApp().globalData.userInfo.shop_id
     vm.setData({ start_time: start_time, end_time: end_time, shop_id: shop_id })
-    vm.init()             //首页数据初始化
-    vm.indexRefresh()     //首页刷新
+    // vm.init()             //首页数据初始化
+    vm.getBrandList()        //全部品牌    
+    vm.indexRefresh()        //首页刷新
   },
 
   //跳转到修改资料页
@@ -45,11 +46,9 @@ Page({
   },
 
   //首页数据初始化
-  init: function () {
-    vm.getUserInfo()    //用户数据
-    vm.getBrandList()   //全部品牌
-    vm.getShop()        //主管下的店铺列表        
-  },
+  // init: function () {
+  //   vm.getBrandList()   //全部品牌
+  // },
 
   //首页刷新
   indexRefresh: function () {
@@ -71,7 +70,7 @@ Page({
     util.getManagerIndexData(param, function (res) {
       if (res.data.result) {
         var indexData = res.data.ret
-        console.log("主管首页数据 ==" + JSON.stringify(indexData))
+        console.log("主管首页数据 == " + JSON.stringify(indexData))
         vm.setData({ indexData: indexData })
       }
     })
@@ -92,8 +91,17 @@ Page({
 
   //获取缓存中用户信息
   getUserInfo: function () {
-    var userInfo = getApp().globalData.userInfo
-    vm.setData({ userInfo: userInfo })
+    var param = {
+      id: getApp().globalData.userInfo.id
+    }
+    util.getByIdWithToken(param, function (res) {
+      if (res.data.result) {
+        var userInfo = res.data.ret
+        getApp().storeUserInfo(userInfo)
+        vm.setData({ userInfo: userInfo })
+      }
+    })
+    // var userInfo = getApp().globalData.userInfo
   },
 
   //查询
@@ -158,7 +166,7 @@ Page({
       var shop_id = shops[shopsIndex].id
       console.log("店铺选择" + JSON.stringify(shops[shopsIndex]))
 
-      vm.setData({ shop_id: shop_id, staffIndex: 0})
+      vm.setData({ shop_id: shop_id, staffIndex: 0 })
       vm.getAuditListByShopId()       // 根据shop_id获取员工列表
     } else {
       vm.setData({ NewstaffList: [], staffIndex: 0, shop_id: getApp().globalData.userInfo.shop_id })

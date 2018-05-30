@@ -21,6 +21,21 @@ Page({
     console.log("一条交易信息" + JSON.stringify(deal))
   },
 
+  //跳转到修改交易信息页面
+  alterStatus: function () {
+    wx.navigateTo({
+      url: '/pages/staff/alterDeal/alterDeal',
+    })
+  },
+
+  updateDealById: function () {
+    var deal = vm.data.deal
+    var param = {
+      id: deal.id,
+      // money:
+    }
+  },
+
   //根据产品id获取产品信息
   getProductById: function () {
     var pages = getCurrentPages();//获取当前页面信息栈

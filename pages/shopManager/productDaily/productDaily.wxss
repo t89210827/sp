@@ -1,1 +1,13 @@
 /* pages/shopManager/productDaily/productDaily.wxss */
+
+.submit-daily {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0rpx;
+  width: 750rpx;
+  height: 90rpx;
+  background-color: #5a94ff;
+  line-height: 80rpx;
+  color: #fff;
+  text-align: center;
+}

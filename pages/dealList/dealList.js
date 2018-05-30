@@ -20,7 +20,43 @@ Page({
   onLoad: function (options) {
     var day = util.getToday()
     vm = this
-    vm.getDeal()
+    // vm.getDeal()
+    var start_time = util.changeDate(-7)
+    var end_time = util.changeDate(1)
+    vm.setData({ start_time: start_time, end_time: end_time })
+    vm.getDealsByTime()
+  },
+
+  //开始时间
+  bindBeginDate: function (e) {
+    this.setData({
+      start_time: e.detail.value
+    })
+    vm.getDealsByTime()
+    // vm.getAuditRanking()                     //本店员工排名    
+  },
+  //结束时间
+  bindEndDate: function (e) {
+    this.setData({
+      end_time: e.detail.value
+    })
+    vm.getDealsByTime()
+    // vm.getAuditRanking()                     //本店员工排名
+  },
+
+  // 根据时间段获取已购买的交易记录
+  getDealsByTime: function () {
+    var param = {
+      start_time: vm.data.start_time,
+      end_time: vm.data.end_time
+    }
+    util.getDealsByTime(param, function (res) {
+      if (res.data.result) {
+        console.log("已购买的交易记录" + JSON.stringify(res))
+        var deals = res.data.ret.data
+        vm.setData({ deals: deals })
+      }
+    })
   },
 
   // 根据员工id获取交易记录

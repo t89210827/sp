@@ -20,7 +20,6 @@ Page({
     var start_time = util.getToday()
     var end_time = util.getTodayAddOne()
     vm.setData({ start_time: start_time, end_time: end_time })
-    vm.getUserInfo()
     vm.getShopManagerTask()               //店长获取本月任务
     vm.shopGetShopName()                  //刷新首页店铺名字
     vm.indexRefresh()                       //首页数据
@@ -86,9 +85,17 @@ Page({
 
   //获取缓存中用户信息
   getUserInfo: function () {
-    var userInfo = getApp().globalData.userInfo
-    vm.setData({ userInfo: userInfo })
-    console.log("userInfo : " + JSON.stringify(userInfo))
+    var param = {
+      id: getApp().globalData.userInfo.id
+    }
+    util.getByIdWithToken(param, function (res) {
+      if (res.data.result) {
+        var userInfo = res.data.ret
+        getApp().storeUserInfo(userInfo)
+        vm.setData({ userInfo: userInfo })
+      }
+    })
+    // var userInfo = getApp().globalData.userInfo
   },
 
   //店长获取本月任务
@@ -109,6 +116,7 @@ Page({
 
   //首页刷新
   indexRefresh: function () {
+    vm.getUserInfo()                            //用户信息    
     vm.getShopManagerTask()                     //月任务    
     vm.getShopManagerMonthTaskAmount()          //店长本月剩余任务额    
     vm.getShopManagerIndexKeyMessage()          //店长首页主要信息

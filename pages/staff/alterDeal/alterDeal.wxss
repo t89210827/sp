@@ -1,4 +1,4 @@
-/* pages/dealDetail/dealDetail.wxss */
+/* pages/staff/alterDeal/alterDeal.wxss */
 
 .intro-content {
   height: 260rpx;
