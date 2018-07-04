@@ -26,7 +26,7 @@ Page({
     status: ["店员", "店长", "主管"],
     statusIndex: 0,
     brandIndex: 0,
-    // shopList: [],         //店铺列表
+    // shopList: [],      //店铺列表
     shopIndex: 0,         //选中店铺索引
     name: '',             //用户输入的名字
     phone: '',            //用户输入的电话
@@ -46,6 +46,7 @@ Page({
     util.getBrandShops({}, function (res) {
       if (res.data.result) {
         var brandShops = res.data.ret
+        brandShops.reverse()
         vm.setData({ brandShops: brandShops })
       }
     })
@@ -80,12 +81,14 @@ Page({
       })
     }
   },
+  
   //入职时间
   bindDateChange: function (e) {
     this.setData({
       date: e.detail.value
     })
   },
+
   // 上传图片
   chooseImage: function (e) {
     var that = this;
@@ -195,7 +198,7 @@ Page({
 
     util.apply(param, function (res) {
 
-      wx.redirectTo({
+      wx.reLaunch({
         url: '/pages/hint/audit/audit',
       })
     })

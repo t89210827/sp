@@ -15,6 +15,12 @@
 
 <!-- <view style='line-height:80rpx;height:80rpx;background-color:#ececec;text-align:center;' class='zan-font-14'>顾客已存在 下面是顾客信息</view> -->
 
+<view style='height:80rpx;background-color:#ececec;'>
+  <view class='zan-col zan-col-24 zan-font-14 center-style' style='line-height:80rpx;'>
+    顾客已经存在 可以直接添加交易记录
+  </view>
+</view>
+
 <view style='width:750rpx;'>
   <view style='width:94%;margin:20rpx 3%;'>
     <view style='padding:10rpx 20rpx;'>
@@ -163,6 +169,8 @@
 
   </view>
 </view>
+
+<view style='height:150rpx;'></view>
 
 <view class='bottom-addDeal'>
   <view class='zan-font-16' style='color:#fff;line-height:90rpx;text-align:center;' bindtap='jumpAddDeal' data-clientid='{{clientDetail.id}}'>添加交易记录</view>

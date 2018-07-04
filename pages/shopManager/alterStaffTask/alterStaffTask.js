@@ -18,7 +18,7 @@ Page({
   //获取上一个页面的任务
   getUpPage: function () {
     var pages = getCurrentPages();//获取当前页面信息栈
-    var prevPage = pages[pages.length - 2]//获取上一个页面信息栈
+    var prevPage = pages[pages.length - 2]//获取上一个页面信息栈 
     var task = prevPage.data.task
 
     for (var index in task) {
@@ -35,7 +35,6 @@ Page({
       shop_id: task[0].shop_id,
       stmt_date: task[0].stmt_date,
     })
-
     // vm.setData({ task: task })
   },
 

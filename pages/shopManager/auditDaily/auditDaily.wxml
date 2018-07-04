@@ -26,9 +26,6 @@
   </view>
 </view>
 
-
-
-
 <!-- <block wx:if="{{dailyList.length == 0}}">
   <wxc-abnor type="ORDER" title="没有日报需要审核"></wxc-abnor>
 </block> -->

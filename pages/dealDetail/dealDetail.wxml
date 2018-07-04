@@ -170,4 +170,4 @@
 
 <view style='height:100rpx;'></view>
 
-<view wx:if="{{deal.isearnest == 0}}" class='submit-daily' bindtap='alterStatus'>修改状态</view>
+<view wx:if="{{deal.isearnest == 0 && userType == 1}}" class='submit-daily' bindtap='alterStatus'>修改状态</view>

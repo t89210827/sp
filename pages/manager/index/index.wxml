@@ -397,6 +397,8 @@
             <view class='zan-col zan-col-12' style='text-align:right;'>{{indexData.otherMoneies}}</view>
           </view>
 
+          <view style='height:30rpx;'></view>
+
           <view class='zan-font-14' style='height:70rpx;line-height:70rpx;margin-bottom:30rpx;'>
             <view class='zan-col zan-col-12'>
               <view style='line-height:40rpx;'>客流数</view>
@@ -416,7 +418,7 @@
           <view class='zan-font-14' style='height:70rpx;line-height:70rpx;margin-bottom:30rpx;'>
             <view class='zan-col zan-col-12'>
               <view style='line-height:40rpx;'>试戴率</view>
-              <view class='zan-font-10 zan-c-gray-dark' style='line-height:30rpx;'>试戴数/交易总数</view>
+              <view class='zan-font-10 zan-c-gray-dark' style='line-height:30rpx;'>试戴数/客流量</view>
             </view>
             <view class='zan-col zan-col-12' style='text-align:right;'>{{indexData.tryWearRate}}%</view>
           </view>

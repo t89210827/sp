@@ -204,13 +204,13 @@
 
 <block wx:if="{{status == 1}}">
   <view class='bottom-addDeal zan-font-16' style='color:#fff;'>
-    <view class='zan-col zan-col-12 center-style' style='line-height:80rpx;' bindtap='auditNoPass'>不通过</view>
+    <!-- <view class='zan-col zan-col-12 center-style' style='line-height:80rpx;' bindtap='auditNoPass'>不通过</view>
     <view class='zan-col zan-col-1'>
       <view style='width:3rpx;height:90rpx;background-color:#fff;'>
 
       </view>
-    </view>
-    <view class='zan-col zan-col-11 center-style' style='line-height:80rpx;padding-right:20rpx;' bindtap='auditPass'>审核通过</view>
+    </view> -->
+    <view class='zan-col zan-col-24 center-style' style='line-height:80rpx;padding-right:20rpx;' bindtap='auditPass'>审核通过</view>
   </view>
 </block>
 

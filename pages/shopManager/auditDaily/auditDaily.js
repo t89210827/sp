@@ -36,7 +36,8 @@ Page(extend({}, Actionsheet, Tab, {
   onLoad: function (options) {
     vm = this
     // vm.getAudit()       //店长下的员工列表
-    var stmt_date = util.getToday()
+    // var stmt_date = util.getToday()
+    var stmt_date = util.changeDate(-1)
     vm.setData({ stmt_date: stmt_date })
   },
 

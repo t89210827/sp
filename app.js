@@ -179,6 +179,7 @@ App({
       })
     }
   },
+
   //引导用户授权
   showModal: function () {
     wx.showModal({

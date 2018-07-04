@@ -239,7 +239,7 @@
         <view style='padding:10rpx 20rpx;'>
           <view style='height:10rpx;'></view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>非黄铂</view>
+            <view class='zan-col zan-col-8' style='color:#38B9FD'>非黄铂</view>
           </view>
 
           <view class='zan-font-14' style='height:70rpx;line-height:70rpx;margin-bottom:30rpx;'>
@@ -285,7 +285,7 @@
             <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.noYellowPerotMoneies}}元</view>
           </view>
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>黄铂</view>
+            <view class='zan-col zan-col-8' style='color:#38B9FD'>黄铂</view>
           </view>
 
           <!-- <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
@@ -342,7 +342,7 @@
 
 
           <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
-            <view class='zan-col zan-col-8'>大单销售</view>
+            <view class='zan-col zan-col-8' style='color:#38B9FD'>大单销售</view>
           </view>
 
           <!-- <view class='zan-font-14' style='height:100rpx;line-height:100rpx;'>
@@ -357,6 +357,8 @@
             </view>
             <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.otherMoneies }}</view>
           </view>
+
+          <view style='height:30rpx;'></view>
 
           <view class='zan-font-14' style='height:70rpx;line-height:70rpx;margin-bottom:30rpx;'>
             <view class='zan-col zan-col-12'>
@@ -377,7 +379,7 @@
           <view class='zan-font-14' style='height:70rpx;line-height:70rpx;margin-bottom:30rpx;'>
             <view class='zan-col zan-col-12'>
               <view style='line-height:40rpx;'>试戴率</view>
-              <view class='zan-font-10 zan-c-gray-dark' style='line-height:30rpx;'>试戴数/交易总数</view>
+              <view class='zan-font-10 zan-c-gray-dark' style='line-height:30rpx;'>试戴数/客流量</view>
             </view>
             <view class='zan-col zan-col-12' style='text-align:right;'>{{minorMessage.tryWearRate}}%</view>
           </view>

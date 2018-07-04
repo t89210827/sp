@@ -294,7 +294,7 @@ Page({
   inputPurpose: function (e) {
     var productindex = e.currentTarget.dataset.productindex
     var dealData = vm.data.dealData
-
+    
     dealData[productindex].purpose = e.detail.value
     vm.setData({ dealData: dealData })
     console.log("---" + JSON.stringify(dealData))

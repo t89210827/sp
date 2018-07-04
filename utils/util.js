@@ -1,8 +1,8 @@
 //测试标识
-var TESTMODE = false;
+var TESTMODE = true;
 //服务器地址
 var SERVER_URL = "https://waibao.isart.me";
-var DEBUG_URL = "http://localhost/zyhc/public";
+var DEBUG_URL = "http://testwaibao.isart.me";
 var SERVER_URL = (TESTMODE) ? DEBUG_URL : SERVER_URL;
 
 //获取七牛URL，进行图片剪裁
@@ -20,7 +20,7 @@ function qiniuUrlTool(img_url, type) {
   }
   var qn_img_url;
   switch (type) {
-    case "farm_img":      //广告图片
+    case "farm_img": //广告图片
       qn_img_url = img_url + "?imageView2/2/w/650/h/300/interlace/1";
       break;
   }
@@ -47,20 +47,22 @@ function wxRequest(url, param, method, successCallback, errorCallback) {
   wx.request({
     url: url,
     data: param,
-    header: { "content-Type": "application/json" },
+    header: {
+      "content-Type": "application/json"
+    },
     // header: { 'content-type': 'application/x-www-form-urlencoded' },
     method: method,
-    success: function (ret) {
+    success: function(ret) {
       console.log("ret:" + JSON.stringify(ret))
       successCallback(ret)
     },
-    fail: function (err) {
+    fail: function(err) {
       console.log("wxRequest fail:" + JSON.stringify(err))
 
     },
-    complete: function () {
+    complete: function() {
       hideLoading()
-      wx.stopPullDownRefresh()    //停止下拉刷新      
+      wx.stopPullDownRefresh() //停止下拉刷新      
     }
   });
 }
@@ -508,7 +510,12 @@ function updateDealById(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/audit/updateDealById', param, "POST", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/audit/updateDealById
+//获取主管下所有店长信息
+function manager_getShopManagerMsg(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/manager/getShopManagerMsg', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/manager/getShopManagerMsg
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -518,7 +525,7 @@ function imageUtil(e) {
 
 //小数点后两位百分比
 function Percentage(number1, number2) {
-  return (Math.round(number1 / number2 * 10000) / 100.00 + "%");// 小数点后两位百分比
+  return (Math.round(number1 / number2 * 10000) / 100.00 + "%"); // 小数点后两位百分比
 }
 
 
@@ -646,7 +653,7 @@ function showModal(title, content, confirmCallBack, cancelCallBack) {
   wx.showModal({
     title: title,
     content: content,
-    success: function (res) {
+    success: function(res) {
       if (res.confirm) {
         console.log('用户点击确定')
         confirmCallBack(res)
@@ -663,7 +670,7 @@ function showErrorModal(msg) {
   wx.showModal({
     title: '调用失败',
     content: msg,
-    success: function (res) {
+    success: function(res) {
       if (res.confirm) {
         console.log('用户点击确定')
       } else if (res.cancel) {
@@ -748,7 +755,7 @@ function navigateToRegister(param) {
 // mm/m 分钟  
 // ss/SS/s/S 秒  
 //---------------------------------------------------  
-Date.prototype.Format = function (formatStr) {
+Date.prototype.Format = function(formatStr) {
   var str = formatStr
   var Week = ['日', '一', '二', '三', '四', '五', '六']
 
@@ -794,44 +801,59 @@ function daysBetween(DateOne, DateTwo) {
 //+---------------------------------------------------  
 //| 日期计算  
 //+---------------------------------------------------  
-Date.prototype.DateAdd = function (strInterval, Number) {
+Date.prototype.DateAdd = function(strInterval, Number) {
   var dtTmp = this
   switch (strInterval) {
-    case 's': return new Date(Date.parse(dtTmp) + (1000 * Number))
-    case 'n': return new Date(Date.parse(dtTmp) + (60000 * Number))
-    case 'h': return new Date(Date.parse(dtTmp) + (3600000 * Number))
-    case 'd': return new Date(Date.parse(dtTmp) + (86400000 * Number))
-    case 'w': return new Date(Date.parse(dtTmp) + ((86400000 * 7) * Number))
-    case 'q': return new Date(dtTmp.getFullYear(), (dtTmp.getMonth()) + Number * 3, dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds())
-    case 'm': return new Date(dtTmp.getFullYear(), (dtTmp.getMonth()) + Number, dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds())
-    case 'y': return new Date((dtTmp.getFullYear() + Number), dtTmp.getMonth(), dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds())
+    case 's':
+      return new Date(Date.parse(dtTmp) + (1000 * Number))
+    case 'n':
+      return new Date(Date.parse(dtTmp) + (60000 * Number))
+    case 'h':
+      return new Date(Date.parse(dtTmp) + (3600000 * Number))
+    case 'd':
+      return new Date(Date.parse(dtTmp) + (86400000 * Number))
+    case 'w':
+      return new Date(Date.parse(dtTmp) + ((86400000 * 7) * Number))
+    case 'q':
+      return new Date(dtTmp.getFullYear(), (dtTmp.getMonth()) + Number * 3, dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds())
+    case 'm':
+      return new Date(dtTmp.getFullYear(), (dtTmp.getMonth()) + Number, dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds())
+    case 'y':
+      return new Date((dtTmp.getFullYear() + Number), dtTmp.getMonth(), dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds())
   }
 }
 
 //+---------------------------------------------------  
 //| 比较日期差 dtEnd 格式为日期型或者有效日期格式字符串  
 //+---------------------------------------------------  
-Date.prototype.DateDiff = function (strInterval, dtEnd) {
+Date.prototype.DateDiff = function(strInterval, dtEnd) {
   var dtStart = this
-  if (typeof dtEnd == 'string')//如果是字符串转换为日期型  
+  if (typeof dtEnd == 'string') //如果是字符串转换为日期型  
   {
     dtEnd = StringToDate(dtEnd)
   }
   switch (strInterval) {
-    case 's': return parseInt((dtEnd - dtStart) / 1000)
-    case 'n': return parseInt((dtEnd - dtStart) / 60000)
-    case 'h': return parseInt((dtEnd - dtStart) / 3600000)
-    case 'd': return parseInt((dtEnd - dtStart) / 86400000)
-    case 'w': return parseInt((dtEnd - dtStart) / (86400000 * 7))
-    case 'm': return (dtEnd.getMonth() + 1) + ((dtEnd.getFullYear() - dtStart.getFullYear()) * 12) - (dtStart.getMonth() + 1)
-    case 'y': return dtEnd.getFullYear() - dtStart.getFullYear()
+    case 's':
+      return parseInt((dtEnd - dtStart) / 1000)
+    case 'n':
+      return parseInt((dtEnd - dtStart) / 60000)
+    case 'h':
+      return parseInt((dtEnd - dtStart) / 3600000)
+    case 'd':
+      return parseInt((dtEnd - dtStart) / 86400000)
+    case 'w':
+      return parseInt((dtEnd - dtStart) / (86400000 * 7))
+    case 'm':
+      return (dtEnd.getMonth() + 1) + ((dtEnd.getFullYear() - dtStart.getFullYear()) * 12) - (dtStart.getMonth() + 1)
+    case 'y':
+      return dtEnd.getFullYear() - dtStart.getFullYear()
   }
 }
 
 //+---------------------------------------------------  
 //| 日期输出字符串，重载了系统的toString方法  
 //+---------------------------------------------------  
-Date.prototype.toString = function (showWeek) {
+Date.prototype.toString = function(showWeek) {
   var myDate = this;
   var str = myDate.toLocaleDateString()
   if (showWeek) {
@@ -859,8 +881,7 @@ function IsValidDate(DateStr) {
       //alert('错误的日期格式！格式为：YYYY-MM-DD或YYYY/MM/DD。注意闰年。') 
       return false;
     }
-  }
-  else {
+  } else {
     //alert('错误的日期格式！格式为：YYYY-MM-DD或YYYY/MM/DD。注意闰年。') 
     return false;
   }
@@ -889,7 +910,7 @@ function CheckDateTime(str) {
 //+---------------------------------------------------  
 //| 把日期分割成数组  
 //+---------------------------------------------------  
-Date.prototype.toArray = function () {
+Date.prototype.toArray = function() {
   var myDate = this
   var myArray = Array()
   myArray[0] = myDate.getFullYear()
@@ -906,26 +927,34 @@ Date.prototype.toArray = function () {
 //| 参数 interval 表示数据类型  
 //| y 年 m月 d日 w星期 ww周 h时 n分 s秒  
 //+---------------------------------------------------  
-Date.prototype.DatePart = function (interval) {
+Date.prototype.DatePart = function(interval) {
   var myDate = this
   var partStr = ''
   var Week = ['日', '一', '二', '三', '四', '五', '六']
   switch (interval) {
-    case 'y': partStr = myDate.getFullYear()
+    case 'y':
+      partStr = myDate.getFullYear()
       break
-    case 'm': partStr = myDate.getMonth() + 1
+    case 'm':
+      partStr = myDate.getMonth() + 1
       break
-    case 'd': partStr = myDate.getDate()
+    case 'd':
+      partStr = myDate.getDate()
       break
-    case 'w': partStr = Week[myDate.getDay()]
+    case 'w':
+      partStr = Week[myDate.getDay()]
       break
-    case 'ww': partStr = myDate.WeekNumOfYear()
+    case 'ww':
+      partStr = myDate.WeekNumOfYear()
       break
-    case 'h': partStr = myDate.getHours()
+    case 'h':
+      partStr = myDate.getHours()
       break
-    case 'n': partStr = myDate.getMinutes()
+    case 'n':
+      partStr = myDate.getMinutes()
       break
-    case 's': partStr = myDate.getSeconds()
+    case 's':
+      partStr = myDate.getSeconds()
       break
   }
   return partStr
@@ -934,7 +963,7 @@ Date.prototype.DatePart = function (interval) {
 //+---------------------------------------------------  
 //| 取得当前日期所在月的最大天数  
 //+---------------------------------------------------  
-Date.prototype.MaxDayOfDate = function () {
+Date.prototype.MaxDayOfDate = function() {
   var myDate = this
   var ary = myDate.toArray()
   var date1 = (new Date(ary[0], ary[1] + 1, 1))
@@ -964,14 +993,14 @@ function StringToDate(DateStr) {
 function getToday() {
   var now = new Date()
   var today = ""
-  var year = now.getFullYear()       //年
+  var year = now.getFullYear() //年
   today += year + "-"
-  var month = now.getMonth() + 1     //月
+  var month = now.getMonth() + 1 //月
   if (month < 10) {
     month = "0" + month
   }
   // today += month + "-"
-  var day = now.getDate()            //日
+  var day = now.getDate() //日
   if (day < 10) {
     day = "0" + day
   }
@@ -983,14 +1012,14 @@ function getTodayAddOne() {
   now.setDate(now.getDate() + 1);
 
   var today = ""
-  var year = now.getFullYear()       //年
+  var year = now.getFullYear() //年
   today += year + "-"
-  var month = now.getMonth() + 1     //月
+  var month = now.getMonth() + 1 //月
   if (month < 10) {
     month = "0" + month
   }
   // today += month + "-"
-  var day = now.getDate()            //日
+  var day = now.getDate() //日
   if (day < 10) {
     day = "0" + day
   }
@@ -1002,14 +1031,14 @@ function getTodayAddThree() {
   now.setDate(now.getDate() + 3);
 
   var today = ""
-  var year = now.getFullYear()       //年
+  var year = now.getFullYear() //年
   today += year + "-"
-  var month = now.getMonth() + 1     //月
+  var month = now.getMonth() + 1 //月
   if (month < 10) {
     month = "0" + month
   }
   // today += month + "-"
-  var day = now.getDate()            //日
+  var day = now.getDate() //日
   if (day < 10) {
     day = "0" + day
   }
@@ -1021,14 +1050,14 @@ function changeDate(days) {
   now.setDate(now.getDate() + days);
 
   var today = ""
-  var year = now.getFullYear()       //年
+  var year = now.getFullYear() //年
   today += year + "-"
-  var month = now.getMonth() + 1     //月
+  var month = now.getMonth() + 1 //月
   if (month < 10) {
     month = "0" + month
   }
   // today += month + "-"
-  var day = now.getDate()            //日
+  var day = now.getDate() //日
   if (day < 10) {
     day = "0" + day
   }
@@ -1039,15 +1068,15 @@ function changeDate(days) {
 function getMonth() {
   var now = new Date()
   var today = ""
-  var year = now.getFullYear()       //年
+  var year = now.getFullYear() //年
   today += year + "-"
-  var month = now.getMonth() + 1     //月
+  var month = now.getMonth() + 1 //月
   if (month < 10) {
     month = "0" + month
     // month += "0"
   }
   today += month + "-"
-  var day = now.getDate()            //日
+  var day = now.getDate() //日
   if (day < 10)
     today += "0"
   return year + "-" + month
@@ -1065,15 +1094,16 @@ function getDiffentTime(str, now) {
 
   var currentTime = new Date(now)
   var arr = str.split(/\s+/gi)
-  var temp = 0, arr1, arr2, oldTime, delta
-  var getIntValue = function (ss, defaultValue) {
+  var temp = 0,
+    arr1, arr2, oldTime, delta
+  var getIntValue = function(ss, defaultValue) {
     try {
       return parseInt(ss, 10)
     } catch (e) {
       return defaultValue
     }
   }
-  var getWidthString = function (num) {
+  var getWidthString = function(num) {
     return num < 10 ? ("0" + num) : num
   }
   if (arr.length >= 2) {
@@ -1089,20 +1119,15 @@ function getDiffentTime(str, now) {
     delta = currentTime.getTime() - oldTime.getTime()
     if (delta <= 6000) {
       return "1分钟内"
-    }
-    else if (delta < 60 * 60 * 1000) {
+    } else if (delta < 60 * 60 * 1000) {
       return Math.floor(delta / (60 * 1000)) + "分钟前"
-    }
-    else if (delta < 24 * 60 * 60 * 1000) {
+    } else if (delta < 24 * 60 * 60 * 1000) {
       return Math.floor(delta / (60 * 60 * 1000)) + "小时前"
-    }
-    else if (delta < 3 * 24 * 60 * 60 * 1000) {
+    } else if (delta < 3 * 24 * 60 * 60 * 1000) {
       return Math.floor(delta / (24 * 60 * 60 * 1000)) + "天前"
-    }
-    else if (currentTime.getFullYear() != oldTime.getFullYear()) {
+    } else if (currentTime.getFullYear() != oldTime.getFullYear()) {
       return [getWidthString(oldTime.getFullYear()), getWidthString(oldTime.getMonth() + 1), getWidthString(oldTime.getDate())].join("-")
-    }
-    else {
+    } else {
       return [getWidthString(oldTime.getMonth() + 1), getWidthString(oldTime.getDate())].join("-")
     }
   }
@@ -1165,15 +1190,15 @@ function backIndex() {
   var userType = getApp().globalData.userInfo.type;
   console.log("返回首页")
   if (userType == 1) {
-    wx.redirectTo({
+    wx.reLaunch({
       url: '/pages/staff/staff',
     })
   } else if (userType == 2) {
-    wx.redirectTo({
+    wx.reLaunch({
       url: '/pages/shopManager/index/index',
     })
   } else if (userType == 3) {
-    wx.redirectTo({
+    wx.reLaunch({
       url: '/pages/manager/index/index',
     })
   }
@@ -1200,104 +1225,105 @@ module.exports = {
   isPoneAvailable: isPoneAvailable,
   isNeedNavigateToSetMyInfoPage: isNeedNavigateToSetMyInfoPage,
   //navigation function
-  navigateBack: navigateBack,   //进行页面跳回
-  navigateToRegister: navigateToRegister,  //跳转到注册页面
-  navigateToIndex: navigateToIndex,	//跳转到首页
+  navigateBack: navigateBack, //进行页面跳回
+  navigateToRegister: navigateToRegister, //跳转到注册页面
+  navigateToIndex: navigateToIndex, //跳转到首页
   //other function
   getDiffentTime: getDiffentTime,
   gcj02towgs84: gcj02towgs84,
   qiniuUrlTool: qiniuUrlTool,
   convertDateFormateM: convertDateFormateM,
-  date: date,                 //转换成2018-10-07类型的时间
-  getMonth: getMonth,         //获取当前月份
-  Percentage: Percentage,     //两个数的百分比
-  getTodayAddOne: getTodayAddOne,   //时间加一
-  getTodayAddThree: getTodayAddThree,   //时间加三
-  backIndex: backIndex,             //返回首页
-  changeDate: changeDate,             //改变时间
+  date: date, //转换成2018-10-07类型的时间
+  getMonth: getMonth, //获取当前月份
+  Percentage: Percentage, //两个数的百分比
+  getTodayAddOne: getTodayAddOne, //时间加一
+  getTodayAddThree: getTodayAddThree, //时间加三
+  backIndex: backIndex, //返回首页
+  changeDate: changeDate, //改变时间
 
 
-  showToast: showToast,           //展示空toast
-  getQiniuToken: getQiniuToken,   //获取七牛token
-  apply: apply,                   //首页提交申请接口
-  getShopList: getShopList,       //获取所有生效的店铺信息
-  addClient: addClient,           //员工添加顾客信息
-  getAuditByUserId: getAuditByUserId,   //根据user_id获取员工入职信息
-  getClientByTel: getClientByTel,       //根据顾客电话查询顾客信息
-  getClient: getClient,           //获取所有顾客信息
-  getClientById: getClientById,   //根据id获取顾客信息
-  addDeal: addDeal,               //添加交易记录
-  addClient: addClient,           //员工添加顾客信息
-  getDeals: getDeals,             //根据用户id和顾客id查看交易记录信息
-  search: search,                 //客户维护搜索
-  getShopList: getShopList,         //获取所有生效的店铺信息
-  getAudit: getAudit,               //店长下的员工列表
-  getAuditCount: getAuditCount,     //根据店长id查询员工信息及员工录入顾客数量（对应原型：查看员工录入客户数量）
-  addPassengerFlow: addPassengerFlow,  //店长添加客流量
-  reviewAudit: reviewAudit,           //店长审核入职人员
-  getReviewAudit: getReviewAudit,     //根据店长shop_manager_id获取需要审核的员工列表
-  shopManagerReviewDailyPaper: shopManagerReviewDailyPaper,//日报——店长审核日报
-  dailyList: dailyList,               //店长查看日报列表(对应原型审核日报)
-  shopManagerReleaseTask: shopManagerReleaseTask,    //店长发任务
-  getDeal: getDeal,                     //根据员工id获取交易记录
-  getProductList: getProductList,       //获取生效的产品信息
-  getReleaseTask: getReleaseTask,       //获取任务信息剩余目标金额
-  getAuditDailyPaperData: getAuditDailyPaperData,   //根据店员id和时间查询日报信息
-  managerReviewAudit: managerReviewAudit,     //主管审核入职人员
-  getShopManager: getShopManager,         //根据主管id获取主管下未审核店长和店员的信息
-  getShop: getShop,                         //主管下的店铺列表
-  releaseTask: releaseTask,                  //主管发布任务
-  getClientByUserId: getClientByUserId,    //根据员工id获取客户信息
-  getDealByClientId: getDealByClientId,    //根据顾客id获取所有交易记录
-  getManagerTask: getManagerTask,          //主管查看发布任务
-  getProductById: getProductById,           //根据产品id获取产品信息
-  getShopList: getShopList,                 //获取所有生效的店铺信息
-  getById: getById,                         //根据id获取用户信息（不带token）
-  getShopManagerTask: getShopManagerTask,   //店长获取本月任务
-  getAuditTask: getAuditTask,               //员工获取今日任务
-  getAuditDailyPaper: getAuditDailyPaper,   //查看员工是否提交过日报
-  addAuditDailyPaper: addAuditDailyPaper,   //员工提交日报
-  getAuditRanking: getAuditRanking,         //本店员工排名
-  addOrderGoods: addOrderGoods,             //添加订货信息
-  getBoutique: getBoutique,                 //获取生效的竞品信息
-  addBoutique: addBoutique,                 //提交竞品日报
-  getShopManagerDailyPaperData: getShopManagerDailyPaperData,     //店长查看日报信息
-  getAuditIndexKeyMessage: getAuditIndexKeyMessage,   //员工首页主要信息
-  dailyPaper: dailyPaper,                   //根据日报店员clerk_id查看日报详情
+  showToast: showToast, //展示空toast
+  getQiniuToken: getQiniuToken, //获取七牛token
+  apply: apply, //首页提交申请接口
+  getShopList: getShopList, //获取所有生效的店铺信息
+  addClient: addClient, //员工添加顾客信息
+  getAuditByUserId: getAuditByUserId, //根据user_id获取员工入职信息
+  getClientByTel: getClientByTel, //根据顾客电话查询顾客信息
+  getClient: getClient, //获取所有顾客信息
+  getClientById: getClientById, //根据id获取顾客信息
+  addDeal: addDeal, //添加交易记录
+  addClient: addClient, //员工添加顾客信息
+  getDeals: getDeals, //根据用户id和顾客id查看交易记录信息
+  search: search, //客户维护搜索
+  getShopList: getShopList, //获取所有生效的店铺信息
+  getAudit: getAudit, //店长下的员工列表
+  getAuditCount: getAuditCount, //根据店长id查询员工信息及员工录入顾客数量（对应原型：查看员工录入客户数量）
+  addPassengerFlow: addPassengerFlow, //店长添加客流量
+  reviewAudit: reviewAudit, //店长审核入职人员
+  getReviewAudit: getReviewAudit, //根据店长shop_manager_id获取需要审核的员工列表
+  shopManagerReviewDailyPaper: shopManagerReviewDailyPaper, //日报——店长审核日报
+  dailyList: dailyList, //店长查看日报列表(对应原型审核日报)
+  shopManagerReleaseTask: shopManagerReleaseTask, //店长发任务
+  getDeal: getDeal, //根据员工id获取交易记录
+  getProductList: getProductList, //获取生效的产品信息
+  getReleaseTask: getReleaseTask, //获取任务信息剩余目标金额
+  getAuditDailyPaperData: getAuditDailyPaperData, //根据店员id和时间查询日报信息
+  managerReviewAudit: managerReviewAudit, //主管审核入职人员
+  getShopManager: getShopManager, //根据主管id获取主管下未审核店长和店员的信息
+  getShop: getShop, //主管下的店铺列表
+  releaseTask: releaseTask, //主管发布任务
+  getClientByUserId: getClientByUserId, //根据员工id获取客户信息
+  getDealByClientId: getDealByClientId, //根据顾客id获取所有交易记录
+  getManagerTask: getManagerTask, //主管查看发布任务
+  getProductById: getProductById, //根据产品id获取产品信息
+  getShopList: getShopList, //获取所有生效的店铺信息
+  getById: getById, //根据id获取用户信息（不带token）
+  getShopManagerTask: getShopManagerTask, //店长获取本月任务
+  getAuditTask: getAuditTask, //员工获取今日任务
+  getAuditDailyPaper: getAuditDailyPaper, //查看员工是否提交过日报
+  addAuditDailyPaper: addAuditDailyPaper, //员工提交日报
+  getAuditRanking: getAuditRanking, //本店员工排名
+  addOrderGoods: addOrderGoods, //添加订货信息
+  getBoutique: getBoutique, //获取生效的竞品信息
+  addBoutique: addBoutique, //提交竞品日报
+  getShopManagerDailyPaperData: getShopManagerDailyPaperData, //店长查看日报信息
+  getAuditIndexKeyMessage: getAuditIndexKeyMessage, //员工首页主要信息
+  dailyPaper: dailyPaper, //根据日报店员clerk_id查看日报详情
   getAuditIndexMinorMessage: getAuditIndexMinorMessage, //员工首页次要信息
   getShopManagerIndexKeyMessage: getShopManagerIndexKeyMessage, //店长首页关键信息
   getShopManagerIndexMinorMessage: getShopManagerIndexMinorMessage, //店长首页次要信息
-  getBoutiqueDaily: getBoutiqueDaily,           //主管查看未审核的竞品日报
-  getAuditListByShopId: getAuditListByShopId,   //根据shop_id获取员工列表
-  managerReviewBoutiqueDaily: managerReviewBoutiqueDaily,   //主管审核竞品日报(审核全部)
-  addShopManagerDailyPaper: addShopManagerDailyPaper,       //店长提交日报
-  getShopManagerDailyPaper: getShopManagerDailyPaper,       //查询店长今日是否已提交过日报
-  getManagerIndexKeyMessage: getManagerIndexKeyMessage,     //主管首页关键信息
+  getBoutiqueDaily: getBoutiqueDaily, //主管查看未审核的竞品日报
+  getAuditListByShopId: getAuditListByShopId, //根据shop_id获取员工列表
+  managerReviewBoutiqueDaily: managerReviewBoutiqueDaily, //主管审核竞品日报(审核全部)
+  addShopManagerDailyPaper: addShopManagerDailyPaper, //店长提交日报
+  getShopManagerDailyPaper: getShopManagerDailyPaper, //查询店长今日是否已提交过日报
+  getManagerIndexKeyMessage: getManagerIndexKeyMessage, //主管首页关键信息
   getManagerIndexMinorMessage: getManagerIndexMinorMessage, //主管首页次要信息
-  getUnauditedShopManagerDailyPaper: getUnauditedShopManagerDailyPaper,   //主管查看未审核店长日报
-  auditChangeShop: auditChangeShop,               //员工转店
-  getManagerIndexBoutiqueDailyMessage: getManagerIndexBoutiqueDailyMessage,   //主管首页竞品信息
-  shopManagerGetBoutiqueDaily: shopManagerGetBoutiqueDaily,     //查询今天店长是否提交过竞品日报
-  managerReviewDailyPaper: managerReviewDailyPaper,   //主管审核日报
-  getBrandShops: getBrandShops,                       //获取所有品牌的对应店铺信息
-  getBelongClientByUserId: getBelongClientByUserId,   //获取隶属于自己的客户信息
-  updateById: updateById,                             //更新用户信息
-  getShopRanking: getShopRanking,             //主管查看店铺排名：非黄珀业绩+大额订单的业绩/非黄珀任务额（按月算，倒叙）（业绩保留两位小数）
-  getAuditAndClientByShopId: getAuditAndClientByShopId,   //根据店铺id获取员工列表及顾客数量
-  managerObtainTask: managerObtainTask,       //主管查看发布本月任务
-  releasePassengerFlow: releasePassengerFlow,   //查看店长今天是否发布过客流
+  getUnauditedShopManagerDailyPaper: getUnauditedShopManagerDailyPaper, //主管查看未审核店长日报
+  auditChangeShop: auditChangeShop, //员工转店
+  getManagerIndexBoutiqueDailyMessage: getManagerIndexBoutiqueDailyMessage, //主管首页竞品信息
+  shopManagerGetBoutiqueDaily: shopManagerGetBoutiqueDaily, //查询今天店长是否提交过竞品日报
+  managerReviewDailyPaper: managerReviewDailyPaper, //主管审核日报
+  getBrandShops: getBrandShops, //获取所有品牌的对应店铺信息
+  getBelongClientByUserId: getBelongClientByUserId, //获取隶属于自己的客户信息
+  updateById: updateById, //更新用户信息
+  getShopRanking: getShopRanking, //主管查看店铺排名：非黄珀业绩+大额订单的业绩/非黄珀任务额（按月算，倒叙）（业绩保留两位小数）
+  getAuditAndClientByShopId: getAuditAndClientByShopId, //根据店铺id获取员工列表及顾客数量
+  managerObtainTask: managerObtainTask, //主管查看发布本月任务
+  releasePassengerFlow: releasePassengerFlow, //查看店长今天是否发布过客流
   shopManagerSurplusTask: shopManagerSurplusTask, //查看店长本月剩余任务
-  getBelongClientByAuditId: getBelongClientByAuditId,   //根据audit_id获取与我发生交易的客户信息-即我的客户
-  getBrandList: getBrandList,             //获取所有的生效品牌信息
-  getShopManagerMonthTaskAmount: getShopManagerMonthTaskAmount,   //店长本月剩余任务额
-  getBoutiqueDailyDetails: getBoutiqueDailyDetails,   //根据时间和用户获取竞品的日报详情
-  getDailyPaperDetails: getDailyPaperDetails,   //根据时间和和用户查看产品日报详情
-  getManagerIndexData: getManagerIndexData,     //主管首页数据
-  managerUpdateShop: managerUpdateShop,         //主管更新店铺信息
-  shopGetShopName: shopGetShopName,             //根据店铺id获取店铺名字
+  getBelongClientByAuditId: getBelongClientByAuditId, //根据audit_id获取与我发生交易的客户信息-即我的客户
+  getBrandList: getBrandList, //获取所有的生效品牌信息
+  getShopManagerMonthTaskAmount: getShopManagerMonthTaskAmount, //店长本月剩余任务额
+  getBoutiqueDailyDetails: getBoutiqueDailyDetails, //根据时间和用户获取竞品的日报详情
+  getDailyPaperDetails: getDailyPaperDetails, //根据时间和和用户查看产品日报详情
+  getManagerIndexData: getManagerIndexData, //主管首页数据
+  managerUpdateShop: managerUpdateShop, //主管更新店铺信息
+  shopGetShopName: shopGetShopName, //根据店铺id获取店铺名字
   shopManager_getBoutiqueByDate: shopManager_getBoutiqueByDate, //店长根据日期段查看自己提交的竞品日报
   managerReviewBoutiqueDailyByTimeAndShopManager: managerReviewBoutiqueDailyByTimeAndShopManager, //根据时间和店长id审核竞品日报
-  getUnionId: getUnionId,                       //根据code获取unionId
-  getDealsByTime: getDealsByTime,               //根据时间段获取已购买的交易记录
-  updateDealById: updateDealById,               //店员可以修改有定金的交易记录
+  getUnionId: getUnionId, //根据code获取unionId
+  getDealsByTime: getDealsByTime, //根据时间段获取已购买的交易记录
+  updateDealById: updateDealById, //店员可以修改有定金的交易记录
+  manager_getShopManagerMsg: manager_getShopManagerMsg, //获取主管下所有店长信息
 }

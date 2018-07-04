@@ -28,6 +28,14 @@ Page({
     var day = util.getToday()
   },
 
+  //拨打电话
+  callTel: function () {
+    var tel = vm.data.clientDetail.tel
+    wx.makePhoneCall({
+      phoneNumber: tel
+    })
+  },
+
   alterClient: function () {
     wx.navigateTo({
       url: '/pages/staff/alterClient/alterClient',

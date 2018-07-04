@@ -10,8 +10,8 @@ Page(extend({}, Actionsheet, Tab, {
     inputVal: "",              //电话号
     start_time: "",            //开始时间
     end_time: "",              //结束时间
-    isbuy: "",      //是否购买
-
+    isbuy: "",                 //是否购买
+    isearnest: "",             //是否交定金
 
     actionsheet: {
       show: false,
@@ -30,10 +30,20 @@ Page(extend({}, Actionsheet, Tab, {
         name: '未购买',
         className: 'action-class',
         loading: false
+      }, {
+        name: '已交定金',
+        className: 'action-class',
+        loading: false
+      }, {
+        name: '未交定金',
+        className: 'action-class',
+        loading: false
       },]
     },
 
     showLeftPopup: false,
+
+    dealStatus: 0,           //搜索状态索引 （例：已购买  未购买）
 
     clientList: [],          //客户信息列表
     audit_id: "",            //员工id
@@ -58,7 +68,8 @@ Page(extend({}, Actionsheet, Tab, {
       client_tel: vm.data.inputVal,
       start_time: vm.data.start_time,
       end_time: vm.data.end_time,
-      isbuy: vm.data.isbuy
+      isbuy: vm.data.isbuy,
+      isearnest: vm.data.isearnest
     }
     util.getBelongClientByAuditId(param, function (res) {
       if (res.data.result) {
@@ -135,11 +146,15 @@ Page(extend({}, Actionsheet, Tab, {
     console.log(`item index ${index} clicked`);
 
     if (index == 0) {
-      vm.setData({ isbuy: "" })
+      vm.setData({ isbuy: "", isearnest: '', dealStatus: 0 })
     } else if (index == 1) {
-      vm.setData({ isbuy: 0 })
+      vm.setData({ isbuy: 0, isearnest: '', dealStatus: 1 })
     } else if (index == 2) {
-      vm.setData({ isbuy: 1 })
+      vm.setData({ isbuy: 1, isearnest: '', dealStatus: 2 })
+    } else if (index == 3) {
+      vm.setData({ isearnest: 0, isbuy: '', dealStatus: 3 })
+    } else if (index == 4) {
+      vm.setData({ isearnest: 1, isbuy: '', dealStatus: 4 })
     }
 
     this.setData({

@@ -70,12 +70,12 @@
           <view class='zan-col zan-col-13'>
 
             <!-- <picker bindchange="bindShop" range-key="name" value="{{shopIndex}}" range="{{shopList}}">
-
               <view class='flex-row' style='align-items: center;float:right;'>
                 <view class='zan-font-16' style='line-height:120rpx;'>{{shopList[shopIndex].name}}</view>
                 <image src='../../images/right.png' style='margin-left:10rpx;width:30rpx;height:30rpx;'></image>
               </view>
             </picker> -->
+
             <view class='flex-row zan-font-16 zan-c-gray-dark' style='align-items: center;float:right;line-height:120rpx;'>{{shop}}</view>
           </view>
         </view>
@@ -143,7 +143,6 @@
   <button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:88%;border-radius:50rpx;color:#fff;' bindtap='apply'>提交审核</button>
 
   <!-- <view style='height:10rpx;'></view>
-
   <button style='height:80rpx;line-height:80rpx;background-color:#5A94FF;width:80%;border-radius:50rpx;'>店长</button>
 
   <view style='height:10rpx;'></view>

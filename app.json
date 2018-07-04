@@ -53,7 +53,8 @@
     "pages/shopManager/lookboutiqueDetail/lookboutiqueDetail",
     "pages/shopManager/alterStaffTask/alterStaffTask",
     "pages/shopManager/alterBoutiqueDetail/alterBoutiqueDetail",
-    "pages/staff/alterDeal/alterDeal"
+    "pages/staff/alterDeal/alterDeal",
+    "pages/manager/transfenShopManagerList/transfenShopManagerList"
   ],
   "window": {
     "backgroundTextStyle": "light",

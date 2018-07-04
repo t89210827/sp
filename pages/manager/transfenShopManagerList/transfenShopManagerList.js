@@ -1,4 +1,4 @@
-// pages/shopManager/transfenStaffList/transfenStaffList.js
+// pages/manager/transfenShopManagerList/transfenShopManagerList.js
 var vm = null
 var util = require('../../../utils/util.js')
 
@@ -41,26 +41,44 @@ Page({
   },
   onLoad: function(options) {
     vm = this
-    vm.getAudit() //店长下的员工列表
   },
-  // 店长下的员工列表
-  getAudit: function() {
+
+  //获取主管下所有店长信息
+  manager_getShopManagerMsg: function() {
     var param = {
-      type: 1,
-      page: 1,
+      manager_id: getApp().globalData.userInfo.id,
+      page: 0,
     }
-    util.getAudit(param, function(res) {
-      vm.setData({
-        staffList: res.data.ret.audit.data
-      })
+    util.manager_getShopManagerMsg(param, function(res) {
+      if (res.data.result) {
+        var staffList = res.data.ret.data
+        vm.setData({
+          staffList: staffList
+        })
+      }
     })
   },
+
+  // 店长下的员工列表
+  // getAudit: function() {
+  //   var param = {
+  //     type: 1,
+  //     page: 1,
+  //   }
+  //   util.getAudit(param, function(res) {
+  //     vm.setData({
+  //       staffList: res.data.ret.audit.data
+  //     })
+  //   })
+  // },
+
   //返回上一层
   back: function() {
     wx.navigateBack({
       delta: 1
     })
   },
+
   //跳转到该员工下客户列表页
   jumpClientList: function(e) {
     var audit_id = e.currentTarget.dataset.auditid
@@ -80,7 +98,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    vm.manager_getShopManagerMsg() //店长下的员工列表
   },
 
   /**

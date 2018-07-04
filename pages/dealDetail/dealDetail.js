@@ -10,6 +10,13 @@ Page({
     vm = this
     vm.getCurrentPages()
     vm.getProductById()
+    vm.getUserType()          //获取用户类型
+  },
+
+  //获取用户类型
+  getUserType: function () {
+    var userType = getApp().globalData.userInfo.type
+    vm.setData({ userType: userType })
   },
 
   //获取上一个页面

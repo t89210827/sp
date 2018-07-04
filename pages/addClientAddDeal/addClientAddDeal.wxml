@@ -339,7 +339,6 @@
           <!-- <view class='zan-font-14' style="position: absolute; right: 10rpx; bottom: 0;">{{remark.length}} /100</view> -->
         </view>
       </view>
-
     </view>
   </view>
 </block>

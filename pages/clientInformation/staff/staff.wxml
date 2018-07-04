@@ -56,9 +56,11 @@
 
   <view class='zan-col zan-col-6'>
     <view class='center-style'>
-      <text wx:if="{{isbuy === ''}}" style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>全部</text>
-      <text wx:elif="{{isbuy === 0}}" style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>已购买</text>
-      <text wx:else style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>未购买</text>
+      <text wx:if="{{dealStatus === 0}}" style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>全部</text>
+      <text wx:elif="{{dealStatus === 1}}" style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>已购买</text>
+      <text wx:elif="{{dealStatus === 2}}" style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>未购买</text>
+      <text wx:elif="{{dealStatus === 3}}" style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>已交定金</text>
+      <text wx:elif="{{dealStatus === 4}}" style='background-color:#ececec;border-radius:20rpx;padding:5rpx 20rpx;margin-top:20rpx;' class='zan-font-14' bindtap='toggleActionsheet'>未交定金</text>
     </view>
   </view>
 
@@ -104,7 +106,7 @@
         <view style='position: relative;height:100rpx;border-bottom:1rpx solid #ececec;'>
           <navigator url='/pages/clientDetail/clientDetail?clientId={{item.id}}'>
             <view class='zan-row'>
-              <view class='zan-col zan-col-2 zan-font-14' style="line-height:100rpx;text-align:center;{{item.isearnest_flag ?'background-color:yellow':''}}">{{index + 1}}</view>
+              <view class='zan-col zan-col-2 zan-font-14' style="line-height:100rpx;text-align:center;">{{index + 1}}</view>
               <view class='zan-col zan-col-3'>
                 <view class='center-style' style='height:100rpx;'>
                   <image src='{{item.avatar}}' style='width:70rpx;height:70rpx;border-radius: 50%;'></image>
@@ -122,6 +124,9 @@
   </view>
 </view>
 
+<view wx:if="{{adddeal}}" class='bottom-addDeal'>
+  <view class='zan-font-16' style='color:#fff;line-height:90rpx;text-align:center;' bindtap='jumpAddDeal'>客户数量: </view>
+</view>
 
 <view bindtap='backIndex' style='position:fixed;bottom:145px;right:10px;z-index:99;'>
   <image src='../../../images/enterprise.png' style='width:48px;height:48px;'></image>

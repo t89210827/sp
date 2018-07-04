@@ -22,44 +22,51 @@ Page({
     // isReservation: false,    //是否交定金
     // date: '2018-04-10',      //提醒时间
 
-    clientName: '',          //顾客姓名
-    image: '',               //头像
-    city: '',                //城市
-    gender: "男",            //性别
+    clientName: '', //顾客姓名
+    image: '', //头像
+    city: '', //城市
+    gender: "男", //性别
     birthDate: "2016-09-01", //生日
-    day: "",                 //接待时间
+    day: "", //接待时间
 
-    num: 1,                  //产品数量
-    productList: [],         //所有产品数组
-    dealData: [],            //提交交易参数
+    num: 1, //产品数量
+    productList: [], //所有产品数组
+    dealData: [], //提交交易参数
     // productType: "黄铂",  //产品类型默认值
 
-    productArr: [],         //产品类型默认值
+    productArr: [], //产品类型默认值
+
+    sealButton: false, //用户是否点击过按钮
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     vm = this
     var day = util.getToday()
     var tel = options.tel
-    vm.setData({ day: day, tel: tel })
+    vm.setData({
+      day: day,
+      tel: tel
+    })
     vm.getProductList()
     // vm.init()       //初始化参数
   },
 
   //获取生效的产品信息
-  getProductList: function () {
+  getProductList: function() {
     var param = {
       page: 1
     }
-    util.getProductList(param, function (res) {
+    util.getProductList(param, function(res) {
       var productList = res.data.ret.data
-      vm.setData({ productList: productList })
+      vm.setData({
+        productList: productList
+      })
       vm.initItemList()
     })
   },
 
   //初始化
-  init: function (id) {
+  init: function(id) {
     var arr = []
     var dateAddThree = util.getTodayAddThree()
     arr.push({
@@ -82,7 +89,10 @@ Page({
     var itemListIndex = vm.data.itemList[0]
     var productArr = [itemListIndex]
     console.log("7771" + JSON.stringify(arr))
-    vm.setData({ dealData: arr, productArr: productArr })
+    vm.setData({
+      dealData: arr,
+      productArr: productArr
+    })
   },
   //笔数选择
   onChangeNumber(e) {
@@ -112,28 +122,34 @@ Page({
       productArr.push(itemListIndex)
     }
     console.log("777" + JSON.stringify(arr))
-    vm.setData({ num: num, dealData: arr, productArr: productArr })
+    vm.setData({
+      num: num,
+      dealData: arr,
+      productArr: productArr
+    })
   },
 
   //产品名字数组
-  initItemList: function () {
+  initItemList: function() {
     var itemList = []
     var productList = vm.data.productList
     productList.reverse()
     for (var i = 0; i < productList.length; i++) {
       itemList.push(productList[i].name)
     }
-    vm.setData({ itemList: itemList })
-    vm.init(vm.data.productList[0].id)     //初始化参数 
+    vm.setData({
+      itemList: itemList
+    })
+    vm.init(vm.data.productList[0].id) //初始化参数 
   },
 
   //添加交易信息
-  addDeal: function () {
+  addDeal: function() {
     var deal = vm.data.dealData
     var param = {
       deal: deal
     }
-    util.addDeal(param, function (res) {
+    util.addDeal(param, function(res) {
       if (res.data.result) {
         wx.navigateTo({
           url: '/pages/hint/addClient/addClient',
@@ -143,28 +159,30 @@ Page({
   },
 
   //货号
-  inputName: function (e) {
+  inputName: function(e) {
     var productindex = e.currentTarget.dataset.productindex
     var dealData = vm.data.dealData
 
     dealData[productindex].product_name = e.detail.value
-    vm.setData({ dealData: dealData })
+    vm.setData({
+      dealData: dealData
+    })
     console.log("---" + JSON.stringify(dealData))
   },
 
   //选择产品类型
-  productType: function (e) {
+  productType: function(e) {
     var productindex = e.currentTarget.dataset.productindex
 
-    var dealData = vm.data.dealData             //交易参数数组
-    var productList = vm.data.productList       //产品数组
-    var itemList = vm.data.itemList             //产品数组
-    var productArr = vm.data.productArr         //产品数组
+    var dealData = vm.data.dealData //交易参数数组
+    var productList = vm.data.productList //产品数组
+    var itemList = vm.data.itemList //产品数组
+    var productArr = vm.data.productArr //产品数组
 
     // console.log("11111" + JSON.stringify(itemList))
     wx.showActionSheet({
       itemList: itemList,
-      success: function (res) {
+      success: function(res) {
         if (!res.cancel) {
           console.log(res.tapIndex)
           dealData[productindex].product_id = productList[res.tapIndex].id
@@ -180,13 +198,13 @@ Page({
   },
 
   //选择预算
-  budget: function (e) {
+  budget: function(e) {
     var productindex = e.currentTarget.dataset.productindex
     var dealData = vm.data.dealData
     var budget = ['0-10000', '10000-20000', '20000-50000', '50000以上']
     wx.showActionSheet({
       itemList: ['0-10000', '10000-20000', '20000-50000', '50000以上'],
-      success: function (res) {
+      success: function(res) {
         if (!res.cancel) {
           console.log(res.tapIndex)
           dealData[productindex].budget = budget[res.tapIndex]
@@ -198,7 +216,7 @@ Page({
     });
   },
 
-  switchBuy: function (e) {
+  switchBuy: function(e) {
     var isBuy = e.detail.value
     var dealData = vm.data.dealData
     var productindex = e.currentTarget.dataset.productindex
@@ -211,9 +229,12 @@ Page({
       dealData[productindex].num = ""
     }
     console.log("---" + JSON.stringify(dealData))
-    vm.setData({ isBuy: e.detail.value, dealData: dealData })
+    vm.setData({
+      isBuy: e.detail.value,
+      dealData: dealData
+    })
   },
-  switchReservation: function (e) {
+  switchReservation: function(e) {
     // console.log('携带值为', e.detail.value)
     var isReservation = e.detail.value
     var dealData = vm.data.dealData
@@ -227,51 +248,62 @@ Page({
       dealData[productindex].isearnest_money = ""
     }
     console.log("---" + JSON.stringify(dealData))
-    vm.setData({ isReservation: e.detail.value, dealData: dealData })
+    vm.setData({
+      isReservation: e.detail.value,
+      dealData: dealData
+    })
   },
 
   //购买金额
-  inputMoney: function (e) {
+  inputMoney: function(e) {
     var productindex = e.currentTarget.dataset.productindex
     var dealData = vm.data.dealData
 
     dealData[productindex].money = e.detail.value
-    vm.setData({ dealData: dealData })
+    vm.setData({
+      dealData: dealData
+    })
     console.log("---" + JSON.stringify(dealData))
   },
 
   //购买件数
-  inputNum: function (e) {
+  inputNum: function(e) {
     var productindex = e.currentTarget.dataset.productindex
     var dealData = vm.data.dealData
 
     dealData[productindex].num = e.detail.value
-    vm.setData({ dealData: dealData })
+    vm.setData({
+      dealData: dealData
+    })
     console.log("---" + JSON.stringify(dealData))
   },
 
   //定金金额
-  inputIsearnestMoney: function (e) {
+  inputIsearnestMoney: function(e) {
     var productindex = e.currentTarget.dataset.productindex
     var dealData = vm.data.dealData
 
     dealData[productindex].isearnest_money = e.detail.value
-    vm.setData({ dealData: dealData })
+    vm.setData({
+      dealData: dealData
+    })
     console.log("---" + JSON.stringify(dealData))
   },
 
   //定金金额
-  inputPurpose: function (e) {
+  inputPurpose: function(e) {
     var productindex = e.currentTarget.dataset.productindex
     var dealData = vm.data.dealData
 
     dealData[productindex].purpose = e.detail.value
-    vm.setData({ dealData: dealData })
+    vm.setData({
+      dealData: dealData
+    })
     console.log("---" + JSON.stringify(dealData))
   },
 
   //提醒时间
-  bindDateChange: function (e) {
+  bindDateChange: function(e) {
     var productindex = e.currentTarget.dataset.productindex
     var dealData = vm.data.dealData
 
@@ -283,7 +315,7 @@ Page({
   },
 
   //备注
-  textAreaEventListener: function (e) {
+  textAreaEventListener: function(e) {
     var productindex = e.currentTarget.dataset.productindex
     var dealData = vm.data.dealData
 
@@ -294,7 +326,7 @@ Page({
     console.log("---" + JSON.stringify(dealData))
   },
 
-  addClientRequest: function () {
+  addClientRequest: function() {
     var day = util.getToday()
     var param = {
       name: vm.data.clientName,
@@ -306,16 +338,23 @@ Page({
       avatar: vm.data.image,
       reception_time: day,
     }
-    util.addClient(param, function (res) {
+    util.addClient(param, function(res) {
       if (res.data.result) {
+        //为了不让用户重复点击
+        vm.setData({
+          sealButton: true
+        })
+
         var clientDetail = res.data.ret
         if (vm.data.num != 0) {
           var dealData = vm.data.dealData
           for (var i = 0; i < dealData.length; i++) {
             dealData[i].client_id = clientDetail.id
           }
-          vm.setData({ dealData: dealData })
-          vm.addDeal()             //添加交易信息
+          vm.setData({
+            dealData: dealData
+          })
+          vm.addDeal() //添加交易信息
         } else if (vm.data.num == 0) {
           wx.navigateTo({
             url: '/pages/hint/addClient/addClient',
@@ -326,7 +365,12 @@ Page({
   },
 
   // 添加顾客信息并添加交易信息
-  addClient: function () {
+  addClient: function() {
+    //判断用户是否提交过顾客
+    var sealButton = vm.data.sealButton
+    if (sealButton == true) {
+      return
+    }
 
     if (vm.data.clientName == "") {
       util.showToast("姓名不能为空")
@@ -370,18 +414,26 @@ Page({
       }
 
       if (deal[i].product_id == 1) {
-        if (deal[i].money > 70000) {
-          if (deal[i].num < 3) {
-            util.showToast("金额超过70000 件数必须大于2 单件超7万必须录入在大单销售里面")
-            return
-          }
+
+        var unitPrice = deal[i].money / deal[i].num
+
+        if (unitPrice > 70000) {
+          util.showToast("单件超7万必须录入在大单销售里面")
+          return
         }
+
+        // if (deal[i].money > 70000) {
+        //   if (deal[i].num < 3) {
+        //     util.showToast("金额超过70000 件数必须大于2 单件超7万必须录入在大单销售里面")
+        //     return
+        //   }
+        // }
       }
     }
     wx.showModal({
       title: '确认',
       content: '确定提交？',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           console.log('用户点击确定')
           vm.addClientRequest()
@@ -393,24 +445,26 @@ Page({
   },
 
   //顾客姓名
-  inputClientName: function (e) {
+  inputClientName: function(e) {
     var clientName = e.detail.value
-    vm.setData({ clientName: clientName })
+    vm.setData({
+      clientName: clientName
+    })
     console.log("顾客姓名" + JSON.stringify(clientName))
   },
 
   // 上传图片
-  chooseImage: function (e) {
+  chooseImage: function(e) {
     var that = this;
     wx.chooseImage({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
+      success: function(res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths
 
         //获取七牛上传token
-        util.getQiniuToken({}, function (res) {
+        util.getQiniuToken({}, function(res) {
           console.log(JSON.stringify(res));
           if (res.data.result) {
             qnToken = res.data.ret;
@@ -437,11 +491,11 @@ Page({
   },
 
   //选择性别
-  gender: function () {
+  gender: function() {
     var gender = ['男', '女']
     wx.showActionSheet({
       itemList: ['男', '女'],
-      success: function (res) {
+      success: function(res) {
         if (!res.cancel) {
           vm.setData({
             gender: gender[res.tapIndex]
@@ -453,7 +507,7 @@ Page({
   },
 
   //顾客年龄
-  inputAge: function (e) {
+  inputAge: function(e) {
     vm.setData({
       age: e.detail.value,
     })
@@ -461,7 +515,7 @@ Page({
   },
 
   //顾客手机
-  inputPhone: function (e) {
+  inputPhone: function(e) {
     vm.setData({
       tel: e.detail.value,
     })
@@ -470,7 +524,7 @@ Page({
 
 
   //生日
-  bindBirthDate: function (e) {
+  bindBirthDate: function(e) {
     this.setData({
       birthDate: e.detail.value
     })
@@ -478,7 +532,7 @@ Page({
   },
 
   //顾客城市
-  inputCity: function (e) {
+  inputCity: function(e) {
     vm.setData({
       city: e.detail.value,
     })
@@ -487,7 +541,7 @@ Page({
 
 
   //返回上一层
-  back: function () {
+  back: function() {
     wx.navigateBack({
       delta: 1
     })
@@ -496,49 +550,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
