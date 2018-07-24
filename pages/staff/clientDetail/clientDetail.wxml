@@ -175,3 +175,5 @@
 <view class='bottom-addDeal'>
   <view class='zan-font-16' style='color:#fff;line-height:90rpx;text-align:center;' bindtap='jumpAddDeal' data-clientid='{{clientDetail.id}}'>添加交易记录</view>
 </view>
+
+<wxc-toast is-show="{{toast.show}}" text="{{showToastText}}" icon="yes" icon-color="#ff5777"></wxc-toast>

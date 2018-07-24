@@ -14,7 +14,7 @@
 <view style='height:500rpx;'></view>
 <view class='center-style'>
   <view class='phoneInput center-style'>
-    <input class='zan-font-16' placeholder-style="text-align:center;" placeholder="请输入客户电话号" bindinput='inputPhone' style='width:500rpx;text-align:center;height:100rpx;line-height:100rpx;'></input>
+    <input class='zan-font-16' placeholder-style="text-align:center;" placeholder="请输入客户电话号" bindinput='inputPhone' type="number" style='width:500rpx;text-align:center;height:100rpx;line-height:100rpx;'></input>
   </view>
 </view>
 

@@ -30,13 +30,13 @@
 
 
 
-         <button style='margin-top:100rpx;height:80rpx;line-height:80rpx;background-color:#69c3aa;width:50%;border-radius:50rpx;color:#fff;' lang='zh_CN' bindgetuserinfo="getUserInfo" open-type="getUserInfo">进入管理系统</button> 
+        <button style='margin-top:100rpx;height:80rpx;line-height:80rpx;background-color:#69c3aa;width:50%;border-radius:50rpx;color:#fff;' lang='zh_CN' bindgetuserinfo="getUserInfo" open-type="getUserInfo">进入管理系统</button>
 
-         <!-- <view class="confirm-btn" bindtap='getAuditByUserId'>
+        <!-- <view class="confirm-btn" bindtap='getAuditByUserId'>
           <text>进入管理系统</text>
         </view>  -->
 
-        
+
         <!-- </block> -->
 
         <text class="copyright">本小程序由ISART艺术互联网公司开发</text>

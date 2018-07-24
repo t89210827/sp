@@ -55,12 +55,12 @@
 
 <button bindtap='clickSwitch' class='zan-font-14'>{{reverse?'排名正序':'排名倒序'}}</button>
 
-<view style='height:30rpx;'></view>
+<view style='height:10rpx;'></view>
 
 <view style='width:750rpx;'>
-  <view style='width:94%;height:1000rpx;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
+  <view style='width:94%;height:900rpx;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
 
-    <scroll-view scroll-y style="height: 1000rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-top='0'>
+    <scroll-view scroll-y style="height: 900rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-top='0'>
 
       <view class='zan-row'>
         <view class='zan-col zan-col-3 zan-col-offset-2 zan-font-14 center-style' style='line-height:100rpx;'>头像</view>
@@ -68,7 +68,7 @@
         <view class='zan-col zan-col-7 zan-font-14 center-style' style='line-height:100rpx;'>姓名</view>
         <view class='zan-col zan-col-7 zan-font-14 center-style' style='line-height:100rpx;'>实销额</view>
         <view class=' zan-col zan-col-5 zan-font-14 center-style' style='line-height:100rpx;'>完成率</view>
-        <!-- <view class=' zan-col zan-col-8 zan-arrow '></view> -->
+        <!-- <view class=' zan-col zan-col-8 zan-arrow'></view> -->
       </view>
 
       <block wx:for="{{staffRanking}}">
@@ -89,5 +89,12 @@
       </block>
 
     </scroll-view>
+  </view>
+</view>
+
+<view style='width:750rpx;'>
+  <view style='width:94%;height:80rpx;margin:10rpx 3%;box-shadow: 0px 0px 10px #E3F6FD;'>
+    <text style='font-size:30rpx;line-height:80rpx;margin-left:20rpx;'>总销售额</text>
+    <text style='margin-left:420rpx;font-size:35rpx;float:right;line-height:80rpx;margin-right:20rpx;'>{{allMoney}}</text>
   </view>
 </view>

@@ -1,5 +1,5 @@
 //测试标识
-var TESTMODE = true;
+var TESTMODE = false;
 //服务器地址
 var SERVER_URL = "https://waibao.isart.me";
 var DEBUG_URL = "http://testwaibao.isart.me";
@@ -72,7 +72,6 @@ function wxRequest(url, param, method, successCallback, errorCallback) {
 function getQiniuToken(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/user/getQiniuToken', param, "GET", successCallback, errorCallback)
 }
-
 // http://localhost/waibaoSrv/public/api/sp/user/getXCXOpenId
 
 //获取用户的OpenId

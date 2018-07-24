@@ -327,6 +327,11 @@ Page({
   },
 
   addClientRequest: function() {
+    //为了不让用户重复点击
+    vm.setData({
+      sealButton: true
+    })
+
     var day = util.getToday()
     var param = {
       name: vm.data.clientName,
@@ -340,10 +345,7 @@ Page({
     }
     util.addClient(param, function(res) {
       if (res.data.result) {
-        //为了不让用户重复点击
-        vm.setData({
-          sealButton: true
-        })
+
 
         var clientDetail = res.data.ret
         if (vm.data.num != 0) {
@@ -369,6 +371,7 @@ Page({
     //判断用户是否提交过顾客
     var sealButton = vm.data.sealButton
     if (sealButton == true) {
+      util.showToast("不可重复提交")
       return
     }
 

@@ -5,7 +5,9 @@ Page({
   data: {
     submitDaily: [], //提交日报信息
     date: "", //日期
-    num: 0, //订货数量
+    num: 0, //订货数量、
+
+    sealButton: false, //用户是否点击过按钮
   },
 
   onLoad: function(options) {
@@ -48,6 +50,11 @@ Page({
 
   //提价日报 跳转到员工首页
   getShopManagerTask: function() {
+    //为了不让用户重复点击
+    vm.setData({
+      sealButton: true
+    })
+
     var submitDaily = vm.data.submitDaily
     var daily = vm.data.daily
     // var today = util.getToday()
@@ -190,10 +197,16 @@ Page({
 
   //判断
   judge: function() {
+    //判断用户是否点击过按钮
+    var sealButton = vm.data.sealButton
+    if (sealButton == true) {
+      util.showToast("不可重复提交")
+      return
+    }
+
     var submitDaily = vm.data.submitDaily
     if (submitDaily.length == 0) {
       util.showToast("店长还未发布今日目标")
-      // util.showToast("店长昨日未发布目标")
       return
     }
     if (vm.data.daily.passenger_flow_num == 0) {
