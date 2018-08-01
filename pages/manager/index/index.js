@@ -145,9 +145,10 @@ Page({
       page: 1,
     }
     util.getShop(param, function (res) {
-      var shops = res.data.ret.shop.data
+      // var shops = res.data.ret.shop.data
+      var shops = res.data.ret.shop
+      console.log("店铺列表" + JSON.stringify(res))
       shops.unshift({ "name": "全部店铺" })
-      console.log("店铺列表" + JSON.stringify(shops))
       vm.setData({ shops: shops })
       // vm.indexRefresh()     //首页刷新
     })

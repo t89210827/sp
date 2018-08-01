@@ -3,22 +3,27 @@ var vm = null
 var util = require('../../utils/util.js')
 Page({
   data: {
-    favor: [],        //用户喜好列表
-    farmList: [],    //农产品列表
-    tabs: [
-      { title: '选择店铺', content: '内容一' },
-      { title: '我的店铺', content: '内容二' },
+    favor: [], //用户喜好列表
+    farmList: [], //农产品列表
+    tabs: [{
+        title: '选择店铺',
+        content: '内容一'
+      },
+      {
+        title: '我的店铺',
+        content: '内容二'
+      },
     ]
   },
 
-  onClick: function (e) {
+  onClick: function(e) {
     console.log(`ComponentId:${e.detail.componentId},you selected:${e.detail.key}`);
   },
 
-  checkChange: function (e) {
+  checkChange: function(e) {
     console.log('radio发生change事件，携带value值为：', JSON.stringify(e))
     var checkArr = e.detail.value
-    var index = e.currentTarget.dataset.goodsid     //一级分类id
+    var index = e.currentTarget.dataset.goodsid //一级分类id
     var farmList = vm.data.farmList;
     console.log("一级菜单多选值：" + JSON.stringify(checkArr))
     // vm.setData({
@@ -39,14 +44,14 @@ Page({
     // console.log("喜好数据" + JSON.stringify(farmList))
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     vm = this
-    vm.getBrandShops()           //获取所有品牌的对应店铺信息
-    vm.getShop()                 //获取我的店铺
+    vm.getBrandShops() //获取所有品牌的对应店铺信息
+    vm.getShop() //获取我的店铺
   },
   //获取所有品牌的对应店铺信息
-  getBrandShops: function () {
-    util.getBrandShops({}, function (res) {
+  getBrandShops: function() {
+    util.getBrandShops({}, function(res) {
       if (res.data.result) {
         var brandShops = res.data.ret
 
@@ -65,23 +70,27 @@ Page({
           brandShops[index].arr = arr
         }
         console.log("获取所有品牌的对应店铺信息" + JSON.stringify(brandShops))
-        vm.setData({ brandShops: brandShops })
+        vm.setData({
+          brandShops: brandShops
+        })
       }
     })
   },
 
   //品牌展开与收取
-  targetSwitch: function (e) {
+  targetSwitch: function(e) {
     console.log("获取所有品牌的对应店铺信息" + JSON.stringify(e))
-    var index = e.currentTarget.id     //品牌id    
+    var index = e.currentTarget.id //品牌id    
     var brandShops = vm.data.brandShops
     brandShops[index].check = !brandShops[index].check
-    vm.setData({ brandShops: brandShops })
+    vm.setData({
+      brandShops: brandShops
+    })
   },
 
   //weui多选
-  checkboxChange: function (e) {
-    var index = e.currentTarget.id     //品牌id    
+  checkboxChange: function(e) {
+    var index = e.currentTarget.id //品牌id    
 
     console.log('携带value值为：', JSON.stringify(e.detail.value));
     var brandShops = vm.data.brandShops
@@ -105,20 +114,23 @@ Page({
   },
 
   //获取我的店铺
-  getShop: function () {
+  getShop: function() {
     var param = {
       manager_id: getApp().globalData.userInfo.id,
       page: 1,
     }
-    util.getShop(param, function (res) {
-      var shops = res.data.ret.shop.data
+    util.getShop(param, function(res) {
+      // var shops = res.data.ret.shop.data
+      var shops = res.data.ret.shop
       console.log("获取我的店铺" + JSON.stringify(shops))
-      vm.setData({ shops: shops })
+      vm.setData({
+        shops: shops
+      })
     })
   },
 
   //选择的店铺数组
-  selectShops: function () {
+  selectShops: function() {
     var shop_id = ""
     var brandShops = vm.data.brandShops
     for (var index in brandShops) {
@@ -137,19 +149,19 @@ Page({
     // console.log("店铺数组" + JSON.stringify(shop_id))
   },
 
-  managerUpdateShop: function (shop_id) {
+  managerUpdateShop: function(shop_id) {
 
     wx.showModal({
       title: '提示',
       content: '若更换店铺则小程序暂不可使用,需要后台审核之后才可使用。',
       confirmText: "确定",
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           var param = {
             manager_id: getApp().globalData.userInfo.id,
             shop_id: shop_id
           }
-          util.managerUpdateShop(param, function (res) {
+          util.managerUpdateShop(param, function(res) {
             if (res.data.result) {
               var userInfo = res.data.ret.user
               getApp().storeUserInfo(userInfo)
@@ -168,7 +180,7 @@ Page({
   },
 
   //返回上一层
-  back: function () {
+  back: function() {
     wx.navigateBack({
       delta: 1
     })
@@ -193,49 +205,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
