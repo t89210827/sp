@@ -6,7 +6,7 @@
   <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
 </view>
 
-<view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
+<view class="back" style='width:200rpx;height:140rpx;' bindtap="backIndex">
   <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../../images/back.png"></image>
 </view>
 

@@ -144,7 +144,6 @@
       </view>
     </view>
 
-
     <view style='margin:0 3%;'>
       <view class='zan-row' style='height:120rpx;'>
         <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>其他备注</view>
@@ -169,5 +168,7 @@
 <!-- </block> -->
 
 <view style='height:100rpx;'></view>
+
+<view wx:if="{{userType == 2}}" class='submit-daily' bindtap='shopManagerAlterStatus'>修改交易</view>
 
 <view wx:if="{{deal.isearnest == 0 && userType == 1}}" class='submit-daily' bindtap='alterStatus'>修改状态</view>

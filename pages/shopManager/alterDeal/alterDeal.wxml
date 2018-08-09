@@ -1,0 +1,181 @@
+<!--pages/shopManager/alterDeal/alterDeal.wxml-->
+<view class='top'>
+  <wxc-progress activeColor='#5A94FF,#38B9FD' stroke-width='140' radius="0"></wxc-progress>
+</view>
+
+<view class="back" style='width:200rpx;height:140rpx;' bindtap="back">
+  <image style='margin:60rpx 20rpx;width:34rpx;height:34rpx;' src="../../../images/back.png"></image>
+</view>
+
+<view class="title" style='width:750rpx;height:140rpx;' bindtap="back">
+  <view style='text-align:center;line-height:140rpx;color:#fff;' class='zan-font-16'>修改交易状态</view>
+</view>
+
+<view style='height:140rpx;'></view>
+
+<view style='width:750rpx; '>
+  <view style='width:94%;margin:20rpx 3%;box-shadow: 0px 0px 10px #E3F6FD; '>
+
+    <view style='margin:0 3%; '>
+      <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
+        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>货号</view>
+        <view class='zan-col zan-col-13 '>
+
+          <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
+            <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入货号" bindinput='inputName' data-productIndex='{{index}}' value="{{deal != null ? deal.product_name : ''}}" style='line-height:120rpx;text-align:right;'></input>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view style='margin:0 3%;' bindtap='productType' data-productIndex='{{index}}'>
+      <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
+        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>产品类型</view>
+        <view class='zan-col zan-col-13 '>
+
+          <view class='flex-row' style='height:120rpx;align-items: center;float:right; '>
+            <view wx:if="{{deal.product_id == 1}}" class='zan-c-gray-darker zan-font-16'>非黄铂</view>
+            <view wx:if="{{deal.product_id == 2}}" class='zan-c-gray-darker zan-font-16'>黄铂</view>
+            <view wx:if="{{deal.product_id == 3}}" class='zan-c-gray-darker zan-font-16'>大单销售</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view style='margin:0 3%;'>
+      <view class='zan-row' style='border-bottom:1rpx solid #ececec;height:120rpx;' bindtap='budget' data-productIndex='{{index}}'>
+        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16' style='line-height:120rpx;'>预算</view>
+        <view class='zan-col zan-col-13'>
+
+          <view class='flex-row' style='height:120rpx;align-items: center;float:right;'>
+            <view class='zan-font-16 zan-c-gray-dark' style='line-height:120rpx;text-align:right;'>{{deal.budget}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view style='margin:0 3%; '>
+      <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
+        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>是否购买</view>
+        <view class='zan-col zan-col-13 '>
+
+          <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
+            <switch bindchange="switchBuy" checked="{{deal.isbuy == 0 ? true : false}}" data-productIndex='{{index}}' />
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <block wx:if="{{deal.isbuy == 0}}">
+      <view style='margin:0 3%; '>
+        <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>购买金额</view>
+          <view class='zan-col zan-col-13 '>
+            <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
+              <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入购买金额" bindinput='inputMoney' data-productIndex='{{index}}' value="{{deal.money != null ? deal.money : ''}}" style='line-height:120rpx;text-align:right; '></input>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view style='margin:0 3%; '>
+        <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>件数</view>
+          <view class='zan-col zan-col-13 '>
+
+            <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
+              <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入件数" bindinput='inputNum' data-productIndex='{{index}}' value="{{deal.num != null ? deal.num : ''}}" style='line-height:120rpx;text-align:right; '></input>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <view style='margin:0 3%; '>
+      <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
+        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx;'>是否交定金</view>
+        <view class='zan-col zan-col-13 '>
+
+          <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
+            <switch bindchange="switchReservation" checked="{{deal.isearnest == 0 ? true : false}}" data-productIndex='{{index}}' />
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <block wx:if="{{deal.isearnest == 0}}">
+      <view style='margin:0 3%; '>
+        <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>定金金额</view>
+          <view class='zan-col zan-col-13 '>
+
+            <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
+              <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入定金金额" bindinput='inputIsearnestMoney' data-productIndex='{{index}}' value="{{deal.isearnest_money != null ? deal.isearnest_money : ''}}" style='line-height:120rpx;text-align:right; '></input>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <view style='margin:0 3%; '>
+      <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
+        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>用途</view>
+        <view class='zan-col zan-col-13 '>
+
+          <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
+            <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入用途" bindinput='inputPurpose' data-productIndex='{{index}}' value="{{deal.purpose != null ? deal.purpose : ''}}" style='line-height:120rpx;text-align:right; '></input>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- <view style='margin:0 3%; '>
+        <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
+          <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>提醒时间</view>
+          <view class='zan-col zan-col-13 '>
+
+            <view class='flex-row ' style='height:120rpx;align-items: center;float:right; '>
+              <input class='zan-font-16 ' placeholder-style="text-align:right;" placeholder="请输入提醒时间" bindinput='inputName ' style='line-height:120rpx;text-align:right; '></input>
+            </view>
+          </view>
+        </view>
+      </view> -->
+
+    <view style='margin:0 3%; '>
+      <view class='zan-row ' style='border-bottom:1rpx solid #ececec;height:120rpx; '>
+        <view class='zan-c-gray-dark zan-col zan-col-16 zan-font-16 ' style='line-height:120rpx; '>提醒时间：</view>
+        <view class='zan-col zan-col-8 ' style='margin-top:10rpx; '>
+
+          <picker mode="date" start="2000-01-01" end="2020-01-01" bindchange="bindDateChange" data-productIndex='{{index}}'>
+            <view class='flex-row ' style='align-items: center;float:right; '>
+              <view class="zan-font-16 zan-c-gray-darker" style='line-height:120rpx; '>{{deal.purpose_time}}</view>
+              <image src='../../../images/right.png ' style='margin-left:10rpx;width:30rpx;height:30rpx; '></image>
+            </view>
+          </picker>
+
+        </view>
+      </view>
+    </view>
+
+
+    <view style='margin:0 3%; '>
+      <view class='zan-row ' style='height:120rpx; '>
+        <view class='zan-c-gray-dark zan-col zan-col-10 zan-font-16 ' style='line-height:120rpx; '>其他备注</view>
+      </view>
+    </view>
+
+    <view style='margin:0 3%;'>
+      <view style="position: relative;">
+        <view class="intro-content">
+          <textarea style='padding:10rpx 20rpx;height:260rpx; ' name="intro" cursor-spacing="100" bindinput="textAreaEventListener" data-productIndex='{{index}}' value="{{deal.remark != null ? deal.remark : ''}}" maxlength='100 ' placeholder="" />
+        </view>
+        <!-- <view class='zan-font-14' style="position: absolute; right: 10rpx; bottom: 0;">{{remark.length}} /100</view> -->
+      </view>
+    </view>
+
+  </view>
+</view>
+
+<view style='height:100rpx;'></view>
+
+<cover-view class='submit-daily' bindtap='updateDealById'>确定修改</cover-view>

@@ -1,6 +1,8 @@
 //login.js
 //获取应用实例
 var util = require('../../utils/util.js')
+var mta = require('../../utils/mta_analysis.js')
+
 var vm = null
 Page({
   data: {
@@ -17,7 +19,15 @@ Page({
     vm = this
     vm.getStorageUserInfo()
     vm.getSetting()
+
+    mta.Page.init()
+    mta.Event.stat('0', {
+      '0': 'true'
+    })
+
   },
+
+  
 
   //获取缓存中用户信息
   getStorageUserInfo: function() {

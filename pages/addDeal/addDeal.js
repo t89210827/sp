@@ -186,14 +186,13 @@ Page({
             if (res.data.result) {
               var pages = getCurrentPages(); //获取当前页面信息栈
               var prevPage = pages[pages.length - 2] //获取上一个页面信息栈
-              prevPage.showToast("录入交易成功")
-              // prevPage.getDealByClientId() //更新交易记录
+              console.log("录入交易" + JSON.stringify(res))
+              // prevPage.showToast("录入交易成功")
 
-              // vm.back()
+              wx.navigateTo({
+                url: '/pages/hint/addClient/addClient',
+              })
 
-              // wx.navigateTo({
-              //   url: '/pages/hint/addClient/addClient',
-              // })
             }
           })
         } else if (res.cancel) {

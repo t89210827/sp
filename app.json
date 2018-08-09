@@ -54,7 +54,9 @@
     "pages/shopManager/alterStaffTask/alterStaffTask",
     "pages/shopManager/alterBoutiqueDetail/alterBoutiqueDetail",
     "pages/staff/alterDeal/alterDeal",
-    "pages/manager/transfenShopManagerList/transfenShopManagerList"
+    "pages/manager/transfenShopManagerList/transfenShopManagerList",
+    "pages/dimission/dimission",
+    "pages/shopManager/alterDeal/alterDeal"
   ],
   "window": {
     "backgroundTextStyle": "light",

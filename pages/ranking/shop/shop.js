@@ -26,7 +26,6 @@ Page({
       start_time: start_time,
       end_time: end_time
     })
-    vm.getShopRanking()
   },
   // 主管查看店铺排名：非黄珀业绩+大额订单的业绩 / 非黄珀任务额（按月算，倒叙）（业绩保留两位小数）
   getShopRanking: function() {
@@ -84,7 +83,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    vm.getShopRanking()
   },
 
   /**

@@ -14,8 +14,10 @@ Page({
     vm = this
     var shop_id = options.shop_id
 
-    var start_time = util.changeDate(-7)
-    var end_time = util.changeDate(1)
+    var pages = getCurrentPages(); //获取当前页面信息栈
+    var prevPage = pages[pages.length - 2] //获取上一个页面信息栈
+    var start_time = prevPage.data.start_time
+    var end_time = prevPage.data.end_time
     vm.setData({
       start_time: start_time,
       end_time: end_time
@@ -55,6 +57,13 @@ Page({
 
   //开始时间
   bindBeginDate: function(e) {
+    var pages = getCurrentPages(); //获取当前页面信息栈
+    var prevPage = pages[pages.length - 2] //获取上一个页面信息栈
+
+    prevPage.setData({
+      start_time: e.detail.value
+    })
+
     this.setData({
       start_time: e.detail.value
     })
@@ -62,6 +71,13 @@ Page({
   },
   //结束时间
   bindEndDate: function(e) {
+    var pages = getCurrentPages(); //获取当前页面信息栈
+    var prevPage = pages[pages.length - 2] //获取上一个页面信息栈
+
+    prevPage.setData({
+      end_time: e.detail.value
+    })
+
     this.setData({
       end_time: e.detail.value
     })

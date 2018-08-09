@@ -1,0 +1,4 @@
+<!--pages/dimission/dimission.wxml-->
+
+
+<view style='width:600rpx;margin:400rpx 75rpx;' class='center-style'>您已离职 不可进入小程序</view>

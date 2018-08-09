@@ -1,0 +1,21 @@
+/* pages/shopManager/alterDeal/alterDeal.wxss */
+
+.intro-content {
+  height: 260rpx;
+  border-radius: 8px;
+  border: #dcdcdc 1rpx solid;
+  font-size: 30rpx;
+  color: #b4b4b4;
+}
+
+.submit-daily {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0rpx;
+  width: 750rpx;
+  height: 90rpx;
+  background-color: #5a94ff;
+  line-height: 80rpx;
+  color: #fff;
+  text-align: center;
+}

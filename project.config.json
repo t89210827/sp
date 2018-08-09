@@ -35,13 +35,25 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
 					"name": "添加交易",
 					"pathName": "pages/addClientAddDeal/addClientAddDeal",
 					"query": "tel=15812345678"
+				},
+				{
+					"id": -1,
+					"name": "离职页面",
+					"pathName": "pages/dimission/dimission",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "修改交易",
+					"pathName": "pages/shopManager/alterDeal/alterDeal",
+					"query": ""
 				}
 			]
 		}

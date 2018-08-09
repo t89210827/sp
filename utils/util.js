@@ -1,5 +1,5 @@
 //测试标识
-var TESTMODE = true;
+var TESTMODE = false;
 //服务器地址
 var SERVER_URL = "https://waibao.isart.me";
 var DEBUG_URL = "http://testwaibao.isart.me";
@@ -514,7 +514,12 @@ function manager_getShopManagerMsg(param, successCallback, errorCallback) {
   wxRequest(SERVER_URL + '/api/sp/manager/getShopManagerMsg', param, "GET", successCallback, errorCallback)
 }
 
-//http://localhost/waibaoSrv/public/api/sp/manager/getShopManagerMsg
+//店长修改交易记录
+function deal_update(param, successCallback, errorCallback) {
+  wxRequest(SERVER_URL + '/api/sp/deal/update', param, "GET", successCallback, errorCallback)
+}
+
+//http://localhost/waibaoSrv/public/api/sp/deal/update
 ///////////////////////////////////////////////
 
 function imageUtil(e) {
@@ -600,7 +605,8 @@ function judgeIsAnyNullStr() {
 
 //是否为手机号
 function isPoneAvailable(str) {
-  var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+  var myreg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
+
   if (!myreg.test(str)) {
     return false
   } else {
@@ -1325,4 +1331,5 @@ module.exports = {
   getDealsByTime: getDealsByTime, //根据时间段获取已购买的交易记录
   updateDealById: updateDealById, //店员可以修改有定金的交易记录
   manager_getShopManagerMsg: manager_getShopManagerMsg, //获取主管下所有店长信息
+  deal_update: deal_update, //店长修改交易记录
 }

@@ -1,9 +1,10 @@
 //app.js
 const util = require('./utils/util.js')
+var mta = require('./utils/mta_analysis.js')
 var vm = null
 var code = null
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     //获取vm
     vm = this
     //获取用户缓存数据
@@ -21,15 +22,25 @@ App({
       vm.globalData.userInfo = wx.getStorageSync("userInfo");
       console.log("vm.globalData.userInfo:" + JSON.stringify(vm.globalData.userInfo));
     }
+
+    mta.App.init({
+      "appID": "500629271",
+      "eventID": "500629286", // 高级功能-自定义事件统计ID，配置开通后在初始化处填写
+    });
+
+
+
   },
 
   //获取openid
-  getOpenid: function () {
+  getOpenid: function() {
     wx.login({
-      success: function (res) {
+      success: function(res) {
         var code = res.code
         //获取用户openid
-        util.getOpenId({ code: code }, function (ret) {
+        util.getOpenId({
+          code: code
+        }, function(ret) {
           if (ret.data.result) {
             var openId = ret.data.ret.openid
             // var unionid = ret.data.ret.unionid
@@ -70,13 +81,13 @@ App({
   // vm.getAuditByUserId()
 
   // loginServer 登陆
-  loginServer: function (openId) {
+  loginServer: function(openId) {
     var param = {
       account_type: "xcx",
       xcx_openid: openId,
       // unionid: unionid
     }
-    util.loginServer(param, function (res) {
+    util.loginServer(param, function(res) {
       if (res.data.result) {
         var userInfo = res.data.ret
         vm.storeUserInfo(userInfo)
@@ -88,10 +99,10 @@ App({
   },
 
   //微信登录
-  login: function (callBack) {
+  login: function(callBack) {
     //微信登录获取code
     wx.login({
-      success: function (res) {
+      success: function(res) {
         console.log("wx.login:" + JSON.stringify(res))
         //成功获取code
         if (res.code) {
@@ -99,7 +110,7 @@ App({
           console.log('login code is : ' + JSON.stringify(code))
           //获取用户信息
           wx.getUserInfo({
-            success: function (res) {
+            success: function(res) {
               console.log('getUserInfo res is : ' + JSON.stringify(res))
               var userInfo = res.userInfo;
               var getOpenIdParam = {
@@ -109,7 +120,7 @@ App({
               }
               console.log('getOpenIdParam is : ' + JSON.stringify(getOpenIdParam))
               //获取用户uniond_id
-              util.getUnionId(getOpenIdParam, function (ret) {
+              util.getUnionId(getOpenIdParam, function(ret) {
                 console.log('getOpenId ret is : ' + JSON.stringify(ret))
                 var msgObj = ret.data.ret;
                 var param = {
@@ -124,23 +135,35 @@ App({
                 }
                 console.log('param is : ' + JSON.stringify(param))
                 //进行服务器的登录操作
-                util.loginServer(param, function (ret) {
+                util.loginServer(param, function(ret) {
                   console.log("loginServer:" + JSON.stringify(ret));
                   //如果后台存在该用户数据，则代表已经注册，在本地建立缓存，下次无需二次登录校验
                   if (ret.data.code == "200" && ret.data.result == true) {
                     vm.storeUserInfo(ret.data.ret)
-                    vm.getAuditByUserId()   //根据user_id获取员工入职信息
+
+                    var status = ret.data.ret.status
+                    // console.log("哈哈哈哈:" + JSON.stringify(status));
+                    if (status == 0) {
+
+                      wx.redirectTo({
+                        url: '/pages/dimission/dimission',
+                      })
+
+                    } else if (status == 1) {
+                      vm.getAuditByUserId() //根据user_id获取员工入职信息
+                    }
+
                   } else {
                     //进行客户注册
                     util.showToast(ret.data.message);
                   }
                 }, null);
 
-              }, function (err) {
+              }, function(err) {
                 console.log('getUnionId err is : ' + JSON.stringify(err))
               })
             },
-            fail: function (res) {
+            fail: function(res) {
               console.log('getUserInfo fail res is:' + JSON.stringify(res));
               vm.showModal();
             }
@@ -151,12 +174,12 @@ App({
   },
 
   //监听小程序打开
-  onShow: function () {
+  onShow: function() {
 
   },
 
   //进行本地缓存
-  storeUserInfo: function (obj) {
+  storeUserInfo: function(obj) {
     console.log("storeUserInfo :" + JSON.stringify(obj));
     wx.setStorage({
       key: "userInfo",
@@ -164,15 +187,15 @@ App({
     });
     vm.globalData.userInfo = obj;
   },
-  getUserInfo: function (cb) {
+  getUserInfo: function(cb) {
     typeof cb == "function" && cb(vm.globalData.userInfo)
   },
-  getSystemInfo: function (cb) {
+  getSystemInfo: function(cb) {
     if (vm.globalData.systemInfo) {
       typeof cb == "function" && cb(vm.globalData.systemInfo)
     } else {
       wx.getSystemInfo({
-        success: function (res) {
+        success: function(res) {
           vm.globalData.systemInfo = res
           typeof cb == "function" && cb(vm.globalData.systemInfo)
         }
@@ -181,13 +204,13 @@ App({
   },
 
   //引导用户授权
-  showModal: function () {
+  showModal: function() {
     wx.showModal({
       title: '提示',
       content: '若不授权获取用户信息，饰品的部分重要功能将无法使用；请点击【重新授权】——选中【用户信息】方可使用。',
       showCancel: false,
       confirmText: "重新授权",
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           vm.openSetting()
         }
@@ -196,16 +219,15 @@ App({
   },
 
   //设置页面
-  openSetting: function () {
+  openSetting: function() {
     wx.openSetting({
       success: (res) => {
         console.log("Result" + JSON.stringify(res))
         if (!res.authSetting["scope.userInfo"]) {
           vm.showModal()
-        }
-        else {
+        } else {
           wx.getUserInfo({
-            success: function (res) {
+            success: function(res) {
               // vm.getAuditByUserId()
               vm.getUnionId()
             }
@@ -217,8 +239,8 @@ App({
   },
 
   //根据user_id获取员工入职信息
-  getAuditByUserId: function () {
-    util.getAuditByUserId({}, function (res) {
+  getAuditByUserId: function() {
+    util.getAuditByUserId({}, function(res) {
       if (res.data.result) {
         var position = res.data.ret
         vm.goToIndex(position)
@@ -226,7 +248,7 @@ App({
     })
   },
 
-  goToIndex: function (position) {
+  goToIndex: function(position) {
     // var position = vm.data.position
     if (position.length == 0) {
       wx.redirectTo({
